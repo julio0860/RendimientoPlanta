@@ -35,7 +35,9 @@ import com.adr.rendimientoplanta.DATA.T_Menu;
 import com.adr.rendimientoplanta.DATA.T_MenuUsuario;
 import com.adr.rendimientoplanta.DATA.T_Personal;
 import com.adr.rendimientoplanta.DATA.T_Presentacion;
+import com.adr.rendimientoplanta.DATA.T_Proceso;
 import com.adr.rendimientoplanta.DATA.T_Responsable;
+import com.adr.rendimientoplanta.DATA.T_Subproceso;
 import com.adr.rendimientoplanta.DATA.T_Sucursal;
 import com.adr.rendimientoplanta.DATA.T_Tareo;
 import com.adr.rendimientoplanta.DATA.T_TareoDetalle;
@@ -88,6 +90,8 @@ public class Principal_Configuracion extends AppCompatActivity {
     private CheckBox cbxResponsable;
     private CheckBox cbxActividad;
     private CheckBox cbxLabor;
+    private CheckBox cbxProceso;
+    private CheckBox cbxSubProceso;
 
     private CheckBox cbxMarcarTodas;
 
@@ -119,6 +123,12 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxResponsable= (CheckBox) findViewById(R.id.cbxResponsable);
         cbxActividad= (CheckBox) findViewById(R.id.cbxActividad);
         cbxLabor= (CheckBox) findViewById(R.id.cbxLabor);
+
+        //agregado por Jcasas
+        //-----------------------------------------------------------
+        cbxProceso=(CheckBox) findViewById(R.id.cbxProceso);
+        cbxSubProceso=(CheckBox)findViewById(R.id.cbxSubProceso) ;
+        //-----------------------------------------------------------
 
         cbxMarcarTodas = (CheckBox) findViewById(R.id.cbxMarcarTodas);
 
@@ -554,10 +564,53 @@ public class Principal_Configuracion extends AppCompatActivity {
                           }
                       }
                   }
+
+                  if (cbxProceso.isChecked())
+                  {
+                      LocBD.execSQL(T_Proceso._DELETE());
+                      Rse=null;
+                      Rse = Stmt.executeQuery(T_Proceso._SELECT_PROCESO(-1));
+                      while (Rse.next())
+                      {
+                          try
+                          {
+                              //Rse.next();
+                              LocBD.execSQL(T_Proceso._INSERT(Rse.getInt(1),Rse.getString(2)
+                                      ,Rse.getString(3)));
+                              Estado = true;
+                          }catch (Exception e)
+                          {
+                              Estado= false;
+                              Log.e(TAG, "Error Exception: " + e);
+                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                          }
+                      }
+                  }
+                  if (cbxSubProceso.isChecked())
+                  {
+                      LocBD.execSQL(T_Subproceso._DELETE());
+                      Rse=null;
+                      Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(-1));
+                      while (Rse.next())
+                      {
+                          try
+                          {
+                              //Rse.next();
+                              LocBD.execSQL(T_Subproceso._INSERT(Rse.getInt(1),Rse.getInt(2)
+                                      ,Rse.getString(3)));
+                              Estado = true;
+                          }catch (Exception e)
+                          {
+                              Estado= false;
+                              Log.e(TAG, "Error Exception: " + e);
+                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                          }
+                      }
+                  }
                   //VALIDACION
                   if (Estado==true)
                   {
-                      Toast.makeText(Principal_Configuracion.this,"SINCRONIZACION REALIADA CORRECTAMENTE",Toast.LENGTH_SHORT).show();
+                      Toast.makeText(Principal_Configuracion.this,"SINCRONIZACION REALIZADA CORRECTAMENTE",Toast.LENGTH_SHORT).show();
                       Stmt.close();
                       //Cnn.close();
                       Rse.close();

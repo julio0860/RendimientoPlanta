@@ -39,4 +39,15 @@ public class T_Subproceso {
         _DELETE = "DELETE FROM "+N_TABLA +";";
         return _DELETE;
     }
+    public static String _SELECT_SUBPROCESO(int ID) {
+        String _SELECT;
+        _SELECT = "SELECT " + SUBID + " AS '_id'," + PROID + "," + SUBDESCRIPCION
+
+                + " FROM " + N_TABLA;
+        if (ID != -1) {
+            _SELECT = _SELECT + " WHERE " + PROID + "='" + ID + "'";
+        }
+        _SELECT = _SELECT + " ORDER BY " + SUBDESCRIPCION + " ASC;";
+        return _SELECT;
+    }
 }
