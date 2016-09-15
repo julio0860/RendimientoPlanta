@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lytContenedor"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView android:id="@+id/lblNombre"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Menu Principal"
+        android:layout_gravity="center"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_centerHorizontal="true"
+        android:textAppearance="?android:attr/textAppearanceMedium" />
+    <Button android:id="@+id/btnAgrupacion"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu_Tareo"
+        android:layout_gravity="center"
+        android:layout_below="@+id/lblNombre"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <Button android:id="@+id/btnRendimientoPlanta"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu_RendimientoPlanta"
+        android:layout_gravity="center"
+        android:layout_below="@+id/btnAgrupacion"
+        android:layout_centerHorizontal="true"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <Button android:id="@+id/btnRendimientoCampo"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu_RendimientoCampo"
+        android:layout_gravity="center"
+        android:layout_below="@+id/btnRendimientoPlanta"
+        android:layout_alignEnd="@+id/btnRendimientoPlanta"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <Button android:id="@+id/btnIngresoJabas"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu_IngresoJabas"
+        android:layout_gravity="center"
+        android:layout_below="@+id/btnRendimientoCampo"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+    <Button android:id="@+id/btnConfiguración"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="@string/Menu_Configuracion"
+        android:layout_gravity="center"
+        android:layout_below="@+id/btnIngresoJabas"
+        android:layout_alignParentStart="true"
+        android:textSize="@dimen/abc_text_size_medium_material" />
+
+</RelativeLayout>

@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="01/01/1900"
+        android:id="@+id/lstlblRenPlaFecha"
+        android:layout_row="2"
+        android:layout_column="20" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLANTA DON CARLOS"
+        android:id="@+id/lstlblRenPlaPlanta"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_below="@+id/lstlblRenPlaFecha" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LINEA 1 - PUN PDC"
+        android:id="@+id/lstlblRenPlaLinea"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REG: "
+        android:id="@+id/textView23"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lstlblRenPlaRegistro"
+        android:layout_toStartOf="@+id/lstlblRenPlaRegistro" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/lstlblRenPlaRegistro"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_alignParentTop="true"
+        android:layout_toLeftOf="@+id/lstlblRenPlaLinea"
+        android:layout_toStartOf="@+id/lstlblRenPlaLinea"
+        android:layout_marginRight="47dp"
+        android:layout_marginEnd="47dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LADO: "
+        android:id="@+id/textView13"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_below="@+id/lstlblRenPlaLinea"
+        android:layout_alignLeft="@+id/lstlblRenPlaLinea"
+        android:layout_alignStart="@+id/lstlblRenPlaLinea" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="LADO: "
+        android:id="@+id/lstlblRenPlaLado"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_alignBottom="@+id/textView13"
+        android:layout_toRightOf="@+id/textView13"
+        android:layout_toEndOf="@+id/textView13" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="EST: "
+        android:id="@+id/textView18"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_below="@+id/textView23"
+        android:layout_toLeftOf="@+id/lstlblRenPlaRegistro"
+        android:layout_toStartOf="@+id/lstlblRenPlaRegistro" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="1"
+        android:id="@+id/lstlblRenPlaEstado"
+        android:layout_row="2"
+        android:layout_column="20"
+        android:layout_below="@+id/textView23"
+        android:layout_toRightOf="@+id/textView23"
+        android:layout_toEndOf="@+id/textView23" />
+
+</RelativeLayout>

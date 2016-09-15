@@ -1,0 +1,252 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/lytListViewItem"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    android:weightSum="1">
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="18dp">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PLANTA"
+            android:id="@+id/lstlblIngJabasPlanta"
+            android:layout_row="0"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LINEA"
+            android:id="@+id/lstlblIngJabasLinea"
+            android:layout_row="0"
+            android:layout_column="5" />
+
+    </GridLayout>
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_weight="0.02">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="FECHA"
+            android:id="@+id/lstlblIngJabasFecha"
+            android:layout_row="0"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REG:"
+            android:id="@+id/textView3"
+            android:layout_row="0"
+            android:layout_column="3"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblId"
+            android:layout_row="0"
+            android:layout_column="4"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:id="@+id/textView10"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="0"
+            android:layout_column="18"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ESTADO:"
+            android:id="@+id/textView4"
+            android:layout_row="0"
+            android:layout_column="19" />
+
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasEstado"
+            android:layout_row="0"
+            android:layout_column="20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:id="@+id/textView9"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="1"
+            android:layout_column="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HORA_INI:"
+            android:id="@+id/textView16"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO:"
+            android:id="@+id/lstlblIngJabasHoraIni"
+            android:layout_row="1"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="REPRO:"
+            android:id="@+id/textView15"
+            android:layout_row="1"
+            android:layout_column="3"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasRepro"
+            android:layout_row="1"
+            android:layout_column="4"
+            android:layout_gravity="center_horizontal"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:id="@+id/textView11"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="1"
+            android:layout_column="5"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="JABAS:"
+            android:id="@+id/textView19"
+            android:layout_row="1"
+            android:layout_column="19" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasJabas"
+            android:layout_row="1"
+            android:layout_column="20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasSync"
+            android:layout_row="2"
+            android:layout_column="20" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="CAMPO:"
+            android:id="@+id/textView14"
+            android:layout_row="3"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasCampo"
+            android:layout_row="3"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="  "
+            android:id="@+id/textView8"
+            android:layout_gravity="center_horizontal"
+            android:layout_row="3"
+            android:layout_column="2" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="PARADA:"
+            android:id="@+id/textView20"
+            android:layout_row="3"
+            android:layout_column="19" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="HORA_FIN:"
+            android:id="@+id/textView17"
+            android:layout_row="2"
+            android:layout_column="0" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstLblIngJabasHoraFin"
+            android:layout_row="2"
+            android:layout_column="1" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="LOTE:"
+            android:id="@+id/textView12"
+            android:layout_row="2"
+            android:layout_column="3"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasLote"
+            android:layout_row="2"
+            android:layout_column="4"
+            android:visibility="visible" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="SYNC"
+            android:id="@+id/textView50"
+            android:layout_row="2"
+            android:layout_column="19" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DATO"
+            android:id="@+id/lstlblIngJabasParadas"
+            android:layout_row="3"
+            android:layout_column="20" />
+
+    </GridLayout>
+
+</LinearLayout>

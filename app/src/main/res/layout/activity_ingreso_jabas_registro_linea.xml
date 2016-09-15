@@ -1,0 +1,455 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context="com.adr.rendimientoplanta.IngresoJabas_RegistroLinea">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblFecha"
+        android:enabled="false"
+        android:inputType="date"
+        android:layout_columnSpan="4"
+        android:text="01/01/1900"
+        android:textColor="#000000"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lblLinea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LINEA 1 PUN PY"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView5"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/lblFecha"
+        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView6"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/lblLinea"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/lblSucursal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLANTA YANCAY"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/edtHoraInicio" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbHoraIni"
+        android:layout_row="5"
+        android:layout_column="23"
+        android:src="@android:drawable/presence_away"
+        android:layout_alignTop="@+id/edtHoraInicio"
+        android:layout_toEndOf="@+id/edtHoraInicio" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbRegresar"
+        android:layout_row="0"
+        android:layout_column="6"
+        android:src="@android:drawable/ic_menu_revert"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/textView35" />
+
+    <Button
+        android:id="@+id/btnAgregarJabas"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Agregar Jabas"
+        android:layout_row="0"
+        android:layout_column="7"
+        android:layout_alignBottom="@+id/imbHoraFin"
+        android:layout_alignStart="@+id/btnGrabarParada" />
+
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Hora Inicio"
+        android:id="@+id/textView28"
+        android:layout_alignTop="@+id/textView29"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Hora Fin"
+        android:id="@+id/textView29"
+        android:layout_below="@+id/imageView6"
+        android:layout_toStartOf="@+id/imbHoraFin"
+        android:layout_marginTop="35dp" />
+
+
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:text="@string/lblHoraCero"
+        android:id="@+id/edtHoraInicio"
+        android:layout_row="6"
+        android:layout_column="21"
+        android:enabled="false"
+        android:textColor="#000000"
+        android:layout_below="@+id/textView28"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:text="@string/lblHoraCero"
+        android:id="@+id/edtHoraFin"
+        android:layout_row="6"
+        android:layout_column="21"
+        android:enabled="false"
+        android:textColor="#000000"
+        android:layout_alignTop="@+id/imbHoraFin"
+        android:layout_alignStart="@+id/textView29" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbHoraFin"
+        android:layout_row="5"
+        android:layout_column="23"
+        android:src="@android:drawable/presence_away"
+        android:layout_alignTop="@+id/imbHoraIni"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Paradas (min)"
+        android:id="@+id/textView30"
+        android:layout_alignTop="@+id/textView34"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="T. Efectivo"
+        android:id="@+id/textView31"
+        android:layout_alignTop="@+id/textView30"
+        android:layout_alignEnd="@+id/edtHoraFin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Jabas"
+        android:id="@+id/textView32"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_toEndOf="@+id/imbHoraFin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Jabas/Hora"
+        android:id="@+id/textView34"
+        android:layout_marginTop="82dp"
+        android:layout_marginEnd="38dp"
+        android:layout_below="@+id/edtHoraFin"
+        android:layout_alignEnd="@+id/imageView2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="05"
+        android:id="@+id/textView35"
+        android:layout_below="@+id/textView30"
+        android:layout_toStartOf="@+id/imbHoraIni" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="4.05"
+        android:id="@+id/textView36"
+        android:layout_alignTop="@+id/textView56"
+        android:layout_alignStart="@+id/edtHoraFin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="300"
+        android:id="@+id/textView56"
+        android:layout_below="@+id/textView32"
+        android:layout_alignEnd="@+id/textView32" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="74.07"
+        android:id="@+id/textView57"
+        android:layout_below="@+id/textView32"
+        android:layout_alignStart="@+id/btnTerminar" />
+
+    <Button
+        android:id="@+id/btnKardex"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Kardex Detalle"
+        android:layout_row="0"
+        android:layout_column="3"
+        android:layout_toEndOf="@+id/textView36"
+        android:layout_alignTop="@+id/imbRegresar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Registro de paradas"
+        android:id="@+id/textView79"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true"
+        android:background="#000000"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Hora Fin"
+        android:id="@+id/textView81"
+        android:layout_marginTop="30dp"
+        android:layout_below="@+id/imageView4"
+        android:layout_alignStart="@+id/edtHoraFin" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Hora Inicio"
+        android:id="@+id/textView83"
+        android:layout_alignTop="@+id/textView81"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:text="@string/lblHoraCero"
+        android:id="@+id/editText7"
+        android:layout_row="6"
+        android:layout_column="21"
+        android:enabled="false"
+        android:textColor="#000000"
+        android:layout_above="@+id/textView84"
+        android:layout_alignEnd="@+id/textView35" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbHoraIniPar"
+        android:layout_row="5"
+        android:layout_column="23"
+        android:src="@android:drawable/presence_away"
+        android:layout_alignTop="@+id/editText7"
+        android:layout_toEndOf="@+id/editText7" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:text="@string/lblHoraCero"
+        android:id="@+id/editText8"
+        android:layout_row="6"
+        android:layout_column="21"
+        android:enabled="false"
+        android:textColor="#000000"
+        android:layout_below="@+id/textView81"
+        android:layout_toStartOf="@+id/imbHoraFinPar" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbHoraFinPar"
+        android:layout_row="5"
+        android:layout_column="23"
+        android:src="@android:drawable/presence_away"
+        android:layout_below="@+id/textView81"
+        android:layout_toEndOf="@+id/textView81" />
+
+    <Button
+        android:id="@+id/btnGrabarParada"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Grabar Parada"
+        android:layout_row="0"
+        android:layout_column="3"
+        android:layout_below="@+id/textView81"
+        android:layout_alignEnd="@+id/textView34" />
+
+    <Button
+        android:id="@+id/btnIniciar"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="INICIAR"
+        android:layout_row="0"
+        android:layout_column="3"
+        android:layout_alignParentBottom="true"
+        android:layout_toStartOf="@+id/textView31" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Observaciones"
+        android:id="@+id/textView84"
+        android:layout_below="@+id/editText8"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_row="6"
+        android:layout_column="0"
+        android:spinnerMode="dialog"
+        android:background="@color/common_action_bar_splitter"
+        android:layout_below="@+id/textView84"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView2"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_above="@+id/textView30"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView3"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView35"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView4"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView79"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Resumen Linea"
+        android:id="@+id/textView85"
+        android:layout_above="@+id/textView30"
+        android:layout_alignParentStart="true"
+        android:background="#000000"
+        android:textColor="#ffffff" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="TERMINAR"
+        android:id="@+id/btnTerminar"
+        android:layout_alignTop="@+id/btnKardex"
+        android:layout_alignEnd="@+id/textView34" />
+
+    <TextView
+        android:id="@+id/lblEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADR"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/imageView5"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/lblCultivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UVA"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/lblLinea"
+        android:layout_alignStart="@+id/textView56" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Total Paradas"
+        android:id="@+id/textView96"
+        android:layout_below="@+id/spinner"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="38dp"
+        android:background="#000000"
+        android:textColor="#ffffff" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="05"
+        android:id="@+id/lblNumParadas"
+        android:layout_below="@+id/imageView12"
+        android:layout_toStartOf="@+id/editText8" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView12"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_alignTop="@+id/textView96"
+        android:layout_alignParentStart="true" />
+
+
+</RelativeLayout>

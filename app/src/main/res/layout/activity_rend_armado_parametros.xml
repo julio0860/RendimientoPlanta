@@ -1,0 +1,140 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RendArmado_Parametros">
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_Empresa"
+        android:id="@+id/textView78"
+        android:textColor="#000000"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnEmpresa"
+        android:layout_below="@+id/textView78"
+        android:layout_alignParentStart="true"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_Sucursal"
+        android:id="@+id/textView74"
+        android:textColor="#000000"
+        android:layout_below="@+id/spnEmpresa"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnSucursal"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView74"
+        android:layout_alignParentLeft="true"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_Linea"
+        android:id="@+id/textView75"
+        android:textColor="#000000"
+        android:layout_below="@+id/spnSucursal"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnLinea"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView75"
+        android:layout_alignParentLeft="true"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnLado"
+        android:layout_below="@+id/textView76"
+        android:layout_alignParentStart="true"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_Lado"
+        android:id="@+id/textView76"
+        android:textColor="#000000"
+        android:layout_below="@+id/spnLinea"
+        android:layout_alignParentStart="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btn_Establecer"
+        android:id="@+id/btnEstablecer"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lblFecha"
+        android:id="@+id/textView77"
+        android:textColor="#000000"
+        android:layout_below="@+id/spnLado"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/edtFecha"
+        android:layout_row="3"
+        android:layout_column="7"
+        android:enabled="false"
+        android:inputType="date"
+        android:layout_columnSpan="4"
+        android:text="01/01/1900"
+        android:textColor="#000000"
+        android:focusableInTouchMode="false"
+        android:layout_below="@+id/textView77"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:text="@string/btnFecha"
+        android:id="@+id/imbFecha"
+        android:layout_row="3"
+        android:layout_column="20"
+        android:src="@android:drawable/ic_menu_my_calendar"
+        android:layout_alignTop="@+id/edtFecha"
+        android:layout_toEndOf="@+id/edtFecha" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbRegresar"
+        android:layout_row="0"
+        android:layout_column="6"
+        android:src="@android:drawable/ic_menu_revert"
+        android:layout_alignTop="@+id/btnEstablecer"
+        android:layout_alignParentStart="true" />
+</RelativeLayout>

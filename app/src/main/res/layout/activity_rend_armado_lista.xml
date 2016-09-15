@@ -1,0 +1,107 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".RendArmado_Lista">
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/dgvPersonalRendimiento"
+        android:layout_below="@+id/textView33"
+        android:background="@color/common_action_bar_splitter"
+        android:layout_above="@+id/imbRegresar"
+        android:stretchMode="columnWidth"
+        android:numColumns="5"
+        android:horizontalSpacing="1dp"
+        android:verticalSpacing="10dp"
+        android:drawSelectorOnTop="false" />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/edtFecha"
+        android:layout_row="3"
+        android:layout_column="7"
+        android:enabled="false"
+        android:inputType="date"
+        android:layout_columnSpan="4"
+        android:text="01/01/1900"
+        android:textColor="#000000"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/dgvPersonalRendimiento" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ADR"
+        android:id="@+id/lblEmpresa"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PLANTA DON CARLOS"
+        android:id="@+id/lblSucursal"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lblEmpresa"
+        android:layout_marginStart="33dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="LINEA 1 PUN PDC"
+        android:id="@+id/lblLinea"
+        android:layout_below="@+id/lblEmpresa"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="LADO A"
+        android:id="@+id/lblLado"
+        android:layout_below="@+id/lblSucursal"
+        android:layout_centerHorizontal="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lbl_ListaPersonal"
+        android:id="@+id/textView33"
+        android:layout_below="@+id/lblLinea"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbRegresar"
+        android:layout_row="0"
+        android:layout_column="6"
+        android:src="@android:drawable/ic_menu_revert"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbConfigurar"
+        android:src="@android:drawable/ic_menu_manage"
+        android:layout_alignParentBottom="true"
+        android:layout_alignStart="@+id/lblSucursal" />
+
+
+
+</RelativeLayout>

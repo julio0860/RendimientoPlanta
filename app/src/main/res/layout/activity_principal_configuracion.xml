@@ -1,0 +1,324 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/lytConfig"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical" >
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Tablas a sincronizar"
+        android:id="@+id/textView1"
+        android:textSize="16dp" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="220dp"
+        android:id="@+id/gridLayout"
+        android:layout_below="@+id/textView1"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="EmpresaUsuario"
+            android:id="@+id/cbxEmpresaUsuario"
+            android:layout_row="0"
+            android:layout_column="1"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Responsable"
+            android:id="@+id/cbxResponsable"
+            android:layout_row="0"
+            android:layout_column="2"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Sucursal"
+            android:id="@+id/cbxSucursal"
+            android:layout_row="1"
+            android:layout_column="0" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Estado"
+            android:id="@+id/cbxEstado"
+            android:layout_row="1"
+            android:layout_column="2"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Consumidor"
+            android:id="@+id/cbxConsumidor"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Presentacion"
+            android:id="@+id/cbxPresentacion"
+            android:layout_row="2"
+            android:layout_column="1"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Usuario"
+            android:id="@+id/cbxUsuario"
+            android:layout_row="2"
+            android:layout_column="2"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cultivo"
+            android:id="@+id/cbxCultivo"
+            android:layout_row="3"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Linea"
+            android:id="@+id/cbxLinea"
+            android:layout_row="3"
+            android:layout_column="1"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Menu"
+            android:id="@+id/cbxMenu"
+            android:layout_row="3"
+            android:layout_column="2"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Empresa"
+            android:id="@+id/cbxEmpresa"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Agrupacion"
+            android:id="@+id/cbxAgrupacion"
+            android:layout_row="1"
+            android:layout_column="1"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Variedad"
+            android:id="@+id/cbxVariedad"
+            android:layout_row="4"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Personal"
+            android:id="@+id/cbxPersonal"
+            android:layout_row="4"
+            android:layout_column="1"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="MenuUsuario"
+            android:id="@+id/cbxMenuUsuario"
+            android:layout_row="4"
+            android:layout_column="2"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TareoOrigen"
+            android:id="@+id/cbxTareoOrigen"
+            android:layout_row="5"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TareoTipo"
+            android:id="@+id/cbxTareoTipo"
+            android:layout_row="5"
+            android:layout_column="1"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="TareoSubTipo"
+            android:id="@+id/cbxTareoSubTipo"
+            android:layout_row="5"
+            android:layout_column="2"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Actividad"
+            android:id="@+id/cbxActividad"
+            android:layout_row="6"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Labor"
+            android:id="@+id/cbxLabor"
+            android:layout_row="6"
+            android:layout_column="1"
+            android:checked="false" />
+
+    </GridLayout>
+
+    <Button android:id="@+id/btnDescargarDatos"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnDescargarDatos"
+        android:layout_below="@+id/gridLayout"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="19dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Datos a Cargar"
+        android:id="@+id/textView51"
+        android:textSize="16dp"
+        android:layout_marginTop="26dp"
+        android:layout_below="@+id/btnDescargarDatos"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <GridLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@+id/textView51"
+        android:id="@+id/gridLayout3"
+        android:layout_above="@+id/pgbCargaDatos">
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Ingreso Jabas"
+            android:id="@+id/cbxIngresoJabas"
+            android:layout_row="0"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Rendimiento Planta"
+            android:id="@+id/checkBox2"
+            android:layout_row="1"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <Button
+            style="?android:attr/buttonStyleSmall"
+            android:layout_width="70dp"
+            android:layout_height="35dp"
+            android:text="@string/btnFecha"
+            android:id="@+id/btnFecha"
+            android:layout_row="0"
+            android:layout_column="4" />
+
+        <TextView
+            android:id="@+id/textView52"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/lblFecha"
+            android:textStyle="bold"
+            android:textSize="12dp"
+            android:layout_alignParentLeft="true"
+            android:layout_marginLeft="0dp"
+            android:layout_alignParentTop="true"
+            android:layout_marginTop="0dp"
+            android:layout_row="0"
+            android:layout_column="5" />
+
+        <EditText
+            android:layout_width="124dp"
+            android:layout_height="wrap_content"
+            android:inputType="date"
+            android:ems="10"
+            android:id="@+id/lblFecha"
+            android:layout_row="0"
+            android:layout_column="6" />
+
+        <CheckBox
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Tareo"
+            android:id="@+id/cbxTareo"
+            android:layout_row="2"
+            android:layout_column="0"
+            android:checked="false" />
+
+        <Button android:id="@+id/btnCargarDatos"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="Cargar Datos"
+            android:layout_below="@+id/gridLayout3"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentStart="true"
+            android:layout_row="2"
+            android:layout_column="6" />
+    </GridLayout>
+
+    <CheckBox
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Marcar Todas"
+        android:id="@+id/cbxMarcarTodas"
+        android:layout_row="3"
+        android:layout_column="1"
+        android:checked="false"
+        android:layout_alignTop="@+id/btnDescargarDatos"
+        android:layout_toRightOf="@+id/btnDescargarDatos"
+        android:layout_toEndOf="@+id/btnDescargarDatos" />
+
+    <ProgressBar
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/pgbCargaDatos"
+        android:visibility="invisible"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+
+</RelativeLayout>

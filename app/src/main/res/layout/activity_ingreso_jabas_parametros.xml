@@ -1,0 +1,132 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="@dimen/activity_horizontal_margin"
+    android:paddingRight="@dimen/activity_horizontal_margin"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".IngresoJabas_Parametros">
+
+    <TextView
+        android:id="@+id/textView55"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/spnEmpresa"
+        android:layout_alignParentStart="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnSucursal"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView55"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnCultivo"
+        android:spinnerMode="dialog"
+        android:background="@color/common_action_bar_splitter"
+        android:layout_below="@+id/textView27"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnEmpresa"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView25"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ESTABLECER"
+        android:id="@+id/btnEstablecer"
+        android:layout_alignParentBottom="true"
+        android:layout_alignRight="@+id/spnCultivo"
+        android:layout_alignEnd="@+id/spnCultivo" />
+
+    <TextView
+        android:id="@+id/textView62"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Fecha"
+        android:layout_below="@+id/spnCultivo"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="20dp"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/lblFecha"
+        android:layout_below="@+id/textView62"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignRight="@+id/textView55"
+        android:layout_alignEnd="@+id/textView55" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lbl_Empresa"
+        android:id="@+id/textView25"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lbl_Sucursal"
+        android:id="@+id/textView26"
+        android:layout_below="@+id/spnEmpresa"
+        android:layout_alignParentStart="true"
+        android:textColor="#000000" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="@string/lblCultivo"
+        android:id="@+id/textView27"
+        android:layout_below="@+id/spnSucursal"
+        android:layout_alignParentStart="true"
+        android:textColor="#000000" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="date"
+        android:ems="10"
+        android:id="@+id/edtFecha"
+        android:layout_alignTop="@+id/lblFecha"
+        android:layout_toEndOf="@+id/lblFecha" />
+
+    <ImageButton
+        style="?android:attr/buttonStyleSmall"
+        android:layout_width="70dp"
+        android:layout_height="35dp"
+        android:text="@string/btnFecha"
+        android:id="@+id/imbFecha"
+        android:layout_row="3"
+        android:layout_column="20"
+        android:src="@android:drawable/ic_menu_my_calendar"
+        android:layout_alignTop="@+id/textView62"
+        android:layout_toEndOf="@+id/edtFecha"
+        android:layout_alignBottom="@+id/edtFecha" />
+
+</RelativeLayout>
