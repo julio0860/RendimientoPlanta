@@ -48,6 +48,8 @@ public class LocalBD extends SQLiteOpenHelper{
         db.execSQL(T_Actividad.CREATE_T_ACTIVIDAD);
         db.execSQL(T_Labor.CREATE_T_LABOR);
         db.execSQL(T_Tareo.CREATE_T_TAREO);
+        db.execSQL(T_Proceso.CREATE_T_PROCESO);
+        db.execSQL(T_Subproceso.CREATE_T_SUBPROCESO);
         db.execSQL(T_TareoDetalle.CREATE_T_TAREODETALLE);
     }
 
