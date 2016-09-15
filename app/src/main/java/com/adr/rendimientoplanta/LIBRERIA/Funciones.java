@@ -166,7 +166,7 @@ public class Funciones extends AppCompatActivity {
     }
     public void ActualizarHoraMin(int Hora,int Min)
     {
-        Calendar C = Calendar.getInstance();
+        final Calendar C = Calendar.getInstance();
         Hora = C.get(Calendar.HOUR_OF_DAY);
         Min = C.get(Calendar.MINUTE);
     }

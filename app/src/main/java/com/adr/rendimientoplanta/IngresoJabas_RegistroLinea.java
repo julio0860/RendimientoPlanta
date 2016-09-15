@@ -37,7 +37,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     private int pHour;
     private int pMinute;
 
-    private Calendar Cal;
 
     //EDIT TEXT
     private EditText displayTime;
@@ -76,9 +75,10 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
         fnc = new Funciones();
         //Actualizar por defecto la hora
-        fnc.ActualizarHoraMin(pHour,pMinute);
-        //Calendar
-        Cal = Calendar.getInstance();
+
+        final Calendar C = Calendar.getInstance();
+        pHour = C.get(Calendar.HOUR_OF_DAY);
+        pMinute = C.get(Calendar.MINUTE);
 
         lblFecha.setText(Variables.FechaStr);
         lblSucursal.setText(Variables.Suc_Descripcion);
@@ -116,7 +116,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 displayTime = edtHoraIni;
-                fnc.ActualizarHoraMin(pHour,pMinute);
                 showDialog(TIME_DIALOG_ID);
             }
         });
@@ -125,7 +124,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 displayTime = edtHoraFin;
-                fnc.ActualizarHoraMin(pHour,pMinute);
                 showDialog(TIME_DIALOG_ID);
             }
         });
@@ -134,7 +132,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 displayTime = edtHoraIniPar;
-                fnc.ActualizarHoraMin(pHour,pMinute);
                 showDialog(TIME_DIALOG_ID);
             }
         });
@@ -143,7 +140,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             @Override
             public void onClick (View v){
                 displayTime = edtHoraFinPar;
-                fnc.ActualizarHoraMin(pHour,pMinute);
                 showDialog(TIME_DIALOG_ID);
             }
         });
@@ -156,7 +152,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             case DATE_ID:
                 //return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,true);
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
         }
         return null;
     }
@@ -170,4 +166,5 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             //displayToast();
         }
         };
+
 }
