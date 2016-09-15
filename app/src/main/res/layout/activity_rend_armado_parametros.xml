@@ -33,23 +33,22 @@
         android:text="@string/lbl_Sucursal"
         android:id="@+id/textView74"
         android:textColor="#000000"
-        android:layout_below="@+id/spnEmpresa"
+        android:layout_below="@+id/imbFecha"
         android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spnSucursal"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView74"
-        android:layout_alignParentLeft="true"
         android:background="@color/common_action_bar_splitter"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView74"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="@string/lbl_Linea"
+        android:text="Proceso"
         android:id="@+id/textView75"
         android:textColor="#000000"
         android:layout_below="@+id/spnSucursal"
@@ -59,20 +58,19 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spnLinea"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/textView75"
-        android:layout_alignParentLeft="true"
         android:background="@color/common_action_bar_splitter"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView92"
+        android:layout_alignParentStart="true" />
 
     <Spinner
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spnLado"
-        android:layout_below="@+id/textView76"
-        android:layout_alignParentStart="true"
         android:background="@color/common_action_bar_splitter"
-        android:spinnerMode="dialog" />
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView76"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -81,7 +79,7 @@
         android:id="@+id/textView76"
         android:textColor="#000000"
         android:layout_below="@+id/spnLinea"
-        android:layout_alignParentStart="true" />
+        android:layout_alignEnd="@+id/textView92" />
 
     <Button
         android:layout_width="wrap_content"
@@ -97,7 +95,7 @@
         android:text="@string/lblFecha"
         android:id="@+id/textView77"
         android:textColor="#000000"
-        android:layout_below="@+id/spnLado"
+        android:layout_below="@+id/spnEmpresa"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -114,7 +112,7 @@
         android:textColor="#000000"
         android:focusableInTouchMode="false"
         android:layout_below="@+id/textView77"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/textView74" />
 
     <ImageButton
         style="?android:attr/buttonStyleSmall"
@@ -137,4 +135,41 @@
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignTop="@+id/btnEstablecer"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/lbl_Linea"
+        android:id="@+id/textView92"
+        android:textColor="#000000"
+        android:layout_below="@+id/spnSubproceso"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnProceso"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView75"
+        android:layout_toStartOf="@+id/imbFecha"
+        android:layout_alignEnd="@+id/spnSucursal" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Subproceso"
+        android:id="@+id/textView93"
+        android:textColor="#000000"
+        android:layout_below="@+id/spnProceso"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnSubproceso"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/textView93"
+        android:layout_alignStart="@+id/textView76" />
 </RelativeLayout>
