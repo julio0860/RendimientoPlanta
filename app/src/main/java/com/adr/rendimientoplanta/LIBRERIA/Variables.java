@@ -8,7 +8,7 @@ import android.telephony.TelephonyManager;
 
 import java.util.Date;
 //HOLA MUNDO !!! X2 123
-
+// HOLA MUNDO PARTE DOS RED MOVIL
 /**
  * Created by smachado on 2016/05/03.
  */
