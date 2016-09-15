@@ -14,6 +14,8 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
+
+import java.util.Calendar;
 //HOLA MUNDO CRUEL
 /**
  * Created by smachado on 2016/05/11.
@@ -132,7 +134,7 @@ public class Funciones extends AppCompatActivity {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-                    updateDisplay(displayTime);
+                    EstablecerHoraEdt(displayTime,1,1);
                     //displayToast();
                 }
             };
@@ -147,14 +149,11 @@ public class Funciones extends AppCompatActivity {
         }
         return null;
     }
-    private void updateDisplay(EditText lblHora) {
-        lblHora.setText(
+    public void EstablecerHoraEdt(EditText edtHora,int Hor,int Min) {
+        edtHora.setText(
                 new StringBuilder()
-                        //      .append(pad(pHour)).append(":")
-                        //      .append(pad(pMinute)).append(":")
-                        //      .append(pad(0)));
-                        .append(pad(pHour)).append(":")
-                        .append(pad(pMinute)).append(":")
+                        .append(pad(Hor)).append(":")
+                        .append(pad(Min)).append(":")
                         .append(pad(0)));
     }
 
@@ -165,4 +164,11 @@ public class Funciones extends AppCompatActivity {
                 data,new String[]{campo},new int[]{android.R.id.text1},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         return Adaptador;
     }
+    public void ActualizarHoraMin(int Hora,int Min)
+    {
+        Calendar C = Calendar.getInstance();
+        Hora = C.get(Calendar.HOUR_OF_DAY);
+        Min = C.get(Calendar.MINUTE);
+    }
+
 }

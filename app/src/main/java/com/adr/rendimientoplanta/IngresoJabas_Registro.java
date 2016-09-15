@@ -661,7 +661,7 @@ public class IngresoJabas_Registro extends AppCompatActivity {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
                     pHour = hourOfDay;
                     pMinute = minute;
-                    updateDisplay(displayTime);
+                    //EstablecerHoraEdt(displayTime);
                     //displayToast();
                 }
             };
@@ -673,19 +673,12 @@ public class IngresoJabas_Registro extends AppCompatActivity {
                 return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
             case TIME_DIALOG_ID:
                 return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
+
+
         }
         return null;
     }
-    private void updateDisplay(EditText lblHora) {
-        lblHora.setText(
-                new StringBuilder()
-                        //      .append(pad(pHour)).append(":")
-                        //      .append(pad(pMinute)).append(":")
-                        //      .append(pad(0)));
-                        .append(fnc.pad(pHour)).append(":")
-                        .append(fnc.pad(pMinute)).append(":")
-                        .append(fnc.pad(0)));
-    }
+
     /** Displays a notification when the time is updated */
     private void displayToast() {
         Toast.makeText(this, new StringBuilder().append("Time choosen is ").append(lblHoraInicio.getText()),	Toast.LENGTH_SHORT).show();
