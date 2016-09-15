@@ -61,7 +61,7 @@
         android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/edtHoraInicio" />
+        android:layout_toEndOf="@+id/edtHoraIni" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -70,8 +70,8 @@
         android:layout_row="5"
         android:layout_column="23"
         android:src="@android:drawable/presence_away"
-        android:layout_alignTop="@+id/edtHoraInicio"
-        android:layout_toEndOf="@+id/edtHoraInicio" />
+        android:layout_alignTop="@+id/edtHoraIni"
+        android:layout_toEndOf="@+id/edtHoraIni" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:text="@string/lblHoraCero"
-        android:id="@+id/edtHoraInicio"
+        android:id="@+id/edtHoraIni"
         android:layout_row="6"
         android:layout_column="21"
         android:enabled="false"
@@ -270,7 +270,7 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:text="@string/lblHoraCero"
-        android:id="@+id/editText7"
+        android:id="@+id/edtHoraIniPar"
         android:layout_row="6"
         android:layout_column="21"
         android:enabled="false"
@@ -285,15 +285,15 @@
         android:layout_row="5"
         android:layout_column="23"
         android:src="@android:drawable/presence_away"
-        android:layout_alignTop="@+id/editText7"
-        android:layout_toEndOf="@+id/editText7" />
+        android:layout_alignTop="@+id/edtHoraIniPar"
+        android:layout_toEndOf="@+id/edtHoraIniPar" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:inputType="time"
         android:text="@string/lblHoraCero"
-        android:id="@+id/editText8"
+        android:id="@+id/edtHoraFinPar"
         android:layout_row="6"
         android:layout_column="21"
         android:enabled="false"
@@ -337,7 +337,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Observaciones"
         android:id="@+id/textView84"
-        android:layout_below="@+id/editText8"
+        android:layout_below="@+id/edtHoraFinPar"
         android:layout_alignParentStart="true" />
 
     <Spinner
@@ -440,7 +440,7 @@
         android:text="05"
         android:id="@+id/lblNumParadas"
         android:layout_below="@+id/imageView12"
-        android:layout_toStartOf="@+id/editText8" />
+        android:layout_toStartOf="@+id/edtHoraFinPar" />
 
     <ImageView
         android:layout_width="match_parent"
