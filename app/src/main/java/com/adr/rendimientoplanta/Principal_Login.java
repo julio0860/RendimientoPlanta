@@ -6,9 +6,8 @@ import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.telephony.TelephonyManager;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.View;
 import android.widget.Button;
@@ -75,8 +74,8 @@ public class Principal_Login extends AppCompatActivity {
                  Password = Fnc.Encriptar(txtPassword.getText().toString());
 
                   //OBTENCION DEL IMEI
-                  TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
-                  Variables.IMEI=telephonyManager.getDeviceId();
+                 /* TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
+                  Variables.IMEI=telephonyManager.getDeviceId();*/
                   //OBTENCION DE LA MAC
                   WifiManager manager = (WifiManager) getSystemService(Context.WIFI_SERVICE);
                   WifiInfo info = manager.getConnectionInfo();
