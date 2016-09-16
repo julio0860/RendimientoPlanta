@@ -16,7 +16,7 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import java.util.Calendar;
-//HOLA MUNDO CRUEL
+//HOLA MUNDO CRUEL 2
 /**
  * Created by smachado on 2016/05/11.
  */
