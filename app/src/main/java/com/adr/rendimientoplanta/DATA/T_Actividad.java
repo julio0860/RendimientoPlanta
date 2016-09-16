@@ -10,8 +10,6 @@ public class T_Actividad {
     public static final String ACTDESCRIPCION = "Act_Descripcion";
     public static final String EMPID = "Emp_Id";
 
-
-
     public static final String N_TABLA = "Actividad";
 
     public static final String CREATE_T_ACTIVIDAD ="CREATE TABLE " + N_TABLA+"("+
