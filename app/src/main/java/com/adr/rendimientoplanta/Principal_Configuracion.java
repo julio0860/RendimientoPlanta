@@ -33,6 +33,7 @@ import com.adr.rendimientoplanta.DATA.T_Labor;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_Menu;
 import com.adr.rendimientoplanta.DATA.T_MenuUsuario;
+import com.adr.rendimientoplanta.DATA.T_MesasPorLinea;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.DATA.T_Personal;
 import com.adr.rendimientoplanta.DATA.T_Presentacion;
@@ -94,6 +95,7 @@ public class Principal_Configuracion extends AppCompatActivity {
     private CheckBox cbxProceso;
     private CheckBox cbxSubProceso;
     private CheckBox cbxMotivoParadas;
+    private CheckBox cbxMesasPorLinea;
 
     private CheckBox cbxMarcarTodas;
 
@@ -130,6 +132,7 @@ public class Principal_Configuracion extends AppCompatActivity {
         //-----------------------------------------------------------
         cbxProceso=(CheckBox) findViewById(R.id.cbxProceso);
         cbxSubProceso=(CheckBox)findViewById(R.id.cbxSubProceso) ;
+        cbxMesasPorLinea=(CheckBox)findViewById(R.id.cbxMesasPorLinea);
         //-----------------------------------------------------------
         //SMP:
         cbxMotivoParadas = (CheckBox) findViewById(R.id.cbxMotivoParadas);
@@ -627,6 +630,23 @@ public class Principal_Configuracion extends AppCompatActivity {
                               Estado= false;
                               Log.e(TAG, "Error Exception: " + e);
                               Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                          }
+                      }
+                  }
+                  if (cbxMesasPorLinea.isChecked()) {
+                      LocBD.execSQL(T_MesasPorLinea._DELETE());
+                      Rse = null;
+                      Rse = Stmt.executeQuery(T_MesasPorLinea._SELECT_MESAPORLINEA(-1));
+                      while (Rse.next()) {
+                          try {
+                              //Rse.next();
+                              LocBD.execSQL(T_MesasPorLinea._INSERT(Rse.getInt(1), Rse.getInt(2)
+                                      , Rse.getInt(3),Rse.getInt(4),Rse.getInt(5),Rse.getString(6),Rse.getInt(7)));
+                              Estado = true;
+                          } catch (Exception e) {
+                              Estado = false;
+                              Log.e(TAG, "Error Exception: " + e);
+                              Toast.makeText(Principal_Configuracion.this, "ERROR AL SINCRONIZAR" + e.toString(), Toast.LENGTH_SHORT).show();
                           }
                       }
                   }
