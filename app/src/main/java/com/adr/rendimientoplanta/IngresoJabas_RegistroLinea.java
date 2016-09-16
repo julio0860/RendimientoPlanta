@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -13,8 +14,11 @@ import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Linea;
+import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -109,6 +113,16 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         lblCultivo.setText(Variables.Cul_Descripcion);
         lblEmpresa.setText(Variables.Emp_Abrev);
         lblLinea.setText(Variables.Lin_Descripcion);
+
+        //SMP: Validación registro nuevo
+        Cursor CurLineaRegistro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
+        CurLineaRegistro.moveToFirst();
+        if (CurLineaRegistro.getCount()!=0) {
+            Toast.makeText(this, "Registro existente", Toast.LENGTH_SHORT).show();
+        }
+        else {
+            Toast.makeText(this,"Registro nuevo",Toast.LENGTH_SHORT).show();
+        }
 
         //SMP: Asignación de evento y acciones a ejecutar
         btnAgregarJabas.setOnClickListener(new View.OnClickListener()
