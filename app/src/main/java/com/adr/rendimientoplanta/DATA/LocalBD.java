@@ -55,6 +55,7 @@ public class LocalBD extends SQLiteOpenHelper{
         db.execSQL(T_LineaRegistro.Create_LineaRegistro);
         db.execSQL(T_MotivoParada.Create_MotivoParada);
         db.execSQL(T_LineaParadas.Create_LineaParadas);
+        db.execSQL(T_MesasPorLinea.CREATE_T_MESAPORLINEA);
     }
 
     @Override
@@ -84,7 +85,10 @@ public class LocalBD extends SQLiteOpenHelper{
         db.execSQL(T_Actividad.DROP_T_ACTIVIDAD);
         db.execSQL(T_Labor.DROP_T_LABOR);
         db.execSQL(T_Tareo.DROP_T_TAREO);
+        db.execSQL(T_Proceso.DROP_T_PROCESO);
+        db.execSQL(T_Subproceso.DROP_T_SUBPROCESO);
         db.execSQL(T_TareoDetalle.DROP_T_TAREODETALLE);
+        db.execSQL(T_MesasPorLinea.DROP_T_MESAPORLINEA);
 
         //Nuevas tablas
         db.execSQL(T_LineaRegistro.Drop_LineaRegistro);
