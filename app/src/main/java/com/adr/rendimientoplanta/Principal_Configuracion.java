@@ -92,7 +92,7 @@ public class Principal_Configuracion extends AppCompatActivity {
     private CheckBox cbxLabor;
     private CheckBox cbxProceso;
     private CheckBox cbxSubProceso;
-
+    private CheckBox cbxMesasPorLinea;
     private CheckBox cbxMarcarTodas;
 
     private ProgressBar pgbCargaDatos;
@@ -128,6 +128,7 @@ public class Principal_Configuracion extends AppCompatActivity {
         //-----------------------------------------------------------
         cbxProceso=(CheckBox) findViewById(R.id.cbxProceso);
         cbxSubProceso=(CheckBox)findViewById(R.id.cbxSubProceso) ;
+        cbxMesasPorLinea=(CheckBox)findViewById(R.id.cbxMesasPorLinea);
         //-----------------------------------------------------------
 
         cbxMarcarTodas = (CheckBox) findViewById(R.id.cbxMarcarTodas);
@@ -606,6 +607,7 @@ public class Principal_Configuracion extends AppCompatActivity {
                               Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
                           }
                       }
+
                   }
                   //VALIDACION
                   if (Estado==true)
