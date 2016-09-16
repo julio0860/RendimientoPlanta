@@ -14,7 +14,7 @@ public class T_Proceso {
     public static final String CREATE_T_PROCESO = "CREATE TABLE " + N_TABLA + "(" +
             PROID + " INTEGER PRIMARY KEY NOT NULL, " +
             PROCODIGO + " TEXT NOT NULL, " +
-            PRODESCRIPCION + " TEXT NOT NULL, " +
+            PRODESCRIPCION + " TEXT NOT NULL " +
             ");";
 
     public static final String DROP_T_PROCESO = "DROP TABLE IF EXISTS " + N_TABLA;

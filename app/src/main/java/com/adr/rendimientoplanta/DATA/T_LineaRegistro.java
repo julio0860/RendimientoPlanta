@@ -19,6 +19,7 @@ public class T_LineaRegistro {
     public static final String LinRegFechaHora = "LinReg_FechaHora";
     public static final String LinRegUltimaSincro = "LinReg_UltimaSincro";
     public static final String EstId = "Est_Id";
+    public static final String UsuId = "Usu_Id";
 
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "LineaRegistro";
@@ -38,7 +39,8 @@ public class T_LineaRegistro {
             LinRegMac+" TEXT NOT NULL, "+
             LinRegFechaHora+" TEXT NOT NULL,"+
             LinRegUltimaSincro+" TEXT NOT NULL, " +
-            EstId+" INTEGER NOT NULL, " +
+            EstId+" INTEGER NOT NULL," +
+            UsuId+" INTEGER NOT NULL " +
             ");";
 
     public static final String Drop_LineaRegistro ="DROP TABLE IF EXISTS "+NombreTabla;
@@ -51,17 +53,17 @@ public class T_LineaRegistro {
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
             +","+LinRegHoraIni+","+LinRegHoraFin+","+LinRegCantidad+","+LinRegHoraEfectiva
             +","+LinRegParadas+","+LinRegNumParadas+","+LinRegCantidadPorHora
-            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId;
+            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+UsuId;
 
     public static String LineaRegistro_Insertar(
             int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
-            String LinReg_FechaHora,int Est_Id)
+            String LinReg_FechaHora,int Est_Id,int Usu_Id)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaRegistro+
                 ")VALUES('"+
                 Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+LinReg_Mac+"','"
-                +LinReg_FechaHora+"','"+Est_Id+"');";
+                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"');";
 
         return Insertar;
     }
@@ -93,7 +95,7 @@ public class T_LineaRegistro {
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaRegistro
-                +" FROM "+NombreTabla+" WHERE "+LinId+"='"+Lin_Id+" AND "+LinRegFecha+"='"+LinReg_Fecha+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinId+"='"+Lin_Id+"' AND "+LinRegFecha+"='"+LinReg_Fecha+"';";
         return Seleccionar;
     }
 

@@ -17,7 +17,7 @@ public class T_Subproceso {
     public static final String CREATE_T_SUBPROCESO ="CREATE TABLE " + N_TABLA+"("+
             SUBID +" INTEGER PRIMARY KEY NOT NULL, "+
             PROID +" INTEGER NOT NULL, "+
-            SUBDESCRIPCION +" TEXT NOT NULL, "+
+            SUBDESCRIPCION +" TEXT NOT NULL "+
 
             ");";
 

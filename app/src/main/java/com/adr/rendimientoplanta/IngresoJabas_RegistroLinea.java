@@ -118,7 +118,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         Cursor CurLineaRegistro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
         CurLineaRegistro.moveToFirst();
         if (CurLineaRegistro.getCount()!=0) {
-            Toast.makeText(this, "Registro existente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Registro existente", Toast.LENGTH_SHORT).show();
         }
         else {
             Toast.makeText(this,"Registro nuevo",Toast.LENGTH_SHORT).show();
