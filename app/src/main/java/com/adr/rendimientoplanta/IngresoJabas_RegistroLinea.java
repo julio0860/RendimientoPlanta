@@ -5,6 +5,7 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -12,19 +13,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Empresa;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
+import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 import java.util.Calendar;
 
 public class IngresoJabas_RegistroLinea extends AppCompatActivity {
+
+    //SMP: Variables para insertar
+    private String HoraIni="00:00:00";
+    private String HoraFin="00:00:00";
 
     //SMP: Declaración de variables TextView
     private TextView lblSucursal;
@@ -54,6 +62,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     private Button btnTerminar;
     private Button btnGrabarParada;
 
+    //SMP: Declaracion de variable Spinner
+    private Spinner spnMotivoParadas;
 
     //SMP: Declaración de variables estaticas para la elección de dialog
     static final int DATE_ID=0;
@@ -108,6 +118,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         btnKardex = (Button) findViewById(R.id.btnKardex);
         btnGrabarParada = (Button) findViewById(R.id.btnGrabarParada);
 
+        //SMP: Asignar de varible Spinner a Layout
+        spnMotivoParadas = (Spinner) findViewById(R.id.spnMotivoParadas);
         //SMP: Creación nueva variable Heredando la clase Funciones
         fnc = new Funciones();
 
@@ -126,12 +138,21 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         //SMP: Validación registro nuevo
         Cursor CurLineaRegistro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
         CurLineaRegistro.moveToFirst();
+
+        //SMP: Validación registro nuevo o existente
         if (CurLineaRegistro.getCount()!=0) {
-            Toast.makeText(this,"Registro existente", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"Registro existente Id: "+CurLineaRegistro.getString(0), Toast.LENGTH_SHORT).show();
+            BloquearBotones(true);
+            edtHoraIni.setText(CurLineaRegistro.getString(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraIni)));
         }
         else {
             Toast.makeText(this,"Registro nuevo",Toast.LENGTH_SHORT).show();
+            BloquearBotones(false);
         }
+
+        //SMP: Poblar Spinner motivo paradas
+        Cursor Empresa = LocBD.rawQuery(T_MotivoParada.MotivoParada_SeleccionarTodos(),null);
+        spnMotivoParadas.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Empresa,T_MotivoParada.MotParDescripcion));
 
         //SMP: Asignación de evento y acciones a ejecutar
         btnAgregarJabas.setOnClickListener(new View.OnClickListener()
@@ -156,7 +177,18 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 @Override
                 public void onClick (View v){
-
+                    HoraIni=edtHoraIni.getText().toString();
+                    try {
+                        LocBD.execSQL(T_LineaRegistro.LineaRegistro_Insertar(Variables.Lin_Id,
+                                Variables.FechaStr,HoraIni,Variables.MAC,Variables.FechaStr,1,Variables.Usu_Id));
+                        BloquearBotones(true);
+                        Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
+                        Registro.moveToFirst();
+                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Linea Iniciada, Id: "+Registro.getString(0),Toast.LENGTH_SHORT).show();
+                    }catch (SQLException e)
+                    {
+                        Toast.makeText(IngresoJabas_RegistroLinea.this,e.toString(),Toast.LENGTH_SHORT).show();
+                    }
                 }
             }
         );
@@ -245,5 +277,17 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             //displayToast();
         }
         };
+    private void BloquearBotones(boolean Estado)
+    {
+        btnIniciar.setEnabled(!Estado);
+        imbHoraIni.setEnabled(!Estado);
+        imbHoraFin.setEnabled(Estado);
+        imbHoraIniPar.setEnabled(Estado);
+        imbHoraFinPar.setEnabled(Estado);
+        btnTerminar.setEnabled(Estado);
+        btnKardex.setEnabled(Estado);
+        btnAgregarJabas.setEnabled(Estado);
+        btnGrabarParada.setEnabled(Estado);
+    }
 
 }

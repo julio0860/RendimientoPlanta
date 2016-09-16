@@ -30,7 +30,7 @@ public class T_LineaRegistro {
             LinId+" INTEGER NOT NULL, "+
             LinRegFecha+" TEXT NOT NULL, "+
             LinRegHoraIni+" TEXT NOT NULL, "+
-            LinRegHoraFin+" TEXT NOT NULL, "+
+            LinRegHoraFin+" TEXT, "+
             LinRegCantidad+" REAL, "+
             LinRegHoraEfectiva+" REAL, "+
             LinRegParadas+" REAL, "+
@@ -38,7 +38,7 @@ public class T_LineaRegistro {
             LinRegCantidadPorHora+" REAL, "+
             LinRegMac+" TEXT NOT NULL, "+
             LinRegFechaHora+" TEXT NOT NULL,"+
-            LinRegUltimaSincro+" TEXT NOT NULL, " +
+            LinRegUltimaSincro+" TEXT, " +
             EstId+" INTEGER NOT NULL," +
             UsuId+" INTEGER NOT NULL " +
             ");";
@@ -51,9 +51,7 @@ public class T_LineaRegistro {
             +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId;
 
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
-            +","+LinRegHoraIni+","+LinRegHoraFin+","+LinRegCantidad+","+LinRegHoraEfectiva
-            +","+LinRegParadas+","+LinRegNumParadas+","+LinRegCantidadPorHora
-            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+UsuId;
+            +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId;
 
     public static String LineaRegistro_Insertar(
             int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,

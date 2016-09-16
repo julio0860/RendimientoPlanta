@@ -17,7 +17,7 @@ public class T_LineaParadas {
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "LineaParadas";
 
-    public static final String Create_LineaRegistro ="CREATE TABLE " + NombreTabla+"("+
+    public static final String Create_LineaParadas ="CREATE TABLE " + NombreTabla+"("+
             LinParId +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
             LinRegIdMovil +" INTEGER, "+
             MotParId+" INTEGER NOT NULL, "+
@@ -25,11 +25,11 @@ public class T_LineaParadas {
             LinParHoraFin+" TEXT NOT NULL, "+
             LinParParada+" REAL NOT NULL, "+
             LinParSincronizado+" INTEGER NOT NULL, "+
-            LinParFechaHora+" TEXT NOT NULL"+
+            LinParFechaHora+" TEXT NOT NULL,"+
             MotParDescripcion+" TEXT NOT NULL"+
             ");";
 
-    public static final String Drop_LineaRegistro ="DROP TABLE IF EXISTS "+NombreTabla;
+    public static final String Drop_LineaParadas ="DROP TABLE IF EXISTS "+NombreTabla;
 
     public static final String CamposSeleccionar_LineaParadas = LinParId+","+LinRegIdMovil+","+MotParId
             +","+LinParHoraIni+","+LinParHoraFin+","+LinParParada+","+LinParSincronizado
@@ -39,7 +39,7 @@ public class T_LineaParadas {
             LinRegIdMovil+","+MotParId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
             +","+LinParSincronizado+","+LinParFechaHora;
 
-    public static String LineaRegistro_Insertar(
+    public static String LineaParadas_Insertar(
             int LinReg_IdMovil,int MotPar_Id, String LinPar_HoraIni,String LinPar_HoraFin,
             double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion)
     {

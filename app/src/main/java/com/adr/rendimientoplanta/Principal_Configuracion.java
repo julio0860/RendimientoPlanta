@@ -33,6 +33,7 @@ import com.adr.rendimientoplanta.DATA.T_Labor;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_Menu;
 import com.adr.rendimientoplanta.DATA.T_MenuUsuario;
+import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.DATA.T_Personal;
 import com.adr.rendimientoplanta.DATA.T_Presentacion;
 import com.adr.rendimientoplanta.DATA.T_Proceso;
@@ -92,6 +93,7 @@ public class Principal_Configuracion extends AppCompatActivity {
     private CheckBox cbxLabor;
     private CheckBox cbxProceso;
     private CheckBox cbxSubProceso;
+    private CheckBox cbxMotivoParadas;
 
     private CheckBox cbxMarcarTodas;
 
@@ -129,7 +131,9 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxProceso=(CheckBox) findViewById(R.id.cbxProceso);
         cbxSubProceso=(CheckBox)findViewById(R.id.cbxSubProceso) ;
         //-----------------------------------------------------------
-
+        //SMP:
+        cbxMotivoParadas = (CheckBox) findViewById(R.id.cbxMotivoParadas);
+        //
         cbxMarcarTodas = (CheckBox) findViewById(R.id.cbxMarcarTodas);
 
         //
@@ -564,7 +568,26 @@ public class Principal_Configuracion extends AppCompatActivity {
                           }
                       }
                   }
-
+                  if (cbxMotivoParadas.isChecked())
+                  {
+                      LocBD.execSQL(T_MotivoParada.Eliminar());
+                      Rse=null;
+                      Rse = Stmt.executeQuery(T_MotivoParada.MotivoParada_SeleccionarTodos());
+                      while (Rse.next())
+                      {
+                          try
+                          {
+                              LocBD.execSQL(T_MotivoParada.MotivoParada_Insertar(Rse.getInt(1),
+                                      Rse.getString(2),Rse.getInt(3),Rse.getInt(4)));
+                              Estado = true;
+                          }catch (Exception e)
+                          {
+                              Estado= false;
+                              Log.e(TAG, "Error Exception: " + e);
+                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                          }
+                      }
+                  }
                   if (cbxProceso.isChecked())
                   {
                       LocBD.execSQL(T_Proceso._DELETE());
