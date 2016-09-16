@@ -21,7 +21,7 @@ public class T_MotivoParada {
 
     public static final String Drop_MotivoParada ="DROP TABLE IF EXISTS "+NombreTabla;
 
-    public static final String Campos_MotivoParada = MotParId+"as _id,"+MotParDescripcion
+    public static final String Campos_MotivoParada = MotParId+" as _id,"+MotParDescripcion
             +","+MotParCantidad+","+EstId;
 
     public static String MotivoParada_Insertar(
