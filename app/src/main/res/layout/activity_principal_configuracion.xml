@@ -59,8 +59,8 @@
         <CheckBox
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="MotivoParadas"
-            android:id="@+id/cbxMotivoParadas"
+            android:text="MesasPorLinea"
+            android:id="@+id/cbxMesasPorLinea"
             android:layout_row="1"
             android:layout_column="3"
             android:checked="false" />
