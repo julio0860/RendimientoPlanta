@@ -49,6 +49,11 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
     //SMP: Declaración de variables Button
     private Button btnAgregarJabas;
+    private Button btnIniciar;
+    private Button btnKardex;
+    private Button btnTerminar;
+    private Button btnGrabarParada;
+
 
     //SMP: Declaración de variables estaticas para la elección de dialog
     static final int DATE_ID=0;
@@ -98,6 +103,10 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
         //SMP: Asignación de variables Button a Layout
         btnAgregarJabas = (Button) findViewById(R.id.btnAgregarJabas);
+        btnIniciar = (Button) findViewById(R.id.btnIniciar);
+        btnTerminar = (Button) findViewById(R.id.btnTerminar);
+        btnKardex = (Button) findViewById(R.id.btnKardex);
+        btnGrabarParada = (Button) findViewById(R.id.btnGrabarParada);
 
         //SMP: Creación nueva variable Heredando la clase Funciones
         fnc = new Funciones();
@@ -135,6 +144,40 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                  }
              }
         );
+        btnGrabarParada.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick (View v){
+
+                }
+            }
+        );
+        btnIniciar.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick (View v){
+
+                }
+            }
+        );
+        btnTerminar.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick (View v){
+
+                }
+            }
+        );
+        btnKardex.setOnClickListener(new View.OnClickListener()
+            {
+                @Override
+                public void onClick (View v){
+
+                }
+            }
+        );
+
+
         imbRegresar.setOnClickListener(new View.OnClickListener()
         {
             @Override
