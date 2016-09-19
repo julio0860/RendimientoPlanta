@@ -1,12 +1,6 @@
 package com.adr.rendimientoplanta.LIBRERIA;
 
-import android.content.Context;
-import android.net.wifi.WifiInfo;
-import android.net.wifi.WifiManager;
 import android.support.v7.app.AppCompatActivity;
-import android.telephony.TelephonyManager;
-
-import java.util.Date;
 //HOLA MUNDO !!! X2 123
 // HOLA MUNDO PARTE DOS RED MOVIL
 /**
@@ -44,6 +38,13 @@ public class Variables extends AppCompatActivity{
 
     public static Integer Lin_Id = 0;
     public static String Lin_Descripcion = "";
+
+    public static Integer Pro_Id=0;
+    public static String  Pro_Descripcion="";
+
+    public static Integer Sub_Id=0;
+    public static String Sub_Descripcion="";
+    
     public static String Lin_Lado = "";
 
     public static int TarOri_Id = 0;
