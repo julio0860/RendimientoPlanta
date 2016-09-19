@@ -18,9 +18,10 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 import android.widget.Toast;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
+
 import com.adr.rendimientoplanta.DATA.LocalBD;
-import com.adr.rendimientoplanta.DATA.T_Empresa;
-import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
@@ -169,6 +170,33 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 @Override
                 public void onClick (View v){
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
+                    String alert_title = "Registrar parada";
+                    String alert_description = "¿Estas seguro que quiere insertar la siguiente parada?";
+                    alertDialogBuilder.setTitle(alert_title);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // Código propio del método borrado para ejemplo
+                                    Toast.makeText(IngresoJabas_RegistroLinea.this,"Registro insertado",Toast.LENGTH_SHORT).show();
+                                }
+
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // Si se pulsa no no hace nada
+                                    Toast.makeText(IngresoJabas_RegistroLinea.this,"Operación cancelada",Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+
+                    // show it
+                    alertDialog.show();
 
                 }
             }
@@ -177,18 +205,44 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 @Override
                 public void onClick (View v){
+
                     HoraIni=edtHoraIni.getText().toString();
-                    try {
-                        LocBD.execSQL(T_LineaRegistro.LineaRegistro_Insertar(Variables.Lin_Id,
-                                Variables.FechaStr,HoraIni,Variables.MAC,Variables.FechaStr,1,Variables.Usu_Id));
-                        BloquearBotones(true);
-                        Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
-                        Registro.moveToFirst();
-                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Linea Iniciada, Id: "+Registro.getString(0),Toast.LENGTH_SHORT).show();
-                    }catch (SQLException e)
-                    {
-                        Toast.makeText(IngresoJabas_RegistroLinea.this,e.toString(),Toast.LENGTH_SHORT).show();
-                    }
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
+                    String alert_title = "Iniciar Linea";
+                    String alert_description = "¿Estas seguro que quiere iniciar la Linea a las "+HoraIni+"?";
+                    alertDialogBuilder.setTitle(alert_title);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // Código propio del método borrado para ejemplo
+                                    try {
+                                        LocBD.execSQL(T_LineaRegistro.LineaRegistro_Insertar(Variables.Lin_Id,
+                                                Variables.FechaStr,HoraIni,Variables.MAC,Variables.FechaStr,1,Variables.Usu_Id));
+                                        BloquearBotones(true);
+                                        Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
+                                        Registro.moveToFirst();
+                                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Linea Iniciada, Id: "+Registro.getString(0),Toast.LENGTH_SHORT).show();
+                                    }catch (SQLException e)
+                                    {
+                                        Toast.makeText(IngresoJabas_RegistroLinea.this,e.toString(),Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // Si se pulsa no no hace nada
+                                    Toast.makeText(IngresoJabas_RegistroLinea.this,"Operación cancelada",Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
                 }
             }
         );
