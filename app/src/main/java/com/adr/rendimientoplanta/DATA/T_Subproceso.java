@@ -23,13 +23,13 @@ public class T_Subproceso {
 
     public static final String DROP_T_SUBPROCESO ="DROP TABLE IF EXISTS "+N_TABLA;
 
-    public static String _INSERT(int ID,int PROID,String DESCRIPCION)
+    public static String _INSERT(int ID,int Pro_Id,String DESCRIPCION)
 
     {
         String _INSERT;
-        _INSERT = "INSERT INTO "+N_TABLA +"("+SUBID+","+PROID+","+SUBDESCRIPCION+","+
+        _INSERT = "INSERT INTO "+N_TABLA +"("+SUBID+","+PROID+","+SUBDESCRIPCION+
                 ")VALUES('"+
-                ID+"','"+PROID+"','"+DESCRIPCION+"');";
+                ID+"','"+Pro_Id+"','"+DESCRIPCION+"');";
         return _INSERT;
     }
 
