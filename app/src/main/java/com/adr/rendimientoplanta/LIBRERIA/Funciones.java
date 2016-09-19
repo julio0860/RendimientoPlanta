@@ -15,7 +15,11 @@ import android.widget.EditText;
 import android.widget.Spinner;
 import android.widget.TimePicker;
 
+import java.math.BigDecimal;
+import java.math.RoundingMode;
+import java.text.SimpleDateFormat;
 import java.util.Calendar;
+import java.util.Date;
 //HOLA MUNDO CRUEL 2.1
 /**
  * Created by smachado on 2016/05/11.
@@ -170,5 +174,67 @@ public class Funciones extends AppCompatActivity {
         Hora = C.get(Calendar.HOUR_OF_DAY);
         Min = C.get(Calendar.MINUTE);
     }
+
+    //SMP: Función para el redondeo de decimales
+    public double RedondeoDecimal(double valor, int escala,int roundingMethod)
+    {
+        try
+        {
+            return (new BigDecimal
+                    (Double.toString(valor))
+                    .setScale(escala, roundingMethod))
+                    .doubleValue();
+        }catch (NumberFormatException ex) {
+            if (Double.isInfinite(valor)) {
+                return valor;
+            } else {
+                return Double.NaN;
+            }
+        }
+    }
+
+    //SMP: Función para obtener tiempo efectivo entre dos horas
+public double HoraEfectivaEntreHoras(String HoraIni,String HoraFin)
+{
+    //DECLARACIÓN DE FORMATO PARA HORA
+    SimpleDateFormat FormatoHora = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
+    Date HIni=null;
+    Date HFin=null;
+
+    //TRY EN CASO DE EXCEPCIONES
+    try
+    {
+        //CONVERSIÓN DE STRING A VARIABLE TIPO HORA
+        HIni= FormatoHora.parse(HoraIni);
+        HFin= FormatoHora.parse(HoraFin);
+    } catch (Exception e){
+        // Log.e(TAG, "Funcion diferenciaFechas: Error " + e);
+    }
+    //DECLARACIÓN DE VARIABLES CALENDAR PARA OPERACIONES
+    Calendar CalendarioIni = Calendar.getInstance();
+    Calendar CalendarioFin = Calendar.getInstance();
+    //ASIGNACIÓN DE HORA INICIO Y FIN A VARIABLE CALENDARIO
+    CalendarioIni.setTime(HIni);
+    CalendarioFin.setTime(HFin);
+
+    //OBTENCIÓN DE HORA DE INICIO Y HORA FIN EN MILISEGUNDOS
+    double milisegundos1 = CalendarioIni.getTimeInMillis();
+    double milisegundos2 = CalendarioFin.getTimeInMillis();
+
+    //DIFERENCIA EN MILISEGUNDOS ENTRE DOS FECHAS
+    double diferenciaMilisegundos = milisegundos2 - milisegundos1;
+
+    //OTRAS OPCIONES
+    //double diffSegundos =  Math.abs (diferenciaMilisegundos / 1000);
+    //double diffMinutos =  Math.abs (diferenciaMilisegundos / (60 * 1000));
+    //double restominutos = diffMinutos%60;
+    //double diffdias = Math.abs ( diferenciaMilisegundos / (24 * 60 * 60 * 1000) );
+    //double TiempoEfectivo = diffHoras+ (restominutos/60);     NO EFECTIVO
+
+    //RESULTADO FINAL
+    double diffHoras =   (diferenciaMilisegundos / (60 * 60 * 1000));
+
+    return RedondeoDecimal(diffHoras,2,BigDecimal.ROUND_HALF_UP);
+}
 
 }
