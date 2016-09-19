@@ -23,7 +23,7 @@ public class T_Proceso {
 
     {
         String _INSERT;
-        _INSERT = "INSERT INTO " + N_TABLA + "(" + PROID + "," + PROCODIGO + "," + PRODESCRIPCION + "," +
+        _INSERT = "INSERT INTO " + N_TABLA + "(" + PROID + "," + PROCODIGO + "," + PRODESCRIPCION +
                 ")VALUES('" +
                 ID + "','" + CODIGO + "','" + DESCRIPCION + "');";
         return _INSERT;
