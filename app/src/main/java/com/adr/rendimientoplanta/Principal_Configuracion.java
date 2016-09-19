@@ -616,7 +616,7 @@ public class Principal_Configuracion extends AppCompatActivity {
                   {
                       LocBD.execSQL(T_Subproceso._DELETE());
                       Rse=null;
-                      Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(-1));
+                      Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(1,-1));
                       while (Rse.next())
                       {
                           try
@@ -989,5 +989,6 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxProceso.setChecked(Est);
         cbxSubProceso.setChecked(Est);
         cbxMesasPorLinea.setChecked(Est);
+        cbxMotivoParadas.setChecked(Est);
     }
 }
