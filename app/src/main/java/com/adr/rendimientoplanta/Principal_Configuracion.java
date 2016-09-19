@@ -989,5 +989,6 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxProceso.setChecked(Est);
         cbxSubProceso.setChecked(Est);
         cbxMesasPorLinea.setChecked(Est);
+        cbxMotivoParadas.setChecked(Est);
     }
 }
