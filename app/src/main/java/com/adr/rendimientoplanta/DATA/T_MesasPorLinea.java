@@ -13,9 +13,9 @@ public class T_MesasPorLinea {
     public static final String LADO = "Lado";
     public static final String MESA = "Mesa";
 
-    public static final String N_TABLA = "MesaPorLinea";
+    public static final String N_TABLA = "MesaLinea";
 
-    public static final String CREATE_T_MESAPORLINEA ="CREATE TABLE " + N_TABLA+"("+
+    public static final String CREATE_T_MESALINEA ="CREATE TABLE " + N_TABLA+"("+
             MESLINID +" INTEGER PRIMARY KEY NOT NULL, "+
             CAMID +" INTEGER NOT NULL, "+
             PROID +" INTEGER NOT NULL, "+
@@ -25,7 +25,7 @@ public class T_MesasPorLinea {
             MESA +" INTEGER NOT NULL "+
             ");";
 
-    public static final String DROP_T_MESAPORLINEA ="DROP TABLE IF EXISTS "+N_TABLA;
+    public static final String DROP_T_MESALINEA ="DROP TABLE IF EXISTS "+N_TABLA;
 
     public static String _INSERT(int MesLin_Id,int Cam_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lado,
                                  int Mesa)
@@ -44,7 +44,7 @@ public class T_MesasPorLinea {
         return _DELETE;
     }
 
-    public static String _SELECT_MESAPORLINEA(int ID)
+    public static String _SELECT_MESALINEA(int ID)
     {
         String _SELECT;
         _SELECT = "SELECT "+MESLINID+" AS '_id',"+CAMID+","+PROID+","+SUBID+","+LINID+","+LADO+

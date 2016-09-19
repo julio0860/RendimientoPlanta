@@ -636,7 +636,7 @@ public class Principal_Configuracion extends AppCompatActivity {
                   if (cbxMesasPorLinea.isChecked()) {
                       LocBD.execSQL(T_MesasPorLinea._DELETE());
                       Rse = null;
-                      Rse = Stmt.executeQuery(T_MesasPorLinea._SELECT_MESAPORLINEA(-1));
+                      Rse = Stmt.executeQuery(T_MesasPorLinea._SELECT_MESALINEA(-1));
                       while (Rse.next()) {
                           try {
                               //Rse.next();
