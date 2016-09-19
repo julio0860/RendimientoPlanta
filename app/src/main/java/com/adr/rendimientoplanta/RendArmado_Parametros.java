@@ -18,6 +18,8 @@ import android.widget.Spinner;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Empresa;
 import com.adr.rendimientoplanta.DATA.T_Linea;
+import com.adr.rendimientoplanta.DATA.T_Proceso;
+import com.adr.rendimientoplanta.DATA.T_Subproceso;
 import com.adr.rendimientoplanta.DATA.T_Sucursal;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -26,6 +28,8 @@ public class RendArmado_Parametros extends AppCompatActivity {
     //DECLARACIÓN DE SPINNERS
     private Spinner spnEmpresa;
     private Spinner spnSucursal;
+    private Spinner spnProceso;
+    private Spinner spnSubproceso;
     private Spinner spnLinea;
     private Spinner spnLado;
 
@@ -33,6 +37,8 @@ public class RendArmado_Parametros extends AppCompatActivity {
     private SimpleCursorAdapter adspnEmpresa;
     private SimpleCursorAdapter adspnSucursal;
     private SimpleCursorAdapter adspnLinea;
+    private SimpleCursorAdapter adspnProceso;
+    private SimpleCursorAdapter adspnSubproceso;
     private ArrayAdapter adspnLado;
 
     //DECLARACION BOTONES
@@ -45,6 +51,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
     //DECLARACION VARIABLES
     private int Emp_Id;
     private int Suc_Id;
+    private int Pro_Id;
 
     //DECLARACION CONSTANTE LADO LINEA
     private String [] Lado = {"A","B","AB"};
@@ -66,6 +73,8 @@ public class RendArmado_Parametros extends AppCompatActivity {
         //ASIGNACION DE SPINNERS DE LAYOUT A VARIABLES
         spnEmpresa = (Spinner) findViewById(R.id.spnEmpresa);
         spnSucursal = (Spinner) findViewById(R.id.spnSucursal);
+        spnProceso=(Spinner)findViewById(R.id.spnProceso);
+        spnSubproceso=(Spinner)findViewById(R.id.spnSubproceso);
         spnLinea = (Spinner) findViewById(R.id.spnLinea);
         spnLado = (Spinner) findViewById(R.id.spnLado);
 
@@ -125,6 +134,32 @@ public class RendArmado_Parametros extends AppCompatActivity {
         });
         adspnLado = new ArrayAdapter<String>(RendArmado_Parametros.this,android.R.layout.simple_dropdown_item_1line,Lado);
         spnLado.setAdapter(adspnLado);
+
+        Cursor Proceso = LocBD.rawQuery(T_Proceso._SELECT_PROCESO(-1),null);
+        adspnProceso = new SimpleCursorAdapter(this ,
+                android.R.layout.simple_dropdown_item_1line,Proceso,//Layout simple
+                new String[]{T_Proceso.PRODESCRIPCION},//Mostrar solo el nombre
+                new int[]{android.R.id.text1}//View para el nombre
+                ,SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        spnProceso.setAdapter(adspnProceso);
+
+        spnProceso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent,android.view.View v,
+                                       int position, long id) {
+                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
+                Pro_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
+                Cursor Subproceso = LocBD.rawQuery(T_Subproceso._SELECT_SUBPROCESO(Pro_Id,2),null);
+                adspnSubproceso= new SimpleCursorAdapter(RendArmado_Parametros.this ,
+                        android.R.layout.simple_dropdown_item_1line  ,Subproceso,//Layout simple
+                        //Todos los registros
+                        new String[]{T_Subproceso.SUBDESCRIPCION},//Mostrar solo el nombre
+                        new int[]{android.R.id.text1}//View para el nombre
+                        ,SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                spnSubproceso.setAdapter(adspnSubproceso);
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
 
         //EVENTO BOTON ESTABLECER
         btnEstablecer.setOnClickListener(new View.OnClickListener() {

@@ -616,7 +616,7 @@ public class Principal_Configuracion extends AppCompatActivity {
                   {
                       LocBD.execSQL(T_Subproceso._DELETE());
                       Rse=null;
-                      Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(-1));
+                      Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(1,-1));
                       while (Rse.next())
                       {
                           try
