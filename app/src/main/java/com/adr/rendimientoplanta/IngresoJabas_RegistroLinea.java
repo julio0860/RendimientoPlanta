@@ -28,6 +28,7 @@ import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
+import java.math.BigDecimal;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 
@@ -47,6 +48,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
     //SMP: Resumen registro
     private int NumParadas=0;
+    private double SumParadas=0;
 
     //SMP: String Hora Vacia
     private String HoraNula="--";
@@ -64,6 +66,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     private TextView lblFecha;
     private TextView lblEmpresa;
     private TextView lblLinea;
+    private TextView lblTiempoParadas;
 
     private TextView lblNumParadas;
 
@@ -131,6 +134,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         lblLinea = (TextView) findViewById(R.id.lblLinea);
 
         lblNumParadas = (TextView) findViewById(R.id.lblNumParadas);
+        lblTiempoParadas = (TextView)findViewById(R.id.lblTiempoParadas);
 
         //SMP: Asignación de las variables ImageButton a layout
         imbHoraIni = (ImageButton) findViewById(R.id.imbHoraIni);
@@ -292,6 +296,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                                             BloquearBotones(true);
                                             Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
                                             Registro.moveToFirst();
+                                            RegLin_Id=Registro.getInt(0);
                                             Toast.makeText(IngresoJabas_RegistroLinea.this,"Linea Iniciada, Id: "+Registro.getString(0),Toast.LENGTH_SHORT).show();
                                         }catch (SQLException e)
                                         {
@@ -367,8 +372,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 @Override
                 public void onClick (View v){
-                    Intent NuevaActividad = new Intent(IngresoJabas_RegistroLinea.this,
-                            IngresoJabas_Grilla.class);
+                    Intent NuevaActividad = new Intent(IngresoJabas_RegistroLinea.this,IngresoJabas_Kardex.class);
+                    NuevaActividad.putExtra("RegLin_Id",RegLin_Id);
                     startActivity(NuevaActividad);
                 }
             }
@@ -456,10 +461,12 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     }
     private void RecuperarNumeroParadas()
     {
-        Cursor CurParadas =  LocBD.rawQuery(T_LineaParadas.CantidadPorId(RegLin_Id),null);
+        Cursor CurParadas =  LocBD.rawQuery(T_LineaParadas.ResumenPorId(RegLin_Id),null);
         CurParadas.moveToFirst();
         NumParadas=CurParadas.getInt(0);
+        SumParadas=fnc.RedondeoDecimal(CurParadas.getDouble(1),2, BigDecimal.ROUND_HALF_UP) ;
         lblNumParadas.setText(String.valueOf(NumParadas));
+        lblTiempoParadas.setText(String.valueOf(SumParadas));
     }
 
 }
