@@ -194,6 +194,12 @@ public class Funciones extends AppCompatActivity {
     }
 
     //SMP: Función para obtener tiempo efectivo entre dos horas
+public String HoraSistema()
+{
+    SimpleDateFormat FormatoFecha = new SimpleDateFormat("yyyy-mm-dd HH:mm:ss",java.util.Locale.getDefault());
+    return FormatoFecha.format(new Date(System.currentTimeMillis()));
+}
+
 public double HoraEfectivaEntreHoras(String HoraIni,String HoraFin)
 {
     //DECLARACIÓN DE FORMATO PARA HORA

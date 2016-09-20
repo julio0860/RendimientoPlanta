@@ -20,6 +20,8 @@ public class T_LineaRegistro {
     public static final String LinRegUltimaSincro = "LinReg_UltimaSincro";
     public static final String EstId = "Est_Id";
     public static final String UsuId = "Usu_Id";
+    public static final String SucId = "Suc_Id";
+    public static final String CulId = "Cul_Id";
 
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "LineaRegistro";
@@ -40,7 +42,9 @@ public class T_LineaRegistro {
             LinRegFechaHora+" TEXT NOT NULL,"+
             LinRegUltimaSincro+" TEXT, " +
             EstId+" INTEGER NOT NULL," +
-            UsuId+" INTEGER NOT NULL " +
+            UsuId+" INTEGER NOT NULL, " +
+            SucId+" INTEGER NOT NULL, " +
+            CulId+" INTEGER NOT NULL " +
             ");";
 
     public static final String Drop_LineaRegistro ="DROP TABLE IF EXISTS "+NombreTabla;
@@ -48,20 +52,20 @@ public class T_LineaRegistro {
     public static final String CamposSeleccionar_LineaRegistro = LinRegIdMovil+","+LinRegId+","+LinId
             +","+LinRegFecha+","+LinRegHoraIni+","+LinRegHoraFin+","+LinRegCantidad
             +","+LinRegHoraEfectiva+","+LinRegParadas+","+LinRegNumParadas+","+LinRegCantidadPorHora
-            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId;
+            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+SucId+","+CulId;
 
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
-            +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId;
+            +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId+","+SucId+","+CulId;
 
     public static String LineaRegistro_Insertar(
             int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
-            String LinReg_FechaHora,int Est_Id,int Usu_Id)
+            String LinReg_FechaHora,int Est_Id,int Usu_Id,int Suc_Id,int Cul_Id)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaRegistro+
                 ")VALUES('"+
                 Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+LinReg_Mac+"','"
-                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"');";
+                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
 
         return Insertar;
     }
