@@ -37,7 +37,7 @@ public class T_LineaParadas {
 
     public static final String CamposInsertar_LineaParadas =
             LinRegIdMovil+","+MotParId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
-            +","+LinParSincronizado+","+LinParFechaHora;
+            +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion;
 
     public static String LineaParadas_Insertar(
             int LinReg_IdMovil,int MotPar_Id, String LinPar_HoraIni,String LinPar_HoraFin,
@@ -67,11 +67,18 @@ public class T_LineaParadas {
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Seleccionar;
     }
-    public static String LineaParadas_SeleccionarId(int LinReg_Id)
+    public static String LineaParadas_SeleccionarId(int LinPar_Id)
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaParadas
-                +" FROM "+NombreTabla+" WHERE "+LinParId+"='"+LinReg_Id+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinParId+"='"+LinPar_Id+"';";
+        return Seleccionar;
+    }
+    public static String CantidadPorId(int LinReg_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT COUNT(*)"
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
         return Seleccionar;
     }
 }
