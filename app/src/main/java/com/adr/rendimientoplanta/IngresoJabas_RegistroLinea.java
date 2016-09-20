@@ -48,6 +48,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     //SMP: Resumen registro
     private int NumParadas=0;
 
+    //SMP: String Hora Vacia
+    private String HoraNula="--";
+
     //SMP: Variables para insertar
     private String HoraIni="00:00:00";
     private String HoraFin="00:00:00";
@@ -225,6 +228,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                                         LocBD.execSQL(T_LineaParadas.LineaParadas_Insertar(RegLin_Id,MotPar_Id,HoraParIni,HoraParFin,tEfectivoPar,0,fnc.HoraSistema(),MotPar_Descripcion));
                                         Toast.makeText(IngresoJabas_RegistroLinea.this,"Parada registrada correctamente",Toast.LENGTH_LONG).show();
                                         RecuperarNumeroParadas();
+                                        edtHoraIniPar.setText(HoraNula);
+                                        edtHoraFinPar.setText(HoraNula);
 
                                     }catch (SQLException e)
                                         {
