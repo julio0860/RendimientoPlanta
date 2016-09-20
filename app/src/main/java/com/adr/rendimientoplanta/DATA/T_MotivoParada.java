@@ -24,11 +24,14 @@ public class T_MotivoParada {
     public static final String Campos_MotivoParada = MotParId+" as _id,"+MotParDescripcion
             +","+MotParCantidad+","+EstId;
 
+    public static final String Campos_MotivoParadaInsertar = MotParId+","+MotParDescripcion
+            +","+MotParCantidad+","+EstId;
+
     public static String MotivoParada_Insertar(
             int MotPar_Id,String MotPar_Descripcion, int MotPar_Cantidad,int Est_Id)
     {
         String Insertar;
-        Insertar = "INSERT INTO "+NombreTabla +"("+Campos_MotivoParada+
+        Insertar = "INSERT INTO "+NombreTabla +"("+Campos_MotivoParadaInsertar+
                 ")VALUES('"+
                 MotPar_Id+"','"+MotPar_Descripcion+"','"+MotPar_Cantidad+"','"+Est_Id+"');";
 

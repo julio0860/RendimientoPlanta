@@ -211,7 +211,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                     HoraParFin =edtHoraFinPar.getText().toString();
                     if (HoraParIni.equals("--") ||  HoraParFin.equals("--"))
                     {
-                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Establesca la hora",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Revisar la hora",Toast.LENGTH_SHORT).show();
                     }else
                     {
                         tEfectivoPar = fnc.HoraEfectivaEntreHoras(HoraParIni,HoraParFin);
@@ -269,12 +269,11 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 @Override
                 public void onClick (View v){
-
+                    HoraIni=edtHoraIni.getText().toString();
                     if (HoraIni.equals("--"))
                     {
-                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Establesca la hora",Toast.LENGTH_SHORT).show();
+                        Toast.makeText(IngresoJabas_RegistroLinea.this,"Revisar la hora",Toast.LENGTH_SHORT).show();
                     }else {
-                        HoraIni=edtHoraIni.getText().toString();
                         AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
                         String alert_title = "Iniciar Linea";
                         String alert_description = "¿Estas seguro que quiere iniciar la Linea a las "+HoraIni+"?";
