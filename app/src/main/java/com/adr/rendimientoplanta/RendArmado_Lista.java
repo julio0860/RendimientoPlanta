@@ -1,6 +1,7 @@
 package com.adr.rendimientoplanta;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -60,6 +61,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblLado.setText(Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
+Cursor Rse = LocBD.rawQuery("SELECT * FROM MESALinea where Pro_Id="+Variables.Pro_Id+"and Sub_Id="+Variables.Sub_Id+"AND Lin_Id="+Variables.Lin_Id+"AND Lado="+Variables.Lin_Lado+"AND CAM_Id=37",null);
 
       /*  Cursor Rse = LocBD.rawQuery("SELECT Per_Id AS '_id',1 AS 'MESA',Per_Nombres||' '||Per_ApePaterno||' '||Per_ApeMaterno AS 'APE',Per_Codigo FROM Personal LIMIT 22",null);
 
