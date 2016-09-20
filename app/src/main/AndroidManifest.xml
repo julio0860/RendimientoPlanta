@@ -49,7 +49,8 @@
         <activity android:name=".RendArmado_Kardex" />
         <activity android:name=".IngresoJabas_RegistroLinea" />
         <activity android:name=".IngresoJabas_RegistroJabas" />
-        <activity android:name=".IngresoJabas_Grilla"></activity>
+        <activity android:name=".IngresoJabas_Grilla" />
+        <activity android:name=".IngresoJabas_Kardex"></activity>
     </application>
 
 </manifest>

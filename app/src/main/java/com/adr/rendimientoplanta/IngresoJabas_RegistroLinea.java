@@ -367,7 +367,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 @Override
                 public void onClick (View v){
-
+                    Intent NuevaActividad = new Intent(IngresoJabas_RegistroLinea.this,
+                            IngresoJabas_Grilla.class);
+                    startActivity(NuevaActividad);
                 }
             }
         );
