@@ -641,7 +641,7 @@ public class Principal_Configuracion extends AppCompatActivity {
                           try {
                               //Rse.next();
                               LocBD.execSQL(T_MesasPorLinea._INSERT(Rse.getInt(1), Rse.getInt(2)
-                                      , Rse.getInt(3),Rse.getInt(4),Rse.getInt(5),Rse.getString(6),Rse.getInt(7)));
+                                      , Rse.getInt(3),Rse.getInt(4),Rse.getInt(5), Rse.getString(6).trim(),Rse.getInt(7)));
                               Estado = true;
                           } catch (Exception e) {
                               Estado = false;

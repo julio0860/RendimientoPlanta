@@ -205,6 +205,14 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                  Variables.Suc_Id = CurSucursal.getInt(CurSucursal.getColumnIndex(BaseColumns._ID));
                                                  Variables.Suc_Descripcion = CurSucursal.getString(CurSucursal.getColumnIndex(T_Sucursal.SUCDESCRIPCION));
 
+                                                 Cursor CurProceso = (Cursor) spnProceso.getAdapter().getItem(spnProceso.getSelectedItemPosition());
+                                                 Variables.Pro_Id=CurProceso.getInt(CurProceso.getColumnIndex(BaseColumns._ID));
+                                                 Variables.Pro_Descripcion=CurProceso.getString(CurProceso.getColumnIndex(T_Proceso.PRODESCRIPCION));
+
+                                                 Cursor CurSubproceso = (Cursor) spnSubproceso.getAdapter().getItem(spnSubproceso.getSelectedItemPosition());
+                                                 Variables.Sub_Id=CurSubproceso.getInt(CurSubproceso.getColumnIndex(BaseColumns._ID));
+                                                 Variables.Sub_Descripcion=CurSubproceso.getString(CurSubproceso.getColumnIndex(T_Subproceso.SUBDESCRIPCION));
+
                                                  Cursor CurLinea = (Cursor) spnLinea.getAdapter().getItem(spnLinea.getSelectedItemPosition());
                                                  Variables.Lin_Id = CurLinea.getInt(CurLinea.getColumnIndex(BaseColumns._ID));
                                                  Variables.Lin_Descripcion = CurLinea.getString(CurLinea.getColumnIndex(T_Linea.LINDESCRIPCION));

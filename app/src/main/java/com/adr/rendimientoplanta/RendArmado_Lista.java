@@ -3,11 +3,10 @@ package com.adr.rendimientoplanta;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
-import android.os.Bundle;
 import android.view.View;
-import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -62,15 +61,18 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblLado.setText(Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
+Cursor Rse = LocBD.rawQuery("SELECT * FROM MESALinea where Pro_Id="+Variables.Pro_Id+"and Sub_Id="+Variables.Sub_Id+"AND Lin_Id="+Variables.Lin_Id+"AND Lado="+Variables.Lin_Lado+"AND CAM_Id=37",null);
 
-        Cursor Rse = LocBD.rawQuery("SELECT Per_Id AS '_id',1 AS 'MESA',Per_Nombres||' '||Per_ApePaterno||' '||Per_ApeMaterno AS 'APE',Per_Codigo FROM Personal LIMIT 22",null);
-
+      /*  Cursor Rse = LocBD.rawQuery("SELECT Per_Id AS '_id',1 AS 'MESA',Per_Nombres||' '||Per_ApePaterno||' '||Per_ApeMaterno AS 'APE',Per_Codigo FROM Personal LIMIT 22",null);
 
         AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, android.R.layout.simple_list_item_2,Rse, new String[]{"_id","APE"},
                 new int[]{android.R.id.text1,android.R.id.text2},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
+        dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);*/
 
-        dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+
+
+
+   /*     dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent ActividadModificar = new Intent(RendArmado_Lista.this, RendArmado_Registro.class);
@@ -79,11 +81,11 @@ public class RendArmado_Lista extends AppCompatActivity {
                 Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
                 Variables.Per_Nombres = curPersonal.getString(curPersonal.getColumnIndex("APE"));
                 Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("Per_Codigo"));
-                /* //ANTIGUA FORMA
+                *//* //ANTIGUA FORMA
 
                 ActividadModificar.putExtra("ID",((TextView)view.findViewById(android.R.id.text1)).getText().toString());
                 ActividadModificar.putExtra("NOMBRES",((TextView)view.findViewById(android.R.id.text2)).getText().toString());
-               */ //----
+               *//* //----
 
                 //Se inicia la actividad nueva
                 startActivity(ActividadModificar);
@@ -91,7 +93,7 @@ public class RendArmado_Lista extends AppCompatActivity {
 
                 //Toast.makeText(IngresoJabas_Lista.this, "Hiciste click en el registro " + OpcionSeleccion + " .",Toast.LENGTH_SHORT).show();
             }
-        });
+        });*/
         imbConfigurar.setOnClickListener(new View.OnClickListener()
                                          {
                                              @Override
