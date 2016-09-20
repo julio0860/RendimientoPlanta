@@ -1,6 +1,7 @@
 package com.adr.rendimientoplanta;
 
 import android.content.Intent;
+import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -12,13 +13,8 @@ import android.widget.ImageButton;
 import android.widget.SimpleAdapter;
 import android.widget.TextView;
 
-import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
-
-import java.sql.Connection;
-import java.sql.ResultSet;
-import java.sql.Statement;
 
 
 public class RendArmado_Lista extends AppCompatActivity {
@@ -66,47 +62,28 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblLado.setText(Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
-       // Cursor Rse = LocBD.rawQuery("SELECT Mesa FROM MesaLinea where Pro_Id=" + "'" + Variables.Pro_Id + "'" + "  and Sub_Id=" + "'" + Variables.Sub_Id + "'" + "  AND Lin_Id=" + "'" + Variables.Lin_Id + "'" + "  AND Lado=" + "'" + Variables.Lin_Lado + "'" + "  AND CAM_Id='37'", null);
-       // Cursor Rse = LocBD.rawQuery("SELECT Mesa FROM MesaLinea", null);
-
-        try {
-            Boolean Estado = false;
-            Connection Cnn = ConexionBD.getInstance().getConnection();
-            Statement Stmt = Cnn.createStatement();
-            ResultSet Rse;
-            Rse=null;
-
-            Rse = Stmt.executeQuery("DECLARE @CONTADOR INT=1\n" +
-                    "CREATE TABLE #Mesas (Idposicion INT)\n" +
-                    "WHILE (SELECT Mesa FROM MesaLinea  WHERE Cam_Id=37 AND Pro_Id="+Variables.Pro_Id+" AND Sub_Id=4 AND Lin_Id=7 AND Lado='A')>=@CONTADOR\n" +
-                    "BEGIN\n" +
-                    "  INSERT INTO #Mesas(Idposicion) VALUES (@CONTADOR)\n" +
-                    "  SET @CONTADOR+=1\n" +
-                    " END\n" +
-                    "\n" +
-                    "SELECT M.idposicion,ISNULL(A.DNI,'')AS DNI\n" +
-                    "FROM #Mesas M \n" +
-                    "\tLEFT JOIN AGRUPADOR A ON M.Idposicion = A.Posicion AND A.Fecha='20160920' AND A.Suc_Id=3 AND A.Pro_Id=2 AND A.Sub_Id=4 AND A.Lin_Id=7 AND A.Lado='A'");
-            while (Rse.next()) {
-                try {
 
 
-                } catch (Exception e) {
-  ;
-                }
-            }
-
-
-        }catch (Exception e) {
-
-        }
-
-
+        Cursor Rse=LocBD.rawQuery("\n" +
+                "DECLARE @CONTADOR INT=1\n" +
+                "DECLARE @CANTMESAS INT\n" +
+                "CREATE TABLE #Mesas (Idposicion INT)\n" +
+                "SELECT @CANTMESAS=Mesa FROM MesaLinea  WHERE Cam_Id=37 AND Pro_Id="+Variables.Pro_Id+" AND Sub_Id="+Variables.Sub_Id+"  AND Lin_Id="+Variables.Lin_Id+"  AND Lado="+Variables.Lin_Lado+"\n" +
+                "WHILE @CANTMESAS>=@CONTADOR\n" +
+                "BEGIN\n" +
+                "  INSERT INTO #Mesas(Idposicion) VALUES (@CONTADOR)\n" +
+                "  SET @CONTADOR+=1\n" +
+                " END\n" +
+                "\n" +
+                "SELECT M.idposicion AS '_id',ISNULL(A.DNI,'')AS DNI\n" +
+                "FROM #Mesas M \n" +
+                "\tLEFT JOIN Agrupador A ON M.Idposicion = A.Posicion AND A.Fecha='20160920' AND A.Suc_Id="+Variables.Suc_Id+" AND A.Pro_Id="+Variables.Pro_Id+"  AND A.Sub_Id="+Variables.Sub_Id+"  AND A.Lin_Id="+Variables.Lin_Id+" AND A.Lado="+Variables.Lin_Lado+"\n" +
+                "\tDROP TABLE #Mesas\n",null);
 
         //Cursor Rse = LocBD.rawQuery("SELECT Per_Id AS '_id',1 AS 'MESA',Per_Nombres||' '||Per_ApePaterno||' '||Per_ApeMaterno AS 'APE',Per_Codigo FROM Personal LIMIT 22",null);
 
-        //AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, android.R.layout.simple_list_item_2,Rse, new String[]{"_id","APE"},
-               // new int[]{android.R.id.text1,android.R.id.text2},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, android.R.layout.simple_list_item_2,Rse, new String[]{"_id","DNI"},
+               new int[]{android.R.id.text1,android.R.id.text2},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
 
 
