@@ -95,7 +95,7 @@ public class LocalBD extends SQLiteOpenHelper{
         db.execSQL(T_LineaRegistro.Drop_LineaRegistro);
         db.execSQL(T_MotivoParada.Drop_MotivoParada);
         db.execSQL(T_LineaParadas.Drop_LineaParadas);
-        //CREATE NEW TABLES
+        db.execSQL(T_Agrupador.DROP_T_AGRUPADOR);
         //NEW
 
         onCreate(db);
