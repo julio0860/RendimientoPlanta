@@ -266,7 +266,8 @@
         android:layout_above="@+id/textView90"
         android:layout_toEndOf="@+id/spnConsumidor"
         android:background="@color/common_action_bar_splitter"
-        android:visibility="invisible" />
+        android:visibility="invisible"
+        android:spinnerMode="dialog" />
 
     <EditText
         android:layout_width="wrap_content"

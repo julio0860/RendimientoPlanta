@@ -202,6 +202,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                  public void onClick (View v){
                      Intent ActividadNueva = new Intent(IngresoJabas_RegistroLinea.this,
                              IngresoJabas_RegistroJabas.class);
+                     ActividadNueva.putExtra("RegLin_Id",RegLin_Id);
                      startActivity(ActividadNueva);
                  }
              }
