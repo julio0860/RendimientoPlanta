@@ -27,8 +27,11 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Consumidor;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
+import com.adr.rendimientoplanta.DATA.T_LineaParadas;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
+
+import java.util.Calendar;
 
 public class IngresoJabas_RegistroJabas extends AppCompatActivity {
 
@@ -72,6 +75,8 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
     private TextView lblFecha;
     private TextView lblEmpresa;
     private TextView lblLinea;
+
+    private TextView lblNumIngresos;
 
     //SMP: Variables tipo ImageButton
     private ImageButton imbRegresar;
@@ -129,6 +134,8 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblFecha = (TextView) findViewById(R.id.edtFecha);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
+        lblNumIngresos = (TextView) findViewById(R.id.lblNumIngresos);
+
         lblFecha.setText(Variables.FechaStr);
         lblSucursal.setText(Variables.Suc_Descripcion);
         lblCultivo.setText(Variables.Cul_Descripcion);
@@ -166,12 +173,20 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
         rbnCampoMix = (RadioButton)findViewById(R.id.rbnCampoMix);
         rbnReProcesoMix = (RadioButton)findViewById(R.id.rbnReProcesoMix);
 
+        //SMP: Actualizar por defecto la hora
+        final Calendar C = Calendar.getInstance();
+        pHour = C.get(Calendar.HOUR_OF_DAY);
+        pMinute = C.get(Calendar.MINUTE);
+
         //Asignación de carga inicial de Spinners
         Cursor Consumidor = LocBD.rawQuery(T_Consumidor._SELECT_CON(1,2, Variables.Cul_Id, Variables.Emp_Id),null);
         spnConsumidor.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Consumidor, T_Consumidor.CONDESCRIPCIONCOR));
 
         Cursor ConsumidorMix = LocBD.rawQuery(T_Consumidor._SELECT_CON(1,2, Variables.Cul_Id, Variables.Emp_Id),null);
         spnConsumidorMix.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,ConsumidorMix, T_Consumidor.CONDESCRIPCIONCOR));
+
+        //Asignación valores iniciales lblNumeroDeIngresos:
+        lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
 
         //Asignación de Eventos y Acciones a los componentes
         btnAgregar.setOnClickListener(new View.OnClickListener()
@@ -251,12 +266,21 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog,int id) {
                                             // Código propio del método calculo de diferencia de horas
                                             try {
-                                                //LocBD.execSQL(T_LineaParadas.LineaParadas_Insertar(RegLin_Id,MotPar_Id,HoraParIni,HoraParFin,tEfectivoPar,0,fnc.HoraSistema(),MotPar_Descripcion));
+                                                double Equivalente = LinIng_Cantidad * MatPriOriFactor;
+                                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
+                                                        RegLin_Id,Con_Id,Con_DescripcionCor,
+                                                        LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
+                                                        MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
+                                                        EsMix,fnc.HoraSistema(),0));
 
                                                 Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
+                                                edtHoraIni.setText(HoraNula);
+                                                ActualizarHoraFin(HoraIni);
+                                                lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
 
-                                            }catch (SQLException e) {
-                                                Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_SHORT).show();
+                                            }catch (SQLException e)
+                                            {
+                                                Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     })
@@ -293,13 +317,28 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                                         public void onClick(DialogInterface dialog,int id) {
                                             // Código propio del método calculo de diferencia de horas
                                             try {
-                                                //LocBD.execSQL(T_LineaParadas.LineaParadas_Insertar(RegLin_Id,MotPar_Id,HoraParIni,HoraParFin,tEfectivoPar,0,fnc.HoraSistema(),MotPar_Descripcion));
+                                                double Equivalente = LinIng_Cantidad * MatPriOriFactor;
+                                                double EquivalenteMix = LinIng_CantidadMix * MatPriOriFactorMix;
+                                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
+                                                        RegLin_Id,Con_Id,Con_DescripcionCor,
+                                                        LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
+                                                        MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
+                                                        EsMix,fnc.HoraSistema(),0));
+
+                                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
+                                                        RegLin_Id,Con_IdMix,Con_DescripcionCorMix,
+                                                        LinIng_CantidadMix,MatPriOriIdMix,MatPriOriDescripcionMix,
+                                                        MatPriOriFactorMix,EquivalenteMix,HoraIni,HoraNula,0,
+                                                        EsMix,fnc.HoraSistema(),0));
 
                                                 Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
+                                                edtHoraIni.setText(HoraNula);
+                                                ActualizarHoraFin(HoraIni);
+                                                lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
 
                                             }catch (SQLException e)
                                             {
-                                                Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_SHORT).show();
+                                                Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
                                             }
                                         }
                                     })
@@ -390,5 +429,57 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                 return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
         }
         return null;
+    }
+    private int CantidadReg(int LinReg_Id)
+    {
+        Cursor curCantidadIngreso= LocBD.rawQuery(T_LineaIngreso.CantidadPorId(RegLin_Id),null);
+        curCantidadIngreso.moveToFirst();
+        return curCantidadIngreso.getInt(0);
+    }
+
+    private void ActualizarHoraFin(String HoraFin)
+    {
+        int Cantidad;
+        int CantidadMix;
+        int Mix;
+        int LinIng_Id;
+        String HoraIni;
+        double tEfectivo;
+
+        Cantidad = CantidadReg(RegLin_Id);
+        Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
+
+        //Si hay mas de un registro actualiza con la hora del nuevo registro insertado
+        if (Cantidad>0)
+        {
+            curIngresos.moveToLast();
+            Mix = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngMix));
+            if (Mix==0)
+            {
+                //Actualiza el ultimo registro
+                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngId));
+                HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
+                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
+            }else if (Mix==1)
+            {
+                //SMP: Si es Mix
+                //Obtiene el penultimo registro y Actualiza
+                CantidadMix = Cantidad-1;
+                curIngresos.move(CantidadMix);
+                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngId));
+                HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
+                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
+
+                //Obtiene el ultimo registro y Actualiza
+                curIngresos.move(Cantidad);
+                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngId));
+                HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
+                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
+
+            }
+        }
     }
 }
