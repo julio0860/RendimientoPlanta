@@ -9,4 +9,154 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.adr.rendimientoplanta.IngresoJabas_Kardex">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lblFecha"
+        android:enabled="false"
+        android:inputType="date"
+        android:layout_columnSpan="4"
+        android:text="01/01/1900"
+        android:textColor="#000000"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true"
+        android:textAppearance="?android:attr/textAppearanceLarge" />
+
+    <TextView
+        android:id="@+id/lblLinea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="LINEA 1 PUN PY"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_below="@+id/imageView5"
+        android:layout_alignParentStart="true" />
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView5"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/lblFecha"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/lblSucursal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="PLANTA YANCAY"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_above="@+id/imageView5"
+        android:layout_toEndOf="@+id/imbRegresar" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbRegresar"
+        android:layout_row="0"
+        android:layout_column="6"
+        android:src="@android:drawable/ic_menu_revert"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentStart="true" />
+
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView3"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/lblLinea" />
+
+    <TextView
+        android:id="@+id/lblEmpresa"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="ADR"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignTop="@+id/lblSucursal"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/lblCultivo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="UVA"
+        android:textStyle="bold"
+        android:layout_marginLeft="0dp"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:layout_alignParentTop="true"
+        android:layout_toStartOf="@+id/lblFecha"
+        android:layout_marginEnd="43dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Kardex Paradas"
+        android:id="@+id/textView94"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_below="@+id/imageView3"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="32dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView15"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_alignParentStart="true"
+        android:layout_below="@+id/textView94"
+        android:layout_alignParentLeft="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lstParadas"
+        android:layout_below="@+id/imageView15"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/textView95" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="Kardex Ingresos"
+        android:id="@+id/textView95"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView16"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView95"
+        android:layout_alignParentStart="true" />
+
+    <ListView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/lstIngresos"
+        android:layout_below="@+id/textView95"
+        android:layout_alignParentStart="true"
+        android:layout_above="@+id/imbRegresar" />
+
+
 </RelativeLayout>

@@ -31,7 +31,7 @@ public class T_LineaParadas {
 
     public static final String Drop_LineaParadas ="DROP TABLE IF EXISTS "+NombreTabla;
 
-    public static final String CamposSeleccionar_LineaParadas = LinParId+","+LinRegIdMovil+","+MotParId
+    public static final String CamposSeleccionar_LineaParadas = LinParId+" as '_id',"+LinRegIdMovil+","+MotParId
             +","+LinParHoraIni+","+LinParHoraFin+","+LinParParada+","+LinParSincronizado
             +","+LinParFechaHora+","+MotParDescripcion;
 
@@ -78,6 +78,13 @@ public class T_LineaParadas {
     {
         String Seleccionar;
         Seleccionar = "SELECT COUNT(*)"
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
+        return Seleccionar;
+    }
+    public static String ResumenPorId(int LinReg_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT COUNT(*),SUM("+LinParParada+")"
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
         return Seleccionar;
     }
