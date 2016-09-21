@@ -127,7 +127,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
         lblCultivo = (TextView) findViewById(R.id.lblCultivo);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
-        lblFecha = (TextView) findViewById(R.id.lblFecha);
+        lblFecha = (TextView) findViewById(R.id.edtFecha);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblFecha.setText(Variables.FechaStr);
         lblSucursal.setText(Variables.Suc_Descripcion);
