@@ -55,7 +55,7 @@
         android:textColor="#000000"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_above="@+id/lblLinea"
-        android:layout_toEndOf="@+id/editText3" />
+        android:layout_toEndOf="@+id/edtHoraIni" />
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -79,7 +79,7 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:text="20"
-        android:id="@+id/lblIngresos"
+        android:id="@+id/lblNumIngresos"
         android:layout_row="5"
         android:layout_column="21"
         android:enabled="false"
@@ -95,7 +95,7 @@
         android:id="@+id/imageView7"
         android:background="#000000"
         android:baselineAlignBottom="false"
-        android:layout_below="@+id/lblIngresos"
+        android:layout_below="@+id/lblNumIngresos"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -133,7 +133,7 @@
         android:layout_height="wrap_content"
         android:inputType="time"
         android:text="@string/lblHoraCero"
-        android:id="@+id/editText3"
+        android:id="@+id/edtHoraIni"
         android:layout_row="5"
         android:layout_column="21"
         android:enabled="false"
@@ -151,7 +151,7 @@
         android:layout_column="23"
         android:src="@android:drawable/presence_away"
         android:layout_below="@+id/textView87"
-        android:layout_toEndOf="@+id/editText3" />
+        android:layout_toEndOf="@+id/edtHoraIni" />
 
     <TextView
         android:layout_width="match_parent"
@@ -160,7 +160,7 @@
         android:text="Lote"
         android:id="@+id/textView89"
         android:textColor="#000000"
-        android:layout_below="@+id/editText3"
+        android:layout_below="@+id/edtHoraIni"
         android:layout_alignParentStart="true"
         android:layout_marginTop="38dp" />
 
@@ -220,7 +220,8 @@
             android:layout_height="wrap_content"
             android:text="Campo"
             android:id="@+id/rbnCampo"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"
@@ -258,7 +259,7 @@
         android:layout_alignParentStart="true" />
 
     <Spinner
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:id="@+id/spnConsumidorMix"
         android:layout_marginStart="169dp"
@@ -292,7 +293,8 @@
             android:layout_height="wrap_content"
             android:text="Campo"
             android:id="@+id/rbnCampoMix"
-            android:textAppearance="?android:attr/textAppearanceLarge" />
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:checked="true" />
 
         <RadioButton
             android:layout_width="wrap_content"

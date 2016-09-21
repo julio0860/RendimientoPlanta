@@ -160,7 +160,7 @@ public class IngresoJabas_Registro extends AppCompatActivity {
         txtParadas = (EditText) findViewById(R.id.txtParadas);
         txtCantidad = (EditText) findViewById(R.id.txtCantidad);
 
-        lblHoraInicio = (EditText) findViewById(R.id.lblIngresos);
+        lblHoraInicio = (EditText) findViewById(R.id.lblNumIngresos);
         lblHoraFin = (EditText) findViewById(R.id.lblHoraFin);
         //FIN ASIGNACION EDITTEXT
         lblPlanta = (TextView) findViewById(R.id.lblSucursal);
