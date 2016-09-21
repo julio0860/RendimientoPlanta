@@ -20,7 +20,7 @@ public class T_Mesa {
 
     {
         String _INSERT;
-        _INSERT = "INSERT INTO " + N_TABLA + "(" + POSICION + "," +
+        _INSERT = "INSERT INTO " + N_TABLA + "(" + POSICION +
                 "," + DESCRIPCION +
                 ")VALUES('" +
                 Posicion + "','" + Descripcion + "');";
@@ -36,8 +36,8 @@ public class T_Mesa {
     public static String _SELECT_MESA()
     {
         String _SELECT;
-        _SELECT = "SELECT "+POSICION+" AS '_id',"+
-                ","+DESCRIPCION
+        _SELECT = "SELECT "+POSICION+" AS '_id',"
+                +DESCRIPCION
                 +" FROM "+N_TABLA;
 
         return _SELECT;
