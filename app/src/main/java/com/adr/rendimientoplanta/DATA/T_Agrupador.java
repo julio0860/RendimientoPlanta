@@ -28,8 +28,7 @@ public class T_Agrupador {
             LINID +" INTEGER NOT NULL, "+
             LADO +" TEXT NOT NULL, "+
             POSICION +" INTEGER NOT NULL, "+
-            DNI +" TEXT NOT NULL, "+
-
+            DNI +" TEXT NOT NULL "+
             ");";
 
     public static final String DROP_T_AGRUPADOR ="DROP TABLE IF EXISTS "+N_TABLA;
