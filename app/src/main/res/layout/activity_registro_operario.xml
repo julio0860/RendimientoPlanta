@@ -9,4 +9,180 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.adr.rendimientoplanta.RegistroOperario">
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ADR"
+        android:id="@+id/textView94"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PLANTA DON CARLOS"
+        android:id="@+id/textView95"
+        android:layout_alignTop="@+id/textView94"
+        android:layout_toEndOf="@+id/textView94"
+        android:layout_marginStart="35dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="LINEA 1 PUN PDC"
+        android:id="@+id/textView97"
+        android:layout_above="@+id/textView98"
+        android:layout_alignEnd="@+id/editText6" />
+
+    <EditText
+        android:layout_width="120dp"
+        android:layout_height="wrap_content"
+        android:ems="10"
+        android:id="@+id/editText6"
+        android:layout_row="3"
+        android:layout_column="7"
+        android:enabled="false"
+        android:inputType="date"
+        android:layout_columnSpan="4"
+        android:text="01/01/1900"
+        android:textColor="#000000"
+        android:focusableInTouchMode="false"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PUNNET"
+        android:id="@+id/textView99"
+        android:layout_below="@+id/editText6"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="0dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ARMADO"
+        android:id="@+id/textView100"
+        android:layout_alignTop="@+id/textView99"
+        android:layout_alignEnd="@+id/textView95" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="LADO A"
+        android:id="@+id/textView98"
+        android:layout_below="@+id/textView99"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="15dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="DNI"
+        android:id="@+id/textView101"
+        android:layout_marginTop="45dp"
+        android:layout_below="@+id/textView98"
+        android:layout_alignParentStart="true"
+        android:inputType="number" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText7"
+        android:layout_alignBottom="@+id/textView101"
+        android:layout_toEndOf="@+id/textView102"
+        android:layout_marginStart="28dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="PERSONA"
+        android:id="@+id/textView102"
+        android:layout_marginTop="27dp"
+        android:inputType="number"
+        android:layout_below="@+id/editText7"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="textPersonName"
+        android:ems="10"
+        android:id="@+id/editText8"
+        android:layout_alignBottom="@+id/textView102"
+        android:layout_alignStart="@+id/editText7"
+        android:layout_alignEnd="@+id/editText6" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="MOTIVO"
+        android:id="@+id/textView103"
+        android:layout_marginTop="60dp"
+        android:inputType="number"
+        android:layout_below="@+id/textView102"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/spinner"
+        android:layout_alignBottom="@+id/textView103"
+        android:layout_alignStart="@+id/editText8" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HORA"
+        android:id="@+id/textView104"
+        android:layout_marginTop="33dp"
+        android:inputType="number"
+        android:layout_below="@+id/textView103"
+        android:layout_alignParentStart="true" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:text="@string/lblHoraCero"
+        android:id="@+id/editText9"
+        android:layout_row="5"
+        android:layout_column="21"
+        android:enabled="false"
+        android:textColor="#000000"
+        android:layout_alignBottom="@+id/textView104"
+        android:layout_alignStart="@+id/spinner"
+        android:layout_toStartOf="@+id/imageButton" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imageButton"
+        android:layout_row="5"
+        android:layout_column="23"
+        android:src="@android:drawable/presence_away"
+        android:layout_alignBottom="@+id/editText9"
+        android:layout_centerHorizontal="true" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="REGISTRAR"
+        android:id="@+id/button2"
+        android:layout_below="@+id/textView104"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="75dp" />
 </RelativeLayout>

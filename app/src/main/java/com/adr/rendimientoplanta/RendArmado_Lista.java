@@ -75,7 +75,7 @@ public class RendArmado_Lista extends AppCompatActivity {
      dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent ActividadModificar = new Intent(RendArmado_Lista.this, RendArmado_Registro.class);
+                Intent ActividadModificar = new Intent(RendArmado_Lista.this, RegistroOperario.class);
 
 //                Cursor curPersonal = (Cursor) parent.getItemAtPosition(position);
 //                Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
