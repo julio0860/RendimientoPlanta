@@ -50,7 +50,8 @@
         <activity android:name=".IngresoJabas_RegistroLinea" />
         <activity android:name=".IngresoJabas_RegistroJabas" />
         <activity android:name=".IngresoJabas_Grilla" />
-        <activity android:name=".IngresoJabas_Kardex"></activity>
+        <activity android:name=".IngresoJabas_Kardex" />
+        <activity android:name=".RegistroOperario"></activity>
     </application>
 
 </manifest>

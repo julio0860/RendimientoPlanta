@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -71,22 +72,19 @@ public class RendArmado_Lista extends AppCompatActivity {
                new int[]{R.id.text1,R.id.text2,R.id.text3},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
 
-
-
-   /*     dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+     dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 Intent ActividadModificar = new Intent(RendArmado_Lista.this, RendArmado_Registro.class);
 
-                Cursor curPersonal = (Cursor) parent.getItemAtPosition(position);
-                Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
-                Variables.Per_Nombres = curPersonal.getString(curPersonal.getColumnIndex("APE"));
-                Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("Per_Codigo"));
-                *//* //ANTIGUA FORMA
+//                Cursor curPersonal = (Cursor) parent.getItemAtPosition(position);
+//                Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
+//                Variables.Per_Nombres = curPersonal.getString(curPersonal.getColumnIndex("APE"));
+//                Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("Per_Codigo"));
+                 //ANTIGUA FORMA
 
-                ActividadModificar.putExtra("ID",((TextView)view.findViewById(android.R.id.text1)).getText().toString());
-                ActividadModificar.putExtra("NOMBRES",((TextView)view.findViewById(android.R.id.text2)).getText().toString());
-               *//* //----
+//                ActividadModificar.putExtra("ID",((TextView)view.findViewById(android.R.id.text1)).getText().toString());
+//                ActividadModificar.putExtra("NOMBRES",((TextView)view.findViewById(android.R.id.text2)).getText().toString());
 
                 //Se inicia la actividad nueva
                 startActivity(ActividadModificar);
@@ -94,7 +92,7 @@ public class RendArmado_Lista extends AppCompatActivity {
 
                 //Toast.makeText(IngresoJabas_Lista.this, "Hiciste click en el registro " + OpcionSeleccion + " .",Toast.LENGTH_SHORT).show();
             }
-        });*/
+        });
             imbConfigurar.setOnClickListener(new View.OnClickListener() {
                                                  @Override
                                                  public void onClick(View v) {
