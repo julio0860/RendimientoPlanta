@@ -79,6 +79,18 @@ public class T_LineaIngreso {
                 +LinIngId+"='"+LinIng_Id+"';";
         return Actualizar;
     }
+    public static String LineaIngreso_ActualizarHora(
+            int LinIng_Id,double tEfectivo, String HoraFin)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +LinIngHoraFin+"= '"+HoraFin
+                +LinIngtEfectivo+"= '"+tEfectivo
+                +"' WHERE "
+                +LinIngId+"='"+LinIng_Id+"';";
+        return Actualizar;
+    }
+
     public static String LineaIngreso_SeleccionarIdCabecera(int LinReg_IdMovil)
     {
         String Seleccionar;
