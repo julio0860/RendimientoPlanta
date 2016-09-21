@@ -62,30 +62,14 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblLado.setText(Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
-
-
-        Cursor Rse=LocBD.rawQuery("DECLARE @CONTADOR INT=1\n" +
-                "DECLARE @CANTMESAS INT\n" +
-                "CREATE TABLE #Mesas (Idposicion INT)\n" +
-                "SELECT @CANTMESAS=Mesa FROM MesaLinea  WHERE Cam_Id=37 AND Pro_Id=2 AND Sub_Id=4 AND Lin_Id=7 AND Lado='A'\n" +
-                "WHILE @CANTMESAS>=@CONTADOR\n" +
-                "BEGIN\n" +
-                "  INSERT INTO #Mesas(Idposicion) VALUES (@CONTADOR)\n" +
-                "  SET @CONTADOR+=1\n" +
-                " END\n" +
-                "\n" +
-                "SELECT M.idposicion,ISNULL(A.DNI,'')AS DNI\n" +
-                "FROM #Mesas M \n" +
-                "\tLEFT JOIN Agrupador A ON M.Idposicion = A.Posicion AND A.Fecha='20160920' AND A.Suc_Id=3 AND A.Pro_Id=2 AND A.Sub_Id=4 AND A.Lin_Id=7 AND A.Lado='A'\n" +
-                "\tDROP TABLE #Mesas\n",null);
-
-        //Cursor Rse = LocBD.rawQuery("SELECT Per_Id AS '_id',1 AS 'MESA',Per_Nombres||' '||Per_ApePaterno||' '||Per_ApeMaterno AS 'APE',Per_Codigo FROM Personal LIMIT 22",null);
+        Cursor Rse=LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI' FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='"+Variables.FechaStrBD+"' AND A.Suc_Id='"+Variables.Suc_Id+"'  AND  \n" +
+                "A.Pro_Id='"+Variables.Pro_Id+"'  AND A.Sub_Id='"+Variables.Sub_Id+"'  AND A.Lin_Id='"+Variables.Lin_Id+"' AND A.Lado='"+Variables.Lin_Lado+"'\n" +
+                " WHERE M.posicion <=\n" +
+                "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='"+Variables.Pro_Id+"'  AND Sub_Id='"+Variables.Sub_Id+"' AND Lin_Id='"+Variables.Lin_Id+"' AND Lado='"+Variables.Lin_Lado+"')",null);
 
         AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, android.R.layout.simple_list_item_2,Rse, new String[]{"_id","DNI"},
                new int[]{android.R.id.text1,android.R.id.text2},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-
-
-
+        dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
 
 
 

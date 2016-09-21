@@ -217,7 +217,25 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                  Variables.Lin_Id = CurLinea.getInt(CurLinea.getColumnIndex(BaseColumns._ID));
                                                  Variables.Lin_Descripcion = CurLinea.getString(CurLinea.getColumnIndex(T_Linea.LINDESCRIPCION));
                                                  Variables.Lin_Lado = spnLado.getSelectedItem().toString();
-                                                 Variables.FechaStr = edtFecha.getText().toString();
+                                                 String mes,dia;
+                                                if (mDay<10)
+                                                {
+                                                    dia="0"+String.valueOf(mDay);
+                                                }
+                                                 else
+                                                {
+                                                    dia=String.valueOf(mDay);
+                                                }
+                                                 if (mMonth+1<10)
+                                                 {
+                                                     mes="0"+String.valueOf(mMonth+1);
+                                                 }
+                                                 else
+                                                 {
+                                                     mes=String.valueOf(mMonth+1);
+                                                 }
+                                                 Variables.FechaStr =edtFecha.getText().toString();
+                                                 Variables.FechaStrBD=String.valueOf(mYear)+mes+dia;
 
                                                  Intent ActividadNueva = new Intent(RendArmado_Parametros.this, RendArmado_Lista.class);
                                                  startActivity(ActividadNueva);
@@ -229,8 +247,10 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
 }
     private void updateDisplay() {
+
         edtFecha.setText(new StringBuilder()
                 //Mes es 0 por eso se agrega 1
+
                 .append(mDay).append("/")
                 .append(mMonth + 1).append("/")
                 .append(mYear).append("")
@@ -241,6 +261,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int MonthOfYear, int dayOfMonth) {
             mYear = year;
             mMonth = MonthOfYear;
+
             mDay = dayOfMonth;
             updateDisplay();
         }
