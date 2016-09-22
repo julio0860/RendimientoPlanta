@@ -14,7 +14,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ADR"
-        android:id="@+id/textView94"
+        android:id="@+id/lblEmpresa"
         android:layout_alignParentTop="true"
         android:layout_alignParentStart="true" />
 
@@ -23,9 +23,9 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PLANTA DON CARLOS"
-        android:id="@+id/textView95"
-        android:layout_alignTop="@+id/textView94"
-        android:layout_toEndOf="@+id/textView94"
+        android:id="@+id/lblSucursal"
+        android:layout_alignTop="@+id/lblEmpresa"
+        android:layout_toEndOf="@+id/lblEmpresa"
         android:layout_marginStart="35dp" />
 
     <TextView
@@ -33,15 +33,15 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LINEA 1 PUN PDC"
-        android:id="@+id/textView97"
-        android:layout_above="@+id/textView98"
-        android:layout_alignEnd="@+id/editText6" />
+        android:id="@+id/lblLinea"
+        android:layout_above="@+id/lblLado"
+        android:layout_alignEnd="@+id/edtFecha" />
 
     <EditText
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:id="@+id/editText6"
+        android:id="@+id/edtFecha"
         android:layout_row="3"
         android:layout_column="7"
         android:enabled="false"
@@ -58,8 +58,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PUNNET"
-        android:id="@+id/textView99"
-        android:layout_below="@+id/editText6"
+        android:id="@+id/lblProceso"
+        android:layout_below="@+id/edtFecha"
         android:layout_alignParentStart="true"
         android:layout_marginTop="0dp" />
 
@@ -68,17 +68,17 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ARMADO"
-        android:id="@+id/textView100"
-        android:layout_alignTop="@+id/textView99"
-        android:layout_alignEnd="@+id/textView95" />
+        android:id="@+id/lblSubproceso"
+        android:layout_alignTop="@+id/lblProceso"
+        android:layout_alignEnd="@+id/lblSucursal" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LADO A"
-        android:id="@+id/textView98"
-        android:layout_below="@+id/textView99"
+        android:id="@+id/lblLado"
+        android:layout_below="@+id/lblProceso"
         android:layout_alignParentStart="true"
         android:layout_marginTop="15dp" />
 
@@ -89,19 +89,21 @@
         android:text="DNI"
         android:id="@+id/textView101"
         android:layout_marginTop="45dp"
-        android:layout_below="@+id/textView98"
+        android:layout_below="@+id/lblLado"
         android:layout_alignParentStart="true"
         android:inputType="number" />
 
     <EditText
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText7"
+        android:id="@+id/edtDni"
         android:layout_alignBottom="@+id/textView101"
         android:layout_toEndOf="@+id/textView102"
-        android:layout_marginStart="28dp" />
+        android:layout_marginStart="28dp"
+        android:maxLength="8"
+        android:inputType="number"
+        android:focusable="false" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -111,7 +113,7 @@
         android:id="@+id/textView102"
         android:layout_marginTop="27dp"
         android:inputType="number"
-        android:layout_below="@+id/editText7"
+        android:layout_below="@+id/edtDni"
         android:layout_alignParentStart="true" />
 
     <EditText
@@ -119,10 +121,11 @@
         android:layout_height="wrap_content"
         android:inputType="textPersonName"
         android:ems="10"
-        android:id="@+id/editText8"
+        android:id="@+id/edtPersonal"
         android:layout_alignBottom="@+id/textView102"
-        android:layout_alignStart="@+id/editText7"
-        android:layout_alignEnd="@+id/editText6" />
+        android:layout_alignStart="@+id/edtDni"
+        android:layout_alignEnd="@+id/edtFecha"
+        android:editable="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -140,7 +143,7 @@
         android:layout_height="wrap_content"
         android:id="@+id/spinner"
         android:layout_alignBottom="@+id/textView103"
-        android:layout_alignStart="@+id/editText8" />
+        android:layout_alignStart="@+id/edtPersonal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -179,10 +182,11 @@
 
     <Button
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
+        android:layout_height="70dp"
         android:text="REGISTRAR"
         android:id="@+id/button2"
         android:layout_below="@+id/textView104"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="75dp" />
+        android:layout_marginTop="75dp"
+        android:layout_alignParentEnd="true" />
 </RelativeLayout>

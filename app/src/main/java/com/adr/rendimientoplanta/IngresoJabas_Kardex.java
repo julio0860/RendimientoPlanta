@@ -3,7 +3,6 @@ package com.adr.rendimientoplanta;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -15,10 +14,7 @@ import android.widget.TextView;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
 import com.adr.rendimientoplanta.DATA.T_LineaParadas;
-import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
-
-import java.util.List;
 
 public class IngresoJabas_Kardex extends AppCompatActivity {
 
@@ -56,7 +52,7 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
         lblCultivo = (TextView) findViewById(R.id.lblCultivo);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
-        lblFecha = (TextView) findViewById(R.id.lblFecha);
+        lblFecha = (TextView) findViewById(R.id.edtFecha);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
 
         //SMP: Asignación de texto a variables TextView en base a parametros establecidos

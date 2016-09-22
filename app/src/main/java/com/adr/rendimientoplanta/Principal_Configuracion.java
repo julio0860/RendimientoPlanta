@@ -152,7 +152,7 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxIngresoJabas = (CheckBox) findViewById(R.id.cbxIngresoJabas);
         cbxTareo = (CheckBox)findViewById(R.id.cbxTareo);
 
-        txtFecha = (TextView) findViewById(R.id.lblFecha);
+        txtFecha = (TextView) findViewById(R.id.edtFecha);
 
         LocalBD LBD = new LocalBD(Principal_Configuracion.this);
         final SQLiteDatabase LocBD = LBD.getWritableDatabase();

@@ -60,10 +60,10 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblEmpresa.setText(Variables.Emp_Abrev);
         lblSucursal.setText(Variables.Suc_Descripcion);
         lblLinea.setText(Variables.Lin_Descripcion);
-        lblLado.setText(Variables.Lin_Lado);
+        lblLado.setText("LADO: "+Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
-        Cursor Rse=LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno+' '+p.Per_ApePaterno+' '+p.Per_Nombres,' ') AS 'PER'  FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='"+Variables.FechaStrBD+"' AND A.Suc_Id='"+Variables.Suc_Id+"'  AND  \n" +
+        Cursor Rse=LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER'  FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='"+Variables.FechaStrBD+"' AND A.Suc_Id='"+Variables.Suc_Id+"'  AND  \n" +
                 "A.Pro_Id='"+Variables.Pro_Id+"'  AND A.Sub_Id='"+Variables.Sub_Id+"'  AND A.Lin_Id='"+Variables.Lin_Id+"' AND A.Lado='"+Variables.Lin_Lado+"'  left join Personal p on p.Per_Codigo=A.DNI \n" +
                 " WHERE M.posicion <=\n" +
                 "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='"+Variables.Pro_Id+"'  AND Sub_Id='"+Variables.Sub_Id+"' AND Lin_Id='"+Variables.Lin_Id+"' AND Lado='"+Variables.Lin_Lado+"')",null);

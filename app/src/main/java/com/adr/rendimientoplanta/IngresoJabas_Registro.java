@@ -156,7 +156,7 @@ public class IngresoJabas_Registro extends AppCompatActivity {
         //txtDia = (EditText) findViewById(R.id.txtDia);
         //txtMes = (EditText) findViewById(R.id.txtMes);
         //txtAño = (EditText) findViewById(R.id.txtAño);
-        txtFecha = (EditText) findViewById(R.id.lblFecha);
+        txtFecha = (EditText) findViewById(R.id.edtFecha);
         txtParadas = (EditText) findViewById(R.id.txtParadas);
         txtCantidad = (EditText) findViewById(R.id.txtCantidad);
 

@@ -320,7 +320,7 @@
             android:layout_height="wrap_content"
             android:inputType="date"
             android:ems="10"
-            android:id="@+id/lblFecha"
+            android:id="@+id/edtFecha"
             android:layout_row="0"
             android:layout_column="6" />
 
