@@ -63,14 +63,15 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblLado.setText("LADO: "+Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
-        Cursor Rse=LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER'  FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='"+Variables.FechaStr+"' AND A.Suc_Id='"+Variables.Suc_Id+"'  AND  \n" +
+        Cursor Rse=LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER',IFNULL(A.Agru_Id ,0) AS 'AGRUID'  FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='"+Variables.FechaStr+"' AND A.Suc_Id='"+Variables.Suc_Id+"'  AND  \n" +
                 "A.Pro_Id='"+Variables.Pro_Id+"'  AND A.Sub_Id='"+Variables.Sub_Id+"'  AND A.Lin_Id='"+Variables.Lin_Id+"' AND A.Lado='"+Variables.Lin_Lado+"'  left join Personal p on p.Per_Codigo=A.DNI \n" +
                 " WHERE M.posicion <=\n" +
                 "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='"+Variables.Pro_Id+"'  AND Sub_Id='"+Variables.Sub_Id+"' AND Lin_Id='"+Variables.Lin_Id+"' AND Lado='"+Variables.Lin_Lado+"')",null);
 
-        AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, R.layout.simple_list_item_3,Rse, new String[]{"_id","DNI","PER"},
+        AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, R.layout.simple_list_item_3,Rse, new String[]{"_id","DNI","PER","AGRUID"},
                new int[]{R.id.text1,R.id.text2,R.id.text3},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
+        dgvPersonalRendimiento.setNumColumns(4);
 
      dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -81,6 +82,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                 Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
                 Variables.Per_Nombres = curPersonal.getString(curPersonal.getColumnIndex("PER"));
                 Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("DNI"));
+                Variables.Agru_Id=curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
                  //ANTIGUA FORMA
 
 //                ActividadModificar.putExtra("ID",((TextView)view.findViewById(android.R.id.text1)).getText().toString());

@@ -83,6 +83,14 @@ public class RegistroOperario extends AppCompatActivity {
         lblLado.setText("LADO: "+Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
+        if (Variables.Per_Dni.equals("")){
+        }
+
+        else
+        {
+            edtDni.setText(Variables.Per_Dni);
+            edtPersonal.setText(Variables.Per_Nombres);
+        }
 
 
         edtDni.setOnKeyListener(new View.OnKeyListener()
@@ -129,36 +137,35 @@ public class RegistroOperario extends AppCompatActivity {
         });
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
+
             @Override
             public void onClick (View v){
               if (Variables.Per_Dni.equals("")){
-                  AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RegistroOperario.this);
-                  alertDialog1.setTitle("AVISO");
-                  alertDialog1.setMessage("INGRESE NUMERO DE DNI");
-                  alertDialog1.setPositiveButton(
-                          "Yes",
-                          new DialogInterface.OnClickListener() {
-                              public void onClick(DialogInterface dialog, int id) {
-                                  dialog.cancel();
-                              }
-                          });
-                  alertDialog1.create();
-                  alertDialog1.show();
+                 Mensaje("INGRESE NUMERO DE DNI");
                 }
                 else
               {
+                  Boolean Estado=false;
                   try {
                       //Rse.next();
                       LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
-
+                      Estado=true;
 
                   } catch (Exception e) {
-
+                     Estado=false;
                       Log.e(TAG, "Error Exception: " + e);
                       Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR OPERARIO" + e.toString(), Toast.LENGTH_SHORT).show();
                   }
+                  if (Estado==true)
+                  {
+                      Mensaje("REGISTRO EXITOSO");
 
+                  }else
+                  {
+
+                  }
               }
+
             }
         });
 }
@@ -181,5 +188,21 @@ public class RegistroOperario extends AppCompatActivity {
                 return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
         }
         return null;
+    }
+
+    private void Mensaje(String mensaje)
+    {
+        AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RegistroOperario.this);
+        alertDialog1.setTitle("AVISO");
+        alertDialog1.setMessage(mensaje);
+        alertDialog1.setPositiveButton(
+                "Yes",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+                        dialog.cancel();
+                    }
+                });
+        alertDialog1.create();
+        alertDialog1.show();
     }
 }
