@@ -192,8 +192,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         }
 
         //SMP: Poblar Spinner motivo paradas
-        Cursor MotivoParadas = LocBD.rawQuery(T_MotivoParada.MotivoParada_SeleccionarTodos(),null);
-        spnMotivoParadas.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,MotivoParadas,T_MotivoParada.MotParDescripcion));
+        Cursor MotivoParadas = LocBD.rawQuery(T_MotivoParada.MotivoParada_SeleccionarParadas(),null);
+        spnMotivoParadas.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,MotivoParadas,T_MotivoParada.MotDescripcion));
 
         //SMP: Asignación de evento y acciones a ejecutar
         btnAgregarJabas.setOnClickListener(new View.OnClickListener()
@@ -237,7 +237,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                                             // Código propio del método calculo de diferencia de horas
                                             Cursor CurMotPar = (Cursor) spnMotivoParadas.getAdapter().getItem(spnMotivoParadas.getSelectedItemPosition());
                                             MotPar_Id= CurMotPar.getInt(CurMotPar.getColumnIndex(BaseColumns._ID));
-                                            MotPar_Descripcion= CurMotPar.getString(CurMotPar.getColumnIndex(T_MotivoParada.MotParDescripcion));
+                                            MotPar_Descripcion= CurMotPar.getString(CurMotPar.getColumnIndex(T_MotivoParada.MotDescripcion));
 
                                             try {
                                                 LocBD.execSQL(T_LineaParadas.LineaParadas_Insertar(RegLin_Id,MotPar_Id,HoraParIni,HoraParFin,tEfectivoPar,0,fnc.HoraSistema(),MotPar_Descripcion));
