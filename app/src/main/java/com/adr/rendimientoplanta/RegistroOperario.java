@@ -141,6 +141,10 @@ public class RegistroOperario extends AppCompatActivity {
                   alertDialog1.create();
                   alertDialog1.show();
                 }
+                else
+              {
+
+              }
             }
         });
 }
