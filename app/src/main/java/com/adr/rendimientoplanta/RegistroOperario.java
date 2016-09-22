@@ -1,16 +1,25 @@
 package com.adr.rendimientoplanta;
 
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
+import android.widget.ImageButton;
+import android.widget.Spinner;
 import android.widget.TextView;
+import android.widget.TimePicker;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
+
+import java.text.SimpleDateFormat;
 
 public class RegistroOperario extends AppCompatActivity {
     private TextView lblEmpresa;
@@ -19,10 +28,19 @@ public class RegistroOperario extends AppCompatActivity {
     private TextView lblSubproceso;
     private TextView lblLinea;
     private TextView lblLado;
+    private Funciones fnc;
+    private EditText displayTime;
+    private EditText edtHora;
     private EditText edtFecha;
     private EditText edtDni;
     private EditText edtPersonal;
-
+    private Spinner spnMotivos;
+    private ImageButton imbHora;
+    private SimpleCursorAdapter adspnMotivos;
+    private int pHour;
+    private int pMinute;
+    static final int TIME_DIALOG_ID = 1;
+    SimpleDateFormat Formato = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -30,6 +48,7 @@ public class RegistroOperario extends AppCompatActivity {
         LocalBD LBD = new LocalBD(RegistroOperario.this);
 
         final SQLiteDatabase LocBD = LBD.getWritableDatabase();
+        fnc = new Funciones();
 
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
@@ -37,9 +56,12 @@ public class RegistroOperario extends AppCompatActivity {
         lblSubproceso = (TextView) findViewById(R.id.lblSubproceso);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
+        edtHora = (EditText) findViewById(R.id.edtHora);
         edtFecha=(EditText) findViewById(R.id.edtFecha);
         edtDni=(EditText)findViewById(R.id.edtDni);
         edtPersonal=(EditText)findViewById(R.id.edtPersonal);
+        spnMotivos=(Spinner)findViewById(R.id.spnMotivos) ;
+        imbHora= (ImageButton) findViewById(R.id.imbHora);
 
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
@@ -77,5 +99,47 @@ public class RegistroOperario extends AppCompatActivity {
             }
         }
         );
+
+//        Cursor Motivos = LocBD.rawQuery("", null);
+//        adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
+//                Motivos, new String[]{T_Sucursal.SUCDESCRIPCION}, new int[]{android.R.id.text1},
+//                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+//        spnMotivos.setAdapter(adspnMotivos);
+
+        imbHora.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+                //TextView HORA inicio
+                //lblHoraInicio.setText(Formato.format(new Date(System.currentTimeMillis())));
+
+                //displayTime = lblHoraFin;
+                //showDialog(TIME_DIALOG_ID);
+
+                displayTime = edtHora;
+                showDialog(fnc.TIME_DIALOG_ID);
+            }
+        });
+
 }
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    pHour = hourOfDay;
+                    pMinute = minute;
+                    fnc.EstablecerHoraEdt(displayTime,pHour,pMinute);
+                    //EstablecerHoraEdt(displayTime);
+                    //displayToast();
+                }
+            };
+
+    protected Dialog onCreateDialog(int id)
+    {
+        switch (id)
+        {
+            case TIME_DIALOG_ID:
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
+        }
+        return null;
+    }
 }
