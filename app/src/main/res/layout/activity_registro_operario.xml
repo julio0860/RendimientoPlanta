@@ -185,7 +185,7 @@
         android:layout_width="wrap_content"
         android:layout_height="70dp"
         android:text="REGISTRAR"
-        android:id="@+id/button2"
+        android:id="@+id/btnRegistrar"
         android:layout_below="@+id/textView104"
         android:layout_alignParentStart="true"
         android:layout_marginTop="75dp"
