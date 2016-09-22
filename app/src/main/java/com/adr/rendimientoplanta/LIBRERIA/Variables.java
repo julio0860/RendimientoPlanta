@@ -67,6 +67,6 @@ public class Variables extends AppCompatActivity{
     public static String Per_Dni="";
     public static int Per_Ubicacion=0;
     public static String Per_CodigoOpe="";
-
+    public static int Agru_Id=0;
 
 }
