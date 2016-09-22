@@ -272,7 +272,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                                                         RegLin_Id,Con_Id,Con_DescripcionCor,
                                                         LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
                                                         MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
-                                                        EsMix,fnc.HoraSistema(),0));
+                                                        EsMix,fnc.HoraSistema(),-1));
                                                 Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
                                                 edtHoraIni.setText(HoraNula);
 
@@ -324,13 +324,13 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                                                         RegLin_Id,Con_Id,Con_DescripcionCor,
                                                         LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
                                                         MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
-                                                        EsMix,fnc.HoraSistema(),0));
+                                                        EsMix,fnc.HoraSistema(),-1));
 
                                                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
                                                         RegLin_Id,Con_IdMix,Con_DescripcionCorMix,
                                                         LinIng_CantidadMix,MatPriOriIdMix,MatPriOriDescripcionMix,
                                                         MatPriOriFactorMix,EquivalenteMix,HoraIni,HoraNula,0,
-                                                        EsMix,fnc.HoraSistema(),0));
+                                                        EsMix,fnc.HoraSistema(),-1));
 
                                                 Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
                                                 edtHoraIni.setText(HoraNula);
@@ -461,7 +461,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
                 tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
-                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
+                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
             }else if (Mix==1)
             {
                 //SMP: Si es Mix
@@ -472,14 +472,14 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
                 tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
-                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
+                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
 
                 //Obtiene el ultimo registro y Actualiza
                 curIngresos.moveToPrevious();
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
                 tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
-                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
+                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
 
             }
         }

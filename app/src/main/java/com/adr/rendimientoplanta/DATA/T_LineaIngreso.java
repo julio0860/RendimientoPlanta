@@ -80,12 +80,13 @@ public class T_LineaIngreso {
         return Actualizar;
     }
     public static String LineaIngreso_ActualizarHora(
-            int LinIng_Id,double tEfectivo, String HoraFin)
+            int LinIng_Id,double tEfectivo, String HoraFin,int Sincronizado)
     {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
                 +LinIngHoraFin+"= '"+HoraFin+"',"
                 +LinIngtEfectivo+"= '"+tEfectivo+"'"
+                +LinIngSincronizado+"= '"+Sincronizado+"'"
                 +" WHERE "
                 +LinIngId+"='"+LinIng_Id+"';";
         return Actualizar;
