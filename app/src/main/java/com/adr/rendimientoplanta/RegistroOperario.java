@@ -9,6 +9,7 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.Button;
@@ -17,8 +18,10 @@ import android.widget.ImageButton;
 import android.widget.Spinner;
 import android.widget.TextView;
 import android.widget.TimePicker;
+import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
@@ -45,6 +48,7 @@ public class RegistroOperario extends AppCompatActivity {
     private int pHour;
     private int pMinute;
     static final int TIME_DIALOG_ID = 1;
+    private static final String TAG = "RegistroOperario";
     String Dni;
     SimpleDateFormat Formato = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
     @Override
@@ -91,8 +95,8 @@ public class RegistroOperario extends AppCompatActivity {
                     //if (keyCode==13)
                     if (keyCode==KeyEvent.KEYCODE_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER|| event.getAction() == KeyEvent.KEYCODE_ENTER)
                     {
-                        Dni=edtDni.getText().toString();
-                        Cursor Rse=LocBD.rawQuery("SELECT Per_Codigo,Per_ApePaterno || ' '|| Per_ApeMaterno||' '||Per_Nombres AS 'PERSONAL' FROM PERSONAL WHERE Per_Codigo='"+Dni+"'",null);
+                        Variables.Per_Dni=edtDni.getText().toString();
+                        Cursor Rse=LocBD.rawQuery("SELECT Per_Codigo,Per_ApePaterno || ' '|| Per_ApeMaterno||' '||Per_Nombres AS 'PERSONAL' FROM PERSONAL WHERE Per_Codigo='"+Variables.Per_Dni+"'",null);
                         if (Rse.moveToFirst()) {
                             //Recorremos el cursor hasta que no haya más registros
                             do {
@@ -127,7 +131,7 @@ public class RegistroOperario extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-              if (Dni.equals("")){
+              if (Variables.Per_Dni.equals("")){
                   AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RegistroOperario.this);
                   alertDialog1.setTitle("AVISO");
                   alertDialog1.setMessage("INGRESE NUMERO DE DNI");
@@ -143,6 +147,16 @@ public class RegistroOperario extends AppCompatActivity {
                 }
                 else
               {
+                  try {
+                      //Rse.next();
+                      LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+
+
+                  } catch (Exception e) {
+
+                      Log.e(TAG, "Error Exception: " + e);
+                      Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR OPERARIO" + e.toString(), Toast.LENGTH_SHORT).show();
+                  }
 
               }
             }
