@@ -242,7 +242,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                     Con_Id= CurConsumidor.getInt(CurConsumidor.getColumnIndex(BaseColumns._ID));
                     Con_DescripcionCor= CurConsumidor.getString(CurConsumidor.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
 
-                    Cursor CurConsumidorMix = (Cursor) spnConsumidorMix.getAdapter().getItem(spnConsumidor.getSelectedItemPosition());
+                    Cursor CurConsumidorMix = (Cursor) spnConsumidorMix.getAdapter().getItem(spnConsumidorMix.getSelectedItemPosition());
                     Con_IdMix= CurConsumidorMix.getInt(CurConsumidorMix.getColumnIndex(BaseColumns._ID));
                     Con_DescripcionCorMix= CurConsumidorMix.getString(CurConsumidorMix.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
 
