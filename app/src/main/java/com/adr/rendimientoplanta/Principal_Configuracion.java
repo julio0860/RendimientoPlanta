@@ -584,7 +584,7 @@ public class Principal_Configuracion extends AppCompatActivity {
                           try
                           {
                               LocBD.execSQL(T_MotivoParada.MotivoParada_Insertar(Rse.getInt(1),
-                                      Rse.getString(2),Rse.getInt(3),Rse.getInt(4)));
+                                      Rse.getString(2),Rse.getInt(3),Rse.getInt(4),Rse.getInt(5)));
                               Estado = true;
                           }catch (Exception e)
                           {

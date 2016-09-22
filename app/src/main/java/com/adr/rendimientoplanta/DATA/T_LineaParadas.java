@@ -6,7 +6,7 @@ package com.adr.rendimientoplanta.DATA;
 public class T_LineaParadas {
     public static final String LinParId ="LinPar_Id";
     public static final String LinRegIdMovil ="LinReg_IdMovil";
-    public static final String MotParId = "MotPar_Id";
+    public static final String MotId = "Mot_Id";
     public static final String LinParHoraIni = "LinPar_HoraIni";
     public static final String LinParHoraFin = "LinPar_HoraFin";
     public static final String LinParParada = "LinPar_Parada";
@@ -20,7 +20,7 @@ public class T_LineaParadas {
     public static final String Create_LineaParadas ="CREATE TABLE " + NombreTabla+"("+
             LinParId +" INTEGER PRIMARY KEY AUTOINCREMENT, "+
             LinRegIdMovil +" INTEGER, "+
-            MotParId+" INTEGER NOT NULL, "+
+            MotId+" INTEGER NOT NULL, "+
             LinParHoraIni+" TEXT NOT NULL, "+
             LinParHoraFin+" TEXT NOT NULL, "+
             LinParParada+" REAL NOT NULL, "+
@@ -31,12 +31,12 @@ public class T_LineaParadas {
 
     public static final String Drop_LineaParadas ="DROP TABLE IF EXISTS "+NombreTabla;
 
-    public static final String CamposSeleccionar_LineaParadas = LinParId+" as '_id',"+LinRegIdMovil+","+MotParId
+    public static final String CamposSeleccionar_LineaParadas = LinParId+" as '_id',"+LinRegIdMovil+","+MotId
             +","+LinParHoraIni+","+LinParHoraFin+","+LinParParada+","+LinParSincronizado
             +","+LinParFechaHora+","+MotParDescripcion;
 
     public static final String CamposInsertar_LineaParadas =
-            LinRegIdMovil+","+MotParId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
+            LinRegIdMovil+","+MotId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
             +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion;
 
     public static String LineaParadas_Insertar(
