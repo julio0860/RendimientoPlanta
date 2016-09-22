@@ -57,7 +57,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
     private double LinIngEquivalente;
     private double LinIngEquivalenteMix;
 
-    private String HoraNula="--:--:--";
+    private String HoraNula="--";
 
     //SMP:
     private EditText displayTime;
