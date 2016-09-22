@@ -63,8 +63,8 @@ public class T_LineaIngreso {
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaIngreso+
                 ")VALUES('"+
                 LinReg_IdMovil+"','"+Con_Id+"','"+Con_DescripcionCor+"','"+LinIng_Cantidad+"','"
-                +MatProOri_Id+"','"+MatPriOri_Descripcion+"','"+MatPriOri_Factor+"','"+LinIng_Equivalente
-                +LinIng_HoraIni+"','"+LinIng_HoraFin+"','"+LinIng_tEfectivo+"','"+LinIng_Mix
+                +MatProOri_Id+"','"+MatPriOri_Descripcion+"','"+MatPriOri_Factor+"','"+LinIng_Equivalente+"','"
+                +LinIng_HoraIni+"','"+LinIng_HoraFin+"','"+LinIng_tEfectivo+"','"+LinIng_Mix+"','"
                 +LinIng_FechaHora+"','"+LinIng_Sincronizado
                 +"');";
         return Insertar;
@@ -84,9 +84,9 @@ public class T_LineaIngreso {
     {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
-                +LinIngHoraFin+"= '"+HoraFin
-                +LinIngtEfectivo+"= '"+tEfectivo
-                +"' WHERE "
+                +LinIngHoraFin+"= '"+HoraFin+"',"
+                +LinIngtEfectivo+"= '"+tEfectivo+"'"
+                +" WHERE "
                 +LinIngId+"='"+LinIng_Id+"';";
         return Actualizar;
     }

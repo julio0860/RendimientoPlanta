@@ -12,6 +12,7 @@ import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
 import com.adr.rendimientoplanta.DATA.T_LineaParadas;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -22,6 +23,7 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
     private ImageButton imbRegresar;
 
     private ListView lstParadas;
+    private ListView lstIngresos;
 
     //SMP: Declaración de variables TextView
     private TextView lblSucursal;
@@ -43,7 +45,7 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
 
         lstParadas = (ListView) findViewById(R.id.lstParadas);
-
+        lstIngresos= (ListView) findViewById(R.id.lstIngresos);
         RegLin_Id = getIntent().getIntExtra("RegLin_Id",0);
 
         //SMP: Asignación de variables TextView a Layout
@@ -65,6 +67,12 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
                 CurLineaParadas,new String[]{T_LineaParadas.LinParParada,T_LineaParadas.MotParDescripcion},
                 new int[]{android.R.id.text1,android.R.id.text2},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstParadas.setAdapter(AdaptadorListaParadas);
+
+        Cursor CurLineaIngresos = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
+        SimpleCursorAdapter AdaptadorListaIngresos = new SimpleCursorAdapter(this,android.R.layout.simple_list_item_2,
+                CurLineaIngresos,new String[]{T_LineaIngreso.LinIngtEfectivo,T_LineaIngreso.LinIngHoraFin},
+                new int[]{android.R.id.text1,android.R.id.text2},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        lstIngresos.setAdapter(AdaptadorListaIngresos);
         imbRegresar.setOnClickListener(new View.OnClickListener()
         {
             @Override

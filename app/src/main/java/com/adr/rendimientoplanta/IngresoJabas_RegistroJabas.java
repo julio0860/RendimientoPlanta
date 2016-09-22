@@ -265,23 +265,23 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                                         // Lo que sucede si se pulsa yes
                                         public void onClick(DialogInterface dialog,int id) {
                                             // Código propio del método calculo de diferencia de horas
-                                            try {
+                                            //try {
                                                 double Equivalente = LinIng_Cantidad * MatPriOriFactor;
+                                                ActualizarHoraFin(HoraIni);
                                                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
                                                         RegLin_Id,Con_Id,Con_DescripcionCor,
                                                         LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
                                                         MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
                                                         EsMix,fnc.HoraSistema(),0));
-
                                                 Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
                                                 edtHoraIni.setText(HoraNula);
-                                                ActualizarHoraFin(HoraIni);
+
                                                 lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
 
-                                            }catch (SQLException e)
-                                            {
-                                                Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
-                                            }
+                                           // }catch (SQLException e)
+                                           // {
+                                         //       Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
+                                           // }
                                         }
                                     })
                                     .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -319,6 +319,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                                             try {
                                                 double Equivalente = LinIng_Cantidad * MatPriOriFactor;
                                                 double EquivalenteMix = LinIng_CantidadMix * MatPriOriFactorMix;
+                                                ActualizarHoraFin(HoraIni);
                                                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
                                                         RegLin_Id,Con_Id,Con_DescripcionCor,
                                                         LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
@@ -333,7 +334,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
 
                                                 Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
                                                 edtHoraIni.setText(HoraNula);
-                                                ActualizarHoraFin(HoraIni);
+
                                                 lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
 
                                             }catch (SQLException e)
@@ -457,7 +458,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
             if (Mix==0)
             {
                 //Actualiza el ultimo registro
-                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngId));
+                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
                 tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
@@ -465,16 +466,17 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
             {
                 //SMP: Si es Mix
                 //Obtiene el penultimo registro y Actualiza
-                CantidadMix = Cantidad-1;
-                curIngresos.move(CantidadMix);
-                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngId));
+                //CantidadMix = Cantidad-2;
+                //curIngresos.move(CantidadMix);
+                curIngresos.moveToLast();
+                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
                 tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
 
                 //Obtiene el ultimo registro y Actualiza
-                curIngresos.move(Cantidad);
-                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngId));
+                curIngresos.moveToPrevious();
+                LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
                 tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin));
