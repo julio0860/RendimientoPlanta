@@ -16,6 +16,7 @@ import android.widget.TextView;
 import android.widget.TimePicker;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -100,11 +101,11 @@ public class RegistroOperario extends AppCompatActivity {
         }
         );
 
-//        Cursor Motivos = LocBD.rawQuery("", null);
-//        adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
-//                Motivos, new String[]{T_Sucursal.SUCDESCRIPCION}, new int[]{android.R.id.text1},
-//                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-//        spnMotivos.setAdapter(adspnMotivos);
+       Cursor Motivos = LocBD.rawQuery("SELECT Mot_Id,Mot_Descripcion FROM MOTIVOS WHERE MOT_EsRendimiento=1", null);
+       adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
+               Motivos, new String[]{T_MotivoParada.MotDescripcion}, new int[]{android.R.id.text1},
+               SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+       spnMotivos.setAdapter(adspnMotivos);
 
         imbHora.setOnClickListener(new View.OnClickListener()
         {
