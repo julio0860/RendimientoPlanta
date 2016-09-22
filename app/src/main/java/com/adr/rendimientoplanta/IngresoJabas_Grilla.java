@@ -8,13 +8,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
+import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
+
+import java.sql.Connection;
+import java.sql.Statement;
 
 public class IngresoJabas_Grilla extends AppCompatActivity {
 
@@ -25,6 +30,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
     private GridView dgvLineas;
     private ImageButton imbConfigurar;
+
+    private Button btnSincronizar;
     SimpleCursorAdapter adspnLineas;
 
     private ImageButton imbRegresar;
@@ -40,6 +47,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblFecha = (TextView) findViewById(R.id.edtFecha);
+
+        btnSincronizar = (Button) findViewById(R.id.btnSincronizar);
 
         lblFecha.setText(Variables.FechaStr);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
@@ -73,6 +82,19 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
             }
         });
 
+        btnSincronizar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+
+                try {
+                    Connection Cnn = ConexionBD.getInstance().getConnection();
+                    Statement Stmt = Cnn.createStatement();
+                }catch (Exception e) {
+
+                }
+            }
+        });
         imbRegresar.setOnClickListener(new View.OnClickListener()
         {
             @Override

@@ -101,4 +101,27 @@ public class T_LineaRegistro {
         return Seleccionar;
     }
 
+    public static String LineaRegistro_SeleccionarSincronizar(String LinReg_Fecha,int Suc_Id,int Cul_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_LineaRegistro
+                +" FROM "+NombreTabla+" WHERE "+LinRegFecha+"='"+LinReg_Fecha+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+CulId+"='"+Cul_Id+"'"
+                +";";
+        return Seleccionar;
+    }
+    public static String LineaRegistro_InsertarSincronizar(
+            int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
+            String LinReg_FechaHora,int Est_Id,int Usu_Id,int Suc_Id,int Cul_Id)
+    {
+        String Insertar;
+        Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaRegistro+
+                ")VALUES('"+
+                Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+LinReg_Mac+"','"
+                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
+
+        return Insertar;
+    }
+
 }
