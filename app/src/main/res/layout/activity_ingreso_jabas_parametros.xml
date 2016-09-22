@@ -70,7 +70,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/edtFecha"
+        android:id="@+id/lblFecha"
         android:layout_below="@+id/textView62"
         android:layout_alignParentLeft="true"
         android:layout_alignParentStart="true"
@@ -113,8 +113,8 @@
         android:inputType="date"
         android:ems="10"
         android:id="@+id/edtFecha"
-        android:layout_alignTop="@+id/edtFecha"
-        android:layout_toEndOf="@+id/edtFecha"
+        android:layout_alignTop="@+id/lblFecha"
+        android:layout_toEndOf="@+id/lblFecha"
         android:textColor="#000000" />
 
     <ImageButton
