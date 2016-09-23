@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
@@ -21,7 +22,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
-import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
@@ -83,11 +83,7 @@ public class RegistroOperario extends AppCompatActivity {
         lblLado.setText("LADO: "+Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
-        if (Variables.Per_Dni.equals("")){
-        }
-
-        else
-        {
+        if (Variables.Agru_Id>0){
             edtDni.setText(Variables.Per_Dni);
             edtPersonal.setText(Variables.Per_Nombres);
         }
@@ -145,23 +141,43 @@ public class RegistroOperario extends AppCompatActivity {
                 }
                 else
               {
-                  Boolean Estado=false;
-                  try {
-                      //Rse.next();
-                      LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
-                      Estado=true;
+                  Boolean Estado;
 
-                  } catch (Exception e) {
-                     Estado=false;
-                      Log.e(TAG, "Error Exception: " + e);
-                      Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR OPERARIO" + e.toString(), Toast.LENGTH_SHORT).show();
+                  if (Variables.Agru_Id>0) {
+                      try {
+                        //  LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+                          Estado=true;
+                          Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
+                          Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                          startActivity(ActividadRegresarLista);
+
+                      } catch (Exception e) {
+                          Estado=false;
+                          Log.e(TAG, "Error Exception: " + e);
+                          Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                      }
                   }
-                  if (Estado==true)
+                  else
                   {
-                      Mensaje("REGISTRO EXITOSO");
+                      try {
+                          Variables.Agru_EstId=1;
 
-                  }else
+                      //    LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+                          Estado=true;
+                          Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
+                          Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                          startActivity(ActividadRegresarLista);
+
+                      } catch (Exception e) {
+                          Estado=false;
+                          Log.e(TAG, "Error Exception: " + e);
+                          Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                      }
+                  }
+
+                  if (Estado==false)
                   {
+                      Mensaje("ERRROR:REVISE BIEN LOS DATOS");
 
                   }
               }
