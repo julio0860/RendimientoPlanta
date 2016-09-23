@@ -24,6 +24,7 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
@@ -99,6 +100,7 @@ public class RegistroOperario extends AppCompatActivity {
         if (Variables.Agru_Id>0){
             edtDni.setText(Variables.Per_Dni);
             edtPersonal.setText(Variables.Per_Nombres);
+            edtHora.setText(Variables.HoraIngreso);
         }
 
         edtDni.setOnKeyListener(new View.OnKeyListener()
@@ -204,7 +206,8 @@ public class RegistroOperario extends AppCompatActivity {
 
                   if (Variables.Agru_Id>0) {
                       try {
-                        //  LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
+                               Variables.HoraLectura,Variables.HoraIngreso,Variables.HoraSalida,Variables.Mot_Id,Variables.Agru_EstId));
                           Estado=true;
                           Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
                           Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
@@ -220,7 +223,8 @@ public class RegistroOperario extends AppCompatActivity {
                   {
                       try {
 
-                      //    LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+                      LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
+                              Variables.HoraLectura,Variables.HoraIngreso,Variables.Mot_Id,Variables.Agru_EstId));
                           Estado=true;
                           Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
                           Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
