@@ -187,7 +187,6 @@ public class RegistroOperario extends AppCompatActivity {
         });
 
 
-
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
             @Override
