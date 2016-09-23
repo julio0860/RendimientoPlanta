@@ -18,6 +18,7 @@ import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
+import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 import java.sql.Connection;
@@ -25,6 +26,11 @@ import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class IngresoJabas_Grilla extends AppCompatActivity {
+
+    //Variables para la sincronización - LineaRegistro
+
+
+    //
 
     private TextView lblSucursal;
     private TextView lblCultivo;
@@ -38,6 +44,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     SimpleCursorAdapter adspnLineas;
 
     private ImageButton imbRegresar;
+
+    private Funciones fnc;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -60,6 +68,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         lblEmpresa.setText(Variables.Emp_Abrev);
 
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+
+        fnc= new Funciones();
 
         dgvLineas = (GridView) findViewById(R.id.dgvLineas);
         Cursor CurLineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Variables.Suc_Id,2),null);
@@ -126,7 +136,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                         CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidadPorHora)),
                                         CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegMac)),
                                         CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegFechaHora)),
-                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegUltimaSincro)),
+                                        //CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegUltimaSincro)),
+                                        fnc.HoraSistema(),
                                         CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.EstId)),
                                         CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.UsuId)),
                                         CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.SucId)),
@@ -134,12 +145,22 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                 ));
                                 if (Resultado==false)
                                 {
+                                    //Si se realiza la inserción correctamente, se procede a actualizar
+                                    //el registro local y asignarle el Id generado en el servidor.
                                     Rse=null;
                                     Rse = Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
                                             Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id));
-                                    Rse.first();
-                                    int LinIng_Id;
-                                    LinIng_Id = Rse.getInt(Rse.findColumn(T_LineaRegistro.LinId));
+                                    Rse.next();
+                                    //Actualiza a la tabla local el Id generado en el servidor
+                                    LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarIdServidor(
+                                            CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil))
+                                            ,Rse.getInt(Rse.findColumn(T_LineaRegistro.LinId))
+                                            ));
+                                    //Actualiza a la tabla local la ultima Hora sincronización
+                                    LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarHoraSincro(
+                                            CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil))
+                                            ,fnc.HoraSistema()
+                                    ));
 
                                 }else
                                 {
@@ -150,6 +171,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                             else
                             {
                                 //Si devuelve valor, actualizar
+
 
                             }
                         }
