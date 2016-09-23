@@ -8,11 +8,13 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
+import android.provider.BaseColumns;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.KeyEvent;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -47,6 +49,7 @@ public class RegistroOperario extends AppCompatActivity {
     private SimpleCursorAdapter adspnMotivos;
     private int pHour;
     private int pMinute;
+    private int Mot_Id;
     static final int TIME_DIALOG_ID = 1;
     private static final String TAG = "RegistroOperario";
     String Dni;
@@ -116,11 +119,36 @@ public class RegistroOperario extends AppCompatActivity {
         }
         );
 
+
        Cursor Motivos = LocBD.rawQuery("SELECT Mot_Id As '_id',Mot_Descripcion FROM MOTIVOS WHERE MOT_EsRendimiento=1", null);
        adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
                Motivos, new String[]{T_MotivoParada.MotDescripcion}, new int[]{android.R.id.text1},
                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
        spnMotivos.setAdapter(adspnMotivos);
+
+        spnMotivos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, android.view.View v,
+                                       int position, long id) {
+                Cursor MotId = (Cursor) parent.getItemAtPosition(position);
+                Mot_Id = MotId.getInt(MotId.getColumnIndex(BaseColumns._ID));
+                switch (Mot_Id)
+                {
+                    case 7:
+                        Variables.Agru_EstId=1;
+                        break;
+                    case 8:
+                        Variables.Agru_EstId=2;
+                        break;
+                    case 9:
+                        Variables.Agru_EstId=3;
+                        break;
+
+                }
+            }
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+
 
         imbHora.setOnClickListener(new View.OnClickListener()
         {
@@ -131,11 +159,14 @@ public class RegistroOperario extends AppCompatActivity {
                 showDialog(fnc.TIME_DIALOG_ID);
             }
         });
+
+
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
-
             @Override
             public void onClick (View v){
+
+
               if (Variables.Per_Dni.equals("")){
                  Mensaje("INGRESE NUMERO DE DNI");
                 }
@@ -160,7 +191,8 @@ public class RegistroOperario extends AppCompatActivity {
                   else
                   {
                       try {
-                          Variables.Agru_EstId=1;
+
+                          Variables.HoraLectura=fnc.HoraSistema();
 
                       //    LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
                           Estado=true;
