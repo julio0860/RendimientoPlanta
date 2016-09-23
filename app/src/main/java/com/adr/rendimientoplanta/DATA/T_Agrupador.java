@@ -48,8 +48,8 @@ public class T_Agrupador {
                                  String Dni)
     {
         String _UPDATE;
-        _UPDATE = "UPDATE "+N_TABLA +"SET "+EMPID+"='"+EmpId+"',"+FECHA+"='"+Fecha+"',"+SUCID+"='"+SucId+"',"+PROID+"='"+ProId+"',"+SUBID+"='"+SubId+"',"+
-                   LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"WHERE "+AGRUID+"='"+AgruId+"'";
+        _UPDATE = "UPDATE "+N_TABLA +" SET "+EMPID+"='"+EmpId+"',"+FECHA+"='"+Fecha+"',"+SUCID+"='"+SucId+"',"+PROID+"='"+ProId+"',"+SUBID+"='"+SubId+"',"+
+                   LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"' WHERE "+AGRUID+"='"+AgruId+"'";
 
         return _UPDATE;
     }
