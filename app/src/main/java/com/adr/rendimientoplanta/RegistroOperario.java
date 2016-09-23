@@ -90,8 +90,6 @@ public class RegistroOperario extends AppCompatActivity {
         }
 
 
-
-
         edtDni.setOnKeyListener(new View.OnKeyListener()
         {
             @Override
