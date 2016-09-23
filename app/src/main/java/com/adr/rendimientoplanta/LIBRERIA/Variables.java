@@ -14,15 +14,7 @@ public class Variables extends AppCompatActivity{
     public static String Usu_Codigo="";
     public static int Usu_Id=0;
 
-    public static Integer Suc_Id = -1;
-    public static String Suc_Descripcion="";
-    public static int Suc_EsPlanta=-1;
-
     public  static Integer Res_Id=0;
-
-    public  static Integer Emp_Id=0;
-    public  static String Emp_Descripcion="";
-    public  static String Emp_Abrev="";
 
     public  static  Integer Cul_Id=0;
     public  static  String Cul_Descripcion="";
@@ -37,17 +29,6 @@ public class Variables extends AppCompatActivity{
     public static  Class ActividadPrevia;
     public static String UltimaHoraFinal="";
 
-    public static Integer Lin_Id = 0;
-    public static String Lin_Descripcion = "";
-
-    public static Integer Pro_Id=0;
-    public static String  Pro_Descripcion="";
-
-    public static Integer Sub_Id=0;
-    public static String Sub_Descripcion="";
-    
-    public static String Lin_Lado = "";
-
     public static int TarOri_Id = 0;
     public static String TarOri_Descripcion="";
     public static String TarOri_Codigo="";
@@ -61,13 +42,29 @@ public class Variables extends AppCompatActivity{
 
     public static int Per_Id = 0;
     public static String Per_Nombre="";
-    public static String Per_Nombres="";
+
     public static String Per_ApePaterno="";
     public static String Per_ApeMaterno="";
-    public static String Per_Dni="";
-    public static int Per_Ubicacion=0;
+
     public static String Per_CodigoOpe="";
+
+    //VARIABLES USADAS PARA EL AGRUPADOR
     public static int Agru_Id=0;
     public static int Agru_EstId=0;
-
+    public static Integer Lin_Id = 0;
+    public static String Lin_Descripcion = "";
+    public static Integer Sub_Id=0;
+    public static String Sub_Descripcion="";
+    public static Integer Pro_Id=0;
+    public static String  Pro_Descripcion="";
+    public  static Integer Emp_Id=0;
+    public  static String Emp_Descripcion="";
+    public static String Per_Nombres="";
+    public static String Per_Dni="";
+    public static int Per_Ubicacion=0;
+    public static String Lin_Lado = "";
+    public  static String Emp_Abrev="";
+    public static Integer Suc_Id = -1;
+    public static String Suc_Descripcion="";
+    public static int Suc_EsPlanta=-1;
 }
