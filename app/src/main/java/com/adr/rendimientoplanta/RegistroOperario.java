@@ -37,14 +37,17 @@ public class RegistroOperario extends AppCompatActivity {
     private TextView lblSubproceso;
     private TextView lblLinea;
     private TextView lblLado;
+    private TextView lblHoraSalida;
     private Funciones fnc;
     private EditText displayTime;
     private EditText edtHora;
+    private EditText edtHoraSalida;
     private EditText edtFecha;
     private EditText edtDni;
     private EditText edtPersonal;
     private Spinner spnMotivos;
     private ImageButton imbHora;
+    private ImageButton imbHoraSalida;
     private Button btnRegistrar;
     private SimpleCursorAdapter adspnMotivos;
     private int pHour;
@@ -69,12 +72,15 @@ public class RegistroOperario extends AppCompatActivity {
         lblSubproceso = (TextView) findViewById(R.id.lblSubproceso);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
+        lblHoraSalida= (TextView) findViewById(R.id.lblHoraSalida);
         edtHora = (EditText) findViewById(R.id.edtHora);
+        edtHoraSalida=(EditText) findViewById(R.id.edtHoraSalida);
         edtFecha=(EditText) findViewById(R.id.edtFecha);
         edtDni=(EditText)findViewById(R.id.edtDni);
         edtPersonal=(EditText)findViewById(R.id.edtPersonal);
         spnMotivos=(Spinner)findViewById(R.id.spnMotivos) ;
         imbHora= (ImageButton) findViewById(R.id.imbHora);
+        imbHoraSalida= (ImageButton) findViewById(R.id.imbHoraSalida);
         btnRegistrar=(Button)findViewById(R.id.btnRegistrar) ;
 
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
@@ -86,11 +92,14 @@ public class RegistroOperario extends AppCompatActivity {
         lblLado.setText("LADO: "+Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
+        lblHoraSalida.setVisibility(View.INVISIBLE);
+        edtHoraSalida.setVisibility(View.INVISIBLE);
+        imbHoraSalida.setVisibility(View.INVISIBLE);
+
         if (Variables.Agru_Id>0){
             edtDni.setText(Variables.Per_Dni);
             edtPersonal.setText(Variables.Per_Nombres);
         }
-
 
         edtDni.setOnKeyListener(new View.OnKeyListener()
         {
@@ -130,19 +139,24 @@ public class RegistroOperario extends AppCompatActivity {
             public void onItemSelected(AdapterView<?> parent, android.view.View v,
                                        int position, long id) {
                 Cursor MotId = (Cursor) parent.getItemAtPosition(position);
-                Mot_Id = MotId.getInt(MotId.getColumnIndex(BaseColumns._ID));
-                switch (Mot_Id)
+                Variables.Mot_Id = MotId.getInt(MotId.getColumnIndex(BaseColumns._ID));
+                switch (Variables.Mot_Id)
                 {
                     case 7:
                         Variables.Agru_EstId=1;
                         break;
                     case 8:
                         Variables.Agru_EstId=2;
+                        lblHoraSalida.setVisibility(View.VISIBLE);
+                        edtHoraSalida.setVisibility(View.VISIBLE);
+                        imbHoraSalida.setVisibility(View.VISIBLE);
                         break;
                     case 9:
                         Variables.Agru_EstId=3;
+                        lblHoraSalida.setVisibility(View.VISIBLE);
+                        edtHoraSalida.setVisibility(View.VISIBLE);
+                        imbHoraSalida.setVisibility(View.VISIBLE);
                         break;
-
                 }
             }
             public void onNothingSelected(AdapterView<?> parent) {
@@ -160,6 +174,17 @@ public class RegistroOperario extends AppCompatActivity {
             }
         });
 
+        imbHoraSalida.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+
+                displayTime = edtHoraSalida;
+                showDialog(fnc.TIME_DIALOG_ID);
+            }
+        });
+
+
 
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
@@ -175,6 +200,7 @@ public class RegistroOperario extends AppCompatActivity {
                   Boolean Estado;
                   Variables.HoraLectura=fnc.HoraSistema();
                   Variables.HoraIngreso=edtHora.getText().toString();
+                  Variables.HoraSalida=edtHoraSalida.getText().toString();
 
                   if (Variables.Agru_Id>0) {
                       try {
@@ -193,7 +219,6 @@ public class RegistroOperario extends AppCompatActivity {
                   else
                   {
                       try {
-
 
                       //    LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
                           Estado=true;
