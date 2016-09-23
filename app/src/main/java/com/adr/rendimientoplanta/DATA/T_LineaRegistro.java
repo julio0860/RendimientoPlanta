@@ -57,6 +57,11 @@ public class T_LineaRegistro {
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
             +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId+","+SucId+","+CulId;
 
+    public static final String CamposInsertar_LineaSincronizar = LinRegIdMovil+","+LinId+","+LinRegFecha
+            +","+LinRegHoraIni +","+LinRegHoraFin +","+LinRegCantidad+","+LinRegHoraEfectiva+","+LinRegParadas
+            +","+LinRegNumParadas+","+LinRegCantidadPorHora+","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro
+            +","+EstId+","+UsuId+","+SucId+","+CulId;
+
     public static String LineaRegistro_Insertar(
             int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
             String LinReg_FechaHora,int Est_Id,int Usu_Id,int Suc_Id,int Cul_Id)
@@ -112,14 +117,32 @@ public class T_LineaRegistro {
         return Seleccionar;
     }
     public static String LineaRegistro_InsertarSincronizar(
-            int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
-            String LinReg_FechaHora,int Est_Id,int Usu_Id,int Suc_Id,int Cul_Id)
+            int Lin_IdMovil,
+            int Lin_Id,
+            String LinReg_Fecha,
+            String LinReg_HoraIni,
+            String LinReg_HoraFin,
+            int LinReg_Cantidad,
+            double LinReg_HoraEfectiva,
+            double LinReg_Paradas,
+            int LinReg_NumParadas,
+            double LinReg_CantidadPorHora,
+            String LinReg_Mac,
+            String LinReg_FechaHora,
+            String LinReg_UltimaSincro,
+            int Est_Id,
+            int Usu_Id,
+            int Suc_Id,
+            int Cul_Id
+    )
     {
         String Insertar;
-        Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaRegistro+
+        Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaSincronizar+
                 ")VALUES('"+
-                Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+LinReg_Mac+"','"
-                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
+                Lin_IdMovil+"','"+Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+"','"+LinReg_HoraFin+"','"
+                +LinReg_Cantidad+"','"+LinReg_HoraEfectiva+"','"+LinReg_Paradas+"','"+LinReg_NumParadas+"','"
+                +LinReg_CantidadPorHora+"','"+LinReg_Mac+"','"+LinReg_FechaHora+"','"+LinReg_UltimaSincro+"','"
+                +Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
 
         return Insertar;
     }
