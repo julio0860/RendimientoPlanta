@@ -43,4 +43,15 @@ public class T_Agrupador {
                 EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+"','"+Dni+"');";
         return _INSERT;
     }
+
+    public static String _UPDATE(int AgruId,int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                 String Dni)
+    {
+        String _INSERT;
+        _INSERT = "INSERT INTO "+N_TABLA +"("+AGRUID+","+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
+                ","+DNI+
+                ")VALUES('"+AgruId+"','"+
+                EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+"','"+Dni+"');";
+        return _INSERT;
+    }
 }
