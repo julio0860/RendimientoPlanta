@@ -49,8 +49,6 @@ public class Variables extends AppCompatActivity{
     public static String Per_CodigoOpe="";
 
     //VARIABLES USADAS PARA EL AGRUPADOR
-    public static int Agru_Id=0;
-    public static int Agru_EstId=0;
     public static Integer Lin_Id = 0;
     public static String Lin_Descripcion = "";
     public static Integer Sub_Id=0;
@@ -67,4 +65,9 @@ public class Variables extends AppCompatActivity{
     public static Integer Suc_Id = -1;
     public static String Suc_Descripcion="";
     public static int Suc_EsPlanta=-1;
+    public static int Agru_Id=0;
+    public static String HoraLectura="";
+    public static String HoraRegistro="";
+    public static int Mot_Id=0;
+    public static int Agru_EstId=0;
 }
