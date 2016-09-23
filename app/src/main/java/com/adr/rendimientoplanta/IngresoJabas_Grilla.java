@@ -105,6 +105,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                         //Si tiene registros, recorrer
                         for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
                         {
+                            Rse=null;
                             //Recorrer los registros para sincronizar
                            Rse= Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(
                                     CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinId)),
@@ -131,6 +132,20 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                         CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.SucId)),
                                         CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.CulId))
                                 ));
+                                if (Resultado==false)
+                                {
+                                    Rse=null;
+                                    Rse = Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
+                                            Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id));
+                                    Rse.first();
+                                    int LinIng_Id;
+                                    LinIng_Id = Rse.getInt(Rse.findColumn(T_LineaRegistro.LinId));
+
+                                }else
+                                {
+                                    Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                            +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                }
                             }
                             else
                             {
