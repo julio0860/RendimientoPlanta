@@ -12,13 +12,16 @@ import android.widget.Button;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Linea;
+import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 import java.sql.Connection;
+import java.sql.ResultSet;
 import java.sql.Statement;
 
 public class IngresoJabas_Grilla extends AppCompatActivity {
@@ -87,9 +90,57 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
             @Override
             public void onClick (View v){
 
+                Cursor CurReg = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
+                        Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id),null);
+                Boolean Resultado = true;
                 try {
+                    Toast.makeText(IngresoJabas_Grilla.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
+
                     Connection Cnn = ConexionBD.getInstance().getConnection();
                     Statement Stmt = Cnn.createStatement();
+                    ResultSet Rse;
+
+                    if (CurReg.getCount()!=0)
+                    {
+                        //Si tiene registros, recorrer
+                        for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
+                        {
+                            //Recorrer los registros para sincronizar
+                           Rse= Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(
+                                    CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinId)),
+                                    CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegFecha))));
+                            if (Rse.getRow()==0)
+                            {
+                                //Si no devuelve valor, insertar
+                                Resultado =Stmt.execute(T_LineaRegistro.LineaRegistro_InsertarSincronizar(
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinId)),
+                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegFecha)),
+                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraIni)),
+                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraFin)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidad)),
+                                        CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraEfectiva)),
+                                        CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegParadas)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegNumParadas)),
+                                        CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidadPorHora)),
+                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegMac)),
+                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegFechaHora)),
+                                        CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegUltimaSincro)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.EstId)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.UsuId)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.SucId)),
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.CulId))
+                                ));
+                            }
+                            else
+                            {
+                                //Si devuelve valor, actualizar
+
+                            }
+                        }
+                    }
+
+
                 }catch (Exception e) {
 
                 }
