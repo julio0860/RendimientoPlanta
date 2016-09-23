@@ -68,5 +68,6 @@ public class Variables extends AppCompatActivity{
     public static int Per_Ubicacion=0;
     public static String Per_CodigoOpe="";
     public static int Agru_Id=0;
+    public static int Agru_EstId=0;
 
 }

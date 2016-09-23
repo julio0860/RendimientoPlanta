@@ -22,7 +22,6 @@ import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
-import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
@@ -146,7 +145,7 @@ public class RegistroOperario extends AppCompatActivity {
 
                   if (Variables.Agru_Id>0) {
                       try {
-                          LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+                        //  LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
                           Estado=true;
                           Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
                           Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
@@ -161,8 +160,9 @@ public class RegistroOperario extends AppCompatActivity {
                   else
                   {
                       try {
-                          //Rse.next();
-                          LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
+                          Variables.Agru_EstId=1;
+
+                      //    LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
                           Estado=true;
                           Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
                           Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
