@@ -144,11 +144,11 @@ public class RegistroOperario extends AppCompatActivity {
                 }
                 else
               {
-                  Boolean Estado=false;
+                  Boolean Estado;
 
                   if (Variables.Agru_Id>0) {
                       try {
-
+                          LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
                           Estado=true;
                           Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
                           Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
@@ -159,14 +159,13 @@ public class RegistroOperario extends AppCompatActivity {
                           Log.e(TAG, "Error Exception: " + e);
                           Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
                       }
-
                   }
                   else
                   {
                       try {
                           //Rse.next();
                           LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
-                        Estado=true;
+                          Estado=true;
                           Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
                           Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
                           startActivity(ActividadRegresarLista);
@@ -181,9 +180,6 @@ public class RegistroOperario extends AppCompatActivity {
                   if (Estado==false)
                   {
                       Mensaje("ERRROR:REVISE BIEN LOS DATOS");
-
-                  }else
-                  {
 
                   }
               }
