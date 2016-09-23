@@ -173,6 +173,8 @@ public class RegistroOperario extends AppCompatActivity {
                 else
               {
                   Boolean Estado;
+                  Variables.HoraLectura=fnc.HoraSistema();
+                  Variables.HoraIngreso=edtHora.getText().toString();
 
                   if (Variables.Agru_Id>0) {
                       try {
@@ -192,7 +194,6 @@ public class RegistroOperario extends AppCompatActivity {
                   {
                       try {
 
-                          Variables.HoraLectura=fnc.HoraSistema();
 
                       //    LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni));
                           Estado=true;
