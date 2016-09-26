@@ -224,4 +224,14 @@
         android:src="@android:drawable/presence_away"
         android:layout_above="@+id/btnRegistrar"
         android:layout_toEndOf="@+id/lblSubproceso" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="70dp"
+        android:text="ELIMINAR"
+        android:id="@+id/btnEliminar"
+        android:layout_below="@+id/btnRegistrar"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="33dp"
+        android:layout_alignEnd="@+id/btnRegistrar" />
 </RelativeLayout>

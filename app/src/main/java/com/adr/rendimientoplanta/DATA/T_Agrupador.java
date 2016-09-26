@@ -1,8 +1,6 @@
 package com.adr.rendimientoplanta.DATA;
 
-/**
- * Created by smachado on 2016/04/29.
- */
+
 public class T_Agrupador {
     public static final String AGRUID ="Agru_Id";
     public static final String EMPID = "Emp_Id";
@@ -64,5 +62,11 @@ public class T_Agrupador {
                    LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"',"+HORALECTURA+"='"+HoraLectura+"',"+HORAINGRESO+"='"+HoraIngreso+"',"+
                    HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"' WHERE "+AGRUID+"='"+AgruId+"'";
         return _UPDATE;
+    }
+    public static String _DELETE(int AgruId)
+    {
+        String _DELETE;
+        _DELETE = "DELETE FROM "+N_TABLA +"WHERE "+AGRUID+"='"+AgruId+";";
+        return _DELETE;
     }
 }
