@@ -1,8 +1,11 @@
 package com.adr.rendimientoplanta;
 
+import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.provider.BaseColumns;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -105,6 +108,14 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
             @Override
             public void onClick (View v){
 
+                if (conectadoWifi())
+                {
+                    Toast.makeText(IngresoJabas_Grilla.this, "CONECTADO ",Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    Toast.makeText(IngresoJabas_Grilla.this, "SIN CONEXION ",Toast.LENGTH_SHORT).show();
+                }
+
                 Cursor CurReg = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
                         Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id),null);
                 boolean Resultado = true;
@@ -173,12 +184,12 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                             LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
                                                     CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)), 1));
                                         } else {
-                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
                                                     + CurReg.getCount(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
                                     Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
-                                    Toast.makeText(IngresoJabas_Grilla.this, "Registros Ingreso: "+String.valueOf(CurIng.getCount()) ,Toast.LENGTH_SHORT).show();
+                                    //Toast.makeText(IngresoJabas_Grilla.this, "Registros Ingreso: "+String.valueOf(CurIng.getCount()) ,Toast.LENGTH_SHORT).show();
                                     for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
 
                                         Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
@@ -205,18 +216,17 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                             LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarSincronizado(
                                                     CurIng.getInt(CurIng.getColumnIndex(BaseColumns._ID)), 1));
                                         } else {
-                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
                                                     + CurReg.getCount(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
 
-                                    Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
-                                            +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA",Toast.LENGTH_SHORT).show();
 
                                 }
                                 else
                                 {
-                                    Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                    Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
                                             +CurReg.getCount(),Toast.LENGTH_SHORT).show();
                                 }
                             }
@@ -285,12 +295,12 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                 CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)),1));
                                             }else
                                             {
-                                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
                                                         +CurReg.getCount(),Toast.LENGTH_SHORT).show();
                                             }
                                         }
                                         Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
-                                        Toast.makeText(IngresoJabas_Grilla.this, "Registros Ingreso: "+String.valueOf(CurIng.getCount()) ,Toast.LENGTH_SHORT).show();
+                                        //Toast.makeText(IngresoJabas_Grilla.this, "Registros Ingreso: "+String.valueOf(CurIng.getCount()) ,Toast.LENGTH_SHORT).show();
                                         for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
 
                                             Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
@@ -320,8 +330,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                         + CurReg.getCount(), Toast.LENGTH_SHORT).show();
                                             }
                                         }
-                                        Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
-                                                +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                        Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA",Toast.LENGTH_SHORT).show();
 
                                     }else
                                     {
@@ -359,4 +368,17 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
             }
         );
     }
+    public final Boolean conectadoWifi(){
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (info != null) {
+                if (info.isConnected()) {
+                    return true;
+                }
+            }
+        }
+        return false;
+    }
+
 }
