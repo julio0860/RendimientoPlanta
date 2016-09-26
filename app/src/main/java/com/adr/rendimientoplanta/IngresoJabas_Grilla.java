@@ -110,128 +110,123 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
                 if (conectadoWifi())
                 {
-                    Toast.makeText(IngresoJabas_Grilla.this, "CONECTADO ",Toast.LENGTH_SHORT).show();
-                }else
-                {
-                    Toast.makeText(IngresoJabas_Grilla.this, "SIN CONEXION ",Toast.LENGTH_SHORT).show();
-                }
 
-                Cursor CurReg = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
-                        Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id),null);
-                boolean Resultado = true;
-                try {
-                    Toast.makeText(IngresoJabas_Grilla.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                    Cursor CurReg = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
+                            Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id),null);
+                    boolean Resultado = true;
+                    try {
+                        Toast.makeText(IngresoJabas_Grilla.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
 
-                    Connection Cnn = ConexionBD.getInstance().getConnection();
-                    Statement Stmt = Cnn.createStatement();
-                    ResultSet Rse;
+                        Connection Cnn = ConexionBD.getInstance().getConnection();
+                        Statement Stmt = Cnn.createStatement();
+                        ResultSet Rse;
 
-                    if (CurReg.getCount()!=0)
-                    {
-                        //Si tiene registros, recorrer
-                        for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
+                        if (CurReg.getCount()!=0)
                         {
-
-                            LinReg_IdMovil=CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil));
-
-                            HoraFin =CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraFin));
-                            if (HoraFin.equals("--"))
-                            {
-                                HoraFin="00:00:00";
-                            }
-                            Rse=null;
-                            //Recorrer los registros para sincronizar
-                            Rse= Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(
-                                    CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinId)),
-                                    Variables.FechaStr));
-                            //Toast.makeText(IngresoJabas_Grilla.this, "Registros Servidor: "+Rse.getRow(),Toast.LENGTH_SHORT).show();
-                            if (Rse.next())
+                            //Si tiene registros, recorrer
+                            for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
                             {
 
-                                //Si devuelve valor, actualizar
-                                LinReg_IdServidor = CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegId));
+                                LinReg_IdMovil=CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil));
 
-                                Resultado = Stmt.execute(T_LineaRegistro.LineaRegistro_ActualizarServidor(
-                                        LinReg_IdServidor,
-                                        HoraFin,
-                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidad)),
-                                        CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraEfectiva)),
-                                        CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegParadas)),
-                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegNumParadas)),
-                                        CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidadPorHora)),
-                                        fnc.HoraSistema(),
-                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.EstId))
-                                ));
-                                if (Resultado == false)
+                                HoraFin =CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraFin));
+                                if (HoraFin.equals("--"))
                                 {
-                                    Cursor CurPar = LocBD.rawQuery(T_LineaParadas.LineaParadas_SeleccionarSincronizar(LinReg_IdMovil,0),null);
-                                    for (CurPar.moveToFirst();!CurPar.isAfterLast();CurPar.moveToNext()) {
+                                    HoraFin="00:00:00";
+                                }
+                                Rse=null;
+                                //Recorrer los registros para sincronizar
+                                Rse= Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(
+                                        CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinId)),
+                                        Variables.FechaStr));
+                                //Toast.makeText(IngresoJabas_Grilla.this, "Registros Servidor: "+Rse.getRow(),Toast.LENGTH_SHORT).show();
+                                if (Rse.next())
+                                {
 
-                                        Resultado = Stmt.execute(T_LineaParadas.LineaParadas_InsertarServidor(
-                                                LinReg_IdServidor,
-                                                CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.MotId)),
-                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraIni)),
-                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraFin)),
-                                                CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
-                                                CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
-                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
-                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
-                                        ));
-                                        if (Resultado == false) {
-                                            //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
-                                            //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
-                                            //Revisar - URGENTE
-                                            LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
-                                                    CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)), 1));
-                                        } else {
-                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
-                                                    + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                    //Si devuelve valor, actualizar
+                                    LinReg_IdServidor = CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegId));
+
+                                    Resultado = Stmt.execute(T_LineaRegistro.LineaRegistro_ActualizarServidor(
+                                            LinReg_IdServidor,
+                                            HoraFin,
+                                            CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidad)),
+                                            CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraEfectiva)),
+                                            CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegParadas)),
+                                            CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegNumParadas)),
+                                            CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegCantidadPorHora)),
+                                            fnc.HoraSistema(),
+                                            CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.EstId))
+                                    ));
+                                    if (Resultado == false)
+                                    {
+                                        Cursor CurPar = LocBD.rawQuery(T_LineaParadas.LineaParadas_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                        for (CurPar.moveToFirst();!CurPar.isAfterLast();CurPar.moveToNext()) {
+
+                                            Resultado = Stmt.execute(T_LineaParadas.LineaParadas_InsertarServidor(
+                                                    LinReg_IdServidor,
+                                                    CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.MotId)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraIni)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraFin)),
+                                                    CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
+                                                    CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
+                                            ));
+                                            if (Resultado == false) {
+                                                //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
+                                                //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                                //Revisar - URGENTE
+                                                LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
+                                                        CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)), 1));
+                                            } else {
+                                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
+                                                        + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                            }
                                         }
-                                    }
-                                    Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
-                                    //Toast.makeText(IngresoJabas_Grilla.this, "Registros Ingreso: "+String.valueOf(CurIng.getCount()) ,Toast.LENGTH_SHORT).show();
-                                    for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
+                                        Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                        //Toast.makeText(IngresoJabas_Grilla.this, "Registros Ingreso: "+String.valueOf(CurIng.getCount()) ,Toast.LENGTH_SHORT).show();
+                                        for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
 
-                                        Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
-                                                LinReg_IdServidor,
-                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.ConId)),
-                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.ConDescripcionCor)),
-                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngCantidad)),
-                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriId)),
-                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriDescripcion)),
-                                                CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriFactor)),
-                                                CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngEquivalente)),
-                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraIni)),
-                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraFin)),
-                                                CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngtEfectivo)),
-                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngMix)),
-                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngFechaHora)),
-                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado))
+                                            Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
+                                                    LinReg_IdServidor,
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.ConId)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.ConDescripcionCor)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngCantidad)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriId)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriDescripcion)),
+                                                    CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriFactor)),
+                                                    CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngEquivalente)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraIni)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraFin)),
+                                                    CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngtEfectivo)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngMix)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngFechaHora)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado))
 
-                                        ));
-                                        if (Resultado == false) {
-                                            //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
-                                            //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
-                                            //Revisar - URGENTE
-                                            LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarSincronizado(
-                                                    CurIng.getInt(CurIng.getColumnIndex(BaseColumns._ID)), 1));
-                                        } else {
-                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
-                                                    + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                            ));
+                                            if (Resultado == false) {
+                                                //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
+                                                //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                                //Revisar - URGENTE
+                                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarSincronizado(
+                                                        CurIng.getInt(CurIng.getColumnIndex(BaseColumns._ID)), 1));
+                                            } else {
+                                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
+                                                        + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                            }
                                         }
+
+                                        Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA",Toast.LENGTH_SHORT).show();
+
                                     }
-
-                                    Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA",Toast.LENGTH_SHORT).show();
-
+                                    else
+                                    {
+                                        Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
+                                                +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                    }
                                 }
                                 else
                                 {
-                                    Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
-                                            +CurReg.getCount(),Toast.LENGTH_SHORT).show();
-                                }
-                            }
-                            else
-                            {
                                     //Si no devuelve valor, insertar
                                     Resultado =Stmt.execute(T_LineaRegistro.LineaRegistro_InsertarServidor(
                                             CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil)),
@@ -292,7 +287,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                 //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
                                                 //Revisar - URGENTE
                                                 LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
-                                                CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)),1));
+                                                        CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)),1));
                                             }else
                                             {
                                                 Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR"
@@ -337,12 +332,16 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                         Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
                                                 +CurReg.getCount(),Toast.LENGTH_SHORT).show();
                                     }
+                                }
                             }
                         }
-                    }
 
-                }catch (Exception e) {
-                    Toast.makeText(IngresoJabas_Grilla.this, e.toString(),Toast.LENGTH_SHORT).show();
+                    }catch (Exception e) {
+                        Toast.makeText(IngresoJabas_Grilla.this, e.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                }else
+                {
+                    Toast.makeText(IngresoJabas_Grilla.this, "NO HAY CONEXION, INTENTE LUEGO ",Toast.LENGTH_SHORT).show();
                 }
             }
         });
