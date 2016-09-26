@@ -29,8 +29,6 @@ import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
-import java.text.SimpleDateFormat;
-
 public class RegistroOperario extends AppCompatActivity {
     private TextView lblEmpresa;
     private TextView lblSucursal;
@@ -57,8 +55,8 @@ public class RegistroOperario extends AppCompatActivity {
     private int Mot_Id;
     static final int TIME_DIALOG_ID = 1;
     private static final String TAG = "RegistroOperario";
-    String Dni;
-    SimpleDateFormat Formato = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -196,55 +194,81 @@ public class RegistroOperario extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-
+        boolean EstDni=false;
               if (Variables.Per_Dni.equals("")){
                  Mensaje("INGRESE NUMERO DE DNI");
                 }
-                else
+                else if (Variables.Per_Dni.length()<8) {
+                  Mensaje("EL NUMERO DE DNI DEBE TENER 8 CARACTERES");
+              }
+
+                  else
               {
-                  Boolean Estado;
-                  Variables.HoraLectura=fnc.HoraSistema();
-                  Variables.HoraIngreso=edtHora.getText().toString();
-                  Variables.HoraSalida=edtHoraSalida.getText().toString();
 
-                  if (Variables.Agru_Id>0) {
-                      try {
-                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
-                               Variables.HoraLectura,Variables.HoraIngreso,Variables.HoraSalida,Variables.Mot_Id,Variables.Agru_EstId));
-                          Estado=true;
-                          Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
-                          Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
-                          startActivity(ActividadRegresarLista);
+                  Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND DNI='"+Variables.Per_Dni+"'",null);
+                  if (Rse.moveToFirst()) {
 
-                      } catch (Exception e) {
-                          Estado=false;
-                          Log.e(TAG, "Error Exception: " + e);
-                          Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
-                      }
+                      do {
+                          String codigo= Rse.getString(0);
+                          if (Variables.Per_Dni.equals(codigo));
+                          {
+                              EstDni=true;
+                          }
+                      } while(Rse.moveToNext());
+                  }
+
+                  if (EstDni== true)
+                  {
+                      Mensaje("ESTE DNI YA SE ENCUENTRA REGISTRADO");
                   }
                   else
                   {
-                      try {
+                      Boolean Estado=false;
+                      Variables.HoraLectura=fnc.HoraSistema();
+                      Variables.HoraIngreso=edtHora.getText().toString();
+                      Variables.HoraSalida=edtHoraSalida.getText().toString();
 
-                      LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
-                              Variables.HoraLectura,Variables.HoraIngreso,Variables.Mot_Id,Variables.Agru_EstId));
-                          Estado=true;
-                          Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
-                          Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
-                          startActivity(ActividadRegresarLista);
 
-                      } catch (Exception e) {
-                          Estado=false;
-                          Log.e(TAG, "Error Exception: " + e);
-                          Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                      if (Variables.Agru_Id>0) {
+                          try {
+                              LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
+                                      Variables.HoraLectura,Variables.HoraIngreso,Variables.HoraSalida,Variables.Mot_Id,Variables.Agru_EstId));
+                              Estado=true;
+                              Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
+                              Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                              startActivity(ActividadRegresarLista);
+
+                          } catch (Exception e) {
+                              Estado=false;
+                              Log.e(TAG, "Error Exception: " + e);
+                              Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                          }
+                      }
+                      else
+                      {
+                          try {
+
+                              LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
+                                      Variables.HoraLectura,Variables.HoraIngreso,Variables.Mot_Id,Variables.Agru_EstId));
+                              Estado=true;
+                              Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
+                              Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                              startActivity(ActividadRegresarLista);
+
+                          } catch (Exception e) {
+                              Estado=false;
+                              Log.e(TAG, "Error Exception: " + e);
+                              Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                          }
+                      }
+
+                      if (Estado==false)
+                      {
+                          Mensaje("ERRROR:REVISE BIEN LOS DATOS");
+
                       }
                   }
 
-                  if (Estado==false)
-                  {
-                      Mensaje("ERRROR:REVISE BIEN LOS DATOS");
-
-                  }
               }
 
             }
