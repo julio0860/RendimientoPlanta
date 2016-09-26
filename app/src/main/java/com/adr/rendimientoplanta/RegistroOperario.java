@@ -263,8 +263,8 @@ public class RegistroOperario extends AppCompatActivity {
 
                       }
                   }
-
-            }}
+              }
+            }
         });
 
         btnEliminar.setOnClickListener(new View.OnClickListener()
