@@ -250,6 +250,7 @@ public class RegistroOperario extends AppCompatActivity {
                               Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
                               startActivity(ActividadRegresarLista);
 
+
                           } catch (Exception e) {
                               Estado=false;
                               Log.e(TAG, "Error Exception: " + e);
