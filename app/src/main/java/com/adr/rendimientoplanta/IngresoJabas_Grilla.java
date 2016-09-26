@@ -177,7 +177,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                     + CurReg.getCount(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
-                                    Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                    Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,-1),null);
                                     for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
 
                                         Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
@@ -289,7 +289,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                             }
                                         }
 
-                                        Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                        Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,-1),null);
                                         for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
 
                                             Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
