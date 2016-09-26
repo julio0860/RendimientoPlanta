@@ -196,28 +196,11 @@ public class RegistroOperario extends AppCompatActivity {
                  Mensaje("INGRESE NUMERO DE DNI");
                 }
                 else if (Variables.Per_Dni.length()<8) {
+
                   Mensaje("EL NUMERO DE DNI DEBE TENER 8 CARACTERES");
               }
-                  else
-              {
-                  Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND ESTADO=1 AND DNI='"+Variables.Per_Dni+"'",null);
-                  if (Rse.moveToFirst()) {
+                else{
 
-                      do {
-                          String codigo= Rse.getString(0);
-                          if (Variables.Per_Dni.equals(codigo));
-                          {
-                              EstDni=true;
-                          }
-                      } while(Rse.moveToNext());
-                  }
-
-                  if (EstDni== true)
-                  {
-                      Mensaje("ESTE DNI YA SE ENCUENTRA REGISTRADO");
-                  }
-                  else
-                  {
                       Boolean Estado=false;
                       Variables.HoraLectura=fnc.HoraSistema();
                       Variables.HoraIngreso=edtHora.getText().toString();
@@ -241,6 +224,23 @@ public class RegistroOperario extends AppCompatActivity {
                       }
                       else
                       {
+                          Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND ESTADO=1 AND DNI='"+Variables.Per_Dni+"'",null);
+                          if (Rse.moveToFirst()) {
+
+                              do {
+                                  String codigo= Rse.getString(0);
+                                  if (Variables.Per_Dni.equals(codigo));
+                                  {
+                                      EstDni=true;
+                                  }
+                              } while(Rse.moveToNext());
+                          }
+
+                          if (EstDni== true)
+                          {
+                              Mensaje("ESTE DNI YA SE ENCUENTRA REGISTRADO");
+                          }
+                          else {
                           try {
 
                               LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
@@ -264,9 +264,7 @@ public class RegistroOperario extends AppCompatActivity {
                       }
                   }
 
-              }
-
-            }
+            }}
         });
 
         btnEliminar.setOnClickListener(new View.OnClickListener()
