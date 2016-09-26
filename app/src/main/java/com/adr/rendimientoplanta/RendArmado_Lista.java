@@ -85,7 +85,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                 Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("DNI"));
                 Variables.Agru_Id=curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
                 Variables.HoraIngreso=curPersonal.getString(curPersonal.getColumnIndex("HORAIN"));
-                 //ANTIGUA FORMA
+
 
 //                ActividadModificar.putExtra("ID",((TextView)view.findViewById(android.R.id.text1)).getText().toString());
 //                ActividadModificar.putExtra("NOMBRES",((TextView)view.findViewById(android.R.id.text2)).getText().toString());
