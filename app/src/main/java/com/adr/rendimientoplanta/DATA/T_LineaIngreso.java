@@ -53,6 +53,11 @@ public class T_LineaIngreso {
             +","+MatPriOriFactor+","+LinIngEquivalente+","+LinIngHoraIni+","+LinIngHoraFin+","+LinIngtEfectivo
             +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado;
 
+    public static final String CamposInsertar_LineaIngresoServidor = "LinReg_Id"+","+ConId
+            +","+ConDescripcionCor+","+LinIngCantidad+","+MatPriOriId+","+MatPriOriDescripcion
+            +","+MatPriOriFactor+","+LinIngEquivalente+","+LinIngHoraIni+","+LinIngHoraFin+","+LinIngtEfectivo
+            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado;
+
     public static String LineaIngreso_Insertar(
             int LinReg_IdMovil,int Con_Id, String Con_DescripcionCor,int LinIng_Cantidad,
             int MatProOri_Id,String MatPriOri_Descripcion,double MatPriOri_Factor,double LinIng_Equivalente,
@@ -69,6 +74,23 @@ public class T_LineaIngreso {
                 +"');";
         return Insertar;
     }
+    public static String LineaIngreso_InsertarServidor(
+            int LinReg_Id,int Con_Id, String Con_DescripcionCor,int LinIng_Cantidad,
+            int MatProOri_Id,String MatPriOri_Descripcion,double MatPriOri_Factor,double LinIng_Equivalente,
+            String LinIng_HoraIni,String LinIng_HoraFin,double LinIng_tEfectivo,int LinIng_Mix,
+            String LinIng_FechaHora,int LinIng_Sincronizado)
+    {
+        String Insertar;
+        Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaIngresoServidor+
+                ")VALUES('"+
+                LinReg_Id+"','"+Con_Id+"','"+Con_DescripcionCor+"','"+LinIng_Cantidad+"','"
+                +MatProOri_Id+"','"+MatPriOri_Descripcion+"','"+MatPriOri_Factor+"','"+LinIng_Equivalente+"','"
+                +LinIng_HoraIni+"','"+LinIng_HoraFin+"','"+LinIng_tEfectivo+"','"+LinIng_Mix+"','"
+                +LinIng_FechaHora+"','"+LinIng_Sincronizado
+                +"');";
+        return Insertar;
+    }
+
     public static String LineaIngreso_ActualizarSincronizado(
             int LinIng_Id,int LinIng_Sincronizado)
     {
@@ -85,7 +107,7 @@ public class T_LineaIngreso {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
                 +LinIngHoraFin+"= '"+HoraFin+"',"
-                +LinIngtEfectivo+"= '"+tEfectivo+"'"
+                +LinIngtEfectivo+"= '"+tEfectivo+"',"
                 +LinIngSincronizado+"= '"+Sincronizado+"'"
                 +" WHERE "
                 +LinIngId+"='"+LinIng_Id+"';";
@@ -99,6 +121,17 @@ public class T_LineaIngreso {
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Seleccionar;
     }
+    public static String LineaIngreso_SeleccionarSincronizar(int LinReg_IdMovil,int LinReg_Sincronizado)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_LineaIngreso
+                +" FROM "+NombreTabla+" WHERE "
+                +LinRegIdMovil+"='"+LinReg_IdMovil +"' AND "
+                +LinReg_Sincronizado+"='"+LinReg_Sincronizado +"'"
+                +";";
+        return Seleccionar;
+    }
+
     public static String LineaIngreso_SeleccionarId(int LinIng_Id)
     {
         String Seleccionar;

@@ -112,7 +112,7 @@
         android:layout_height="wrap_content"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/edtFecha"
+        android:id="@+id/lblFecha"
         android:layout_alignTop="@+id/lblFecha"
         android:layout_toEndOf="@+id/lblFecha"
         android:textColor="#000000" />
@@ -127,7 +127,7 @@
         android:layout_column="20"
         android:src="@android:drawable/ic_menu_my_calendar"
         android:layout_alignTop="@+id/textView62"
-        android:layout_toEndOf="@+id/edtFecha"
-        android:layout_alignBottom="@+id/edtFecha" />
+        android:layout_toEndOf="@+id/lblFecha"
+        android:layout_alignBottom="@+id/lblFecha" />
 
 </RelativeLayout>

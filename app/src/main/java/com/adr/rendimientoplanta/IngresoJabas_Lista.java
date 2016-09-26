@@ -73,7 +73,7 @@ private ImageButton imbRegresar;
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         //------------>
-        lblFecha = (TextView) findViewById(R.id.edtFecha);
+        lblFecha = (TextView) findViewById(R.id.lblFecha);
         lblFecha.setText(Variables.FechaStr);
         //Image
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);

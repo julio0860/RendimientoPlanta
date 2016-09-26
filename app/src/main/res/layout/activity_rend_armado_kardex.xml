@@ -36,7 +36,7 @@
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:id="@+id/edtFecha"
+        android:id="@+id/lblFecha"
         android:layout_row="3"
         android:layout_column="7"
         android:enabled="false"
@@ -54,7 +54,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ADR"
         android:id="@+id/lblEmpresa"
-        android:layout_alignTop="@+id/edtFecha"
+        android:layout_alignTop="@+id/lblFecha"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -63,7 +63,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PLANTA DON CARLOS"
         android:id="@+id/lblSucursal"
-        android:layout_alignTop="@+id/edtFecha"
+        android:layout_alignTop="@+id/lblFecha"
         android:layout_centerHorizontal="true" />
 
     <TextView
@@ -129,7 +129,7 @@
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="40084274"
         android:id="@+id/lblDNI"
-        android:layout_below="@+id/edtFecha"
+        android:layout_below="@+id/lblFecha"
         android:layout_alignEnd="@+id/lblLinea"
         android:layout_marginTop="76dp" />
 

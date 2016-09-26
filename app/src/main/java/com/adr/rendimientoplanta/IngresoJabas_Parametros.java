@@ -43,7 +43,7 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
 
         Calendar Cal = new GregorianCalendar();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
-        txtFecha = (EditText) findViewById(R.id.edtFecha);
+        txtFecha = (EditText) findViewById(R.id.lblFecha);
         txtFecha.setText(df.format(Cal.getInstance().getTime()).toString());
         txtFecha.setEnabled(false);
 

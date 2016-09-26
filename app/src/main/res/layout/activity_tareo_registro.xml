@@ -266,7 +266,7 @@
         android:layout_height="40dp"
         android:inputType="date"
         android:ems="10"
-        android:id="@+id/edtFecha"
+        android:id="@+id/lblFecha"
         android:text="09/11/1990"
         android:textSize="16dp"
         android:textStyle="bold"
@@ -285,7 +285,7 @@
         android:layout_row="3"
         android:layout_column="20"
         android:src="@android:drawable/ic_menu_my_calendar"
-        android:layout_below="@+id/edtFecha"
+        android:layout_below="@+id/lblFecha"
         android:layout_toRightOf="@+id/spnLinea"
         android:layout_toEndOf="@+id/spnLinea" />
 
@@ -389,7 +389,7 @@
         android:layout_row="0"
         android:layout_column="6"
         android:src="@android:drawable/ic_secure"
-        android:layout_below="@+id/edtFecha"
+        android:layout_below="@+id/lblFecha"
         android:layout_alignRight="@+id/imbGrabar"
         android:layout_alignEnd="@+id/imbGrabar" />
 

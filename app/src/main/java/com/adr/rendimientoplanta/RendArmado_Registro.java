@@ -28,7 +28,7 @@ public class RendArmado_Registro extends AppCompatActivity {
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
-        edtFecha = (EditText) findViewById(R.id.edtFecha);
+        edtFecha = (EditText) findViewById(R.id.lblFecha);
 
         lblMesa = (TextView) findViewById(R.id.lblMesa);
         lblDNI = (TextView) findViewById(R.id.lblDNI);

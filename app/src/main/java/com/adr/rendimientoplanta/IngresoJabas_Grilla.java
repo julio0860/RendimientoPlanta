@@ -62,7 +62,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         lblCultivo = (TextView) findViewById(R.id.lblCultivo);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
-        lblFecha = (TextView) findViewById(R.id.edtFecha);
+        lblFecha = (TextView) findViewById(R.id.lblFecha);
 
         btnSincronizar = (Button) findViewById(R.id.btnSincronizar);
 
@@ -177,6 +177,38 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                     + CurReg.getCount(), Toast.LENGTH_SHORT).show();
                                         }
                                     }
+                                    Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                    for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
+
+                                        Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
+                                                LinReg_IdServidor,
+                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.ConId)),
+                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.ConDescripcionCor)),
+                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngCantidad)),
+                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriId)),
+                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriDescripcion)),
+                                                CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriFactor)),
+                                                CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngEquivalente)),
+                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraIni)),
+                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraFin)),
+                                                CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngtEfectivo)),
+                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngMix)),
+                                                CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngFechaHora)),
+                                                CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado))
+
+                                        ));
+                                        if (Resultado == false) {
+                                            //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
+                                            //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                            //Revisar - URGENTE
+                                            LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarSincronizado(
+                                                    CurIng.getInt(CurIng.getColumnIndex(BaseColumns._ID)), 1));
+                                        } else {
+                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                                    + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+
                                     Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
                                             +CurReg.getCount(),Toast.LENGTH_SHORT).show();
 
@@ -257,6 +289,36 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                             }
                                         }
 
+                                        Cursor CurIng = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                        for (CurIng.moveToFirst();!CurIng.isAfterLast();CurIng.moveToNext()) {
+
+                                            Resultado = Stmt.execute(T_LineaIngreso.LineaIngreso_InsertarServidor(
+                                                    LinReg_IdServidor,
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.ConId)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.ConDescripcionCor)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngCantidad)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriId)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriDescripcion)),
+                                                    CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.MatPriOriFactor)),
+                                                    CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngEquivalente)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraIni)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngHoraFin)),
+                                                    CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngtEfectivo)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngMix)),
+                                                    CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngFechaHora)),
+                                                    CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado))
+                                            ));
+                                            if (Resultado == false) {
+                                                //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
+                                                //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                                //Revisar - URGENTE
+                                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarSincronizado(
+                                                        CurIng.getInt(CurIng.getColumnIndex(BaseColumns._ID)), 1));
+                                            } else {
+                                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                                        + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
                                         Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
                                                 +CurReg.getCount(),Toast.LENGTH_SHORT).show();
 

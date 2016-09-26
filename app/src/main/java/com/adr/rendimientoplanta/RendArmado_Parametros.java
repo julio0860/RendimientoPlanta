@@ -90,7 +90,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         spnLado = (Spinner) findViewById(R.id.spnLado);
 
         //ASIGNACION DE EDITTEXT DE LAYOUT A VARIABLES
-        edtFecha = (EditText) findViewById(R.id.edtFecha);
+        edtFecha = (EditText) findViewById(R.id.lblFecha);
 
         //ASIGNACION DE BUTTONS DE LAYOUT A VARIABLES
         btnEstablecer = (Button) findViewById(R.id.btnEstablecer);

@@ -27,7 +27,6 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Consumidor;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
-import com.adr.rendimientoplanta.DATA.T_LineaParadas;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -132,7 +131,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
         lblCultivo = (TextView) findViewById(R.id.lblCultivo);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
-        lblFecha = (TextView) findViewById(R.id.edtFecha);
+        lblFecha = (TextView) findViewById(R.id.lblFecha);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblNumIngresos = (TextView) findViewById(R.id.lblNumIngresos);
 

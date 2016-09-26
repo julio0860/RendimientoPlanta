@@ -50,7 +50,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
-        edtFecha = (EditText) findViewById(R.id.edtFecha);
+        edtFecha = (EditText) findViewById(R.id.lblFecha);
 
         //ASIGNACION DE VARIABLES A ELEMENTOS DEL LAYOUT
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);

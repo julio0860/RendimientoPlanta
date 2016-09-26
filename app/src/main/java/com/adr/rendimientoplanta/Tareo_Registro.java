@@ -174,7 +174,7 @@ private boolean ActLabor = false;
         lblTareo.setText(Variables.TarOri_Descripcion);
         lblSucursal.setText(Variables.Suc_Descripcion);
 
-        txtFecha = (EditText) findViewById(R.id.edtFecha);
+        txtFecha = (EditText) findViewById(R.id.lblFecha);
         txtHoraIni = (EditText) findViewById(R.id.txtHoraIni);
         txtHoraFin = (EditText) findViewById(R.id.txtHoraFin);
         txtLectura = (EditText) findViewById(R.id.txtLectura);

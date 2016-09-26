@@ -35,13 +35,13 @@
         android:text="LINEA 1 PUN PDC"
         android:id="@+id/lblLinea"
         android:layout_above="@+id/lblLado"
-        android:layout_alignEnd="@+id/edtFecha" />
+        android:layout_alignEnd="@+id/lblFecha" />
 
     <EditText
         android:layout_width="120dp"
         android:layout_height="wrap_content"
         android:ems="10"
-        android:id="@+id/edtFecha"
+        android:id="@+id/lblFecha"
         android:layout_row="3"
         android:layout_column="7"
         android:enabled="false"
@@ -59,7 +59,7 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PUNNET"
         android:id="@+id/lblProceso"
-        android:layout_below="@+id/edtFecha"
+        android:layout_below="@+id/lblFecha"
         android:layout_alignParentStart="true"
         android:layout_marginTop="0dp" />
 
@@ -124,7 +124,7 @@
         android:id="@+id/edtPersonal"
         android:layout_alignBottom="@+id/textView102"
         android:layout_alignStart="@+id/edtDni"
-        android:layout_alignEnd="@+id/edtFecha"
+        android:layout_alignEnd="@+id/lblFecha"
         android:editable="true"
         android:enabled="false" />
 

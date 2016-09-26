@@ -86,7 +86,7 @@
         android:id="@+id/cbxEstado"
         android:checked="true"
         android:textSize="12dp"
-        android:layout_below="@+id/edtFecha"
+        android:layout_below="@+id/lblFecha"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 
@@ -102,7 +102,7 @@
         android:layout_toStartOf="@+id/cbxEstado" />
 
     <TextView
-        android:id="@+id/edtFecha"
+        android:id="@+id/lblFecha"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="FECHA"

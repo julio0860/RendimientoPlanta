@@ -75,7 +75,7 @@ public class RegistroOperario extends AppCompatActivity {
         lblHoraSalida= (TextView) findViewById(R.id.lblHoraSalida);
         edtHora = (EditText) findViewById(R.id.edtHora);
         edtHoraSalida=(EditText) findViewById(R.id.edtHoraSalida);
-        edtFecha=(EditText) findViewById(R.id.edtFecha);
+        edtFecha=(EditText) findViewById(R.id.lblFecha);
         edtDni=(EditText)findViewById(R.id.edtDni);
         edtPersonal=(EditText)findViewById(R.id.edtPersonal);
         spnMotivos=(Spinner)findViewById(R.id.spnMotivos) ;

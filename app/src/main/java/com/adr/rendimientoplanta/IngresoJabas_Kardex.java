@@ -52,7 +52,7 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
         lblCultivo = (TextView) findViewById(R.id.lblCultivo);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
-        lblFecha = (TextView) findViewById(R.id.edtFecha);
+        lblFecha = (TextView) findViewById(R.id.lblFecha);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
 
         //SMP: Asignación de texto a variables TextView en base a parametros establecidos
