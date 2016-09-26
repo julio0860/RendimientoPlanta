@@ -105,7 +105,6 @@ public class RegistroOperario extends AppCompatActivity {
             btnEliminar.setVisibility(View.VISIBLE);
 
         }
-
         edtDni.setOnKeyListener(new View.OnKeyListener()
         {
             @Override
@@ -132,7 +131,6 @@ public class RegistroOperario extends AppCompatActivity {
             }
         }
         );
-
 
        Cursor Motivos = LocBD.rawQuery("SELECT Mot_Id As '_id',Mot_Descripcion FROM MOTIVOS WHERE MOT_EsRendimiento=1", null);
        adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
@@ -189,7 +187,6 @@ public class RegistroOperario extends AppCompatActivity {
             }
         });
 
-
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -201,11 +198,9 @@ public class RegistroOperario extends AppCompatActivity {
                 else if (Variables.Per_Dni.length()<8) {
                   Mensaje("EL NUMERO DE DNI DEBE TENER 8 CARACTERES");
               }
-
                   else
               {
-
-                  Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND DNI='"+Variables.Per_Dni+"'",null);
+                  Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND ESTADO=1 AND DNI='"+Variables.Per_Dni+"'",null);
                   if (Rse.moveToFirst()) {
 
                       do {
@@ -271,6 +266,32 @@ public class RegistroOperario extends AppCompatActivity {
 
               }
 
+            }
+        });
+
+        btnEliminar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+
+                Variables.Agru_EstId=0;
+                Variables.HoraLectura=fnc.HoraSistema();
+
+                if (Variables.Agru_Id>0) {
+                    try {
+                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
+                                Variables.HoraLectura,Variables.HoraIngreso,Variables.HoraSalida,Variables.Mot_Id,Variables.Agru_EstId));
+
+                        Mensaje("EL REGISTRO HA SIDO ELIMINADO CORRECTAMENTE");
+                        Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                        startActivity(ActividadRegresarLista);
+
+                    } catch (Exception e) {
+
+                        Log.e(TAG, "Error Exception: " + e);
+                        Toast.makeText(RegistroOperario.this, "ERROR AL ELIMINAR REGISTRO" + e.toString(), Toast.LENGTH_SHORT).show();
+                    }
+                }
             }
         });
 }
