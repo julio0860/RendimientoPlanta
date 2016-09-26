@@ -157,6 +157,18 @@ public class T_LineaRegistro {
                 +";";
         return Seleccionar;
     }
+
+    public static String LineaRegistro_SeleccionarIdServidor(String LinReg_Fecha,int Suc_Id,int Cul_Id,int LinReg_IdMovil)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_LineaRegistro
+                +" FROM "+NombreTabla+" WHERE "+LinRegFecha+"='"+LinReg_Fecha+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+CulId+"='"+Cul_Id+"'"
+                +" AND "+LinRegIdMovil+"='"+LinReg_IdMovil+"'"
+                +";";
+        return Seleccionar;
+    }
     public static String LineaRegistro_InsertarServidor(
             int Lin_IdMovil,
             int Lin_Id,
