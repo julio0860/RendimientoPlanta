@@ -72,17 +72,17 @@ public class RegistroOperario extends AppCompatActivity {
         lblSubproceso = (TextView) findViewById(R.id.lblSubproceso);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
-        lblHoraSalida= (TextView) findViewById(R.id.lblHoraSalida);
+        lblHoraSalida = (TextView) findViewById(R.id.lblHoraSalida);
         edtHora = (EditText) findViewById(R.id.edtHora);
-        edtHoraSalida=(EditText) findViewById(R.id.edtHoraSalida);
-        edtFecha=(EditText) findViewById(R.id.lblFecha);
-        edtDni=(EditText)findViewById(R.id.edtDni);
-        edtPersonal=(EditText)findViewById(R.id.edtPersonal);
-        spnMotivos=(Spinner)findViewById(R.id.spnMotivos) ;
-        imbHora= (ImageButton) findViewById(R.id.imbHora);
-        imbHoraSalida= (ImageButton) findViewById(R.id.imbHoraSalida);
-        btnRegistrar=(Button)findViewById(R.id.btnRegistrar) ;
-        btnEliminar=(Button)findViewById(R.id.btnEliminar);
+        edtHoraSalida = (EditText) findViewById(R.id.edtHoraSalida);
+        edtFecha = (EditText) findViewById(R.id.lblFecha);
+        edtDni = (EditText) findViewById(R.id.edtDni);
+        edtPersonal = (EditText) findViewById(R.id.edtPersonal);
+        spnMotivos = (Spinner) findViewById(R.id.spnMotivos);
+        imbHora = (ImageButton) findViewById(R.id.imbHora);
+        imbHoraSalida = (ImageButton) findViewById(R.id.imbHoraSalida);
+        btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
+        btnEliminar = (Button) findViewById(R.id.btnEliminar);
 
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
@@ -90,7 +90,7 @@ public class RegistroOperario extends AppCompatActivity {
         lblProceso.setText(Variables.Pro_Descripcion);
         lblSubproceso.setText(Variables.Sub_Descripcion);
         lblLinea.setText(Variables.Lin_Descripcion);
-        lblLado.setText("LADO: "+Variables.Lin_Lado);
+        lblLado.setText("LADO: " + Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
         lblHoraSalida.setVisibility(View.INVISIBLE);
@@ -98,202 +98,210 @@ public class RegistroOperario extends AppCompatActivity {
         imbHoraSalida.setVisibility(View.INVISIBLE);
         btnEliminar.setVisibility(View.INVISIBLE);
 
-        if (Variables.Agru_Id>0){
+        if (Variables.Agru_Id > 0) {
             edtDni.setText(Variables.Per_Dni);
             edtPersonal.setText(Variables.Per_Nombres);
             edtHora.setText(Variables.HoraIngreso);
             btnEliminar.setVisibility(View.VISIBLE);
 
         }
-        edtDni.setOnKeyListener(new View.OnKeyListener()
-        {
-            @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                //if (event.getAction() == KeyEvent.ACTION_UP ||event.getAction() == KeyEvent.KEYCODE_ENTER) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN ||keyCode==KeyEvent.KEYCODE_ENTER) {
-                    //do something here
-                    //if (keyCode==13)
-                    if (keyCode==KeyEvent.KEYCODE_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER|| event.getAction() == KeyEvent.KEYCODE_ENTER)
-                    {
-                        Variables.Per_Dni=edtDni.getText().toString();
-                        Cursor Rse=LocBD.rawQuery("SELECT Per_Codigo,Per_ApePaterno || ' '|| Per_ApeMaterno||' '||Per_Nombres AS 'PERSONAL' FROM PERSONAL WHERE Per_Codigo='"+Variables.Per_Dni+"'",null);
-                        if (Rse.moveToFirst()) {
-                            //Recorremos el cursor hasta que no haya más registros
-                            do {
-                                String codigo= Rse.getString(0);
-                                String Personal = Rse.getString(1);
-                                edtPersonal.setText(Personal);
-                            } while(Rse.moveToNext());
-                        }
-                    }
-                }
-                return false;
-            }
-        }
+        edtDni.setOnKeyListener(new View.OnKeyListener() {
+                                    @Override
+                                    public boolean onKey(View v, int keyCode, KeyEvent event) {
+                                        //if (event.getAction() == KeyEvent.ACTION_UP ||event.getAction() == KeyEvent.KEYCODE_ENTER) {
+                                        if (event.getAction() == KeyEvent.ACTION_DOWN || keyCode == KeyEvent.KEYCODE_ENTER) {
+                                            //do something here
+                                            //if (keyCode==13)
+                                            if (keyCode == KeyEvent.KEYCODE_ENTER || event.getKeyCode() == KeyEvent.KEYCODE_ENTER || event.getAction() == KeyEvent.KEYCODE_ENTER) {
+                                                Variables.Per_Dni = edtDni.getText().toString();
+                                                Cursor Rse = LocBD.rawQuery("SELECT Per_Codigo,Per_ApePaterno || ' '|| Per_ApeMaterno||' '||Per_Nombres AS 'PERSONAL' FROM PERSONAL WHERE Per_Codigo='" + Variables.Per_Dni + "'", null);
+                                                if (Rse.moveToFirst()) {
+                                                    //Recorremos el cursor hasta que no haya más registros
+                                                    do {
+                                                        String codigo = Rse.getString(0);
+                                                        String Personal = Rse.getString(1);
+                                                        edtPersonal.setText(Personal);
+                                                    } while (Rse.moveToNext());
+                                                }
+                                            }
+                                        }
+                                        return false;
+                                    }
+                                }
         );
 
-       Cursor Motivos = LocBD.rawQuery("SELECT Mot_Id As '_id',Mot_Descripcion FROM MOTIVOS WHERE MOT_EsRendimiento=1", null);
-       adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
-               Motivos, new String[]{T_MotivoParada.MotDescripcion}, new int[]{android.R.id.text1},
-               SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-       spnMotivos.setAdapter(adspnMotivos);
+        Cursor Motivos = LocBD.rawQuery("SELECT Mot_Id As '_id',Mot_Descripcion FROM MOTIVOS WHERE MOT_EsRendimiento=1", null);
+        adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
+                Motivos, new String[]{T_MotivoParada.MotDescripcion}, new int[]{android.R.id.text1},
+                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        spnMotivos.setAdapter(adspnMotivos);
 
         spnMotivos.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v,
                                        int position, long id) {
                 Cursor MotId = (Cursor) parent.getItemAtPosition(position);
                 Variables.Mot_Id = MotId.getInt(MotId.getColumnIndex(BaseColumns._ID));
-                switch (Variables.Mot_Id)
-                {
+                switch (Variables.Mot_Id) {
                     case 7:
-                        Variables.Agru_EstId=1;
+                        Variables.Agru_EstId = 1;
                         break;
                     case 8:
-                        Variables.Agru_EstId=2;
+                        Variables.Agru_EstId = 2;
                         lblHoraSalida.setVisibility(View.VISIBLE);
                         edtHoraSalida.setVisibility(View.VISIBLE);
                         imbHoraSalida.setVisibility(View.VISIBLE);
                         break;
                     case 9:
-                        Variables.Agru_EstId=3;
+                        Variables.Agru_EstId = 3;
                         lblHoraSalida.setVisibility(View.VISIBLE);
                         edtHoraSalida.setVisibility(View.VISIBLE);
                         imbHoraSalida.setVisibility(View.VISIBLE);
                         break;
                 }
             }
+
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
 
 
-        imbHora.setOnClickListener(new View.OnClickListener()
-        {
+        imbHora.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
 
                 displayTime = edtHora;
                 showDialog(fnc.TIME_DIALOG_ID);
             }
         });
 
-        imbHoraSalida.setOnClickListener(new View.OnClickListener()
-        {
+        imbHoraSalida.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
+            public void onClick(View v) {
 
                 displayTime = edtHoraSalida;
                 showDialog(fnc.TIME_DIALOG_ID);
             }
         });
 
-        btnRegistrar.setOnClickListener(new View.OnClickListener()
-        {
+        btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
-            public void onClick (View v){
-        boolean EstDni=false;
-              if (Variables.Per_Dni.equals("")){
-                 Mensaje("INGRESE NUMERO DE DNI");
-                }
-                else if (Variables.Per_Dni.length()<8) {
+            public void onClick(View v) {
+                boolean EstDni = false;
+                if (Variables.Per_Dni.equals("")) {
+                    Mensaje("INGRESE NUMERO DE DNI");
+                } else if (Variables.Per_Dni.length() < 8) {
 
-                  Mensaje("EL NUMERO DE DNI DEBE TENER 8 CARACTERES");
-              }
-                else{
+                    Mensaje("EL NUMERO DE DNI DEBE TENER 8 CARACTERES");
+                } else {
 
-                      Boolean Estado=false;
-                      Variables.HoraLectura=fnc.HoraSistema();
-                      Variables.HoraIngreso=edtHora.getText().toString();
-                      Variables.HoraSalida=edtHoraSalida.getText().toString();
+                    Boolean Estado = false;
+                    Variables.HoraLectura = fnc.HoraSistema();
+                    Variables.HoraIngreso = edtHora.getText().toString();
+                    Variables.HoraSalida = edtHoraSalida.getText().toString();
 
 
-                      if (Variables.Agru_Id>0) {
-                          try {
-                              LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
-                                      Variables.HoraLectura,Variables.HoraIngreso,Variables.HoraSalida,Variables.Mot_Id,Variables.Agru_EstId));
-                              Estado=true;
-                              Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
-                              Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
-                              startActivity(ActividadRegresarLista);
+                    if (Variables.Agru_Id > 0) {
+                        try {
+                            LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                    Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId));
+                            Estado = true;
+                            Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
+                            Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                            startActivity(ActividadRegresarLista);
 
-                          } catch (Exception e) {
-                              Estado=false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                      else
-                      {
-                          Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND ESTADO=1 AND DNI='"+Variables.Per_Dni+"'",null);
-                          if (Rse.moveToFirst()) {
+                        } catch (Exception e) {
+                            Estado = false;
+                            Log.e(TAG, "Error Exception: " + e);
+                            Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    } else {
+                        Cursor Rse = LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='" + Variables.FechaStr + "' AND SUC_ID='" + Variables.Suc_Id + "' AND PRO_ID='" + Variables.Pro_Id + "' AND SUB_ID='" + Variables.Sub_Id + "' AND LIN_ID='" + Variables.Lin_Id + "' AND LADO='" + Variables.Lin_Lado + "' AND ESTADO=1 AND DNI='" + Variables.Per_Dni + "'", null);
+                        if (Rse.moveToFirst()) {
 
-                              do {
-                                  String codigo= Rse.getString(0);
-                                  if (Variables.Per_Dni.equals(codigo));
-                                  {
-                                      EstDni=true;
-                                  }
-                              } while(Rse.moveToNext());
-                          }
+                            do {
+                                String codigo = Rse.getString(0);
+                                if (Variables.Per_Dni.equals(codigo)) ;
+                                {
+                                    EstDni = true;
+                                }
+                            } while (Rse.moveToNext());
+                        }
 
-                          if (EstDni== true)
-                          {
-                              Mensaje("ESTE DNI YA SE ENCUENTRA REGISTRADO");
-                          }
-                          else {
-                          try {
+                        if (EstDni == true) {
+                            Mensaje("ESTE DNI YA SE ENCUENTRA REGISTRADO");
+                        } else {
+                            try {
 
-                              LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
-                                      Variables.HoraLectura,Variables.HoraIngreso,Variables.Mot_Id,Variables.Agru_EstId));
-                              Estado=true;
-                              Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
-                              Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
-                              startActivity(ActividadRegresarLista);
+                                LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                        Variables.HoraLectura, Variables.HoraIngreso, Variables.Mot_Id, Variables.Agru_EstId));
+                                Estado = true;
+                                Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
+                                Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                                startActivity(ActividadRegresarLista);
 
 
-                          } catch (Exception e) {
-                              Estado=false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
-                          }
-                      }
+                            } catch (Exception e) {
+                                Estado = false;
+                                Log.e(TAG, "Error Exception: " + e);
+                                Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
+                            }
+                        }
 
-                      if (Estado==false)
-                      {
-                          Mensaje("ERRROR:REVISE BIEN LOS DATOS");
+                        if (Estado == false) {
+                            Mensaje("ERRROR:REVISE BIEN LOS DATOS");
 
-                      }
-                  }
-              }
-            }
-        });
-
-        btnEliminar.setOnClickListener(new View.OnClickListener()
-        {
-            @Override
-            public void onClick (View v){
-
-                Variables.Agru_EstId=0;
-                Variables.HoraLectura=fnc.HoraSistema();
-
-                if (Variables.Agru_Id>0) {
-                    try {
-                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id,Variables.Emp_Id,Variables.FechaStr,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,Variables.Per_Ubicacion,Variables.Per_Dni,
-                                Variables.HoraLectura,Variables.HoraIngreso,Variables.HoraSalida,Variables.Mot_Id,Variables.Agru_EstId));
-
-                        Mensaje("EL REGISTRO HA SIDO ELIMINADO CORRECTAMENTE");
-                        Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
-                        startActivity(ActividadRegresarLista);
-
-                    } catch (Exception e) {
-
-                        Log.e(TAG, "Error Exception: " + e);
-                        Toast.makeText(RegistroOperario.this, "ERROR AL ELIMINAR REGISTRO" + e.toString(), Toast.LENGTH_SHORT).show();
+                        }
                     }
                 }
             }
         });
-}
+
+        btnEliminar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                if (Variables.Agru_Id > 0) {
+                    AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RegistroOperario.this);
+                    alertDialog1.setTitle("AVISO");
+                    alertDialog1.setMessage("DESESA ELIMINAR EL REGISTRO:");
+                    alertDialog1.setPositiveButton(
+                            "Yes",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    Variables.Agru_EstId = 0;
+                                    Variables.HoraLectura = fnc.HoraSistema();
+
+                                    try {
+                                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                                Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId));
+
+                                        Mensaje("EL REGISTRO HA SIDO ELIMINADO CORRECTAMENTE");
+                                        Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
+                                        startActivity(ActividadRegresarLista);
+
+                                    } catch (Exception e) {
+
+                                        Log.e(TAG, "Error Exception: " + e);
+                                        Toast.makeText(RegistroOperario.this, "ERROR AL ELIMINAR REGISTRO" + e.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+
+                            });
+                    alertDialog1.setNegativeButton(
+                            "No",
+                            new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    dialog.cancel();
+                                }
+
+                            });
+                    alertDialog1.create();
+                    alertDialog1.show();
+
+                }
+            }
+        });
+    }
     private TimePickerDialog.OnTimeSetListener mTimeSetListener =
             new TimePickerDialog.OnTimeSetListener() {
                 public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
@@ -329,5 +337,10 @@ public class RegistroOperario extends AppCompatActivity {
                 });
         alertDialog1.create();
         alertDialog1.show();
+    }
+
+    private void MensajeMultiple(String mensaje)
+    {
+
     }
 }
