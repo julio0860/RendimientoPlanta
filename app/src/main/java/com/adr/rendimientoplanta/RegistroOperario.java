@@ -189,7 +189,6 @@ public class RegistroOperario extends AppCompatActivity {
             }
         });
 
-
         btnRegistrar.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -201,10 +200,8 @@ public class RegistroOperario extends AppCompatActivity {
                 else if (Variables.Per_Dni.length()<8) {
                   Mensaje("EL NUMERO DE DNI DEBE TENER 8 CARACTERES");
               }
-
                   else
               {
-
                   Cursor Rse=LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+Variables.FechaStr+"' AND SUC_ID='"+Variables.Suc_Id+"' AND PRO_ID='"+Variables.Pro_Id+"' AND SUB_ID='"+Variables.Sub_Id+"' AND LIN_ID='"+Variables.Lin_Id+"' AND LADO='"+Variables.Lin_Lado+"' AND ESTADO=1 AND DNI='"+Variables.Per_Dni+"'",null);
                   if (Rse.moveToFirst()) {
 
