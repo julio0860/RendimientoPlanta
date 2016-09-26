@@ -3,6 +3,7 @@ package com.adr.rendimientoplanta;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.provider.BaseColumns;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -132,12 +133,12 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                             Rse= Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(
                                     CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinId)),
                                     Variables.FechaStr));
-                            Toast.makeText(IngresoJabas_Grilla.this, "Registros Servidor: "+Rse.getRow(),Toast.LENGTH_SHORT).show();
+                            //Toast.makeText(IngresoJabas_Grilla.this, "Registros Servidor: "+Rse.getRow(),Toast.LENGTH_SHORT).show();
                             if (Rse.next())
                             {
 
                                 //Si devuelve valor, actualizar
-                                LinReg_IdServidor = CurReg.getColumnIndex(T_LineaRegistro.LinRegId);
+                                LinReg_IdServidor = CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegId));
 
                                 Resultado = Stmt.execute(T_LineaRegistro.LineaRegistro_ActualizarServidor(
                                         LinReg_IdServidor,
@@ -152,8 +153,33 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                 ));
                                 if (Resultado == false)
                                 {
+                                    Cursor CurPar = LocBD.rawQuery(T_LineaParadas.LineaParadas_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                    for (CurPar.moveToFirst();!CurPar.isAfterLast();CurPar.moveToNext()) {
+
+                                        Resultado = Stmt.execute(T_LineaParadas.LineaParadas_InsertarServidor(
+                                                LinReg_IdServidor,
+                                                CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.MotId)),
+                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraIni)),
+                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraFin)),
+                                                CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
+                                                CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
+                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
+                                                CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
+                                        ));
+                                        if (Resultado == false) {
+                                            //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
+                                            //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                            //Revisar - URGENTE
+                                            LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
+                                                    CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)), 1));
+                                        } else {
+                                            Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                                    + CurReg.getCount(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
                                     Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
                                             +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+
                                 }
                                 else
                                 {
@@ -189,8 +215,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                         //Si se realiza la inserción correctamente, se procede a actualizar
                                         //el registro local y asignarle el Id generado en el servidor.
                                         Rse=null;
-                                        Rse = Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
-                                                Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id));
+                                        Rse = Stmt.executeQuery(T_LineaRegistro.LineaRegistro_SeleccionarIdServidor(
+                                                Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id,LinReg_IdMovil));
                                         Rse.next();
                                         //Actualiza a la tabla local el Id generado en el servidor
                                         LinReg_IdServidor = Rse.getInt(Rse.findColumn(T_LineaRegistro.LinRegId));
@@ -204,38 +230,42 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                 CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegIdMovil))
                                                 ,fnc.HoraSistema()
                                         ));
+                                        Cursor CurPar = LocBD.rawQuery(T_LineaParadas.LineaParadas_SeleccionarSincronizar(LinReg_IdMovil,0),null);
+                                        for (CurPar.moveToFirst();!CurPar.isAfterLast();CurPar.moveToNext()) {
+
+                                            Resultado = Stmt.execute(T_LineaParadas.LineaParadas_InsertarServidor(
+                                                    LinReg_IdServidor,
+                                                    CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.MotId)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraIni)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraFin)),
+                                                    CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
+                                                    CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
+                                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
+                                            ));
+                                            if (Resultado==false)
+                                            {
+                                                //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
+                                                //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                                //Revisar - URGENTE
+                                                LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
+                                                CurPar.getInt(CurPar.getColumnIndex(BaseColumns._ID)),1));
+                                            }else
+                                            {
+                                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
+                                                        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+                                            }
+                                        }
+
                                         Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
                                                 +CurReg.getCount(),Toast.LENGTH_SHORT).show();
+
                                     }else
                                     {
                                         Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
                                                 +CurReg.getCount(),Toast.LENGTH_SHORT).show();
                                     }
                             }
-
-                            Cursor CurPar = LocBD.rawQuery(T_LineaParadas.LineaParadas_SeleccionarSincronizar(LinReg_IdMovil,0),null);
-                            Resultado = Stmt.execute(T_LineaParadas.LineaParadas_Insertar(
-                                    LinReg_IdServidor,
-                                    CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.MotId)),
-                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraIni)),
-                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParHoraFin)),
-                                    CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
-                                    CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
-                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
-                                    CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
-                            ));
-                            if (Resultado==false)
-                            {
-                                Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
-                                        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
-                                LocBD.execSQL(T_LineaParadas.LineaParadas_ActualizarSincronizado(
-                                        CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParId)),1));
-                            }else
-                            {
-                                Toast.makeText(IngresoJabas_Grilla.this, "ERROR AL SINCRONIZAR "
-                                        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
-                            }
-
                         }
                     }
 
