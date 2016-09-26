@@ -39,6 +39,10 @@ public class T_LineaParadas {
             LinRegIdMovil+","+MotId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
             +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion;
 
+    public static final String CamposInsertar_LineaParadasServidor =
+            "LinReg_Id"+","+MotId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
+                    +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion;
+
     public static String LineaParadas_Insertar(
             int LinReg_IdMovil,int MotPar_Id, String LinPar_HoraIni,String LinPar_HoraFin,
             double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion)
@@ -50,6 +54,18 @@ public class T_LineaParadas {
                 +LinPar_Parada+"','"+LinPar_Sincronizado+"','"+LinPar_FechaHora+"','"+MotPar_Descripcion+"');";
         return Insertar;
     }
+    public static String LineaParadas_InsertarServidor(
+            int LinReg_Id,int MotPar_Id, String LinPar_HoraIni,String LinPar_HoraFin,
+            double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion)
+    {
+        String Insertar;
+        Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaParadasServidor+
+                ")VALUES('"+
+                LinReg_Id+"','"+MotPar_Id+"','"+LinPar_HoraIni+"','"+LinPar_HoraFin+"','"
+                +LinPar_Parada+"','"+LinPar_Sincronizado+"','"+LinPar_FechaHora+"','"+MotPar_Descripcion+"');";
+        return Insertar;
+    }
+
     public static String LineaParadas_ActualizarSincronizado(
             int LinPar_Id,int LinPar_Sincronizado)
     {
@@ -65,6 +81,15 @@ public class T_LineaParadas {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaParadas
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"';";
+        return Seleccionar;
+    }
+    public static String LineaParadas_SeleccionarSincronizar(int LinReg_IdMovil,int LinPar_Sincronizado)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_LineaParadas
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"'"
+                +" AND "+LinParSincronizado+"='"+LinPar_Sincronizado+"'"
+                +";";
         return Seleccionar;
     }
     public static String LineaParadas_SeleccionarId(int LinPar_Id)
