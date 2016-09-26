@@ -50,6 +50,7 @@ public class RegistroOperario extends AppCompatActivity {
     private ImageButton imbHora;
     private ImageButton imbHoraSalida;
     private Button btnRegistrar;
+    private Button btnEliminar;
     private SimpleCursorAdapter adspnMotivos;
     private int pHour;
     private int pMinute;
@@ -83,6 +84,7 @@ public class RegistroOperario extends AppCompatActivity {
         imbHora= (ImageButton) findViewById(R.id.imbHora);
         imbHoraSalida= (ImageButton) findViewById(R.id.imbHoraSalida);
         btnRegistrar=(Button)findViewById(R.id.btnRegistrar) ;
+        btnEliminar=(Button)findViewById(R.id.btnEliminar);
 
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
@@ -96,11 +98,14 @@ public class RegistroOperario extends AppCompatActivity {
         lblHoraSalida.setVisibility(View.INVISIBLE);
         edtHoraSalida.setVisibility(View.INVISIBLE);
         imbHoraSalida.setVisibility(View.INVISIBLE);
+        btnEliminar.setVisibility(View.INVISIBLE);
 
         if (Variables.Agru_Id>0){
             edtDni.setText(Variables.Per_Dni);
             edtPersonal.setText(Variables.Per_Nombres);
             edtHora.setText(Variables.HoraIngreso);
+            btnEliminar.setVisibility(View.VISIBLE);
+
         }
 
         edtDni.setOnKeyListener(new View.OnKeyListener()
@@ -191,7 +196,6 @@ public class RegistroOperario extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-
 
               if (Variables.Per_Dni.equals("")){
                  Mensaje("INGRESE NUMERO DE DNI");

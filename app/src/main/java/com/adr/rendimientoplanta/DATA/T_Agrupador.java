@@ -65,4 +65,10 @@ public class T_Agrupador {
                    HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"' WHERE "+AGRUID+"='"+AgruId+"'";
         return _UPDATE;
     }
+    public static String _DELETE(int AgruId)
+    {
+        String _DELETE;
+        _DELETE = "DELETE FROM "+N_TABLA +"WHERE "+AGRUID+"='"+AgruId+" ;";
+        return _DELETE;
+    }
 }
