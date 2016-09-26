@@ -153,5 +153,24 @@ public class T_LineaIngreso {
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
         return Seleccionar;
     }
+    //PARA RESUMEN
+    public static String EquivalentePorId(int LinReg_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT SUM("+T_LineaIngreso.LinIngEquivalente+")"
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"'"
+                //+"' AND "+LinIngSincronizado+" IN('0','1')"
+                +";";
+        return Seleccionar;
+    }
+    public static String HoraFinPorId(int LinReg_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT SUM("+T_LineaIngreso.LinIngEquivalente+")"
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"'"
+                +" AND "+LinIngSincronizado+"='-1'"
+                +";";
+        return Seleccionar;
+    }
 
 }

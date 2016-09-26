@@ -203,8 +203,8 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0.00"
-        android:id="@+id/textView36"
-        android:layout_alignTop="@+id/textView56"
+        android:id="@+id/lblHoraEfectiva"
+        android:layout_alignTop="@+id/lblCantidad"
         android:layout_alignStart="@+id/edtHoraFin" />
 
     <TextView
@@ -212,7 +212,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="000"
-        android:id="@+id/textView56"
+        android:id="@+id/lblCantidad"
         android:layout_below="@+id/textView32"
         android:layout_alignEnd="@+id/textView32" />
 
@@ -221,7 +221,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="00.00"
-        android:id="@+id/textView57"
+        android:id="@+id/lblCantidadPorHora"
         android:layout_below="@+id/textView32"
         android:layout_alignStart="@+id/lblFecha" />
 

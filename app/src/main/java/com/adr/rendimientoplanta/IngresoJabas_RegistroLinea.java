@@ -67,6 +67,11 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     private TextView lblEmpresa;
     private TextView lblLinea;
     private TextView lblTiempoParadas;
+    private TextView lblHoraEfectiva;
+    private TextView lblCantidad;
+    private TextView lblCantidadPorHora;
+
+
 
     private TextView lblNumParadas;
 
@@ -133,6 +138,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         lblFecha = (TextView) findViewById(R.id.lblFecha);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
 
+        lblHoraEfectiva = (TextView) findViewById(R.id.lblHoraEfectiva);
+        lblCantidad = (TextView) findViewById(R.id.lblCantidad);
+        lblCantidadPorHora = (TextView) findViewById(R.id.lblCantidadPorHora);
         lblNumParadas = (TextView) findViewById(R.id.lblNumParadas);
         lblTiempoParadas = (TextView)findViewById(R.id.lblTiempoParadas);
 
@@ -176,9 +184,16 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             RegLin_Id = Integer.parseInt(CurLineaRegistro.getString(0)) ;
             Toast.makeText(this,"Registro existente Id: "+RegLin_Id, Toast.LENGTH_SHORT).show();
             BloquearBotones(true);
-            edtHoraIni.setText(CurLineaRegistro.getString(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraIni)));
+            HoraIni=CurLineaRegistro.getString(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraIni));
+            edtHoraIni.setText(HoraIni);
             edtHoraFin.setText(CurLineaRegistro.getString(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraFin)));
-            RecuperarNumeroParadas();
+            //RecuperarNumeroParadas();
+            lblNumParadas.setText(String.valueOf(CurLineaRegistro.getInt(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegNumParadas))));
+            lblTiempoParadas.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegParadas))));
+            lblHoraEfectiva.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraEfectiva))));
+            lblCantidad.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegCantidad))));
+            lblCantidadPorHora.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegCantidadPorHora))));
+
             edtHoraIniPar.setText(HoraNula);
             edtHoraFinPar.setText(HoraNula);
         }
@@ -203,6 +218,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                      Intent ActividadNueva = new Intent(IngresoJabas_RegistroLinea.this,
                              IngresoJabas_RegistroJabas.class);
                      ActividadNueva.putExtra("RegLin_Id",RegLin_Id);
+                     ActividadNueva.putExtra("LinReg_HoraIni",HoraIni);
                      startActivity(ActividadNueva);
                  }
              }
@@ -458,6 +474,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         CurParadas.moveToFirst();
         NumParadas=CurParadas.getInt(0);
         SumParadas=fnc.RedondeoDecimal(CurParadas.getDouble(1),2, BigDecimal.ROUND_HALF_UP) ;
+        LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarParadas(RegLin_Id,SumParadas,NumParadas));
         lblNumParadas.setText(String.valueOf(NumParadas));
         lblTiempoParadas.setText(String.valueOf(SumParadas));
     }
