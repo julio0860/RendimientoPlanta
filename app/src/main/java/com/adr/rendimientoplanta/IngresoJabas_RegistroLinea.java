@@ -271,6 +271,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                 @Override
                 public void onClick (View v){
             HoraIni=edtHoraIni.getText().toString();
+            HoraFin=edtHoraFin.getText().toString();
             if (HoraIni.equals("--"))
             {
                 Toast.makeText(IngresoJabas_RegistroLinea.this,"Revisar la hora",Toast.LENGTH_SHORT).show();
@@ -289,7 +290,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                         // Código propio del método borrado para ejemplo
                         try {
                             LocBD.execSQL(T_LineaRegistro.LineaRegistro_Insertar(Variables.Lin_Id,
-                                    Variables.FechaStr,HoraIni,Variables.MAC,Variables.FechaStr,1,Variables.Usu_Id,Variables.Suc_Id,Variables.Cul_Id));
+                                    Variables.FechaStr,HoraIni,Variables.MAC,fnc.HoraSistema(),1,Variables.Usu_Id,Variables.Suc_Id,Variables.Cul_Id,HoraFin));
                             BloquearBotones(true);
                             Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
                             Registro.moveToFirst();

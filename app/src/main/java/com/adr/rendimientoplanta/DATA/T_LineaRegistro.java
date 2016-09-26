@@ -52,10 +52,10 @@ public class T_LineaRegistro {
     public static final String CamposSeleccionar_LineaRegistro = LinRegIdMovil+","+LinRegId+","+LinId
             +","+LinRegFecha+","+LinRegHoraIni+","+LinRegHoraFin+","+LinRegCantidad
             +","+LinRegHoraEfectiva+","+LinRegParadas+","+LinRegNumParadas+","+LinRegCantidadPorHora
-            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+SucId+","+CulId;
+            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+UsuId+","+SucId+","+CulId;
 
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
-            +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId+","+SucId+","+CulId;
+            +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId+","+SucId+","+CulId+","+LinRegHoraFin;
 
     public static final String CamposInsertar_LineaSincronizar = LinRegIdMovil+","+LinId+","+LinRegFecha
             +","+LinRegHoraIni +","+LinRegHoraFin +","+LinRegCantidad+","+LinRegHoraEfectiva+","+LinRegParadas
@@ -64,13 +64,13 @@ public class T_LineaRegistro {
 
     public static String LineaRegistro_Insertar(
             int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
-            String LinReg_FechaHora,int Est_Id,int Usu_Id,int Suc_Id,int Cul_Id)
+            String LinReg_FechaHora,int Est_Id,int Usu_Id,int Suc_Id,int Cul_Id,String LinReg_HoraFin)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaRegistro+
                 ")VALUES('"+
                 Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+LinReg_Mac+"','"
-                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
+                +LinReg_FechaHora+"','"+Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"','"+LinReg_HoraFin+"');";
 
         return Insertar;
     }
@@ -110,7 +110,27 @@ public class T_LineaRegistro {
                 +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Actualizar;
     }
-
+    public static String LineaRegistro_ActualizarServidor(
+            int LinReg_Id,
+            String LinReg_HoraFin,
+            double LinReg_Cantidad,
+            double LinReg_HoraEfectiva,
+            double LinReg_Paradas,
+            int LinReg_NumParadas,
+            double LinReg_CantidadPorHora,
+            String LinReg_UltimaSincro,
+            int Est_Id)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +LinRegHoraFin+"= '"+LinReg_HoraFin+"',"+LinRegCantidad+"='"+LinReg_Cantidad
+                +"',"+LinRegHoraEfectiva+"='"+LinReg_HoraEfectiva+"',"+LinRegParadas+"='"+LinReg_Paradas
+                +"',"+LinRegNumParadas+"='"+LinReg_NumParadas+"',"+LinRegCantidadPorHora +"='"+LinReg_CantidadPorHora
+                +"',"+LinRegUltimaSincro+"='"+LinReg_UltimaSincro+"',"+EstId+"='"+Est_Id
+                +"' WHERE "
+                +LinRegId+"='"+LinReg_Id+"';";
+        return Actualizar;
+    }
 
     public static String LineaRegistro_SeleccionarId(int LinReg_IdMovil)
     {
@@ -137,7 +157,7 @@ public class T_LineaRegistro {
                 +";";
         return Seleccionar;
     }
-    public static String LineaRegistro_InsertarSincronizar(
+    public static String LineaRegistro_InsertarServidor(
             int Lin_IdMovil,
             int Lin_Id,
             String LinReg_Fecha,
@@ -160,7 +180,9 @@ public class T_LineaRegistro {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaSincronizar+
                 ")VALUES('"+
-                Lin_IdMovil+"','"+Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni+"','"+"','"+LinReg_HoraFin+"','"
+                Lin_IdMovil+"','"+Lin_Id+"','"+LinReg_Fecha+"','"+LinReg_HoraIni
+                +"','"+LinReg_HoraFin
+                +"','"
                 +LinReg_Cantidad+"','"+LinReg_HoraEfectiva+"','"+LinReg_Paradas+"','"+LinReg_NumParadas+"','"
                 +LinReg_CantidadPorHora+"','"+LinReg_Mac+"','"+LinReg_FechaHora+"','"+LinReg_UltimaSincro+"','"
                 +Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
