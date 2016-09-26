@@ -105,7 +105,6 @@ public class RegistroOperario extends AppCompatActivity {
             btnEliminar.setVisibility(View.VISIBLE);
 
         }
-
         edtDni.setOnKeyListener(new View.OnKeyListener()
         {
             @Override
@@ -132,7 +131,6 @@ public class RegistroOperario extends AppCompatActivity {
             }
         }
         );
-
 
        Cursor Motivos = LocBD.rawQuery("SELECT Mot_Id As '_id',Mot_Descripcion FROM MOTIVOS WHERE MOT_EsRendimiento=1", null);
        adspnMotivos = new SimpleCursorAdapter(RegistroOperario.this, android.R.layout.simple_dropdown_item_1line,
@@ -294,8 +292,6 @@ public class RegistroOperario extends AppCompatActivity {
                         Toast.makeText(RegistroOperario.this, "ERROR AL ELIMINAR REGISTRO" + e.toString(), Toast.LENGTH_SHORT).show();
                     }
                 }
-
-
             }
         });
 }
