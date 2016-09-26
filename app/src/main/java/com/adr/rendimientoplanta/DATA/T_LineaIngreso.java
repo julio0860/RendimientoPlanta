@@ -127,7 +127,7 @@ public class T_LineaIngreso {
         Seleccionar = "SELECT "+CamposSeleccionar_LineaIngreso
                 +" FROM "+NombreTabla+" WHERE "
                 +LinRegIdMovil+"='"+LinReg_IdMovil +"' AND "
-                +LinReg_Sincronizado+"='"+LinReg_Sincronizado +"'"
+                +LinIngSincronizado+"='"+LinReg_Sincronizado +"'"
                 +";";
         return Seleccionar;
     }
