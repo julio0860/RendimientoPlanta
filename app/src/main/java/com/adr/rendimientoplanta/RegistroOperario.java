@@ -97,12 +97,14 @@ public class RegistroOperario extends AppCompatActivity {
         edtHoraSalida.setVisibility(View.INVISIBLE);
         imbHoraSalida.setVisibility(View.INVISIBLE);
         btnEliminar.setVisibility(View.INVISIBLE);
+        spnMotivos.setEnabled(false);
 
         if (Variables.Agru_Id > 0) {
             edtDni.setText(Variables.Per_Dni);
             edtPersonal.setText(Variables.Per_Nombres);
             edtHora.setText(Variables.HoraIngreso);
             btnEliminar.setVisibility(View.VISIBLE);
+            spnMotivos.setEnabled(true);
 
         }
         edtDni.setOnKeyListener(new View.OnKeyListener() {
@@ -220,7 +222,7 @@ public class RegistroOperario extends AppCompatActivity {
 
                             do {
                                 String codigo = Rse.getString(0);
-                                if (Variables.Per_Dni.equals(codigo)) ;
+                                if (Variables.Per_Dni.equals(codigo))
                                 {
                                     EstDni = true;
                                 }
@@ -229,9 +231,10 @@ public class RegistroOperario extends AppCompatActivity {
 
                         if (EstDni == true) {
                             Mensaje("ESTE DNI YA SE ENCUENTRA REGISTRADO");
-                        } else {
-                            try {
+                        }
 
+                        else{
+                            try {
                                 LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
                                         Variables.HoraLectura, Variables.HoraIngreso, Variables.Mot_Id, Variables.Agru_EstId));
                                 Estado = true;
@@ -245,12 +248,12 @@ public class RegistroOperario extends AppCompatActivity {
                                 Log.e(TAG, "Error Exception: " + e);
                                 Toast.makeText(RegistroOperario.this, "ERROR AL REGISTRAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
                             }
+                            if (Estado == false) {
+                                Mensaje("ERRROR:REVISE BIEN LOS DATOS");
+
+                            }
                         }
 
-                        if (Estado == false) {
-                            Mensaje("ERRROR:REVISE BIEN LOS DATOS");
-
-                        }
                     }
                 }
             }
@@ -263,9 +266,9 @@ public class RegistroOperario extends AppCompatActivity {
                 if (Variables.Agru_Id > 0) {
                     AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RegistroOperario.this);
                     alertDialog1.setTitle("AVISO");
-                    alertDialog1.setMessage("DESESA ELIMINAR EL REGISTRO:");
+                    alertDialog1.setMessage("DESESAS ELIMINAR EL REGISTRO:");
                     alertDialog1.setPositiveButton(
-                            "Yes",
+                            "Si",
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Variables.Agru_EstId = 0;
@@ -298,6 +301,7 @@ public class RegistroOperario extends AppCompatActivity {
                     alertDialog1.create();
                     alertDialog1.show();
 
+
                 }
             }
         });
@@ -329,10 +333,10 @@ public class RegistroOperario extends AppCompatActivity {
         alertDialog1.setTitle("AVISO");
         alertDialog1.setMessage(mensaje);
         alertDialog1.setPositiveButton(
-                "Yes",
+                "OK",
                 new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
-                        dialog.cancel();
+
                     }
                 });
         alertDialog1.create();
