@@ -90,6 +90,18 @@ public class T_LineaRegistro {
                 +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Actualizar;
     }
+    public static String LineaRegistro_ActualizarTermino(
+            int LinReg_IdMovil,String LinReg_HoraFin,int Est_Id)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +LinRegHoraFin+"='"+LinReg_HoraFin
+                +"',"+EstId+"='"+Est_Id
+                +"' WHERE "
+                +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
+        return Actualizar;
+    }
+
     public static String LineaRegistro_ActualizarParadas(
             int LinReg_IdMovil,double LinReg_Paradas,int LinReg_NumParadas)
     {
