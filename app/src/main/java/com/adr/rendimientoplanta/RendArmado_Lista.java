@@ -23,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 
@@ -38,6 +39,7 @@ public class RendArmado_Lista extends AppCompatActivity {
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
     private Button btnSincronizar;
+    private int IdregServidor;
 
 
     @Override
@@ -113,8 +115,38 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                               // Lo que sucede si se pulsa yes
                                                               public void onClick(DialogInterface dialog, int id) {
                                                                   if (conectadoWifi()){
-                                                                      Cursor CurReg = LocBD.rawQuery("set",null);
+                                                                      Cursor CurReg = LocBD.rawQuery(T_Agrupador._SELECCIONAR_TODOS(Variables.FechaStr),null);
                                                                       boolean Resultado = true;
+                                                                      try {
+                                                                          Toast.makeText(RendArmado_Lista.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
+
+                                                                        /*  Connection Cnn = ConexionBD.getInstance().getConnection();
+                                                                          Statement Stmt = Cnn.createStatement();
+                                                                          ResultSet Rse;*/
+                                                                          if (CurReg.getCount()!=0){
+                                                                              for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
+                                                                              {
+                                                                                  IdregServidor=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.IDSERVIDOR));
+
+                                                                                  if (IdregServidor>0){
+
+                                                                                      Toast.makeText(RendArmado_Lista.this, "COMPARA CON EL SERVIDOR Y ACTUALIZA EN LA FECHA ",Toast.LENGTH_SHORT).show();
+                                                                                  }
+                                                                                  else
+                                                                                  {
+                                                                                      Toast.makeText(RendArmado_Lista.this, "INSERTA AL SERVIDOR  ",Toast.LENGTH_SHORT).show();
+                                                                                  }
+
+                                                                              }
+
+                                                                          }
+
+
+                                                                      }
+                                                                      catch (Exception e){
+                                                                          Toast.makeText(RendArmado_Lista.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                                                      }
+
                                                                   }
                                                                   else
                                                                   {

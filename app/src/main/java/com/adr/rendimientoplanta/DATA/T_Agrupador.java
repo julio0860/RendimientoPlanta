@@ -38,14 +38,17 @@ public class T_Agrupador {
             HORAINGRESO +" TEXT NOT NULL, "+
             HORASALIDA +" TEXT  NULL, "+
             MOTIVO +" INTEGER NOT NULL, "+
-            ESTADO +" INTEGER NOT NULL "+
+            ESTADO +" INTEGER NOT NULL, "+
             IDSERVIDOR+" INTEGER  NULL "+
             ");";
 
     public static final String DROP_T_AGRUPADOR ="DROP TABLE IF EXISTS "+N_TABLA;
 
 
-
+    public static final String CamposSeleccionar_NoSincronizados = AGRUID+","+EMPID+","+FECHA
+            +","+SUCID+","+PROID+","+SUBID+","+LINID
+            +","+LADO+","+POSICION+","+DNI+","+HORALECTURA
+            +","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+","+IDSERVIDOR;
 
     public static String _INSERT(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
                                  String Dni,String HoraLectura,String HoraIngreso,int Motivo,int Estado)
@@ -84,5 +87,14 @@ public class T_Agrupador {
         String _DELETE;
         _DELETE = "DELETE FROM "+N_TABLA +"WHERE "+AGRUID+"='"+AgruId+";";
         return _DELETE;
+    }
+
+    public static String _SELECCIONAR_TODOS(String Fecha)
+            //SON TODOS LOS QUE TIENEN IDSERVIDOR NULL
+    {
+        String _SELECCIONAR_NO_SINCRONIZADOS;
+        _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_NoSincronizados +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"'"+
+                ";";
+        return _SELECCIONAR_NO_SINCRONIZADOS;
     }
 }
