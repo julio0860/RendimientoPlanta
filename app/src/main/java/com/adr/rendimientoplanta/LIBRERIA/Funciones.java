@@ -5,6 +5,8 @@ import android.app.Dialog;
 import android.app.TimePickerDialog;
 import android.content.Context;
 import android.database.Cursor;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -62,6 +64,19 @@ public class Funciones extends AppCompatActivity {
         TelephonyManager telephonyManager = (TelephonyManager)getSystemService(Context.TELEPHONY_SERVICE);
         IMEI=telephonyManager.getDeviceId();
         return IMEI;
+    }
+
+    public final Boolean conectadoWifi(){
+        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (info != null) {
+                if (info.isConnected()) {
+                    return true;
+                }
+            }
+        }
+        return false;
     }
 
     public static String pad(int c) {

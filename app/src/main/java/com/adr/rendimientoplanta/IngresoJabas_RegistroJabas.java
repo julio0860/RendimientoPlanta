@@ -27,14 +27,19 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Consumidor;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
+import com.adr.rendimientoplanta.DATA.T_LineaParadas;
+import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
+import java.math.BigDecimal;
 import java.util.Calendar;
 
 public class IngresoJabas_RegistroJabas extends AppCompatActivity {
 
     private Funciones fnc;
+//
+private String HoraIniLinea;
 
     //SMP: Variables para recuperar datos a insertar:
     private int EsMix;
@@ -126,6 +131,7 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
 
         //SMP: Obtención de Registro Linea Actividad anterior
         RegLin_Id = getIntent().getIntExtra("RegLin_Id",0);
+        HoraIniLinea =getIntent().getStringExtra("LinReg_HoraIni");
 
         //SMP: Asignación de variables TextView a Layout
         lblCultivo = (TextView) findViewById(R.id.lblCultivo);
@@ -432,34 +438,66 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
     }
     private int CantidadReg(int LinReg_Id)
     {
-        Cursor curCantidadIngreso= LocBD.rawQuery(T_LineaIngreso.CantidadPorId(RegLin_Id),null);
+        Cursor curCantidadIngreso= LocBD.rawQuery(T_LineaIngreso.CantidadPorId(LinReg_Id),null);
         curCantidadIngreso.moveToFirst();
         return curCantidadIngreso.getInt(0);
+    }
+    private double CantidadEquiv(int LinReg_Id)
+    {
+        Cursor curCantEquiv = LocBD.rawQuery(T_LineaIngreso.EquivalentePorId(LinReg_Id),null);
+        curCantEquiv.moveToFirst();
+        return curCantEquiv.getInt(0);
+    }
+    private double Paradas(int LinReg_Id)
+    {
+        Cursor curParadas = LocBD.rawQuery(T_LineaParadas.ResumenPorId(LinReg_Id),null);
+        curParadas.moveToFirst();
+        return curParadas.getInt(1);
     }
 
     private void ActualizarHoraFin(String HoraFin)
     {
+
         int Cantidad;
         int CantidadMix;
         int Mix;
         int LinIng_Id;
-        String HoraIni;
+        String HoraInicial;
         double tEfectivo;
 
-        Cantidad = CantidadReg(RegLin_Id);
-        Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
+        //Variables para actualizar tabla principal
+        double CantEquiv;
+        double HoraEf;
+        double paradas;
+        double CantHora;
 
+
+
+
+        Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
+        Cantidad = CantidadReg(RegLin_Id);
         //Si hay mas de un registro actualiza con la hora del nuevo registro insertado
         if (Cantidad>0)
         {
+            //PARA ACTUALIZAR TABLA PRINCIPAL UBICACIÓN TEMPORAL
+            CantEquiv=CantidadEquiv(RegLin_Id);
+            HoraEf = fnc.HoraEfectivaEntreHoras(HoraIniLinea,HoraIni);
+            paradas =Paradas(RegLin_Id);
+            HoraEf = HoraEf-paradas;
+            CantHora = fnc.RedondeoDecimal((CantEquiv/HoraEf),2, BigDecimal.ROUND_HALF_UP);
+            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarIngreso(RegLin_Id,CantEquiv,HoraEf,CantHora));
+            //Fin actualizar tabla principal
+            //---------------------------------------------------------------------
+
             curIngresos.moveToLast();
+
             Mix = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngMix));
             if (Mix==0)
             {
                 //Actualiza el ultimo registro
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
-                HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
-                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
+                HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraInicial,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
             }else if (Mix==1)
             {
@@ -469,15 +507,15 @@ public class IngresoJabas_RegistroJabas extends AppCompatActivity {
                 //curIngresos.move(CantidadMix);
                 curIngresos.moveToLast();
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
-                HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
-                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
+                HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraInicial,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
 
                 //Obtiene el ultimo registro y Actualiza
                 curIngresos.moveToPrevious();
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
-                HoraIni = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
-                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraIni,HoraFin);
+                HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraInicial,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
 
             }
