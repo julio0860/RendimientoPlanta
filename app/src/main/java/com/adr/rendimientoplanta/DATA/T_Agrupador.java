@@ -89,11 +89,11 @@ public class T_Agrupador {
         return _DELETE;
     }
 
-    public static String _SELECCIONAR_NO_SINCRONIZADOS(String Fecha)
+    public static String _SELECCIONAR_TODOS(String Fecha)
             //SON TODOS LOS QUE TIENEN IDSERVIDOR NULL
     {
         String _SELECCIONAR_NO_SINCRONIZADOS;
-        _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_NoSincronizados +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"' AND AGRU_IdServidor IS NULL"+
+        _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_NoSincronizados +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"'"+
                 ";";
         return _SELECCIONAR_NO_SINCRONIZADOS;
     }
