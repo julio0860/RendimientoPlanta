@@ -6,31 +6,29 @@ import android.database.sqlite.SQLiteDatabase;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 
 public class RendArmado_Lista extends AppCompatActivity {
-    private SimpleAdapter AdaptadorLista;
+
     private SimpleCursorAdapter AdaptadorGrilla;
-
-    //private ListView lstPersonalRendimiento;
     private GridView dgvPersonalRendimiento;
-
     private TextView lblEmpresa;
     private TextView lblSucursal;
     private TextView lblLinea;
     private TextView lblLado;
     private EditText edtFecha;
-
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
 
@@ -39,7 +37,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rend_armado_lista);
 
-        //lstPersonalRendimiento = (ListView) findViewById(R.id.dgvPersonalRendimiento);
+
         dgvPersonalRendimiento = (GridView) findViewById(R.id.dgvPersonalRendimiento);
 
         LocalBD LBD = new LocalBD(RendArmado_Lista.this);
@@ -52,6 +50,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblLado = (TextView) findViewById(R.id.lblLado);
         edtFecha = (EditText) findViewById(R.id.lblFecha);
 
+
         //ASIGNACION DE VARIABLES A ELEMENTOS DEL LAYOUT
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
@@ -60,65 +59,87 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblEmpresa.setText(Variables.Emp_Abrev);
         lblSucursal.setText(Variables.Suc_Descripcion);
         lblLinea.setText(Variables.Lin_Descripcion);
-        lblLado.setText("LADO: "+Variables.Lin_Lado);
+        lblLado.setText("LADO: " + Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
 
-        Cursor Rse=LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER',IFNULL(A.Agru_Id ,0) AS 'AGRUID',IFNULL(HoraIngreso,' ') AS 'HORAIN'  \n" +
-                "FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='"+Variables.FechaStr+"' AND A.Suc_Id='"+Variables.Suc_Id+"'  AND  \n" +
-                "A.Pro_Id='"+Variables.Pro_Id+"'  AND A.Sub_Id='"+Variables.Sub_Id+"'  AND A.Lin_Id='"+Variables.Lin_Id+"' AND A.Lado='"+Variables.Lin_Lado+"' AND A.Estado=1  left join Personal p on p.Per_Codigo=A.DNI \n" +
+        Cursor Rse = LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER',IFNULL(A.Agru_Id ,0) AS 'AGRUID',IFNULL(HoraIngreso,' ') AS 'HORAIN'  \n" +
+                "FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='" + Variables.FechaStr + "' AND A.Suc_Id='" + Variables.Suc_Id + "'  AND  \n" +
+                "A.Pro_Id='" + Variables.Pro_Id + "'  AND A.Sub_Id='" + Variables.Sub_Id + "'  AND A.Lin_Id='" + Variables.Lin_Id + "' AND A.Lado='" + Variables.Lin_Lado + "' AND A.Estado=1  left join Personal p on p.Per_Codigo=A.DNI \n" +
                 " WHERE M.posicion <=\n" +
-                "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='"+Variables.Pro_Id+"'  AND Sub_Id='"+Variables.Sub_Id+"' AND Lin_Id='"+Variables.Lin_Id+"' AND Lado='"+Variables.Lin_Lado+"')",null);
+                "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='" + Variables.Pro_Id + "'  AND Sub_Id='" + Variables.Sub_Id + "' AND Lin_Id='" + Variables.Lin_Id + "' AND Lado='" + Variables.Lin_Lado + "')", null);
 
-        AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, R.layout.simple_list_item_3,Rse, new String[]{"_id","DNI","PER","AGRUID","HORAIN"},
-               new int[]{R.id.text1,R.id.text2,R.id.text3},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, R.layout.simple_list_item_3, Rse, new String[]{"_id", "DNI", "PER", "AGRUID", "HORAIN"},
+                new int[]{R.id.text1, R.id.text2, R.id.text3}, SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
         dgvPersonalRendimiento.setNumColumns(4);
-
-
-     dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                Intent ActividadModificar = new Intent(RendArmado_Lista.this, RegistroOperario.class);
-
-               Cursor curPersonal = (Cursor) parent.getItemAtPosition(position);
+                Cursor curPersonal = (Cursor) parent.getItemAtPosition(position);
                 Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
                 Variables.Per_Nombres = curPersonal.getString(curPersonal.getColumnIndex("PER"));
                 Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("DNI"));
-                Variables.Agru_Id=curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
-                Variables.HoraIngreso=curPersonal.getString(curPersonal.getColumnIndex("HORAIN"));
-
-
-//                ActividadModificar.putExtra("ID",((TextView)view.findViewById(android.R.id.text1)).getText().toString());
-//                ActividadModificar.putExtra("NOMBRES",((TextView)view.findViewById(android.R.id.text2)).getText().toString());
-
-                //Se inicia la actividad nueva
-                startActivity(ActividadModificar);
-
-
-                //Toast.makeText(IngresoJabas_Lista.this, "Hiciste click en el registro " + OpcionSeleccion + " .",Toast.LENGTH_SHORT).show();
+                Variables.Agru_Id = curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
+                Variables.HoraIngreso = curPersonal.getString(curPersonal.getColumnIndex("HORAIN"));
+                registerForContextMenu(dgvPersonalRendimiento);
             }
         });
-            imbConfigurar.setOnClickListener(new View.OnClickListener() {
-                                                 @Override
-                                                 public void onClick(View v) {
-                                                     //Se crea un Intent para llamar a una nueva Actividad(Pantalla)
-                                                     Intent ActividadNueva = new Intent(RendArmado_Lista.this, RendArmado_Parametros.class);
-                                                     //Se inicia la actividad nueva
-                                                     startActivity(ActividadNueva);
-                                                 }
-                                             }
-            );
-            imbRegresar.setOnClickListener(new View.OnClickListener() {
-                                               @Override
-                                               public void onClick(View v) {
-                                                   //Se crea un Intent para llamar a una nueva Actividad(Pantalla)
-                                                   Intent ActividadNueva = new Intent(RendArmado_Lista.this, Principal_Menu.class);
-                                                   //Se inicia la actividad nueva
-                                                   startActivity(ActividadNueva);
-                                               }
-                                           }
-            );
 
+
+
+        imbConfigurar.setOnClickListener(new View.OnClickListener() {
+                                             @Override
+                                             public void onClick(View v) {
+                                                 //Se crea un Intent para llamar a una nueva Actividad(Pantalla)
+                                                 Intent ActividadNueva = new Intent(RendArmado_Lista.this, RendArmado_Parametros.class);
+                                                 //Se inicia la actividad nueva
+                                                 startActivity(ActividadNueva);
+                                             }
+                                         }
+        );
+        imbRegresar.setOnClickListener(new View.OnClickListener() {
+                                           @Override
+                                           public void onClick(View v) {
+                                               //Se crea un Intent para llamar a una nueva Actividad(Pantalla)
+                                               Intent ActividadNueva = new Intent(RendArmado_Lista.this, Principal_Menu.class);
+                                               //Se inicia la actividad nueva
+                                               startActivity(ActividadNueva);
+                                           }
+                                       }
+        );
+
+    }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+        menu.setHeaderTitle("MESA NRO: "+Variables.Per_Ubicacion);
+        menu.add(0, v.getId(), 0, "ASIGNAR PERSONAL");
+        menu.add(0, v.getId(), 0, "ASIGNAR RENDIMIENTO");
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        if(item.getTitle()=="ASIGNAR PERSONAL"){function1(item.getItemId());}
+        else if(item.getTitle()=="Action 2"){function2(item.getItemId());}
+        else {return false;}
+        return true;
+    }
+
+    public void function1(int id){
+
+        Intent ActividadModificar = new Intent(RendArmado_Lista.this, RegistroOperario.class);
+        startActivity(ActividadModificar);
+        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();
+
+    }
+    public void function2(int id){
+        Toast.makeText(this, "function 2 called", Toast.LENGTH_SHORT).show();
+    }
+
+    public void DeclaracionVariables()
+    {
 
     }
 }
+

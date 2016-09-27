@@ -103,5 +103,4 @@
         android:layout_alignStart="@+id/lblSucursal" />
 
 
-
 </RelativeLayout>
