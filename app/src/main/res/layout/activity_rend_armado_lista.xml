@@ -102,5 +102,13 @@
         android:layout_alignParentBottom="true"
         android:layout_alignStart="@+id/lblSucursal" />
 
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Sincronizar"
+        android:id="@+id/btnSincronizar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignEnd="@+id/dgvPersonalRendimiento" />
+
 
 </RelativeLayout>
