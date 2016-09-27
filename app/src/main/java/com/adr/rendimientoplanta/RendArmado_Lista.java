@@ -64,8 +64,11 @@ public class RendArmado_Lista extends AppCompatActivity {
                 Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("DNI"));
                 Variables.Agru_Id = curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
                 Variables.HoraIngreso = curPersonal.getString(curPersonal.getColumnIndex("HORAIN"));
-                Intent ActividadRegistrar = new Intent(RendArmado_Lista.this, RendArmado_Registro.class);
-                startActivity(ActividadRegistrar);
+                if (Variables.Agru_Id>0){
+                    Intent ActividadRegistrar = new Intent(RendArmado_Lista.this, RendArmado_Registro.class);
+                    startActivity(ActividadRegistrar);
+                }
+
             }
         });
 
@@ -81,7 +84,6 @@ public class RendArmado_Lista extends AppCompatActivity {
                 Variables.Agru_Id = curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
                 Variables.HoraIngreso = curPersonal.getString(curPersonal.getColumnIndex("HORAIN"));
                 registerForContextMenu(dgvPersonalRendimiento);
-
 
                 return false;
             }
