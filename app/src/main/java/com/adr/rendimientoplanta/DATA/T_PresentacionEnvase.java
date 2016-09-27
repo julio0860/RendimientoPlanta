@@ -21,7 +21,7 @@ public class T_PresentacionEnvase {
 
     public static final String Create_PresentacionEnvase ="CREATE TABLE " + NombreTabla+"("+
             PreEnvId +" INTEGER PRIMARY KEY, "+
-            PreId +" INTEGER PRIMARY KEY, "+
+            PreId +" INTEGER, "+
             PreDescripcion +" TEXT NOT NULL, "+
             PreEnvCodigo +" TEXT NOT NULL, "+
             PreEnvDescripcion +" TEXT NOT NULL, "+
