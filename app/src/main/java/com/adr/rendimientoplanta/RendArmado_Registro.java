@@ -55,7 +55,7 @@ public class RendArmado_Registro extends AppCompatActivity {
                 new String[]{T_PresentacionEnvase.PreEnvDescripcionCor}, new int[]{android.R.id.text1},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPresentacion.setAdapter(adspnPresentacion);
-
+        dgvPresentacion.setNumColumns(4);
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
         lblSucursal.setText(Variables.Suc_Descripcion);
