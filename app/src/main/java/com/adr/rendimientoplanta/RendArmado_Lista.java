@@ -36,25 +36,10 @@ public class RendArmado_Lista extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rend_armado_lista);
-
-
-        dgvPersonalRendimiento = (GridView) findViewById(R.id.dgvPersonalRendimiento);
-
         LocalBD LBD = new LocalBD(RendArmado_Lista.this);
         final SQLiteDatabase LocBD = LBD.getWritableDatabase();
 
-        //ASIGNACION DE VARIABLES A ELEMENTOS DEL LAYOUT
-        lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
-        lblSucursal = (TextView) findViewById(R.id.lblSucursal);
-        lblLinea = (TextView) findViewById(R.id.lblLinea);
-        lblLado = (TextView) findViewById(R.id.lblLado);
-        edtFecha = (EditText) findViewById(R.id.lblFecha);
-
-
-        //ASIGNACION DE VARIABLES A ELEMENTOS DEL LAYOUT
-        imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
-        imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
-
+        AsignarVariables();
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
         lblSucursal.setText(Variables.Suc_Descripcion);
@@ -109,6 +94,19 @@ public class RendArmado_Lista extends AppCompatActivity {
         );
 
     }
+    public void AsignarVariables()
+    {
+        dgvPersonalRendimiento = (GridView) findViewById(R.id.dgvPersonalRendimiento);
+        //ASIGNACION DE VARIABLES A ELEMENTOS DEL LAYOUT
+        lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
+        lblSucursal = (TextView) findViewById(R.id.lblSucursal);
+        lblLinea = (TextView) findViewById(R.id.lblLinea);
+        lblLado = (TextView) findViewById(R.id.lblLado);
+        edtFecha = (EditText) findViewById(R.id.lblFecha);
+        //ASIGNACION DE VARIABLES A ELEMENTOS DEL LAYOUT
+        imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+        imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
+    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
@@ -137,9 +135,6 @@ public class RendArmado_Lista extends AppCompatActivity {
         Toast.makeText(this, "function 2 called", Toast.LENGTH_SHORT).show();
     }
 
-    public void DeclaracionVariables()
-    {
 
-    }
 }
 
