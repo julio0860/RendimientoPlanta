@@ -6,6 +6,8 @@ import android.database.sqlite.SQLiteDatabase;
 import android.net.wifi.WifiInfo;
 import android.net.wifi.WifiManager;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Looper;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.telephony.TelephonyManager;
@@ -172,519 +174,528 @@ public class Principal_Configuracion extends AppCompatActivity {
         btnDescargarDatos.setOnClickListener(new View.OnClickListener() {
           @Override
           public void onClick(View v) {
-              try
-              {
-                  Boolean Estado = false;
-                  Connection Cnn = ConexionBD.getInstance().getConnection();
-                  Statement Stmt = Cnn.createStatement();
-                  ResultSet Rse;
+              new Handler(Looper.getMainLooper()).post(new Runnable() {
+                  @Override
+                  public void run() {
 
-                  Rse=null;
-                  if (cbxUsuario.isChecked())
-                  {
-                      LocBD.execSQL(T_Usuario._DELETE());
-                      Rse = Stmt.executeQuery(T_Usuario._SELECT_SYNC(1,2));
-                      while (Rse.next()) {
-                          try {
-                              LocBD.execSQL(T_Usuario._INSERT(Rse.getInt(1),Rse.getString(2),Rse.getString(3)
-                                      ,Rse.getString(4),Rse.getString(5),Rse.getInt(6),Rse.getString(7)
-                                      ,Rse.getInt(8)));
-                              Estado = true;
-                          } catch (Exception e) {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxMenu.isChecked())
-                  {
-                      LocBD.execSQL(T_Menu._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Menu._SELECT_SYNC("AMP",2));
-                      while (Rse.next())
+                      //Sincronización en Hilo
+                      try
                       {
-                          try {
-                              LocBD.execSQL(T_Menu._INSERT(Rse.getString(1),Rse.getString(2),Rse.getString(3)
-                                      ,Rse.getString(4),Rse.getString(5),Rse.getInt(6)));
-                              Estado = true;
-                          } catch (Exception e) {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                 if (cbxMenuUsuario.isChecked())
-                 {
-                     LocBD.execSQL(T_MenuUsuario._DELETE());
-                     Rse=null;
-                     Rse = Stmt.executeQuery(T_MenuUsuario._SELECT_MODULO("AMP"));
-                     while (Rse.next())
-                     {
-                         try
-                         {
-                             //Rse.next();
-                             LocBD.execSQL(T_MenuUsuario._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
-                                     ,Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getInt(8)
-                                     ,Rse.getInt(9),Rse.getInt(10),Rse.getInt(11),Rse.getInt(12)));
-                             Estado = true;
-                         }catch (Exception e)
-                         {
-                             Estado= false;
-                             Log.e(TAG, "Error Exception: " + e);
-                             Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                 }
-                  if (cbxPersonal.isChecked())
-                  {
-                      LocBD.execSQL(T_Personal._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Personal._SELECT_PER(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Personal._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getString(4)
-                                      ,Rse.getString(5),Rse.getString(6),Rse.getString(7),Rse.getString(8),Rse.getString(9)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxPresentacion.isChecked())
-                  {
-                      LocBD.execSQL(T_Presentacion._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Presentacion._SELECT_PRE(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Presentacion._INSERT(Rse.getInt(1),Rse.getString(2)
-                                      ,Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getDouble(6)
-                                      ,Rse.getDouble(7)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                 if (cbxEstado.isChecked())
-                 {
-                     LocBD.execSQL(T_Estado._DELETE());
-                     Rse=null;
-                     Rse = Stmt.executeQuery(T_Estado._SELECT_EST(""));
-                     while (Rse.next())
-                     {
-                         try
-                         {
-                             //Rse.next();
-                             LocBD.execSQL(T_Estado._INSERT(Rse.getInt(1),Rse.getString(2),Rse.getString(3)));
-                             Estado = true;
-                         }catch (Exception e)
-                         {
-                             Estado= false;
-                             Log.e(TAG, "Error Exception: " + e);
-                             Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                         }
-                     }
-                 }
-                  if (cbxConsumidor.isChecked())
-                  {
-                      LocBD.execSQL(T_Consumidor._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Consumidor._SELECT_CON(-1,2,-1,-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Consumidor._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getInt(4)
-                                      ,Rse.getString(5),Rse.getString(6),Rse.getString(7),Rse.getInt(8)
-                                      ,Rse.getInt(9),Rse.getString(10),Rse.getInt(11)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxVariedad.isChecked())
-                  {
-                      LocBD.execSQL(T_Variedad._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Variedad._SELECT_VAR(-1,-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Variedad._INSERT(Rse.getInt(1),Rse.getInt(2)
-                                      ,Rse.getString(3),Rse.getString(4),Rse.getInt(5)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxCultivo.isChecked())
-                  {
-                      LocBD.execSQL(T_Cultivo._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Cultivo._SELECT_CULT(-1,2));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Cultivo._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3),Rse.getString(4)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxLinea.isChecked())
-                  {
-                      LocBD.execSQL(T_Linea._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Linea._SELECT_LIN(-1,2));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Linea._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getInt(4)
-                                      ,Rse.getString(5),Rse.getString(6)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxSucursal.isChecked())
-                  {
-                      LocBD.execSQL(T_Sucursal._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Sucursal._SELECT_SUC(-1,2));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Sucursal._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
-                                      ,Rse.getString(4),Rse.getString(5),Rse.getString(6),Rse.getString(7)
-                                      ,Rse.getInt(8),Rse.getString(9)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxEmpresa.isChecked())
-                  {
-                      LocBD.execSQL(T_Empresa._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Empresa._SELECT_EMP(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Empresa._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
-                                      ,Rse.getString(4),Rse.getString(5),Rse.getString(6)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxEmpresaUsuario.isChecked())
-                  {
-                      LocBD.execSQL(T_EmpresaUsuario._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_EmpresaUsuario._SELECT_EMPUSU(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_EmpresaUsuario._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
-                                      ,Rse.getInt(4)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxTareoOrigen.isChecked())
-                  {
-                      LocBD.execSQL(T_TareoOrigen._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_TareoOrigen._SELECT_TAREO_ORIGEN(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_TareoOrigen._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
-                                      ,Rse.getString(4),Rse.getString(5)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxTareoTipo.isChecked())
-                  {
-                      LocBD.execSQL(T_TareoTipo._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_TareoTipo._SELECT_TAREO_TIPO(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_TareoTipo._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
-                                      ,Rse.getString(4),Rse.getString(5)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxTareoSubTipo.isChecked())
-                  {
-                      LocBD.execSQL(T_TareoSubTipo._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_TareoSubTipo._SELECT_TAREOSUBTIPO(-1,-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_TareoSubTipo._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
-                                      ,Rse.getInt(4),Rse.getString(5),Rse.getString(6)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxResponsable.isChecked())
-                  {
-                      LocBD.execSQL(T_Responsable._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Responsable._SELECT_RESPONSABLE(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Responsable._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
-                                      ,Rse.getString(4),Rse.getString(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxActividad.isChecked())
-                  {
-                      LocBD.execSQL(T_Actividad._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Actividad._SELECT_ACTIVIDAD(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Actividad._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
-                                      ,Rse.getString(4),Rse.getInt(5)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxLabor.isChecked())
-                  {
-                      LocBD.execSQL(T_Labor._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Labor._SELECT_LABOR(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Labor._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getString(4)
-                                      ,Rse.getString(5),Rse.getInt(6)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxMotivoParadas.isChecked())
-                  {
-                      LocBD.execSQL(T_MotivoParada.Eliminar());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_MotivoParada.MotivoParada_SeleccionarTodos());
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              LocBD.execSQL(T_MotivoParada.MotivoParada_Insertar(Rse.getInt(1),
-                                      Rse.getString(2),Rse.getInt(3),Rse.getInt(4),Rse.getInt(5)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxProceso.isChecked())
-                  {
-                      LocBD.execSQL(T_Proceso._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Proceso._SELECT_PROCESO(-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Proceso._INSERT(Rse.getInt(1),Rse.getString(2)
-                                      ,Rse.getString(3)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxSubProceso.isChecked())
-                  {
-                      LocBD.execSQL(T_Subproceso._DELETE());
-                      Rse=null;
-                      Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(1,-1));
-                      while (Rse.next())
-                      {
-                          try
-                          {
-                              //Rse.next();
-                              LocBD.execSQL(T_Subproceso._INSERT(Rse.getInt(1),Rse.getInt(2)
-                                      ,Rse.getString(3)));
-                              Estado = true;
-                          }catch (Exception e)
-                          {
-                              Estado= false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
-                  if (cbxMesasPorLinea.isChecked()) {
-                      LocBD.execSQL(T_MesasPorLinea._DELETE());
-                      Rse = null;
-                      Rse = Stmt.executeQuery(T_MesasPorLinea._SELECT_MESALINEA(-1));
-                      while (Rse.next()) {
-                          try {
-                              //Rse.next();
-                              LocBD.execSQL(T_MesasPorLinea._INSERT(Rse.getInt(1), Rse.getInt(2)
-                                      , Rse.getInt(3),Rse.getInt(4),Rse.getInt(5), Rse.getString(6).trim(),Rse.getInt(7)));
-                              Estado = true;
-                          } catch (Exception e) {
-                              Estado = false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this, "ERROR AL SINCRONIZAR" + e.toString(), Toast.LENGTH_SHORT).show();
-                          }
-                      }
-                  }
+                          Boolean Estado = false;
+                          Connection Cnn = ConexionBD.getInstance().getConnection();
+                          Statement Stmt = Cnn.createStatement();
+                          ResultSet Rse;
 
-                  if (cbxMesa.isChecked()) {
-                      LocBD.execSQL(T_Mesa._DELETE());
-                      Rse = null;
-                      Rse = Stmt.executeQuery(T_Mesa._SELECT_MESA());
-                      while (Rse.next()) {
-                          try {
-                              //Rse.next();
-                              LocBD.execSQL(T_Mesa._INSERT(Rse.getInt(1), Rse.getString(2)
-                                    ));
-                              Estado = true;
-                          } catch (Exception e) {
-                              Estado = false;
-                              Log.e(TAG, "Error Exception: " + e);
-                              Toast.makeText(Principal_Configuracion.this, "ERROR AL SINCRONIZAR" + e.toString(), Toast.LENGTH_SHORT).show();
+                          Rse=null;
+                          if (cbxUsuario.isChecked())
+                          {
+                              LocBD.execSQL(T_Usuario._DELETE());
+                              Rse = Stmt.executeQuery(T_Usuario._SELECT_SYNC(1,2));
+                              while (Rse.next()) {
+                                  try {
+                                      LocBD.execSQL(T_Usuario._INSERT(Rse.getInt(1),Rse.getString(2),Rse.getString(3)
+                                              ,Rse.getString(4),Rse.getString(5),Rse.getInt(6),Rse.getString(7)
+                                              ,Rse.getInt(8)));
+                                      Estado = true;
+                                  } catch (Exception e) {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
                           }
+                          if (cbxMenu.isChecked())
+                          {
+                              LocBD.execSQL(T_Menu._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Menu._SELECT_SYNC("AMP",2));
+                              while (Rse.next())
+                              {
+                                  try {
+                                      LocBD.execSQL(T_Menu._INSERT(Rse.getString(1),Rse.getString(2),Rse.getString(3)
+                                              ,Rse.getString(4),Rse.getString(5),Rse.getInt(6)));
+                                      Estado = true;
+                                  } catch (Exception e) {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxMenuUsuario.isChecked())
+                          {
+                              LocBD.execSQL(T_MenuUsuario._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_MenuUsuario._SELECT_MODULO("AMP"));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_MenuUsuario._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
+                                              ,Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getInt(8)
+                                              ,Rse.getInt(9),Rse.getInt(10),Rse.getInt(11),Rse.getInt(12)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxPersonal.isChecked())
+                          {
+                              LocBD.execSQL(T_Personal._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Personal._SELECT_PER(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Personal._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getString(4)
+                                              ,Rse.getString(5),Rse.getString(6),Rse.getString(7),Rse.getString(8),Rse.getString(9)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxPresentacion.isChecked())
+                          {
+                              LocBD.execSQL(T_Presentacion._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Presentacion._SELECT_PRE(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Presentacion._INSERT(Rse.getInt(1),Rse.getString(2)
+                                              ,Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getDouble(6)
+                                              ,Rse.getDouble(7)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxEstado.isChecked())
+                          {
+                              LocBD.execSQL(T_Estado._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Estado._SELECT_EST(""));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Estado._INSERT(Rse.getInt(1),Rse.getString(2),Rse.getString(3)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxConsumidor.isChecked())
+                          {
+                              LocBD.execSQL(T_Consumidor._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Consumidor._SELECT_CON(-1,2,-1,-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Consumidor._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getInt(4)
+                                              ,Rse.getString(5),Rse.getString(6),Rse.getString(7),Rse.getInt(8)
+                                              ,Rse.getInt(9),Rse.getString(10),Rse.getInt(11)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxVariedad.isChecked())
+                          {
+                              LocBD.execSQL(T_Variedad._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Variedad._SELECT_VAR(-1,-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Variedad._INSERT(Rse.getInt(1),Rse.getInt(2)
+                                              ,Rse.getString(3),Rse.getString(4),Rse.getInt(5)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxCultivo.isChecked())
+                          {
+                              LocBD.execSQL(T_Cultivo._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Cultivo._SELECT_CULT(-1,2));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Cultivo._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3),Rse.getString(4)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxLinea.isChecked())
+                          {
+                              LocBD.execSQL(T_Linea._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Linea._SELECT_LIN(-1,2));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Linea._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getInt(4)
+                                              ,Rse.getString(5),Rse.getString(6)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxSucursal.isChecked())
+                          {
+                              LocBD.execSQL(T_Sucursal._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Sucursal._SELECT_SUC(-1,2));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Sucursal._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
+                                              ,Rse.getString(4),Rse.getString(5),Rse.getString(6),Rse.getString(7)
+                                              ,Rse.getInt(8),Rse.getString(9)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxEmpresa.isChecked())
+                          {
+                              LocBD.execSQL(T_Empresa._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Empresa._SELECT_EMP(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Empresa._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
+                                              ,Rse.getString(4),Rse.getString(5),Rse.getString(6)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxEmpresaUsuario.isChecked())
+                          {
+                              LocBD.execSQL(T_EmpresaUsuario._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_EmpresaUsuario._SELECT_EMPUSU(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_EmpresaUsuario._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
+                                              ,Rse.getInt(4)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxTareoOrigen.isChecked())
+                          {
+                              LocBD.execSQL(T_TareoOrigen._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_TareoOrigen._SELECT_TAREO_ORIGEN(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_TareoOrigen._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
+                                              ,Rse.getString(4),Rse.getString(5)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxTareoTipo.isChecked())
+                          {
+                              LocBD.execSQL(T_TareoTipo._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_TareoTipo._SELECT_TAREO_TIPO(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_TareoTipo._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
+                                              ,Rse.getString(4),Rse.getString(5)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxTareoSubTipo.isChecked())
+                          {
+                              LocBD.execSQL(T_TareoSubTipo._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_TareoSubTipo._SELECT_TAREOSUBTIPO(-1,-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_TareoSubTipo._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3)
+                                              ,Rse.getInt(4),Rse.getString(5),Rse.getString(6)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxResponsable.isChecked())
+                          {
+                              LocBD.execSQL(T_Responsable._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Responsable._SELECT_RESPONSABLE(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Responsable._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
+                                              ,Rse.getString(4),Rse.getString(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxActividad.isChecked())
+                          {
+                              LocBD.execSQL(T_Actividad._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Actividad._SELECT_ACTIVIDAD(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Actividad._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getString(3)
+                                              ,Rse.getString(4),Rse.getInt(5)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxLabor.isChecked())
+                          {
+                              LocBD.execSQL(T_Labor._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Labor._SELECT_LABOR(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Labor._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getString(4)
+                                              ,Rse.getString(5),Rse.getInt(6)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxMotivoParadas.isChecked())
+                          {
+                              LocBD.execSQL(T_MotivoParada.Eliminar());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_MotivoParada.MotivoParada_SeleccionarTodos());
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      LocBD.execSQL(T_MotivoParada.MotivoParada_Insertar(Rse.getInt(1),
+                                              Rse.getString(2),Rse.getInt(3),Rse.getInt(4),Rse.getInt(5)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxProceso.isChecked())
+                          {
+                              LocBD.execSQL(T_Proceso._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Proceso._SELECT_PROCESO(-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Proceso._INSERT(Rse.getInt(1),Rse.getString(2)
+                                              ,Rse.getString(3)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxSubProceso.isChecked())
+                          {
+                              LocBD.execSQL(T_Subproceso._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Subproceso._SELECT_SUBPROCESO(1,-1));
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Subproceso._INSERT(Rse.getInt(1),Rse.getInt(2)
+                                              ,Rse.getString(3)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxMesasPorLinea.isChecked()) {
+                              LocBD.execSQL(T_MesasPorLinea._DELETE());
+                              Rse = null;
+                              Rse = Stmt.executeQuery(T_MesasPorLinea._SELECT_MESALINEA(-1));
+                              while (Rse.next()) {
+                                  try {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_MesasPorLinea._INSERT(Rse.getInt(1), Rse.getInt(2)
+                                              , Rse.getInt(3),Rse.getInt(4),Rse.getInt(5), Rse.getString(6).trim(),Rse.getInt(7)));
+                                      Estado = true;
+                                  } catch (Exception e) {
+                                      Estado = false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this, "ERROR AL SINCRONIZAR" + e.toString(), Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+
+                          if (cbxMesa.isChecked()) {
+                              LocBD.execSQL(T_Mesa._DELETE());
+                              Rse = null;
+                              Rse = Stmt.executeQuery(T_Mesa._SELECT_MESA());
+                              while (Rse.next()) {
+                                  try {
+                                      //Rse.next();
+                                      LocBD.execSQL(T_Mesa._INSERT(Rse.getInt(1), Rse.getString(2)
+                                      ));
+                                      Estado = true;
+                                  } catch (Exception e) {
+                                      Estado = false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this, "ERROR AL SINCRONIZAR" + e.toString(), Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          //VALIDACION
+                          if (Estado==true)
+                          {
+                              Toast.makeText(Principal_Configuracion.this,"SINCRONIZACION REALIZADA CORRECTAMENTE",Toast.LENGTH_SHORT).show();
+                              Stmt.close();
+                              //Cnn.close();
+                              Rse.close();
+                          }else
+                          {
+                              Toast.makeText(Principal_Configuracion.this,"OCURRIO UN ERROR AL REALIZAR LA SINCRONIZACION",Toast.LENGTH_SHORT).show();
+                          }
+                      } catch (Exception e) {
+                          Log.e(TAG, "Error Exception: " + e);
                       }
+
                   }
-                  //VALIDACION
-                  if (Estado==true)
-                  {
-                      Toast.makeText(Principal_Configuracion.this,"SINCRONIZACION REALIZADA CORRECTAMENTE",Toast.LENGTH_SHORT).show();
-                      Stmt.close();
-                      //Cnn.close();
-                      Rse.close();
-                  }else
-                  {
-                      Toast.makeText(Principal_Configuracion.this,"OCURRIO UN ERROR AL REALIZAR LA SINCRONIZACION",Toast.LENGTH_SHORT).show();
-                  }
-              } catch (Exception e) {
-                  Log.e(TAG, "Error Exception: " + e);
-              }
+              });
+
           }
       });
 
