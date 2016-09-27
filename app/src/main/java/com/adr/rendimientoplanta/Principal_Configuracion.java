@@ -1,5 +1,6 @@
 package com.adr.rendimientoplanta;
 
+import android.app.Presentation;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -40,6 +41,7 @@ import com.adr.rendimientoplanta.DATA.T_MesasPorLinea;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
 import com.adr.rendimientoplanta.DATA.T_Personal;
 import com.adr.rendimientoplanta.DATA.T_Presentacion;
+import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
 import com.adr.rendimientoplanta.DATA.T_Proceso;
 import com.adr.rendimientoplanta.DATA.T_Responsable;
 import com.adr.rendimientoplanta.DATA.T_Subproceso;
@@ -100,7 +102,7 @@ public class Principal_Configuracion extends AppCompatActivity {
     private CheckBox cbxMotivoParadas;
     private CheckBox cbxMesasPorLinea;
     private CheckBox cbxMesa;
-
+    private CheckBox cbxPresentacionEnvase;
     private CheckBox cbxMarcarTodas;
 
     private ProgressBar pgbCargaDatos;
@@ -141,6 +143,7 @@ public class Principal_Configuracion extends AppCompatActivity {
         //-----------------------------------------------------------
         //SMP:
         cbxMotivoParadas = (CheckBox) findViewById(R.id.cbxMotivoParadas);
+        cbxPresentacionEnvase = (CheckBox) findViewById(R.id.cbxPresentacionEnvase);
         //
         cbxMarcarTodas = (CheckBox) findViewById(R.id.cbxMarcarTodas);
 
@@ -592,6 +595,28 @@ public class Principal_Configuracion extends AppCompatActivity {
                                   {
                                       LocBD.execSQL(T_MotivoParada.MotivoParada_Insertar(Rse.getInt(1),
                                               Rse.getString(2),Rse.getInt(3),Rse.getInt(4),Rse.getInt(5)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
+                          if (cbxPresentacionEnvase.isChecked())
+                          {
+                              LocBD.execSQL(T_PresentacionEnvase.Eliminar());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarTodos());
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      LocBD.execSQL(T_PresentacionEnvase.PresentacionEnvase_Insertar(
+                                              Rse.getInt(1),Rse.getInt(2),Rse.getString(3),Rse.getString(4)
+                                              ,Rse.getString(5),Rse.getString(6),Rse.getDouble(7),Rse.getInt(8)
+                                              ,Rse.getDouble(9),Rse.getInt(10)));
                                       Estado = true;
                                   }catch (Exception e)
                                   {
