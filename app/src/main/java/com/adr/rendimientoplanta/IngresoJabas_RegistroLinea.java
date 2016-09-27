@@ -357,6 +357,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                         // Código propio del método borrado para ejemplo
                         try {
                             BloquearBotones(true);
+                            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarTermino(RegLin_Id,HoraFin,2));
                             Toast.makeText(IngresoJabas_RegistroLinea.this, "Linea Terminada, hora: " + HoraFin, Toast.LENGTH_SHORT).show();
                         } catch (SQLException e) {
                             Toast.makeText(IngresoJabas_RegistroLinea.this, e.toString(), Toast.LENGTH_SHORT).show();
