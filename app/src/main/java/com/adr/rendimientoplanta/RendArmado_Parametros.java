@@ -24,11 +24,15 @@ import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_Proceso;
 import com.adr.rendimientoplanta.DATA.T_Subproceso;
 import com.adr.rendimientoplanta.DATA.T_Sucursal;
+import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 import java.util.Calendar;
 
 public class RendArmado_Parametros extends AppCompatActivity {
+
+    //DECLARACION DE FUNCOONES
+    private Funciones fnc;
 
     //DECLARACIÓN DE SPINNERS
     private Spinner spnEmpresa;
@@ -80,6 +84,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         //INICIO CONEXION BDLOCAL
         LBD = new LocalBD(RendArmado_Parametros.this);
         LocBD = LBD.getWritableDatabase();
+        fnc = new Funciones();
 
         //ASIGNACION DE SPINNERS DE LAYOUT A VARIABLES
         spnEmpresa = (Spinner) findViewById(R.id.spnEmpresa);
@@ -251,9 +256,9 @@ public class RendArmado_Parametros extends AppCompatActivity {
         edtFecha.setText(new StringBuilder()
                 //Mes es 0 por eso se agrega 1
 
-                .append(mDay).append("/")
-                .append(mMonth + 1).append("/")
-                .append(mYear).append("")
+                .append(fnc.pad(mDay)).append("/")
+                .append(fnc.pad(mMonth + 1)).append("/")
+                .append(mYear)
 
         );
     }
