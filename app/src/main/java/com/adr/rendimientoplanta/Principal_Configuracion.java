@@ -1,6 +1,5 @@
 package com.adr.rendimientoplanta;
 
-import android.app.Presentation;
 import android.content.Context;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -26,6 +25,7 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Actividad;
+import com.adr.rendimientoplanta.DATA.T_Campaña;
 import com.adr.rendimientoplanta.DATA.T_Consumidor;
 import com.adr.rendimientoplanta.DATA.T_Cultivo;
 import com.adr.rendimientoplanta.DATA.T_Empresa;
@@ -104,6 +104,7 @@ public class Principal_Configuracion extends AppCompatActivity {
     private CheckBox cbxMesa;
     private CheckBox cbxPresentacionEnvase;
     private CheckBox cbxMarcarTodas;
+    private CheckBox cbxCampaña;
 
     private ProgressBar pgbCargaDatos;
     @Override
@@ -140,6 +141,7 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxSubProceso=(CheckBox)findViewById(R.id.cbxSubProceso) ;
         cbxMesasPorLinea=(CheckBox)findViewById(R.id.cbxMesasPorLinea);
         cbxMesa=(CheckBox)findViewById(R.id.cbxMesa);
+        cbxCampaña=(CheckBox)findViewById(R.id.cbxCampaña);
         //-----------------------------------------------------------
         //SMP:
         cbxMotivoParadas = (CheckBox) findViewById(R.id.cbxMotivoParadas);
@@ -703,6 +705,28 @@ public class Principal_Configuracion extends AppCompatActivity {
                                   }
                               }
                           }
+
+                          if (cbxCampaña.isChecked())
+                          {
+                              LocBD.execSQL(T_Campaña._DELETE());
+                              Rse=null;
+                              Rse = Stmt.executeQuery(T_Campaña._SELECT_CAMPAÑA());
+                              while (Rse.next())
+                              {
+                                  try
+                                  {
+                                      LocBD.execSQL(T_Campaña._INSERT(
+                                              Rse.getInt(1),Rse.getString(2),Rse.getInt(3),Rse.getString(4)
+                                              ,Rse.getString(5),Rse.getString(6),Rse.getString(7)));
+                                      Estado = true;
+                                  }catch (Exception e)
+                                  {
+                                      Estado= false;
+                                      Log.e(TAG, "Error Exception: " + e);
+                                      Toast.makeText(Principal_Configuracion.this,"ERROR AL SINCRONIZAR" + e.toString(),Toast.LENGTH_SHORT).show();
+                                  }
+                              }
+                          }
                           //VALIDACION
                           if (Estado==true)
                           {
@@ -1047,5 +1071,9 @@ public class Principal_Configuracion extends AppCompatActivity {
         cbxSubProceso.setChecked(Est);
         cbxMesasPorLinea.setChecked(Est);
         cbxMotivoParadas.setChecked(Est);
+        cbxMesa.setChecked(Est);
+        cbxPresentacionEnvase.setChecked(Est);
+        cbxCampaña.setChecked(Est);
+
     }
 }
