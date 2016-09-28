@@ -113,7 +113,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
         //ASIGNACION DE BUTTONS DE LAYOUT A VARIABLES
         btnEstablecer = (Button) findViewById(R.id.btnEstablecer);
-        btnSincronizar=(Button)findViewById(R.id.btnSincronizar);
+        btnSincronizar=(Button)findViewById(R.id.btnRegistrar);
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbFecha = (ImageButton) findViewById(R.id.imbFecha);
 

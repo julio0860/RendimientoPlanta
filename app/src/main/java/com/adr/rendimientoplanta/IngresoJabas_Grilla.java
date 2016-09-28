@@ -5,7 +5,6 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
-import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -71,7 +70,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblFecha = (TextView) findViewById(R.id.lblFecha);
 
-        btnSincronizar = (Button) findViewById(R.id.btnSincronizar);
+        btnSincronizar = (Button) findViewById(R.id.btnRegistrar);
 
         lblFecha.setText(Variables.FechaStr);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
