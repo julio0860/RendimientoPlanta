@@ -2,6 +2,8 @@ package com.adr.rendimientoplanta;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.KeyEvent;
+import android.view.View;
 import android.widget.EditText;
 import android.widget.TextView;
 
@@ -59,7 +61,34 @@ public class RendArmado_Kardex extends AppCompatActivity {
         edtPeso.setText(String.valueOf(Variables.PreEnv_PesoTorre));
         edtCantidad.setText(String.valueOf(Variables.PreEnv_CantidadTorre));
 
+        edtPeso.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    edtCantidad.setText(String.valueOf(CalcularCantidad(keyCode)));
+                }
+                return false;
+            }
+        });
+        edtCantidad.setOnKeyListener(new View.OnKeyListener() {
+            @Override
+            public boolean onKey(View v, int keyCode, KeyEvent event) {
+                if (event.getAction() == KeyEvent.ACTION_DOWN)
+                {
+                    edtPeso.setText(String.valueOf(CalcularPeso(keyCode)));
+                }
+                return false;
+            }
+        });
 
-
+    }
+    private int CalcularCantidad(int Peso)
+    {
+        return (int)((Peso*Variables.PreEnv_CantidadTorre)/(Variables.PreEnv_PesoTorre*1000));
+    }
+    private int CalcularPeso(int Cantidad)
+    {
+        return (int)((Cantidad*(Variables.PreEnv_PesoTorre*1000))/Variables.PreEnv_CantidadTorre);
     }
 }
