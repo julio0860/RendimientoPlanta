@@ -1,13 +1,10 @@
 package com.adr.rendimientoplanta;
 
 import android.app.AlertDialog;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.net.ConnectivityManager;
-import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -129,7 +126,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                                           Toast.makeText(RendArmado_Lista.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
 
                                                                          Connection Cnn = ConexionBD.getInstance().getConnection();
-                                                                          Statement pstmt = null;
+                                                                          Statement pstmt = Cnn.createStatement();
 
                                                                           ResultSet Rse;
                                                                           if (CurReg.getCount()!=0){
@@ -150,8 +147,10 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                                                   Dni=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.DNI));
                                                                                   HoraLectura=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORALECTURA));
                                                                                   HoraIngreso=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORAINGRESO));
-                                                                                  HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
-
+                                                                                 HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
+                                                                                  if (HoraSalida==null){
+                                                                                      HoraSalida="00:00:00";
+                                                                                  }
 
                                                                                   if (IdregServidor>0){
 
@@ -159,11 +158,12 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                                                   }
                                                                                   else
                                                                                   {
-                                                                                      pstmt = Cnn.createStatement();
+
                                                                                       pstmt.executeUpdate(T_Agrupador._INSERTSERVIDOR(Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,Dni,HoraLectura,HoraIngreso,HoraSalida,Mot_Id,Est_Id),pstmt.RETURN_GENERATED_KEYS);
                                                                                       Rse = pstmt.getGeneratedKeys();
                                                                                       if (Rse != null && Rse.next()) {
                                                                                            IdregServidor = Rse.getInt(1);
+                                                                                          LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,Dni,Mot_Id,Est_Id,IdregServidor));
                                                                                       }
 
                                                                                       Toast.makeText(RendArmado_Lista.this, "INSERTA AL SERVIDOR  ",Toast.LENGTH_SHORT).show();
@@ -264,7 +264,7 @@ public class RendArmado_Lista extends AppCompatActivity {
     }
 
     public final Boolean conectadoWifi(){
-        ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+     /*   ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
             NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
             if (info != null) {
@@ -273,7 +273,8 @@ public class RendArmado_Lista extends AppCompatActivity {
                 }
             }
         }
-        return false;
+        return false;*/
+        return true;
     }
 
 }

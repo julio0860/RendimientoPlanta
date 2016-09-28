@@ -72,15 +72,14 @@ public class T_Agrupador {
         return _UPDATE;
     }
 
-/*    public static String ActualizarIdServidorLocal(int AgruId,int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
-                                 String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Motivo,int Estado,int Idservidor)
+   public static String ActualizarIdServidorLocal(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                 String Dni,int Motivo,int Estado,int Idservidor)
     {
         String ActualizarIdServidorLocal;
-        ActualizarIdServidorLocal = "UPDATE "+N_TABLA +" SET "+EMPID+"='"+EmpId+"',"+FECHA+"='"+Fecha+"',"+SUCID+"='"+SucId+"',"+PROID+"='"+ProId+"',"+SUBID+"='"+SubId+"',"+
-                LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"',"+HORALECTURA+"='"+HoraLectura+"',"+HORAINGRESO+"='"+HoraIngreso+"',"+
-                HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"' WHERE "+AGRUID+"='"+AgruId+"'";
+        ActualizarIdServidorLocal = "UPDATE "+N_TABLA +" SET "+IDSERVIDOR+"='"+Idservidor+"' WHERE "+EMPID+"='"+EmpId+"' AND "+FECHA+"='"+Fecha+"' AND "+SUCID+"='"+SucId+"' AND "+PROID+"='"+ProId+"' AND "
+                +SUBID+"='"+SubId+"' AND "+LINID+"='"+LinId+"' AND "+LADO+"='"+Lado+"' AND "+POSICION+"='"+Posicion+"' AND "+DNI+"='"+Dni+"' AND "+LINID+"='"+LinId+"' AND "+MOTIVO+"='"+Motivo+"' AND "+ESTADO+"='"+Estado+"'";
         return ActualizarIdServidorLocal;
-    }*/
+    }
 
     public static String _DELETE(int AgruId)
     {
