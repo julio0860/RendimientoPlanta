@@ -19,8 +19,11 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.Toast;
 
+import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.DATA.T_Empresa;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_Proceso;
@@ -29,6 +32,9 @@ import com.adr.rendimientoplanta.DATA.T_Sucursal;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 import java.util.Calendar;
 
 public class RendArmado_Parametros extends AppCompatActivity {
@@ -54,6 +60,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
     //DECLARACION BOTONES
     private Button btnEstablecer;
+    private Button btnSincronizar;
     private ImageButton imbRegresar;
     private ImageButton imbFecha;
 
@@ -78,6 +85,11 @@ public class RendArmado_Parametros extends AppCompatActivity {
     private int mDay;
     static final int DATE_DIALOG_ID = 0;
 
+    //VARIABLES PARA INSERTAR EL AGRUPADOR AL SERVIDOR
+    private int IdregServidor;
+    private int EmpId,SucId,ProId,Sub_Id,Lin_Id,Posicion,Mot_Id,Est_Id;
+    private String Fecha,Lados,Dni,HoraLectura,HoraIngreso,HoraSalida;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -101,6 +113,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
         //ASIGNACION DE BUTTONS DE LAYOUT A VARIABLES
         btnEstablecer = (Button) findViewById(R.id.btnEstablecer);
+        btnSincronizar=(Button)findViewById(R.id.btnSincronizar);
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbFecha = (ImageButton) findViewById(R.id.imbFecha);
 
@@ -275,6 +288,100 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                              }
                                          }
         );
+        btnSincronizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RendArmado_Parametros.this);
+                String alert_title = "AGRUPADOR";
+                String alert_description = "¿Desea sincronizar los registros?";
+                alertDialogBuilder.setTitle(alert_title);
+                // set dialog message
+                alertDialogBuilder
+                        .setMessage(alert_description)
+                        .setCancelable(false)
+                        .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                            // Lo que sucede si se pulsa yes
+                            public void onClick(DialogInterface dialog, int id) {
+                                if (conectadoWifi()){
+                                    Cursor CurReg = LocBD.rawQuery(T_Agrupador._SELECCIONAR_TODOS(Variables.FechaStr),null);
+                                    boolean Resultado = true;
+                                    try {
+                                        Toast.makeText(RendArmado_Parametros.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
+
+                                        Connection Cnn = ConexionBD.getInstance().getConnection();
+                                        Statement pstmt = Cnn.createStatement();
+
+                                        ResultSet Rse;
+                                        if (CurReg.getCount()!=0){
+                                            for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
+                                            {
+                                                IdregServidor=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.IDSERVIDOR));
+
+                                                EmpId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.EMPID));
+                                                SucId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUCID));
+                                                ProId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.PROID));
+                                                Sub_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUBID));
+                                                Lin_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.LINID));
+                                                Mot_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.MOTIVO));
+                                                Est_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.ESTADO));
+                                                Posicion=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.POSICION));
+                                                Fecha=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.FECHA));
+                                                Lados=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.LADO));
+                                                Dni=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.DNI));
+                                                HoraLectura=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORALECTURA));
+                                                HoraIngreso=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORAINGRESO));
+                                                HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
+                                                if (HoraSalida==null){
+                                                    HoraSalida="00:00:00";
+                                                }
+
+                                                if (IdregServidor>0){
+
+                                                    Toast.makeText(RendArmado_Parametros.this, "COMPARA CON EL SERVIDOR Y ACTUALIZA EN LA FECHA ",Toast.LENGTH_SHORT).show();
+                                                }
+                                                else
+                                                {
+
+                                                    pstmt.executeUpdate(T_Agrupador._INSERTSERVIDOR(EmpId,Fecha,SucId,ProId,Sub_Id,Lin_Id,Lados,Posicion,Dni,HoraLectura,HoraIngreso,HoraSalida,Mot_Id,Est_Id),pstmt.RETURN_GENERATED_KEYS);
+                                                    Rse = pstmt.getGeneratedKeys();
+                                                    if (Rse != null && Rse.next()) {
+                                                        IdregServidor = Rse.getInt(1);
+                                                        LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(EmpId,Fecha,SucId,ProId,Sub_Id,Lin_Id,Lados,Posicion,Dni,Mot_Id,Est_Id,IdregServidor));
+                                                    }
+
+                                                    Toast.makeText(RendArmado_Parametros.this, "INSERTA AL SERVIDOR  ",Toast.LENGTH_SHORT).show();
+                                                }
+
+                                            }
+
+                                        }
+
+
+                                    }
+                                    catch (Exception e){
+                                        Toast.makeText(RendArmado_Parametros.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+
+                                }
+                                else
+                                {
+                                    Toast.makeText(RendArmado_Parametros.this, "NO HAY CONEXION, INTENTE LUEGO ",Toast.LENGTH_SHORT).show();
+                                }
+                            }
+                        })
+                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                            public void onClick(DialogInterface dialog,int id) {
+                                // Si se pulsa no no hace nada
+                                Toast.makeText(RendArmado_Parametros.this,"Operación cancelada",Toast.LENGTH_SHORT).show();
+                                dialog.cancel();
+                            }
+                        });
+                AlertDialog alertDialog = alertDialogBuilder.create();
+                // show it
+                alertDialog.show();
+            }
+        });
 
 
 
@@ -322,6 +429,20 @@ public class RendArmado_Parametros extends AppCompatActivity {
                 });
         alertDialog1.create();
         alertDialog1.show();
+    }
+
+    public final Boolean conectadoWifi(){
+     /*   ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
+        if (connectivity != null) {
+            NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
+            if (info != null) {
+                if (info.isConnected()) {
+                    return true;
+                }
+            }
+        }
+        return false;*/
+        return true;
     }
 }
 
