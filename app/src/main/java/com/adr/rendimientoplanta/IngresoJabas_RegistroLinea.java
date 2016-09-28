@@ -155,7 +155,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         btnAgregarJabas = (Button) findViewById(R.id.btnAgregarJabas);
         btnIniciar = (Button) findViewById(R.id.btnIniciar);
         btnTerminar = (Button) findViewById(R.id.btnTerminar);
-        btnKardex = (Button) findViewById(R.id.btnKardex);
+        btnKardex = (Button) findViewById(R.id.btnCambiarPresentacion);
         btnGrabarParada = (Button) findViewById(R.id.btnGrabarParada);
 
         //SMP: Asignar de varible Spinner a Layout

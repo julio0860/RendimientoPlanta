@@ -71,4 +71,15 @@ public class Variables extends AppCompatActivity{
     public static String HoraSalida="";
     public static int Mot_Id=0;
     public static int Agru_EstId=0;
+
+    //VARIABLES USADAS PARA REGISTRO ARMADO
+    public static int Pre_Id=0;
+    public static int PreEnv_Id=0;
+    public static String PreEnv_DescripcionCor="";
+    public static double PreEnv_PesoTorre=0;
+    public static int PreEnv_CantidadTorre=0;
+    public static double PreEnv_Factor=0;
+
+
+
 }

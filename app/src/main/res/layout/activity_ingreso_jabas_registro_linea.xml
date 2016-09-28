@@ -226,7 +226,7 @@
         android:layout_alignStart="@+id/lblFecha" />
 
     <Button
-        android:id="@+id/btnKardex"
+        android:id="@+id/btnCambiarPresentacion"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Kardex"
@@ -331,7 +331,7 @@
         android:layout_column="3"
         android:layout_alignTop="@+id/imageView17"
         android:layout_toEndOf="@+id/textView96"
-        android:layout_alignBottom="@+id/btnKardex" />
+        android:layout_alignBottom="@+id/btnCambiarPresentacion" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -398,7 +398,7 @@
         android:id="@+id/btnTerminar"
         android:layout_alignTop="@+id/imageView17"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/btnKardex" />
+        android:layout_alignBottom="@+id/btnCambiarPresentacion" />
 
     <TextView
         android:id="@+id/lblEmpresa"

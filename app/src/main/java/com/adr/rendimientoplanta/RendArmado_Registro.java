@@ -1,10 +1,13 @@
 package com.adr.rendimientoplanta;
 
+import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.TextView;
@@ -67,6 +70,21 @@ public class RendArmado_Registro extends AppCompatActivity {
         lblDNI.setText(Variables.Per_Dni);
         lblNombres.setText(Variables.Per_Nombres);
 
+        dgvPresentacion.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+
+                Intent ActividadModificar = new Intent(RendArmado_Registro.this, RendArmado_Kardex.class);
+
+                Cursor CursorCarga = (Cursor) parent.getItemAtPosition(position);
+
+                Variables.Lin_Id = CursorCarga.getInt(CursorCarga.getColumnIndex("_id"));
+                Variables.Lin_Descripcion = CursorCarga.getString(CursorCarga.getColumnIndex("Lin_Descripcion"));
+
+                startActivity(ActividadModificar);
+
+            }
+        });
 
     }
 }
