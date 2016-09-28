@@ -1,7 +1,9 @@
 package com.adr.rendimientoplanta;
 
+import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -176,6 +178,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                 , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         spnProceso.setAdapter(adspnProceso);
 
+
         spnProceso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
             public void onItemSelected(AdapterView<?> parent, android.view.View v,
                                        int position, long id) {
@@ -193,6 +196,8 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
             public void onNothingSelected(AdapterView<?> parent) {
             }
+
+
         });
 
         //EVENTO BOTON ESTABLECER
@@ -201,36 +206,16 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                              @Override
                                              public void onClick(View v) {
                                                  //Se crea un Intent para llamar a una nueva Actividad(Pantalla)
-                                                 Cursor CurEmpresa = (Cursor) spnEmpresa.getAdapter().getItem(spnEmpresa.getSelectedItemPosition());
-                                                 Variables.Emp_Id = CurEmpresa.getInt(CurEmpresa.getColumnIndex(BaseColumns._ID));
-                                                 Variables.Emp_Abrev = CurEmpresa.getString(CurEmpresa.getColumnIndex(T_Empresa.EMPABREV));
-                                                 Variables.Emp_Descripcion = CurEmpresa.getString(CurEmpresa.getColumnIndex(T_Empresa.EMPDESCRIPCION));
-
-                                                 Cursor CurSucursal = (Cursor) spnSucursal.getAdapter().getItem(spnSucursal.getSelectedItemPosition());
-                                                 Variables.Suc_Id = CurSucursal.getInt(CurSucursal.getColumnIndex(BaseColumns._ID));
-                                                 Variables.Suc_Descripcion = CurSucursal.getString(CurSucursal.getColumnIndex(T_Sucursal.SUCDESCRIPCION));
-
-                                                 Cursor CurProceso = (Cursor) spnProceso.getAdapter().getItem(spnProceso.getSelectedItemPosition());
-                                                 Variables.Pro_Id=CurProceso.getInt(CurProceso.getColumnIndex(BaseColumns._ID));
-                                                 Variables.Pro_Descripcion=CurProceso.getString(CurProceso.getColumnIndex(T_Proceso.PRODESCRIPCION));
-
-                                                 Cursor CurSubproceso = (Cursor) spnSubproceso.getAdapter().getItem(spnSubproceso.getSelectedItemPosition());
-                                                 Variables.Sub_Id=CurSubproceso.getInt(CurSubproceso.getColumnIndex(BaseColumns._ID));
-                                                 Variables.Sub_Descripcion=CurSubproceso.getString(CurSubproceso.getColumnIndex(T_Subproceso.SUBDESCRIPCION));
-
-                                                 Cursor CurLinea = (Cursor) spnLinea.getAdapter().getItem(spnLinea.getSelectedItemPosition());
-                                                 Variables.Lin_Id = CurLinea.getInt(CurLinea.getColumnIndex(BaseColumns._ID));
-                                                 Variables.Lin_Descripcion = CurLinea.getString(CurLinea.getColumnIndex(T_Linea.LINDESCRIPCION));
-                                                 Variables.Lin_Lado = spnLado.getSelectedItem().toString();
                                                  String mes,dia;
-                                                if (mDay<10)
-                                                {
-                                                    dia="0"+String.valueOf(mDay);
-                                                }
+
+                                                 if (mDay<10)
+                                                 {
+                                                     dia="0"+String.valueOf(mDay);
+                                                 }
                                                  else
-                                                {
-                                                    dia=String.valueOf(mDay);
-                                                }
+                                                 {
+                                                     dia=String.valueOf(mDay);
+                                                 }
                                                  if (mMonth+1<10)
                                                  {
                                                      mes="0"+String.valueOf(mMonth+1);
@@ -239,11 +224,54 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                  {
                                                      mes=String.valueOf(mMonth+1);
                                                  }
-                                                 Variables.FechaStr =edtFecha.getText().toString();
-                                                 Variables.FechaStrBD=String.valueOf(mYear)+mes+dia;
+                                                 Variables.FechaStrBD=String.valueOf(mYear)+"-"+mes+"-"+dia;
 
-                                                 Intent ActividadNueva = new Intent(RendArmado_Parametros.this, RendArmado_Lista.class);
-                                                 startActivity(ActividadNueva);
+                                                 Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE '"+Variables.FechaStrBD+"' between cam_fechaIni AND Cam_FechaTer" , null);
+
+                                                 if (FechaCampaña.moveToFirst()) {
+                                                     //Recorremos el cursor hasta que no haya más registros
+                                                     do {
+                                                         Variables.Cam_Id= FechaCampaña.getInt(0);
+
+                                                     } while(FechaCampaña.moveToNext());
+                                                 }
+
+                                                 if (Variables.Cam_Id !=0)
+                                                 {
+                                                     Cursor CurEmpresa = (Cursor) spnEmpresa.getAdapter().getItem(spnEmpresa.getSelectedItemPosition());
+                                                     Variables.Emp_Id = CurEmpresa.getInt(CurEmpresa.getColumnIndex(BaseColumns._ID));
+                                                     Variables.Emp_Abrev = CurEmpresa.getString(CurEmpresa.getColumnIndex(T_Empresa.EMPABREV));
+                                                     Variables.Emp_Descripcion = CurEmpresa.getString(CurEmpresa.getColumnIndex(T_Empresa.EMPDESCRIPCION));
+
+                                                     Cursor CurSucursal = (Cursor) spnSucursal.getAdapter().getItem(spnSucursal.getSelectedItemPosition());
+                                                     Variables.Suc_Id = CurSucursal.getInt(CurSucursal.getColumnIndex(BaseColumns._ID));
+                                                     Variables.Suc_Descripcion = CurSucursal.getString(CurSucursal.getColumnIndex(T_Sucursal.SUCDESCRIPCION));
+
+                                                     Cursor CurProceso = (Cursor) spnProceso.getAdapter().getItem(spnProceso.getSelectedItemPosition());
+                                                     Variables.Pro_Id=CurProceso.getInt(CurProceso.getColumnIndex(BaseColumns._ID));
+                                                     Variables.Pro_Descripcion=CurProceso.getString(CurProceso.getColumnIndex(T_Proceso.PRODESCRIPCION));
+
+                                                     Cursor CurSubproceso = (Cursor) spnSubproceso.getAdapter().getItem(spnSubproceso.getSelectedItemPosition());
+                                                     Variables.Sub_Id=CurSubproceso.getInt(CurSubproceso.getColumnIndex(BaseColumns._ID));
+                                                     Variables.Sub_Descripcion=CurSubproceso.getString(CurSubproceso.getColumnIndex(T_Subproceso.SUBDESCRIPCION));
+
+                                                     Cursor CurLinea = (Cursor) spnLinea.getAdapter().getItem(spnLinea.getSelectedItemPosition());
+                                                     Variables.Lin_Id = CurLinea.getInt(CurLinea.getColumnIndex(BaseColumns._ID));
+                                                     Variables.Lin_Descripcion = CurLinea.getString(CurLinea.getColumnIndex(T_Linea.LINDESCRIPCION));
+                                                     Variables.Lin_Lado = spnLado.getSelectedItem().toString();
+
+
+                                                     Variables.FechaStr =edtFecha.getText().toString();
+
+
+                                                     Intent ActividadNueva = new Intent(RendArmado_Parametros.this, RendArmado_Lista.class);
+                                                     startActivity(ActividadNueva);
+                                                 }
+                                                 else
+                                                 {
+                                                     Mensaje("LA FECHA SE ENCUENTRA FUERA DE CAMPAÑA");
+                                                 }
+
                                              }
                                          }
         );
@@ -279,6 +307,21 @@ public class RendArmado_Parametros extends AppCompatActivity {
                 return new DatePickerDialog(this,mDateSetListener,mYear,mMonth,mDay);
         }
         return null;
+    }
+    private void Mensaje(String mensaje)
+    {
+        AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RendArmado_Parametros.this);
+        alertDialog1.setTitle("AVISO");
+        alertDialog1.setMessage(mensaje);
+        alertDialog1.setPositiveButton(
+                "OK",
+                new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog, int id) {
+
+                    }
+                });
+        alertDialog1.create();
+        alertDialog1.show();
     }
 }
 

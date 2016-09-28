@@ -58,11 +58,12 @@ public class RendArmado_Lista extends AppCompatActivity {
         MostrarVariables();
 
 
+
         Cursor Rse = LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER',IFNULL(A.Agru_Id ,0) AS 'AGRUID',IFNULL(HoraIngreso,' ') AS 'HORAIN'  \n" +
                 "FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='" + Variables.FechaStr + "' AND A.Suc_Id='" + Variables.Suc_Id + "'  AND  \n" +
                 "A.Pro_Id='" + Variables.Pro_Id + "'  AND A.Sub_Id='" + Variables.Sub_Id + "'  AND A.Lin_Id='" + Variables.Lin_Id + "' AND A.Lado='" + Variables.Lin_Lado + "' AND A.Est_Id=1  left join Personal p on p.Per_Codigo=A.DNI \n" +
                 " WHERE M.posicion <=\n" +
-                "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='" + Variables.Pro_Id + "'  AND Sub_Id='" + Variables.Sub_Id + "' AND Lin_Id='" + Variables.Lin_Id + "' AND Lado='" + Variables.Lin_Lado + "')", null);
+                "(SELECT MESA FROM MesaLinea where Cam_Id='"+Variables.Cam_Id+"' AND Pro_Id='" + Variables.Pro_Id + "'  AND Sub_Id='" + Variables.Sub_Id + "' AND Lin_Id='" + Variables.Lin_Id + "' AND Lado='" + Variables.Lin_Lado + "')", null);
 
         AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, R.layout.simple_list_item_3, Rse, new String[]{"_id", "DNI", "PER", "AGRUID", "HORAIN"},
                 new int[]{R.id.text1, R.id.text2, R.id.text3}, SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);

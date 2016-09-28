@@ -49,6 +49,7 @@ public class Variables extends AppCompatActivity{
     public static String Per_CodigoOpe="";
 
     //VARIABLES USADAS PARA EL AGRUPADOR
+    public static Integer Cam_Id=0;
     public static Integer Lin_Id = 0;
     public static String Lin_Descripcion = "";
     public static Integer Sub_Id=0;
