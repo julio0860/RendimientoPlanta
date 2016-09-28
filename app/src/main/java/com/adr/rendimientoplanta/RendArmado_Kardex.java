@@ -1,6 +1,7 @@
 package com.adr.rendimientoplanta;
 
 import android.content.Intent;
+import android.database.sqlite.SQLiteDatabase;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -14,10 +15,20 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
+import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
-public class RendArmado_Kardex extends AppCompatActivity {
+import java.math.BigDecimal;
 
+public class RendArmado_Kardex extends AppCompatActivity {
+    //DECLARACION BD LOCAL
+    LocalBD LBD = new LocalBD(this) ;
+    final SQLiteDatabase LocBD = LBD.getWritableDatabase();
+
+    //DECLARACION FUNCIONES
+    private Funciones fnc;
     //DECLARACIÓN DE VARIABLES TEXTVIEW
     private TextView lblEmpresa;
     private TextView lblSucursal;
@@ -58,6 +69,9 @@ public class RendArmado_Kardex extends AppCompatActivity {
         lblDNI = (TextView) findViewById(R.id.lblDNI);
         lblNombres = (TextView) findViewById(R.id.lblNombres);
         lblPresentacion = (TextView) findViewById(R.id.lblPresentacion);
+
+        //DECLARACION FUNCIONES
+        fnc=new Funciones();
 
         //ASIGNAR VARIABLES A BUTTON EN LAYOUT
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
@@ -123,6 +137,36 @@ public class RendArmado_Kardex extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                int Cantidad = Integer.parseInt(edtCantidad.getText().toString());
+                int Peso = Integer.parseInt(edtPeso.getText().toString());
+                int Factor;
+                int Total;
+                double Equivalente;
+                if (rbnEntrega.isChecked())
+                {
+                    Factor = 1;
+                    Total=Cantidad*Factor;
+                    Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+
+                    LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                            Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                            Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                            Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                            Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,Cantidad,
+                            0,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+
+                }else if(rbnDevolucion.isChecked())
+                {
+                    Factor = -1;
+                    Total=Cantidad*Factor;
+                    Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+                    LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                            Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                            Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                            Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                            Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
+                            Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                }
             }
             }
         );
@@ -167,5 +211,10 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private int CalcularPeso(int Cantidad) {
         return (int) ((Cantidad * (Variables.PreEnv_PesoTorre * 1000)) / Variables.PreEnv_CantidadTorre);
     }
+    private void ActualizarLista()
+    {
+
+    }
+
 
 }
