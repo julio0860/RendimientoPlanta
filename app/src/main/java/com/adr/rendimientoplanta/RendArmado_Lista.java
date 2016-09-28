@@ -22,9 +22,14 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Agrupador;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
+
+import java.sql.Connection;
+import java.sql.ResultSet;
+import java.sql.Statement;
 
 
 public class RendArmado_Lista extends AppCompatActivity {
@@ -39,7 +44,10 @@ public class RendArmado_Lista extends AppCompatActivity {
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
     private Button btnSincronizar;
+    //VARIABLES PARA INSERTAR EL AGRUPADOR AL SERVIDOR
     private int IdregServidor;
+    private int Emp_Id,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Posicion,Mot_Id,Est_Id;
+    private String Fecha,Lado,Dni,HoraLectura,HoraIngreso,HoraSalida;
 
 
     @Override
@@ -55,7 +63,7 @@ public class RendArmado_Lista extends AppCompatActivity {
 
         Cursor Rse = LocBD.rawQuery(" SELECT M.POSICION AS '_id',IFNULL(A.DNI,' ') AS 'DNI',IFNULL(p.Per_ApePaterno || ' '|| p.Per_ApeMaterno||' '||p.Per_Nombres,' ') AS 'PER',IFNULL(A.Agru_Id ,0) AS 'AGRUID',IFNULL(HoraIngreso,' ') AS 'HORAIN'  \n" +
                 "FROM MESA M lEFT JOIN  Agrupador A ON M.POSICION = A.Posicion AND A.Fecha='" + Variables.FechaStr + "' AND A.Suc_Id='" + Variables.Suc_Id + "'  AND  \n" +
-                "A.Pro_Id='" + Variables.Pro_Id + "'  AND A.Sub_Id='" + Variables.Sub_Id + "'  AND A.Lin_Id='" + Variables.Lin_Id + "' AND A.Lado='" + Variables.Lin_Lado + "' AND A.Estado=1  left join Personal p on p.Per_Codigo=A.DNI \n" +
+                "A.Pro_Id='" + Variables.Pro_Id + "'  AND A.Sub_Id='" + Variables.Sub_Id + "'  AND A.Lin_Id='" + Variables.Lin_Id + "' AND A.Lado='" + Variables.Lin_Lado + "' AND A.Est_Id=1  left join Personal p on p.Per_Codigo=A.DNI \n" +
                 " WHERE M.posicion <=\n" +
                 "(SELECT MESA FROM MesaLinea where Cam_Id=37 AND Pro_Id='" + Variables.Pro_Id + "'  AND Sub_Id='" + Variables.Sub_Id + "' AND Lin_Id='" + Variables.Lin_Id + "' AND Lado='" + Variables.Lin_Lado + "')", null);
 
@@ -104,7 +112,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                                               public void onClick(View v) {
 
                                                   AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RendArmado_Lista.this);
-                                                  String alert_title = "Iniciar Linea";
+                                                  String alert_title = "AGRUPADOR";
                                                   String alert_description = "¿Desea sincronizar los registros?";
                                                   alertDialogBuilder.setTitle(alert_title);
                                                   // set dialog message
@@ -120,13 +128,30 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                                       try {
                                                                           Toast.makeText(RendArmado_Lista.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
 
-                                                                        /*  Connection Cnn = ConexionBD.getInstance().getConnection();
-                                                                          Statement Stmt = Cnn.createStatement();
-                                                                          ResultSet Rse;*/
+                                                                         Connection Cnn = ConexionBD.getInstance().getConnection();
+                                                                          Statement pstmt = null;
+
+                                                                          ResultSet Rse;
                                                                           if (CurReg.getCount()!=0){
                                                                               for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
                                                                               {
                                                                                   IdregServidor=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.IDSERVIDOR));
+
+                                                                                  Emp_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.EMPID));
+                                                                                  Suc_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUCID));
+                                                                                  Pro_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.PROID));
+                                                                                  Sub_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUBID));
+                                                                                  Lin_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.LINID));
+                                                                                  Mot_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.MOTIVO));
+                                                                                  Est_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.ESTADO));
+                                                                                  Posicion=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.POSICION));
+                                                                                  Fecha=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.FECHA));
+                                                                                  Lado=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.LADO));
+                                                                                  Dni=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.DNI));
+                                                                                  HoraLectura=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORALECTURA));
+                                                                                  HoraIngreso=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORAINGRESO));
+                                                                                  HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
+
 
                                                                                   if (IdregServidor>0){
 
@@ -134,6 +159,13 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                                                   }
                                                                                   else
                                                                                   {
+                                                                                      pstmt = Cnn.createStatement();
+                                                                                      pstmt.executeUpdate(T_Agrupador._INSERTSERVIDOR(Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,Dni,HoraLectura,HoraIngreso,HoraSalida,Mot_Id,Est_Id),pstmt.RETURN_GENERATED_KEYS);
+                                                                                      Rse = pstmt.getGeneratedKeys();
+                                                                                      if (Rse != null && Rse.next()) {
+                                                                                           IdregServidor = Rse.getInt(1);
+                                                                                      }
+
                                                                                       Toast.makeText(RendArmado_Lista.this, "INSERTA AL SERVIDOR  ",Toast.LENGTH_SHORT).show();
                                                                                   }
 

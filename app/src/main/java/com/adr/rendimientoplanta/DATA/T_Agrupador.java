@@ -11,12 +11,12 @@ public class T_Agrupador {
     public static final String LINID = "Lin_Id";
     public static final String LADO = "Lado";
     public static final String POSICION = "Posicion";
-    public static final String DNI = "Dni";
+    public static final String DNI = "DNI";
     public static final String HORALECTURA="HoraLectura";
     public static final String HORAINGRESO="HoraIngreso";
     public static final String HORASALIDA="HoraSalida";
     public static final String MOTIVO="Motivo";
-    public static final String ESTADO="Estado";
+    public static final String ESTADO="Est_Id";
     public static final String IDSERVIDOR="Agru_IdServidor";
 
 
@@ -96,5 +96,17 @@ public class T_Agrupador {
         _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_NoSincronizados +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"'"+
                 ";";
         return _SELECCIONAR_NO_SINCRONIZADOS;
+    }
+
+    public static String _INSERTSERVIDOR(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                 String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Mot_Id,int Est_Id)
+    {
+        String _INSERTSERVIDOR;
+        _INSERTSERVIDOR = "INSERT INTO "+N_TABLA +"("+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
+                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+
+                ")VALUES('"+
+                EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
+                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Mot_Id+"','"+Est_Id+"');";
+        return _INSERTSERVIDOR;
     }
 }
