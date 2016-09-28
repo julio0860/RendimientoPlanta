@@ -204,7 +204,7 @@ public class RegistroOperario extends AppCompatActivity {
 
                     if (Variables.Agru_Id > 0) {
                         try {
-                            LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                            LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
                                     Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId));
                             Estado = true;
                             Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
@@ -217,7 +217,7 @@ public class RegistroOperario extends AppCompatActivity {
                             Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Cursor Rse = LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='" + Variables.FechaStr + "' AND SUC_ID='" + Variables.Suc_Id + "' AND PRO_ID='" + Variables.Pro_Id + "' AND SUB_ID='" + Variables.Sub_Id + "' AND LIN_ID='" + Variables.Lin_Id + "' AND LADO='" + Variables.Lin_Lado + "' AND Est_Id=1 AND DNI='" + Variables.Per_Dni + "'", null);
+                        Cursor Rse = LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='" + Variables.FechaStrBD + "' AND SUC_ID='" + Variables.Suc_Id + "' AND PRO_ID='" + Variables.Pro_Id + "' AND SUB_ID='" + Variables.Sub_Id + "' AND LIN_ID='" + Variables.Lin_Id + "' AND LADO='" + Variables.Lin_Lado + "' AND Est_Id=1 AND DNI='" + Variables.Per_Dni + "'", null);
                         if (Rse.moveToFirst()) {
 
                             do {
@@ -235,7 +235,7 @@ public class RegistroOperario extends AppCompatActivity {
 
                         else{
                             try {
-                                LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
                                         Variables.HoraLectura, Variables.HoraIngreso, Variables.Mot_Id, Variables.Agru_EstId));
                                 Estado = true;
                                 Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
@@ -275,7 +275,7 @@ public class RegistroOperario extends AppCompatActivity {
                                     Variables.HoraLectura = fnc.HoraSistema();
 
                                     try {
-                                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                        LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
                                                 Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId));
 
                                         Mensaje("EL REGISTRO HA SIDO ELIMINADO CORRECTAMENTE");

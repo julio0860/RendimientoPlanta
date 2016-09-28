@@ -128,7 +128,7 @@ public class T_Agrupador {
     {
         String _INSERTDESDESERVIDOR;
         _INSERTDESDESERVIDOR = "INSERT INTO "+N_TABLA +"("+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
-                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+IDSERVIDOR+
+                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+","+IDSERVIDOR+
                 ")VALUES('"+
                 EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
                 "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Motivo+"','"+Estado+"','"+IdServidor+"');";
