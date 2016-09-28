@@ -34,5 +34,23 @@ public class T_Campaña {
                 ")VALUES('"+
                 CamId+"','"+CamCodigo+"','"+CulId+"','"+CamDescripcion+"','"+FechaIni+"','"+FechaFin+"','"+CamOrigen+"');";
         return _INSERT;
+
+    }
+
+    public static String _DELETE()
+    {
+        String _DELETE;
+        _DELETE = "DELETE FROM "+N_TABLA +";";
+        return _DELETE;
+    }
+
+    public static String _SELECT_CAMPAÑA()
+    {
+        String _SELECT_CAMPAÑA;
+        _SELECT_CAMPAÑA = "SELECT "+CAMID+" AS '_id',"+CAMCODIGO+","+CULID+","+CAMDESCRIPCION+","+CAMFECHAINI+","+CAMFECHATER+
+                ","+CAMORIGEN
+                +" FROM "+N_TABLA;
+
+        return _SELECT_CAMPAÑA;
     }
 }

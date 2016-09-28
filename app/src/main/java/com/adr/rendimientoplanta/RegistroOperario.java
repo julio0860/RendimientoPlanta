@@ -343,8 +343,5 @@ public class RegistroOperario extends AppCompatActivity {
         alertDialog1.show();
     }
 
-    private void MensajeMultiple(String mensaje)
-    {
 
-    }
 }
