@@ -78,8 +78,11 @@ public class RendArmado_Registro extends AppCompatActivity {
 
                 Cursor CursorCarga = (Cursor) parent.getItemAtPosition(position);
 
-                Variables.Lin_Id = CursorCarga.getInt(CursorCarga.getColumnIndex("_id"));
-                Variables.Lin_Descripcion = CursorCarga.getString(CursorCarga.getColumnIndex("Lin_Descripcion"));
+                Variables.PreEnv_Id= CursorCarga.getInt(CursorCarga.getColumnIndex("_id"));
+                Variables.Pre_Id = CursorCarga.getInt(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreId));
+                Variables.PreEnv_CantidadTorre = CursorCarga.getInt(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvCantidadTorre));
+                Variables.PreEnv_PesoTorre = CursorCarga.getDouble(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvPesoTorre));
+                Variables.PreEnv_DescripcionCor = CursorCarga.getString(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvDescripcionCor));
 
                 startActivity(ActividadModificar);
 
