@@ -50,6 +50,11 @@ public class T_Agrupador {
             +","+LADO+","+POSICION+","+DNI+","+HORALECTURA
             +","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+","+IDSERVIDOR;
 
+    public static final String CamposSeleccionar_Servidor = AGRUID+","+EMPID+","+FECHA
+            +","+SUCID+","+PROID+","+SUBID+","+LINID
+            +","+LADO+","+POSICION+","+DNI+","+HORALECTURA
+            +","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO;
+
     public static String _INSERT(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
                                  String Dni,String HoraLectura,String HoraIngreso,int Motivo,int Estado)
     {
@@ -107,5 +112,26 @@ public class T_Agrupador {
                 EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
                 "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Mot_Id+"','"+Est_Id+"');";
         return _INSERTSERVIDOR;
+    }
+
+    public static String _SELECCIONAR_TODOSSERVIDOR(String Fecha)
+    //SON TODOS LOS REGISTROS DEL SERVIDOR
+    {
+        String _SELECCIONAR_NO_SINCRONIZADOS;
+        _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_Servidor +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"'"+
+                ";";
+        return _SELECCIONAR_NO_SINCRONIZADOS;
+    }
+
+    public static String _INSERTDESDESERVIDOR(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                 String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Motivo,int Estado,int IdServidor)
+    {
+        String _INSERTDESDESERVIDOR;
+        _INSERTDESDESERVIDOR = "INSERT INTO "+N_TABLA +"("+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
+                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+IDSERVIDOR+
+                ")VALUES('"+
+                EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
+                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Motivo+"','"+Estado+"','"+IdServidor+"');";
+        return _INSERTDESDESERVIDOR;
     }
 }
