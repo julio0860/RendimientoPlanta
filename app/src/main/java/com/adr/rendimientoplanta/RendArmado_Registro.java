@@ -20,7 +20,7 @@ public class RendArmado_Registro extends AppCompatActivity {
     private TextView lblSucursal;
     private TextView lblLinea;
     private TextView lblLado;
-    private EditText edtFecha;
+    private TextView lblFecha;
 
     private TextView lblMesa;
     private TextView lblDNI;
@@ -41,7 +41,7 @@ public class RendArmado_Registro extends AppCompatActivity {
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
-        edtFecha = (EditText) findViewById(R.id.lblFecha);
+        lblFecha = (TextView) findViewById(R.id.lblFecha);
 
         lblMesa = (TextView) findViewById(R.id.lblMesa);
         lblDNI = (TextView) findViewById(R.id.lblDNI);
@@ -61,7 +61,7 @@ public class RendArmado_Registro extends AppCompatActivity {
         lblSucursal.setText(Variables.Suc_Descripcion);
         lblLinea.setText(Variables.Lin_Descripcion);
         lblLado.setText(Variables.Lin_Lado);
-        edtFecha.setText(Variables.FechaStr);
+        lblFecha.setText(Variables.FechaStr);
 
         lblMesa.setText(String.valueOf(Variables.Per_Ubicacion));
         lblDNI.setText(Variables.Per_Dni);

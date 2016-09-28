@@ -9,10 +9,9 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context=".RendArmado_Registro">
 
-    <EditText
-        android:layout_width="120dp"
+    <TextView
+        android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:ems="10"
         android:id="@+id/lblFecha"
         android:layout_row="3"
         android:layout_column="7"
@@ -22,8 +21,9 @@
         android:text="01/01/1900"
         android:textColor="#000000"
         android:focusableInTouchMode="false"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentTop="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignEnd="@+id/btnKardex" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -32,7 +32,8 @@
         android:text="ADR"
         android:id="@+id/lblEmpresa"
         android:layout_alignTop="@+id/lblFecha"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -41,7 +42,8 @@
         android:text="PLANTA DON CARLOS"
         android:id="@+id/lblSucursal"
         android:layout_alignParentTop="true"
-        android:layout_alignStart="@+id/textView80" />
+        android:layout_alignStart="@+id/textView80"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -49,7 +51,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LINEA 1 PUN PDC"
         android:id="@+id/lblLinea"
-        android:layout_below="@+id/lblEmpresa"
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView18"
         android:layout_alignParentStart="true" />
 
     <TextView
@@ -59,7 +62,8 @@
         android:text="LADO A"
         android:id="@+id/lblLado"
         android:layout_alignTop="@+id/lblLinea"
-        android:layout_alignStart="@+id/textView82" />
+        android:layout_alignStart="@+id/textView82"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -86,7 +90,7 @@
         android:text="01"
         android:id="@+id/lblMesa"
         android:layout_below="@+id/textView37"
-        android:layout_alignEnd="@+id/lblEmpresa" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -152,9 +156,10 @@
         android:text="@string/lbl_Presentacion"
         android:id="@+id/textView88"
         android:singleLine="false"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:layout_below="@+id/lblMesa"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#000000" />
 
     <GridView
         android:layout_width="wrap_content"
@@ -172,9 +177,10 @@
         android:text="@string/lbl_Resumen"
         android:id="@+id/textView21"
         android:singleLine="false"
-        android:textColor="#000000"
+        android:textColor="#ffffff"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:background="#000000" />
 
     <GridView
         android:layout_width="wrap_content"
@@ -184,5 +190,59 @@
         android:layout_above="@+id/imbRegresar"
         android:layout_alignEnd="@+id/lblNombres"
         android:layout_below="@+id/textView21" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView18"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/lblEmpresa"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView19"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_alignTop="@+id/textView38"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView20"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView38"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView21"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView37"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView22"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView88"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView23"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView21"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
