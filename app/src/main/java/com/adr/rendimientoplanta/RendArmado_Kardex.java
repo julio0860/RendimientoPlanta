@@ -2,6 +2,8 @@ package com.adr.rendimientoplanta;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.KeyEvent;
 import android.view.View;
 import android.widget.EditText;
@@ -43,8 +45,8 @@ public class RendArmado_Kardex extends AppCompatActivity {
         lblPresentacion = (TextView) findViewById(R.id.lblPresentacion);
 
         //ASIGNACION DE VARIABLES A EDITTEXT DE LAYOUT
-        edtCantidad = (EditText)findViewById(R.id.edtCantidad);
-        edtPeso = (EditText)findViewById(R.id.edtPeso);
+        edtCantidad = (EditText) findViewById(R.id.edtCantidad);
+        edtPeso = (EditText) findViewById(R.id.edtPeso);
 
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
@@ -58,37 +60,64 @@ public class RendArmado_Kardex extends AppCompatActivity {
         lblPresentacion.setText(Variables.PreEnv_DescripcionCor);
 
         //ASIGNACION DE EDITTEXT A ACTIVITY
-        edtPeso.setText(String.valueOf(Variables.PreEnv_PesoTorre));
+        edtPeso.setText(String.valueOf(Variables.PreEnv_PesoTorre*1000));
         edtCantidad.setText(String.valueOf(Variables.PreEnv_CantidadTorre));
 
-        edtPeso.setOnKeyListener(new View.OnKeyListener() {
+        edtPeso.addTextChangedListener(new TextWatcher() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
-                {
-                    edtCantidad.setText(String.valueOf(CalcularCantidad(keyCode)));
-                }
-                return false;
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
             }
-        });
-        edtCantidad.setOnKeyListener(new View.OnKeyListener() {
             @Override
-            public boolean onKey(View v, int keyCode, KeyEvent event) {
-                if (event.getAction() == KeyEvent.ACTION_DOWN)
+            public void afterTextChanged(Editable s) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+                if (edtPeso.hasFocus()==true)
                 {
-                    edtPeso.setText(String.valueOf(CalcularPeso(keyCode)));
+                    if(s.length() != 0)
+                        edtCantidad.setText(String.valueOf(CalcularCantidad(Integer.parseInt(edtPeso.getText().toString()))));
+                    else
+                        edtCantidad.setText("0");
+
                 }
-                return false;
             }
         });
 
+        edtCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+            @Override
+            public void afterTextChanged(Editable s) {
+
+            }
+            @Override
+            public void onTextChanged(CharSequence s, int start,
+                                      int before, int count) {
+
+                if(edtCantidad.hasFocus()==true)
+                {
+                    if(s.length() != 0)
+                        edtPeso.setText(String.valueOf(CalcularPeso(Integer.parseInt(edtCantidad.getText().toString()))));
+                    else
+                        edtPeso.setText("0");
+                }
+            }
+
+        });
+
     }
-    private int CalcularCantidad(int Peso)
-    {
-        return (int)((Peso*Variables.PreEnv_CantidadTorre)/(Variables.PreEnv_PesoTorre*1000));
+
+    private int CalcularCantidad(int Peso) {
+        return (int) ((Peso * Variables.PreEnv_CantidadTorre) / (Variables.PreEnv_PesoTorre * 1000));
     }
-    private int CalcularPeso(int Cantidad)
-    {
-        return (int)((Cantidad*(Variables.PreEnv_PesoTorre*1000))/Variables.PreEnv_CantidadTorre);
+
+    private int CalcularPeso(int Cantidad) {
+        return (int) ((Cantidad * (Variables.PreEnv_PesoTorre * 1000)) / Variables.PreEnv_CantidadTorre);
     }
+
 }
