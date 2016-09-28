@@ -32,7 +32,7 @@ public class RendArmado_Lista extends AppCompatActivity {
     private EditText edtFecha;
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
-    private Button btnSincronizar;
+
 
 
 
@@ -129,7 +129,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         edtFecha = (EditText) findViewById(R.id.lblFecha);
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
-        btnSincronizar=(Button)findViewById(R.id.btnSincronizar);
+
     }
     public void MostrarVariables()
     {
