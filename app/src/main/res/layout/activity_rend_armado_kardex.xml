@@ -11,31 +11,6 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="SUCURSAL"
-        android:id="@+id/textView22"
-        android:layout_row="3"
-        android:layout_column="0"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="32dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="822dp" />
-
-    <Spinner
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/spinner6"
-        android:layout_row="3"
-        android:layout_column="1"
-        android:layout_alignParentLeft="true"
-        android:layout_marginLeft="274dp"
-        android:layout_alignParentTop="true"
-        android:layout_marginTop="826dp" />
-
-    <EditText
-        android:layout_width="120dp"
-        android:layout_height="wrap_content"
-        android:ems="10"
         android:id="@+id/lblFecha"
         android:layout_row="3"
         android:layout_column="7"
@@ -45,8 +20,9 @@
         android:text="01/01/1900"
         android:textColor="#000000"
         android:focusableInTouchMode="false"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/spinner6" />
+        android:layout_alignEnd="@+id/btnKardex" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -55,7 +31,8 @@
         android:text="ADR"
         android:id="@+id/lblEmpresa"
         android:layout_alignTop="@+id/lblFecha"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,8 +40,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PLANTA DON CARLOS"
         android:id="@+id/lblSucursal"
-        android:layout_alignTop="@+id/lblFecha"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignStart="@+id/textView80"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,9 +50,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LINEA 1 PUN PDC"
         android:id="@+id/lblLinea"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/lblSucursal"
-        android:layout_alignParentLeft="true" />
+        android:textStyle="bold"
+        android:layout_below="@+id/imageView18"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,24 +60,25 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LADO A"
         android:id="@+id/lblLado"
-        android:layout_below="@+id/lblSucursal"
-        android:layout_alignStart="@+id/spinner6" />
+        android:layout_alignTop="@+id/lblLinea"
+        android:layout_alignStart="@+id/textView82"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Mesa"
+        android:text="MESA"
         android:id="@+id/textView37"
         android:layout_below="@+id/textView38"
         android:layout_alignParentStart="true"
-        android:layout_marginTop="16dp" />
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Detalle"
+        android:text="@string/lbl_Detalle"
         android:id="@+id/textView38"
         android:layout_below="@+id/lblLinea"
         android:layout_alignParentStart="true" />
@@ -107,12 +86,11 @@
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="01"
         android:id="@+id/lblMesa"
-        android:layout_alignParentStart="true"
         android:layout_below="@+id/textView37"
-        android:layout_alignParentLeft="true" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -120,18 +98,18 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="DNI"
         android:id="@+id/textView80"
-        android:layout_above="@+id/lblMesa"
-        android:layout_alignStart="@+id/lblDNI" />
+        android:layout_below="@+id/textView38"
+        android:layout_alignStart="@+id/lblDNI"
+        android:textStyle="bold" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="40084274"
         android:id="@+id/lblDNI"
-        android:layout_below="@+id/lblFecha"
-        android:layout_alignEnd="@+id/lblLinea"
-        android:layout_marginTop="76dp" />
+        android:layout_below="@+id/textView80"
+        android:layout_alignEnd="@+id/lblLinea" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -139,25 +117,28 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="NOMBRES"
         android:id="@+id/textView82"
-        android:layout_above="@+id/lblMesa"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignTop="@+id/textView80"
+        android:layout_centerHorizontal="true"
+        android:textStyle="bold" />
 
-    <GridView
+    <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridView"
-        tools:listitem="@android:layout/simple_list_item_2"
-        android:layout_above="@+id/button5"
-        android:background="@color/common_action_bar_splitter"
-        android:layout_below="@+id/textView88" />
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ERICKA NOEMI LABIOS SAYRITUPAC"
+        android:id="@+id/lblNombres"
+        android:layout_alignTop="@+id/lblDNI"
+        android:layout_alignEnd="@+id/lblFecha"
+        android:layout_toEndOf="@+id/lblDNI"
+        android:layout_alignStart="@+id/textView82" />
 
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="CERRAR DIA"
-        android:id="@+id/button5"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/gridView" />
+        android:text="KARDEX"
+        android:id="@+id/btnKardex"
+        android:layout_below="@+id/imageView24"
+        android:layout_alignParentEnd="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -167,24 +148,110 @@
         android:layout_column="6"
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/textView37" />
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="Kardex"
-        android:id="@+id/textView88"
+        android:text="@string/lbl_Resumen"
+        android:id="@+id/textView21"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_centerVertical="true"
+        android:layout_alignParentStart="true" />
+
+    <GridView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/gridView3"
+        android:background="@color/common_action_bar_splitter"
+        android:layout_above="@+id/imbRegresar"
+        android:layout_alignEnd="@+id/lblNombres"
+        android:layout_below="@+id/textView21" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView18"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/lblEmpresa"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView19"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
         android:layout_alignParentStart="true"
-        android:layout_below="@+id/lblMesa" />
+        android:layout_toStartOf="@+id/lblFecha"
+        android:layout_below="@+id/lblLinea" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView20"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView38"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView21"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView37"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView23"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView21"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView24"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_alignTop="@+id/imbRegresar"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="ERICKA NOEMI LABIOS SAYRITUPAC"
-        android:id="@+id/textView24"
-        android:layout_below="@+id/textView82"
-        android:layout_alignStart="@+id/textView82" />
+        android:text="REGISTRO"
+        android:id="@+id/textView2"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_below="@+id/lblNombres"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="500G K36 INF"
+        android:id="@+id/lblPresentacion"
+        android:textStyle="bold"
+        android:layout_alignTop="@+id/lblLado"
+        android:layout_alignParentEnd="true"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_above="@+id/imageView20"
+        android:layout_alignStart="@+id/lblFecha"
+        android:textAlignment="center" />
+
 
 </RelativeLayout>
