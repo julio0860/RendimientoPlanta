@@ -291,6 +291,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         btnSincronizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                Variables.FechaStr=edtFecha.getText().toString();
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RendArmado_Parametros.this);
                 String alert_title = "AGRUPADOR";
@@ -339,10 +340,28 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                 if (IdregServidor>0){
 
                                                     Toast.makeText(RendArmado_Parametros.this, "COMPARA CON EL SERVIDOR Y ACTUALIZA EN LA FECHA ",Toast.LENGTH_SHORT).show();
+
+                                                    Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
+
+                                                  while (Rse.next())
+                                                  {
+                                                      int IdAgrudServer=Rse.getInt(1);
+                                                      if (IdregServidor==IdAgrudServer)
+                                                      {
+                                                          Toast.makeText(RendArmado_Parametros.this, "ACTUALIZA FILA DEL SERVIDOR  ",Toast.LENGTH_SHORT).show();
+                                                      }
+                                                      else
+                                                      {
+                                                          LocBD.execSQL(T_Agrupador._INSERTDESDESERVIDOR(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
+                                                                  Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                          Toast.makeText(RendArmado_Parametros.this, "INSERTA A LA BD LOCAL  ",Toast.LENGTH_SHORT).show();
+                                                      }
+
+                                                  }
+
                                                 }
                                                 else
                                                 {
-
                                                     pstmt.executeUpdate(T_Agrupador._INSERTSERVIDOR(EmpId,Fecha,SucId,ProId,Sub_Id,Lin_Id,Lados,Posicion,Dni,HoraLectura,HoraIngreso,HoraSalida,Mot_Id,Est_Id),pstmt.RETURN_GENERATED_KEYS);
                                                     Rse = pstmt.getGeneratedKeys();
                                                     if (Rse != null && Rse.next()) {
@@ -356,7 +375,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                             }
 
                                         }
-
 
                                     }
                                     catch (Exception e){
