@@ -23,7 +23,7 @@
         android:focusableInTouchMode="false"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/btnKardex" />
+        android:layout_alignEnd="@+id/btnCambiarPresentacion" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -138,7 +138,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="KARDEX"
-        android:id="@+id/btnKardex"
+        android:id="@+id/btnCambiarPresentacion"
         android:layout_below="@+id/imageView24"
         android:layout_alignParentEnd="true" />
 

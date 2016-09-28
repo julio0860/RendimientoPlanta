@@ -22,7 +22,7 @@
         android:focusableInTouchMode="false"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/btnKardex" />
+        android:layout_alignEnd="@+id/btnCambiarPresentacion" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -135,8 +135,8 @@
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="KARDEX"
-        android:id="@+id/btnKardex"
+        android:text="CAMBIAR PRESENTACION"
+        android:id="@+id/btnCambiarPresentacion"
         android:layout_below="@+id/imageView24"
         android:layout_alignParentEnd="true" />
 
@@ -154,18 +154,19 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
-        android:text="@string/lbl_Resumen"
+        android:text="DETALLE INGRESO"
         android:id="@+id/textView21"
         android:singleLine="false"
         android:textColor="#ffffff"
         android:background="#000000"
-        android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_below="@+id/button2"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="30dp" />
 
     <GridView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:id="@+id/gridView3"
+        android:id="@+id/lstIngresos"
         android:background="@color/common_action_bar_splitter"
         android:layout_above="@+id/imbRegresar"
         android:layout_alignEnd="@+id/lblNombres"
@@ -252,6 +253,114 @@
         android:layout_above="@+id/imageView20"
         android:layout_alignStart="@+id/lblFecha"
         android:textAlignment="center" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView25"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView2"
+        android:layout_alignParentStart="true" />
+
+    <RadioGroup
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical"
+        android:id="@+id/radioGroup3"
+        android:layout_below="@+id/imageView25"
+        android:layout_alignParentStart="true"
+        android:layout_alignEnd="@+id/lblDNI"
+        android:layout_alignBottom="@+id/edtPeso">
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="ENTREGA"
+            android:id="@+id/rbnEntrega"
+            android:textAppearance="?android:attr/textAppearanceLarge"
+            android:checked="true" />
+
+        <RadioButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="DEVOLUCION"
+            android:id="@+id/rbnDevolucion"
+            android:textAppearance="?android:attr/textAppearanceLarge" />
+    </RadioGroup>
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="CANTIDAD"
+        android:id="@+id/textView3"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_alignTop="@+id/imageView25"
+        android:layout_alignStart="@+id/lblNombres" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="PESO"
+        android:id="@+id/textView22"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_below="@+id/textView3"
+        android:layout_alignStart="@+id/textView3"
+        android:layout_marginTop="22dp"
+        android:layout_toStartOf="@+id/edtCantidad"
+        android:layout_alignEnd="@+id/textView3" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edtCantidad"
+        android:layout_alignTop="@+id/imageView25"
+        android:layout_toEndOf="@+id/textView82" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edtPeso"
+        android:layout_alignTop="@+id/textView22"
+        android:layout_alignStart="@+id/edtCantidad" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView26"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/edtCantidad"
+        android:layout_alignStart="@+id/textView22" />
+
+    <Button
+        android:id="@+id/button2"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Agregar"
+        android:layout_row="0"
+        android:layout_column="3"
+        android:layout_below="@+id/edtPeso"
+        android:layout_alignParentStart="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView27"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/radioGroup3"
+        android:layout_alignParentStart="true" />
 
 
 </RelativeLayout>
