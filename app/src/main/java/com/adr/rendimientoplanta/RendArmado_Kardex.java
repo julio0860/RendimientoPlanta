@@ -1,7 +1,10 @@
 package com.adr.rendimientoplanta;
 
+import android.app.AlertDialog;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +23,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
 import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
@@ -29,7 +33,7 @@ import java.math.BigDecimal;
 
 public class RendArmado_Kardex extends AppCompatActivity {
     //DECLARACION BD LOCAL
-
+    private String TipoOperacion="AGREGAR ENTREGA";
 
     //DECLARACION FUNCIONES
     private Funciones fnc;
@@ -170,61 +174,87 @@ public class RendArmado_Kardex extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                String Cant;
-                String Pes;
+                final String Cant;
+                final String Pes;
 
                 Cant =edtCantidad.getText().toString();
                 Pes=edtPeso.getText().toString();
+
                 if (Cant.length()!=0 && Pes.length()!=0)
                 {
-                    int Cantidad = Integer.parseInt(Cant);
-                    int Peso = Integer.parseInt(Pes);
-                    int Factor;
-                    int Total;
-                    double Equivalente;
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RendArmado_Kardex.this);
+                    String alert_title = TipoOperacion;
+                    String alert_description = "¿DESEA "+TipoOperacion+" ?";
+                    alertDialogBuilder.setTitle(alert_title);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Código propio del método borrado para ejemplo
+                                    int Cantidad = Integer.parseInt(Cant);
+                                    int Peso = Integer.parseInt(Pes);
+                                    int Factor;
+                                    int Total;
+                                    double Equivalente;
 
-                    if (rbnEntrega.isChecked())
-                    {
-                        Factor = 1;
-                        Total=Cantidad*Factor;
-                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
-                        try{
-                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
-                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
-                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
-                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
-                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,Cantidad,
-                                    0,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
-                            Toast.makeText(RendArmado_Kardex.this,"ENTREGA REGISTRADA", Toast.LENGTH_SHORT).show();
-                        }catch (Exception e)
-                        {
-                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        }
+                                    if (rbnEntrega.isChecked())
+                                    {
+                                        Factor = 1;
+                                        Total=Cantidad*Factor;
+                                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+                                        try{
+                                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,Cantidad,
+                                                    0,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                                            Toast.makeText(RendArmado_Kardex.this,"ENTREGA REGISTRADA", Toast.LENGTH_SHORT).show();
+                                        }catch (Exception e)
+                                        {
+                                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }else if(rbnDevolucion.isChecked())
+                                    {
+                                        Factor = -1;
+                                        Total=Cantidad*Factor;
+                                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+                                        try{
+                                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
+                                                    Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                                            Toast.makeText(RendArmado_Kardex.this,"DEVOLUCION REGISTRADA", Toast.LENGTH_SHORT).show();
+                                        }catch (Exception e)
+                                        {
+                                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                        }
+                                    }
+                                    edtCantidad.setText("");
+                                    edtPeso.setText("");
+                                    ActualizarLista();
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Si se pulsa no no hace nada
+                                    Toast.makeText(RendArmado_Kardex.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
 
-                    }else if(rbnDevolucion.isChecked())
-                    {
-                        Factor = -1;
-                        Total=Cantidad*Factor;
-                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
-                        try{
-                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
-                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
-                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
-                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
-                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
-                                    Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
-                            Toast.makeText(RendArmado_Kardex.this,"DEVOLUCION REGISTRADA", Toast.LENGTH_SHORT).show();
-                        }catch (Exception e)
-                        {
-                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                    }
-                   ActualizarLista();
                 }else
                 {
                     Toast.makeText(RendArmado_Kardex.this,"INGRESE DATOS", Toast.LENGTH_SHORT).show();
                 }
-
             }
             }
         );
@@ -233,12 +263,14 @@ public class RendArmado_Kardex extends AppCompatActivity {
             public void onCheckedChanged(RadioGroup group, int checkedId) {
 
                 if (checkedId == R.id.rbnEntrega){
-                    btnRegistrar.setText("AGREGAR ENTREGA");
+                    TipoOperacion = "AGREGAR ENTREGA";
+                    btnRegistrar.setText(TipoOperacion);
                     edtCantidad.requestFocus();
                     edtCantidad.setText("");
 
                 }else if (checkedId == R.id.rbnDevolucion){
-                    btnRegistrar.setText("AGREGAR DEVOLUCION");
+                    TipoOperacion = "AGREGAR DEVOLUCION";
+                    btnRegistrar.setText(TipoOperacion);
                     edtPeso.requestFocus();
                     edtPeso.setText("");
                 }
@@ -269,7 +301,6 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private int CalcularPeso(int Cantidad) {
         return (int) ((Cantidad * (Variables.PreEnv_PesoTorre * 1000)) / Variables.PreEnv_CantidadTorre);
     }
-
     private void ActualizarLista()
     {
         Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
