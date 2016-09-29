@@ -11,6 +11,7 @@ public class T_Linea {
     public static  final String SUCID ="Suc_Id";
     public static final String LINCODIGO ="Lin_Codigo";
     public static final String LINDESCRIPCION ="Lin_Descripcion";
+    public static final String PROID="Pro_Id";
 
     public static final String N_TABLA = "Linea";
 
@@ -20,7 +21,8 @@ public class T_Linea {
             ESTID+" INTEGER NOT NULL, "+
             SUCID+" INTEGER NOT NULL, "+
             LINCODIGO+" TEXT NOT NULL, " +
-            LINDESCRIPCION+" TEXT NOT NULL" +
+            LINDESCRIPCION+" TEXT NOT NULL," +
+            PROID+" INTEGER NOT NULL "+
             ");";
 
     public static final String DROP_T_LINEA ="DROP TABLE IF EXISTS "+N_TABLA;
@@ -42,7 +44,7 @@ public class T_Linea {
     public static String _SELECT_LIN(Integer SID,Integer EST)
     {
         String _SELECT_LIN;
-        _SELECT_LIN = "SELECT "+LINID+" as '_id',"+EMPID+","+ESTID+","+SUCID+","+LINCODIGO+","+LINDESCRIPCION
+        _SELECT_LIN = "SELECT "+LINID+" as '_id',"+EMPID+","+ESTID+","+SUCID+","+LINCODIGO+","+LINDESCRIPCION+","+PROID
                 +" FROM "+N_TABLA;
 
         if (SID!=-1||EST!=-1)
