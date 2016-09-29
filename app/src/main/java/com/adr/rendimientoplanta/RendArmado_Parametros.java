@@ -375,7 +375,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                             while (Rse.next()){
                                                 int IdAgrudServer=Rse.getInt(1);
 
-                                                Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupadro WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
+                                                Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
                                                 if (VarBdLocal.getCount()==0){
                                                     LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
                                                             Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
@@ -395,7 +395,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                             while (Rse.next()){
                                                 int IdAgrudServer=Rse.getInt(1);
 
-                                                Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupadro WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
+                                                Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
                                                 if (VarBdLocal.getCount()==0){
                                                     LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
                                                             Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
