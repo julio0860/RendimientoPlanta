@@ -129,7 +129,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
 
         Toast.makeText(RendArmado_Kardex.this,String.valueOf(CurIngresos.getCount()), Toast.LENGTH_SHORT).show();
         adspnEntrega = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2,CurIngresos,
+                android.R.layout.simple_list_item_2 ,CurIngresos,
                 new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.RenArmCantidad}, new int[]{android.R.id.text1,android.R.id.text2},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstIngresos.setAdapter(adspnEntrega);
