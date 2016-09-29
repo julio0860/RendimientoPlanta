@@ -3,6 +3,7 @@ package com.adr.rendimientoplanta;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -10,6 +11,7 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.EditText;
 import android.widget.GridView;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
@@ -28,6 +30,8 @@ public class RendArmado_Registro extends AppCompatActivity {
     private TextView lblMesa;
     private TextView lblDNI;
     private TextView lblNombres;
+
+    private ImageButton imbRegresar;
 
     private GridView dgvPresentacion;
     SimpleCursorAdapter adspnPresentacion;
@@ -49,6 +53,8 @@ public class RendArmado_Registro extends AppCompatActivity {
         lblMesa = (TextView) findViewById(R.id.lblMesa);
         lblDNI = (TextView) findViewById(R.id.lblDNI);
         lblNombres = (TextView) findViewById(R.id.lblNombres);
+
+        imbRegresar = (ImageButton)findViewById(R.id.imbRegresar);
         //Poblar GridView
         dgvPresentacion = (GridView) findViewById(R.id.dgvPresentacion);
         Cursor CurPresentacion = LocBD.rawQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarEstado (2),null);
@@ -89,6 +95,12 @@ public class RendArmado_Registro extends AppCompatActivity {
 
             }
         });
-
+        imbRegresar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent NuevaActividad = new Intent(RendArmado_Registro.this,RendArmado_Lista.class);
+                startActivity(NuevaActividad);
+           }
+       });
     }
 }

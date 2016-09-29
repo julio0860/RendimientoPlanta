@@ -44,6 +44,10 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private TextView lblNombres;
     private TextView lblPresentacion;
 
+    private TextView lblCantidad;
+    private TextView lblTotal;
+    private TextView lblTotalEquivalente;
+
     //DECLARACION DE VARIABLES BUTTON
     private Button btnRegistrar;
     private Button btnCambiarPresentacion;
@@ -85,6 +89,9 @@ public class RendArmado_Kardex extends AppCompatActivity {
         lblNombres = (TextView) findViewById(R.id.lblNombres);
         lblPresentacion = (TextView) findViewById(R.id.lblPresentacion);
 
+        lblCantidad = (TextView)findViewById(R.id.lblCantidad);
+        lblTotal=(TextView)findViewById(R.id.lblTotal);
+        lblTotalEquivalente = (TextView)findViewById(R.id.lblTotalEquivalente);
         //ASIGNACION DE VARIABLES A LISTVIEW
         lstIngresos = (ListView) findViewById(R.id.lstIngresos);
 
@@ -310,6 +317,15 @@ public class RendArmado_Kardex extends AppCompatActivity {
                 }, new int[]{R.id.text1,R.id.text2,R.id.text3,R.id.text4},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstIngresos.setAdapter(adspnEntrega);
+
+        Cursor CurResumen = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersonaResumen(
+                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+                Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+        CurResumen.moveToFirst();
+        lblTotal.setText(CurResumen.getString(0));
+        lblTotalEquivalente.setText(CurResumen.getString(1));
+        lblCantidad.setText(CurResumen.getString(2));
+
     }
 
 }
