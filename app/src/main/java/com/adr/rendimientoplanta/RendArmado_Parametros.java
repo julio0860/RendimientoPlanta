@@ -359,16 +359,16 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                 // HoraSalida = "00:00:00";
                                                 //}
                                                 if (IdregServidor==0) {
-                                                    pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, HoraLectura, HoraIngreso, HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
+                                                    pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida.trim(), Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
                                                     Rse = pstmt.getGeneratedKeys();
                                                     if (Rse != null && Rse.next()) {
                                                         IdregServidor = Rse.getInt(1);
-                                                        LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, Mot_Id, Est_Id, IdregServidor));
+                                                        LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), Mot_Id, Est_Id, IdregServidor));
                                                     }
                                                 }
                                                 else
                                                 {
-                                                  pstmt.execute(T_Agrupador.ACTUALIZAR_LOCAL_SERVIDOR(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, HoraLectura, HoraIngreso, HoraSalida, Mot_Id, Est_Id,IdregServidor));
+                                                  pstmt.execute(T_Agrupador.ACTUALIZAR_LOCAL_SERVIDOR(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida.trim(), Mot_Id, Est_Id,IdregServidor));
                                                 }
                                             }
 
@@ -380,13 +380,13 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                                 Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
                                                 if (VarBdLocal.getCount()==0){
-                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
-                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
+                                                            Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13).trim(),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                 }
                                                 else
                                                 {
-                                                    LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
-                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
+                                                            Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13).trim(),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                 }
                                             }
                                         }
@@ -403,13 +403,13 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                                 Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
                                                 if (VarBdLocal.getCount()==0){
-                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
-                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
+                                                            Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13).trim(),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                 }
                                                 else
                                                 {
-                                                    LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
-                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
+                                                            Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13).trim(),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                 }
 
                                             }
