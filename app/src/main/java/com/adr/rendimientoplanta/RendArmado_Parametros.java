@@ -385,8 +385,10 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                     LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
                                                             Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                 }
-
                                             }
+                                        }
+                                        else
+                                        {
                                             //SI NO TIENE REGISTROS EN LA BD LOCAL
                                             //DESCARGA DATOS DEL SERVIDOR DE LA FECHA ACTUAL.
                                             Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
@@ -406,8 +408,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                             }
                                         }
-
-
                                     }
                                     catch (Exception e){
                                         Toast.makeText(RendArmado_Parametros.this, e.toString(), Toast.LENGTH_SHORT).show();
