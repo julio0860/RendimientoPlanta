@@ -291,7 +291,26 @@ public class RendArmado_Parametros extends AppCompatActivity {
         btnSincronizar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                String mes,dia;
                 Variables.FechaStr=edtFecha.getText().toString();
+                if (mDay<10)
+                {
+                    dia="0"+String.valueOf(mDay);
+                }
+                else
+                {
+                    dia=String.valueOf(mDay);
+                }
+                if (mMonth+1<10)
+                {
+                    mes="0"+String.valueOf(mMonth+1);
+                }
+                else
+                {
+                    mes=String.valueOf(mMonth+1);
+                }
+                Variables.FechaStrBD=String.valueOf(mYear)+"-"+mes+"-"+dia;
+
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RendArmado_Parametros.this);
                 String alert_title = "AGRUPADOR";
@@ -305,20 +324,22 @@ public class RendArmado_Parametros extends AppCompatActivity {
                             // Lo que sucede si se pulsa yes
                             public void onClick(DialogInterface dialog, int id) {
                                 if (conectadoWifi()){
-                                    Cursor CurReg = LocBD.rawQuery(T_Agrupador._SELECCIONAR_TODOS(Variables.FechaStr),null);
-                                    boolean Resultado = true;
+                                    //CONSULTA DATOS DE LA BD LOCAL PARA SINCRONIZAR
+                                    //CONSIDERAR QUE PARA EL FILTRADO DEL AGRUPADOR EN LA BDLOCAL UTILIZA FechaStrBD Y PARA EL SERVIDOR PUEDE SER FechaStr
+
+                                    Cursor CurReg = LocBD.rawQuery(T_Agrupador._SELECCIONAR_TODOS(Variables.FechaStrBD),null);
+
                                     try {
                                         Toast.makeText(RendArmado_Parametros.this, "REGISTROS "+CurReg.getCount(),Toast.LENGTH_SHORT).show();
 
                                         Connection Cnn = ConexionBD.getInstance().getConnection();
                                         Statement pstmt = Cnn.createStatement();
-
                                         ResultSet Rse;
+
                                         if (CurReg.getCount()!=0){
                                             for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext())
                                             {
                                                 IdregServidor=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.IDSERVIDOR));
-
                                                 EmpId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.EMPID));
                                                 SucId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUCID));
                                                 ProId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.PROID));
@@ -333,93 +354,59 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                 HoraLectura=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORALECTURA));
                                                 HoraIngreso=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORAINGRESO));
                                                 HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
-                                                if (HoraSalida==null){
+
+                                            /*    if (HoraSalida==null){
                                                     HoraSalida="00:00:00";
-                                                }
-
-                                                if (IdregServidor>0){
-
-                                                    Toast.makeText(RendArmado_Parametros.this, "COMPARA CON EL SERVIDOR Y ACTUALIZA EN LA FECHA ",Toast.LENGTH_SHORT).show();
-                                                    Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
-
-                                                  while (Rse.next())
-                                                  {
-                                                      int IdAgrudServer=Rse.getInt(1);
-                                                      if (IdregServidor==IdAgrudServer)
-                                                      {
-                                                          Toast.makeText(RendArmado_Parametros.this, "ACTUALIZA FILA DEL SERVIDOR  ",Toast.LENGTH_SHORT).show();
-                                                      }
-                                                      else
-
-                                                      {
-                                                          boolean Verificar=true;
-
-                                                          Cursor VerificaId= LocBD.rawQuery("SELECT Agru_Id as _Id FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
-                                                          if (VerificaId.moveToFirst()) {
-
-                                                              do {
-                                                                  int Id= VerificaId.getInt(0);
-                                                                  Verificar=false;
-
-                                                              } while(VerificaId.moveToNext());
-                                                          }
-                                                          if (Verificar==true)
-                                                          {
-                                                              LocBD.execSQL(T_Agrupador._INSERTDESDESERVIDOR(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
-                                                                      Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
-                                                              Toast.makeText(RendArmado_Parametros.this, "INSERTA A LA BD LOCAL  ",Toast.LENGTH_SHORT).show();
-                                                          }
-
-                                                      }
-
-                                                  }
-
-                                                }
-                                                else
-                                                {
-                                                    pstmt.executeUpdate(T_Agrupador._INSERTSERVIDOR(EmpId,Fecha,SucId,ProId,Sub_Id,Lin_Id,Lados,Posicion,Dni,HoraLectura,HoraIngreso,HoraSalida,Mot_Id,Est_Id),pstmt.RETURN_GENERATED_KEYS);
+                                                }*/
+                                                if (IdregServidor<0) {
+                                                    pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, HoraLectura, HoraIngreso, HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
                                                     Rse = pstmt.getGeneratedKeys();
                                                     if (Rse != null && Rse.next()) {
                                                         IdregServidor = Rse.getInt(1);
-                                                        LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(EmpId,Fecha,SucId,ProId,Sub_Id,Lin_Id,Lados,Posicion,Dni,Mot_Id,Est_Id,IdregServidor));
+                                                        LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, Mot_Id, Est_Id, IdregServidor));
                                                     }
-                                                    Toast.makeText(RendArmado_Parametros.this, "INSERTA AL SERVIDOR  ",Toast.LENGTH_SHORT).show();
+                                                }
+                                                else
+                                                {
+                                                  pstmt.execute(T_Agrupador.ACTUALIZAR_LOCAL_SERVIDOR(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, HoraLectura, HoraIngreso, HoraSalida, Mot_Id, Est_Id,IdregServidor));
+                                                }
+                                            }
+                                            Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
+                                            while (Rse.next()){
+                                                int IdAgrudServer=Rse.getInt(1);
 
-                                                    Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
-                                                    while (Rse.next())
-                                                    {
-                                                        int IdregServidor=Rse.getInt(1);
-                                                        if  (IdregServidor!=IdregServidor)
-                                                        {
-                                                            boolean Verificar=true;
-
-                                                            Cursor VerificaId= LocBD.rawQuery("SELECT Agru_Id as _Id FROM Agrupador WHERE Agru_IdServidor='"+IdregServidor+"'",null);
-                                                            if (VerificaId.moveToFirst()) {
-
-                                                                do {
-                                                                    int Id= VerificaId.getInt(0);
-                                                                    Verificar=false;
-
-                                                                } while(VerificaId.moveToNext());
-                                                            }
-
-                                                            if (Verificar==true)
-                                                            {
-                                                                LocBD.execSQL(T_Agrupador._INSERTDESDESERVIDOR(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
-                                                                        Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
-                                                                Toast.makeText(RendArmado_Parametros.this, "INSERTA A LA BD LOCAL  ",Toast.LENGTH_SHORT).show();
-                                                            }
-
-                                                        }
-                                                    }
-
-
-
+                                                Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupadro WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
+                                                if (VarBdLocal.getCount()==0){
+                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
+                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                }
+                                                else
+                                                {
+                                                    LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
+                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                 }
 
                                             }
+                                            //SI NO TIENE REGISTROS EN LA BD LOCAL
+                                            //DESCARGA DATOS DEL SERVIDOR DE LA FECHA ACTUAL.
+                                            Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
+                                            while (Rse.next()){
+                                                int IdAgrudServer=Rse.getInt(1);
 
+                                                Cursor VarBdLocal= LocBD.rawQuery("SELECT * FROM Agrupadro WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
+                                                if (VarBdLocal.getCount()==0){
+                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
+                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                }
+                                                else
+                                                {
+                                                    LocBD.execSQL(T_Agrupador.ACTUALIZAR_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8),
+                                                            Rse.getInt(9),Rse.getString(10),Rse.getString(11),Rse.getString(12),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                }
+
+                                            }
                                         }
+
 
                                     }
                                     catch (Exception e){
