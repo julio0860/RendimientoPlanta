@@ -70,14 +70,14 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
 
         SimpleCursorAdapter AdaptadorListaParadas = new SimpleCursorAdapter(this,R.layout.listview_simple_4item ,
                 CurLineaParadas,new String[]{T_LineaParadas.LinParHoraIni,T_LineaParadas.LinParHoraFin,T_LineaParadas.LinParParada,T_LineaParadas.MotParDescripcion},
-                new int[]{R.id.text1,R.id.text2,R.id.text3,R.id.text4},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                new int[]{R.id.text2,R.id.text1,R.id.text3,R.id.text4},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstParadas.setAdapter(AdaptadorListaParadas);
 
         Cursor CurLineaIngresos = LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
         SimpleCursorAdapter AdaptadorListaIngresos = new SimpleCursorAdapter(this,R.layout.listview_simple_7item,
                 CurLineaIngresos,new String[]{T_LineaIngreso.LinIngHoraIni,T_LineaIngreso.LinIngHoraFin,T_LineaIngreso.LinIngtEfectivo,
         T_LineaIngreso.ConDescripcionCor,T_LineaIngreso.LinIngCantidad,T_LineaIngreso.MatPriOriDescripcion,T_LineaIngreso.LinIngMix},
-                new int[]{R.id.text1,R.id.text2,R.id.text3,R.id.text4,R.id.text5,R.id.text6
+                new int[]{R.id.text2,R.id.text1,R.id.text3,R.id.text4,R.id.text4,R.id.text1
                         ,R.id.text7},SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstIngresos.setAdapter(AdaptadorListaIngresos);
         imbRegresar.setOnClickListener(new View.OnClickListener()
