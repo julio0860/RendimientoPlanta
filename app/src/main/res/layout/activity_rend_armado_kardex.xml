@@ -168,7 +168,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lstIngresos"
-        android:background="@color/common_action_bar_splitter"
+        android:background="#ffffff"
         android:layout_alignEnd="@+id/lblNombres"
         android:layout_below="@+id/textView21"
         android:layout_above="@+id/imageView24" />

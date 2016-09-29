@@ -3,19 +3,16 @@ package com.adr.rendimientoplanta;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
-import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -60,8 +57,8 @@ public class RendArmado_Registro extends AppCompatActivity {
         Cursor CurPresentacion = LocBD.rawQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarEstado (2),null);
 
         adspnPresentacion = new SimpleCursorAdapter(this,
-                android.R.layout.simple_dropdown_item_1line,CurPresentacion,
-                new String[]{T_PresentacionEnvase.PreEnvDescripcionCor}, new int[]{android.R.id.text1},
+                R.layout.gridview_itemborde,CurPresentacion,
+                new String[]{T_PresentacionEnvase.PreEnvDescripcionCor}, new int[]{R.id.text1},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPresentacion.setAdapter(adspnPresentacion);
         dgvPresentacion.setNumColumns(4);
