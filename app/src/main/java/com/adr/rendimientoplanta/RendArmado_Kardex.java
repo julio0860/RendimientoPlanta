@@ -100,7 +100,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
 
         //ASIGNAR VARIABLES A BUTTON EN LAYOUT
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
-        btnCambiarPresentacion = (Button)findViewById(R.id.btnCambiarPresentacion);
+        btnCambiarPresentacion = (Button)findViewById(R.id.btnSincronizar);
 
         imbRegresar = (ImageButton)findViewById(R.id.imbRegresar);
         //ASIGNACION DE VARIABLES A EDITTEXT DE LAYOUT

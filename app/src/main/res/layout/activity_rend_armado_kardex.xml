@@ -22,7 +22,7 @@
         android:focusableInTouchMode="false"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/btnCambiarPresentacion" />
+        android:layout_alignEnd="@+id/btnSincronizar" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -136,7 +136,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="CAMBIAR PRESENTACION"
-        android:id="@+id/btnCambiarPresentacion"
+        android:id="@+id/btnSincronizar"
         android:layout_below="@+id/imageView24"
         android:layout_alignParentEnd="true" />
 
@@ -474,7 +474,7 @@
         android:id="@+id/textView94"
         android:singleLine="false"
         android:layout_below="@+id/lstIngresos"
-        android:layout_alignStart="@+id/btnCambiarPresentacion" />
+        android:layout_alignStart="@+id/btnSincronizar" />
 
 
 </RelativeLayout>
