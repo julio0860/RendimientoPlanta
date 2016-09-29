@@ -213,11 +213,7 @@ public class Funciones extends AppCompatActivity {
         SimpleDateFormat FormatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss",java.util.Locale.getDefault());
         return FormatoFecha.format(new Date(System.currentTimeMillis()));
     }
-    public String HoraSistema1()
-    {
-        SimpleDateFormat FormatoFecha = new SimpleDateFormat("yyyymmdd HH:mm:ss",java.util.Locale.getDefault());
-        return FormatoFecha.format(new Date(System.currentTimeMillis()));
-    }
+
     public String HoraCorta()
     {
         SimpleDateFormat FormatoHora = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());

@@ -197,7 +197,7 @@ public class RegistroOperario extends AppCompatActivity {
                 } else {
 
                     Boolean Estado = false;
-                    Variables.HoraLectura = fnc.HoraSistema1();
+                    Variables.HoraLectura = fnc.HoraSistema();
                     Variables.HoraIngreso = edtHora.getText().toString();
                     Variables.HoraSalida = edtHoraSalida.getText().toString();
 
@@ -272,7 +272,7 @@ public class RegistroOperario extends AppCompatActivity {
                             new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Variables.Agru_EstId = 0;
-                                    Variables.HoraLectura = fnc.HoraSistema1();
+                                    Variables.HoraLectura = fnc.HoraSistema();
 
                                     try {
                                         LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
