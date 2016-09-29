@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -26,7 +27,6 @@ import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
 import com.adr.rendimientoplanta.DATA.T_LineaParadas;
 import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
-import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -70,7 +70,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblFecha = (TextView) findViewById(R.id.lblFecha);
 
-        btnSincronizar = (Button) findViewById(R.id.btnRegistrar);
+        btnSincronizar = (Button) findViewById(R.id.btnSincronizar);
 
         lblFecha.setText(Variables.FechaStr);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
@@ -98,11 +98,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
                 Intent ActividadModificar = new Intent(IngresoJabas_Grilla.this, IngresoJabas_RegistroLinea.class);
                 Cursor CursorCarga = (Cursor) parent.getItemAtPosition(position);
-                Variables.PreEnv_Id = CursorCarga.getInt(CursorCarga.getColumnIndex("_id"));
-                Variables.PreEnv_DescripcionCor = CursorCarga.getString(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvDescripcionCor));
-                Variables.PreEnv_PesoTorre = CursorCarga.getDouble(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvPesoTorre));
-                Variables.PreEnv_CantidadTorre = CursorCarga.getInt(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvCantidadTorre));
-                Variables.Pre_Id = CursorCarga.getInt(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreId));
+                Variables.Lin_Id = CursorCarga.getInt(CursorCarga.getColumnIndex("_id"));
+                Variables.Lin_Descripcion = CursorCarga.getString(CursorCarga.getColumnIndex("Lin_Descripcion"));
 
                 startActivity(ActividadModificar);
 
