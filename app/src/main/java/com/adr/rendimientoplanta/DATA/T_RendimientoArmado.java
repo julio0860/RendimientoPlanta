@@ -59,7 +59,7 @@ public class T_RendimientoArmado {
             RenArmHoraIni+" TEXT NOT NULL, " +
             EstId+" INTEGER NOT NULL, " +
             RenArmSincronizado+" INTEGER NOT NULL, " +
-            RenArmIdServidor+" INTEGER NOT NULL " +
+            RenArmIdServidor+" INTEGER" +
             ");";
 
     public static final String Drop_RendimientoArmado ="DROP TABLE IF EXISTS "+NombreTabla;
