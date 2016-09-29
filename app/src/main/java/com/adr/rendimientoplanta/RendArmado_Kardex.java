@@ -1,6 +1,9 @@
 package com.adr.rendimientoplanta;
 
 import android.content.Intent;
+import android.database.Cursor;
+import android.database.sqlite.SQLiteDatabase;
+import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.Editable;
@@ -10,14 +13,26 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
+import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
+import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
-public class RendArmado_Kardex extends AppCompatActivity {
+import java.math.BigDecimal;
 
+public class RendArmado_Kardex extends AppCompatActivity {
+    //DECLARACION BD LOCAL
+
+
+    //DECLARACION FUNCIONES
+    private Funciones fnc;
     //DECLARACIÓN DE VARIABLES TEXTVIEW
     private TextView lblEmpresa;
     private TextView lblSucursal;
@@ -43,11 +58,22 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private EditText edtCantidad;
     private EditText edtPeso;
 
+    //DECLARACION DE VARIABLE LISTVIEW
+    private ListView lstIngresos;
+
+    SimpleCursorAdapter adspnEntrega;
+
+   // LocalBD LBD;
+   // SQLiteDatabase LocBD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rend_armado_kardex);
 
+        LocalBD LBD = new LocalBD(this) ;
+        final SQLiteDatabase LocBD = LBD.getWritableDatabase();
+        //LBD = new LocalBD(this) ;
+        //LocBD = LBD.getWritableDatabase();
         //ASIGNACION DE VARIABLES A TEXTVIEW DE LAYOUT
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
@@ -58,6 +84,12 @@ public class RendArmado_Kardex extends AppCompatActivity {
         lblDNI = (TextView) findViewById(R.id.lblDNI);
         lblNombres = (TextView) findViewById(R.id.lblNombres);
         lblPresentacion = (TextView) findViewById(R.id.lblPresentacion);
+
+        //ASIGNACION DE VARIABLES A LISTVIEW
+        lstIngresos = (ListView) findViewById(R.id.lstIngresos);
+
+        //DECLARACION FUNCIONES
+        fnc=new Funciones();
 
         //ASIGNAR VARIABLES A BUTTON EN LAYOUT
         btnRegistrar = (Button) findViewById(R.id.btnRegistrar);
@@ -87,6 +119,18 @@ public class RendArmado_Kardex extends AppCompatActivity {
         //ASIGNACION DE EDITTEXT A ACTIVITY
         edtPeso.setText(String.valueOf((int)(Variables.PreEnv_PesoTorre*1000)));
         edtCantidad.setText(String.valueOf(Variables.PreEnv_CantidadTorre));
+
+        //ActualizarLista();
+        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
+                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+                Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+
+        Toast.makeText(RendArmado_Kardex.this,String.valueOf(CurIngresos.getCount()), Toast.LENGTH_SHORT).show();
+        adspnEntrega = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_2,CurIngresos,
+                new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.RenArmCantidad}, new int[]{android.R.id.text1,android.R.id.text2},
+                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        lstIngresos.setAdapter(adspnEntrega);
 
         edtPeso.addTextChangedListener(new TextWatcher() {
             @Override
@@ -123,6 +167,61 @@ public class RendArmado_Kardex extends AppCompatActivity {
         btnRegistrar.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+
+                String Cant;
+                String Pes;
+
+                Cant =edtCantidad.getText().toString();
+                Pes=edtPeso.getText().toString();
+                if (Cant.length()!=0 && Pes.length()!=0)
+                {
+                    int Cantidad = Integer.parseInt(Cant);
+                    int Peso = Integer.parseInt(Pes);
+                    int Factor;
+                    int Total;
+                    double Equivalente;
+
+                    if (rbnEntrega.isChecked())
+                    {
+                        Factor = 1;
+                        Total=Cantidad*Factor;
+                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+                        try{
+                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,Cantidad,
+                                    0,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                            Toast.makeText(RendArmado_Kardex.this,"ENTREGA REGISTRADA", Toast.LENGTH_SHORT).show();
+                        }catch (Exception e)
+                        {
+                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+
+                    }else if(rbnDevolucion.isChecked())
+                    {
+                        Factor = -1;
+                        Total=Cantidad*Factor;
+                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+                        try{
+                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
+                                    Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                            Toast.makeText(RendArmado_Kardex.this,"DEVOLUCION REGISTRADA", Toast.LENGTH_SHORT).show();
+                        }catch (Exception e)
+                        {
+                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
+                        }
+                    }
+                   // ActualizarLista();
+                }else
+                {
+                    Toast.makeText(RendArmado_Kardex.this,"INGRESE DATOS", Toast.LENGTH_SHORT).show();
+                }
 
             }
             }
@@ -168,5 +267,19 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private int CalcularPeso(int Cantidad) {
         return (int) ((Cantidad * (Variables.PreEnv_PesoTorre * 1000)) / Variables.PreEnv_CantidadTorre);
     }
+   /*
+    private void ActualizarLista()
+    {
+        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
+                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+                Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+
+        adspnEntrega = new SimpleCursorAdapter(this,
+                android.R.layout.simple_list_item_2,CurIngresos,
+                new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.RenArmCantidad}, new int[]{android.R.id.text1,android.R.id.text2},
+                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        lstIngresos.setAdapter(adspnEntrega);
+    }
+*/
 
 }

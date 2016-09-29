@@ -83,7 +83,8 @@ public class RendArmado_Registro extends AppCompatActivity {
                 Variables.PreEnv_CantidadTorre = CursorCarga.getInt(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvCantidadTorre));
                 Variables.PreEnv_PesoTorre = CursorCarga.getDouble(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvPesoTorre));
                 Variables.PreEnv_DescripcionCor = CursorCarga.getString(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvDescripcionCor));
-
+                Variables.Pre_Descripcion = CursorCarga.getString(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreDescripcion));
+                Variables.PreEnv_Factor = CursorCarga.getDouble(CursorCarga.getColumnIndex(T_PresentacionEnvase.PreEnvFactor));
                 startActivity(ActividadModificar);
 
             }

@@ -75,6 +75,7 @@ public class Variables extends AppCompatActivity{
 
     //VARIABLES USADAS PARA REGISTRO ARMADO
     public static int Pre_Id=0;
+    public static String Pre_Descripcion="";
     public static int PreEnv_Id=0;
     public static String PreEnv_DescripcionCor="";
     public static double PreEnv_PesoTorre=0;
