@@ -89,11 +89,11 @@ public class T_RendimientoArmado {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_RendimientoArmado+
                 ")VALUES('"+
-                RenArm_Fecha+"','"+Per_Dni+"','"+Suc_Id+"','"+Pro_Id+"','"+Sub_Id+"','"+Lin_Id+"','"
-                +Lin_Lado+"','"+RenArm_FechaReg+"','"+Usu_Id+"','"+RenArm_Mac+"','"+Usu_Id+"','"+Pre_Id
-                +"','"+Pre_Descripcion+"','"+PreEnv_Id+"','"+PreEnv_DescripcionCor+"','"+RenArm_Entrega
-                +"','"+RenArm_Devolucion+"','"+RenArm_Peso+"','"+RenArm_Factor+"','"+RenArm_Cantidad
-                +"','"+RenArm_Equivalente+"','"+RenArm_HoraIni+"','"+RenArm_Sincronizado
+                RenArm_Fecha+"','"+Per_Dni
+                +"','"+Suc_Id+"','"+Pro_Id+"','"+Sub_Id+"','"+Lin_Id+"','"+Lin_Lado+"','"+RenArm_FechaReg+"','"+Usu_Id+"','"
+                +RenArm_Mac+"','"+Pre_Id+"','"+Pre_Descripcion+"','"+PreEnv_Id+"','"+PreEnv_DescripcionCor+"','"
+                +RenArm_Entrega+"','"+RenArm_Devolucion+"','"+RenArm_Peso+"','"+RenArm_Factor+"','"+RenArm_Cantidad+"','"
+                +RenArm_Equivalente+"','"+RenArm_HoraIni+"','"+Est_Id+"','"+RenArm_Sincronizado
                 +"');";
         return Insertar;
     }

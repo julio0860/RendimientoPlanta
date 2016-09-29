@@ -54,7 +54,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                 "(SELECT MESA FROM MesaLinea where Cam_Id='"+Variables.Cam_Id+"' AND Pro_Id='"+ Variables.Pro_Id + "'  AND Sub_Id='" + Variables.Sub_Id + "' AND Lin_Id='" + Variables.Lin_Id + "' AND Lado='" + Variables.Lin_Lado + "')", null);
 
         AdaptadorGrilla = new SimpleCursorAdapter(RendArmado_Lista.this, R.layout.simple_list_item_3, Rse, new String[]{"_id", "DNI", "PER", "AGRUID", "HORAIN"},
-                new int[]{R.id.text1, R.id.text2, R.id.text3}, SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                new int[]{R.id.text2, R.id.text1, R.id.text3}, SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
         dgvPersonalRendimiento.setNumColumns(4);
 
