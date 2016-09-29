@@ -18,7 +18,6 @@ import android.widget.Spinner;
 import android.widget.TimePicker;
 
 import java.math.BigDecimal;
-import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
 import java.util.Date;
@@ -212,6 +211,11 @@ public class Funciones extends AppCompatActivity {
     public String HoraSistema()
     {
         SimpleDateFormat FormatoFecha = new SimpleDateFormat("dd/MM/yyyy HH:mm:ss",java.util.Locale.getDefault());
+        return FormatoFecha.format(new Date(System.currentTimeMillis()));
+    }
+    public String HoraSistema1()
+    {
+        SimpleDateFormat FormatoFecha = new SimpleDateFormat("yyyymmdd HH:mm:ss",java.util.Locale.getDefault());
         return FormatoFecha.format(new Date(System.currentTimeMillis()));
     }
     public String HoraCorta()

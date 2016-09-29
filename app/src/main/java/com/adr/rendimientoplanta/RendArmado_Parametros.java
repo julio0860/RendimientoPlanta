@@ -355,10 +355,10 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                 HoraIngreso=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORAINGRESO));
                                                 HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
 
-                                            /*    if (HoraSalida==null){
-                                                    HoraSalida="00:00:00";
-                                                }*/
-                                                if (IdregServidor<0) {
+                                                //if (HoraSalida==null || HoraSalida=="null") {
+                                                // HoraSalida = "00:00:00";
+                                                //}
+                                                if (IdregServidor==0) {
                                                     pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, HoraLectura, HoraIngreso, HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
                                                     Rse = pstmt.getGeneratedKeys();
                                                     if (Rse != null && Rse.next()) {
@@ -371,7 +371,10 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                   pstmt.execute(T_Agrupador.ACTUALIZAR_LOCAL_SERVIDOR(EmpId, Fecha, SucId, ProId, Sub_Id, Lin_Id, Lados, Posicion, Dni, HoraLectura, HoraIngreso, HoraSalida, Mot_Id, Est_Id,IdregServidor));
                                                 }
                                             }
-                                            Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
+
+                                            Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
+                                                    "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
+                                                    "HoraIngreso,HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
                                             while (Rse.next()){
                                                 int IdAgrudServer=Rse.getInt(1);
 
@@ -391,7 +394,10 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                         {
                                             //SI NO TIENE REGISTROS EN LA BD LOCAL
                                             //DESCARGA DATOS DEL SERVIDOR DE LA FECHA ACTUAL.
-                                            Rse = pstmt.executeQuery(T_Agrupador._SELECCIONAR_TODOSSERVIDOR(Variables.FechaStr));
+                                            Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
+                                                    "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
+                                                    "HoraIngreso,HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
+
                                             while (Rse.next()){
                                                 int IdAgrudServer=Rse.getInt(1);
 

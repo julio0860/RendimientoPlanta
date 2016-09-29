@@ -48,7 +48,7 @@ public class T_Agrupador {
     public static final String CamposSeleccionar_NoSincronizados = AGRUID+","+EMPID+","+FECHA
             +","+SUCID+","+PROID+","+SUBID+","+LINID
             +","+LADO+","+POSICION+","+DNI+","+HORALECTURA
-            +","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+","+IDSERVIDOR;
+            +","+HORAINGRESO+",replace("+HORASALIDA+",'null',NULL)as HoraSalida,"+MOTIVO+","+ESTADO+","+IDSERVIDOR;
 
     public static final String CamposSeleccionar_Servidor = AGRUID+","+EMPID+","+FECHA
             +","+SUCID+","+PROID+","+SUBID+","+LINID
@@ -110,7 +110,7 @@ public class T_Agrupador {
                 ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+
                 ")VALUES('"+
                 EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
-                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Mot_Id+"','"+Est_Id+"');";
+                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"',"+HoraSalida+",'"+Mot_Id+"','"+Est_Id+"');";
         return _INSERT_LOCAL_SERVIDOR;
     }
     public static String _INSERT_SERVIDOR_LOCAL(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
@@ -141,7 +141,7 @@ public class T_Agrupador {
         String ACTUALIZAR_LOCAL_SERVIDOR;
         ACTUALIZAR_LOCAL_SERVIDOR = "UPDATE "+N_TABLA +" SET "+EMPID+"='"+EmpId+"',"+FECHA+"='"+Fecha+"',"+SUCID+"='"+SucId+"',"+PROID+"='"+ProId+"',"+SUBID+"='"+SubId+"',"+
                 LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"',"+HORALECTURA+"='"+HoraLectura+"',"+HORAINGRESO+"='"+HoraIngreso+"',"+
-                HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"' WHERE "+AGRUID+"='"+Idservidor+"'";
+                HORASALIDA+"="+HoraSalida+","+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"' WHERE "+AGRUID+"='"+Idservidor+"'";
         return ACTUALIZAR_LOCAL_SERVIDOR;
     }
 
