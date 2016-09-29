@@ -18,6 +18,7 @@ public class T_Agrupador {
     public static final String MOTIVO="Motivo";
     public static final String ESTADO="Est_Id";
     public static final String IDSERVIDOR="Agru_IdServidor";
+    public static final String LOCAL="EsLocal";
 
 
 
@@ -39,7 +40,8 @@ public class T_Agrupador {
             HORASALIDA +" TEXT  NULL, "+
             MOTIVO +" INTEGER NOT NULL, "+
             ESTADO +" INTEGER NOT NULL, "+
-            IDSERVIDOR+" INTEGER  NULL "+
+            IDSERVIDOR+" INTEGER  NULL, "+
+            LOCAL+" INTEGER  NULL "+
             ");";
 
     public static final String DROP_T_AGRUPADOR ="DROP TABLE IF EXISTS "+N_TABLA;
@@ -63,24 +65,24 @@ public class T_Agrupador {
     }
 
     public static String _INSERT(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
-                                 String Dni,String HoraLectura,String HoraIngreso,int Motivo,int Estado)
+                                 String Dni,String HoraLectura,String HoraIngreso,int Motivo,int Estado,int EsLocal)
     {
         String _INSERT;
         _INSERT = "INSERT INTO "+N_TABLA +"("+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
-                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+MOTIVO+","+ESTADO+
+                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+MOTIVO+","+ESTADO+","+LOCAL+
         ")VALUES('"+
                 EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
-                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+Motivo+"','"+Estado+"');";
+                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+Motivo+"','"+Estado+"','"+EsLocal+"');";
         return _INSERT;
     }
 
     public static String _UPDATE(int AgruId,int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
-                                 String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Motivo,int Estado)
+                                 String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Motivo,int Estado,int EsLocal)
     {
         String _UPDATE;
         _UPDATE = "UPDATE "+N_TABLA +" SET "+EMPID+"='"+EmpId+"',"+FECHA+"='"+Fecha+"',"+SUCID+"='"+SucId+"',"+PROID+"='"+ProId+"',"+SUBID+"='"+SubId+"',"+
                    LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"',"+HORALECTURA+"='"+HoraLectura+"',"+HORAINGRESO+"='"+HoraIngreso+"',"+
-                   HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"' WHERE "+AGRUID+"='"+AgruId+"'";
+                   HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"',"+LOCAL+"='"+EsLocal+"' WHERE "+AGRUID+"='"+AgruId+"'";
         return _UPDATE;
     }
 
@@ -97,7 +99,7 @@ public class T_Agrupador {
             //SON TODOS LOS QUE TIENEN IDSERVIDOR NULL
     {
         String _SELECCIONAR_NO_SINCRONIZADOS;
-        _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_NoSincronizados +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"'"+
+        _SELECCIONAR_NO_SINCRONIZADOS = "SELECT "+CamposSeleccionar_NoSincronizados +" FROM "+N_TABLA +" WHERE "+FECHA+"='"+Fecha+"' AND "+LOCAL+"='1'"+
                 ";";
         return _SELECCIONAR_NO_SINCRONIZADOS;
     }

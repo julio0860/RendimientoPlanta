@@ -205,7 +205,7 @@ public class RegistroOperario extends AppCompatActivity {
                     if (Variables.Agru_Id > 0) {
                         try {
                             LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
-                                    Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId));
+                                    Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId,1));
                             Estado = true;
                             Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
                             Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
@@ -236,7 +236,7 @@ public class RegistroOperario extends AppCompatActivity {
                         else{
                             try {
                                 LocBD.execSQL(T_Agrupador._INSERT(Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
-                                        Variables.HoraLectura, Variables.HoraIngreso, Variables.Mot_Id, Variables.Agru_EstId));
+                                        Variables.HoraLectura, Variables.HoraIngreso, Variables.Mot_Id, Variables.Agru_EstId,1));
                                 Estado = true;
                                 Mensaje("LOS DATOS HAN SIDO REGISTRADOS EXITOSAMENTE");
                                 Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
@@ -276,7 +276,7 @@ public class RegistroOperario extends AppCompatActivity {
 
                                     try {
                                         LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
-                                                Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId));
+                                                Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId,1));
 
                                         Mensaje("EL REGISTRO HA SIDO ELIMINADO CORRECTAMENTE");
                                         Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
