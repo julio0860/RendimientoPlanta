@@ -183,13 +183,14 @@
         android:textColor="#ffffff"
         android:background="#000000"
         android:layout_centerVertical="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_toStartOf="@+id/textView95"
+        android:layout_alignEnd="@+id/textView80" />
 
     <ListView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:id="@+id/lstResumen"
-        android:background="@color/common_action_bar_splitter"
         android:layout_above="@+id/imbRegresar"
         android:layout_alignEnd="@+id/lblNombres"
         android:layout_below="@+id/textView21" />
@@ -256,5 +257,54 @@
         android:baselineAlignBottom="false"
         android:layout_alignTop="@+id/imbRegresar"
         android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="        ENTREGA    "
+        android:id="@+id/textView95"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_above="@+id/lstResumen"
+        android:layout_toEndOf="@+id/textView80" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="DEVOLUCION          "
+        android:id="@+id/textView97"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_below="@+id/dgvPresentacion"
+        android:layout_toEndOf="@+id/textView95" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="TOTAL      "
+        android:id="@+id/textView98"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_above="@+id/lstResumen"
+        android:layout_toEndOf="@+id/textView97" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:text="500GR"
+        android:id="@+id/textView99"
+        android:singleLine="false"
+        android:textColor="#ffffff"
+        android:background="#000000"
+        android:layout_below="@+id/dgvPresentacion"
+        android:layout_alignParentEnd="true"
+        android:layout_toEndOf="@+id/textView98" />
 
 </RelativeLayout>
