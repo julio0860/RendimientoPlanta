@@ -63,17 +63,17 @@ public class RendArmado_Kardex extends AppCompatActivity {
 
     SimpleCursorAdapter adspnEntrega;
 
-   // LocalBD LBD;
-   // SQLiteDatabase LocBD;
+   LocalBD LBD;
+   SQLiteDatabase LocBD;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rend_armado_kardex);
 
-        LocalBD LBD = new LocalBD(this) ;
-        final SQLiteDatabase LocBD = LBD.getWritableDatabase();
-        //LBD = new LocalBD(this) ;
-        //LocBD = LBD.getWritableDatabase();
+        //LocalBD LBD = new LocalBD(this) ;
+        //final SQLiteDatabase LocBD = LBD.getWritableDatabase();
+        LBD = new LocalBD(this) ;
+        LocBD = LBD.getWritableDatabase();
         //ASIGNACION DE VARIABLES A TEXTVIEW DE LAYOUT
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
@@ -120,12 +120,12 @@ public class RendArmado_Kardex extends AppCompatActivity {
         edtPeso.setText(String.valueOf((int)(Variables.PreEnv_PesoTorre*1000)));
         edtCantidad.setText(String.valueOf(Variables.PreEnv_CantidadTorre));
 
-        //ActualizarLista();
-//        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
-//                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
-//                Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+        ActualizarLista();
+        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
+        Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+        Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
 
-        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarTodos(),null);
+        //Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarTodos(),null);
 
         Toast.makeText(RendArmado_Kardex.this,String.valueOf(CurIngresos.getCount()), Toast.LENGTH_SHORT).show();
         adspnEntrega = new SimpleCursorAdapter(this,
@@ -219,7 +219,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
                             Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     }
-                   // ActualizarLista();
+                   ActualizarLista();
                 }else
                 {
                     Toast.makeText(RendArmado_Kardex.this,"INGRESE DATOS", Toast.LENGTH_SHORT).show();
@@ -269,7 +269,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private int CalcularPeso(int Cantidad) {
         return (int) ((Cantidad * (Variables.PreEnv_PesoTorre * 1000)) / Variables.PreEnv_CantidadTorre);
     }
-   /*
+
     private void ActualizarLista()
     {
         Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
@@ -282,6 +282,5 @@ public class RendArmado_Kardex extends AppCompatActivity {
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstIngresos.setAdapter(adspnEntrega);
     }
-*/
 
 }
