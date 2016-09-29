@@ -167,7 +167,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                        int position, long id) {
                 Cursor CurId = (Cursor) parent.getItemAtPosition(position);
                 Suc_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
-                Cursor Lineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Suc_Id, 2), null);
+                Cursor Lineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Suc_Id,2), null);
                 adspnLinea = new SimpleCursorAdapter(RendArmado_Parametros.this,
                         android.R.layout.simple_dropdown_item_1line, Lineas,//Layout simple
                         //Todos los registros
