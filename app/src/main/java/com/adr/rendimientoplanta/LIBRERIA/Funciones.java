@@ -216,8 +216,8 @@ public class Funciones extends AppCompatActivity {
     }
     public String HoraCorta()
     {
-        SimpleDateFormat FormatoFecha = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
-        return FormatoFecha.format(new Date(System.currentTimeMillis()));
+        SimpleDateFormat FormatoHora = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
+        return FormatoHora.format(new Date(System.currentTimeMillis()));
     }
 
 public double HoraEfectivaEntreHoras(String HoraIni,String HoraFin)

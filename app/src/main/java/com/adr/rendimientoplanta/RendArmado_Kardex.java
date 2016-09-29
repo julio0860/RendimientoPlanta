@@ -121,9 +121,11 @@ public class RendArmado_Kardex extends AppCompatActivity {
         edtCantidad.setText(String.valueOf(Variables.PreEnv_CantidadTorre));
 
         //ActualizarLista();
-        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
-                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
-                Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+//        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
+//                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+//                Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+
+        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarTodos(),null);
 
         Toast.makeText(RendArmado_Kardex.this,String.valueOf(CurIngresos.getCount()), Toast.LENGTH_SHORT).show();
         adspnEntrega = new SimpleCursorAdapter(this,

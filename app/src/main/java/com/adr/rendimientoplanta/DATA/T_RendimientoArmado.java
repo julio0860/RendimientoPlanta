@@ -114,6 +114,14 @@ public class T_RendimientoArmado {
                 +";";
         return Seleccionar;
     }
+    public static String RendimientoArmado_SeleccionarTodos()
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_RendimientoArmado
+                +" FROM "+NombreTabla
+                +";";
+        return Seleccionar;
+    }
 
    /*
     public static String LineaRegistro_Actualizar(
