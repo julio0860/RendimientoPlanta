@@ -125,18 +125,18 @@ public class RendArmado_Kardex extends AppCompatActivity {
         edtCantidad.setText(String.valueOf(Variables.PreEnv_CantidadTorre));
 
         ActualizarLista();
-        Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
-        Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
-        Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
+        //Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarPorPersona(
+        //Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+        //Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
 
         //Cursor CurIngresos = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarTodos(),null);
 
-        Toast.makeText(RendArmado_Kardex.this,String.valueOf(CurIngresos.getCount()), Toast.LENGTH_SHORT).show();
-        adspnEntrega = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2 ,CurIngresos,
-                new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.RenArmCantidad}, new int[]{android.R.id.text1,android.R.id.text2},
-                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        lstIngresos.setAdapter(adspnEntrega);
+        //Toast.makeText(RendArmado_Kardex.this,String.valueOf(CurIngresos.getCount()), Toast.LENGTH_SHORT).show();
+       // adspnEntrega = new SimpleCursorAdapter(this,
+        //        android.R.layout.simple_list_item_2 ,CurIngresos,
+        //        new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.RenArmCantidad}, new int[]{android.R.id.text1,android.R.id.text2},
+        //        SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+       // lstIngresos.setAdapter(adspnEntrega);
 
         edtPeso.addTextChangedListener(new TextWatcher() {
             @Override
@@ -308,8 +308,10 @@ public class RendArmado_Kardex extends AppCompatActivity {
                 Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
 
         adspnEntrega = new SimpleCursorAdapter(this,
-                android.R.layout.simple_list_item_2,CurIngresos,
-                new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.RenArmCantidad}, new int[]{android.R.id.text1,android.R.id.text2},
+                R.layout.listview_kardexarmado4item,CurIngresos,
+                new String[]{T_RendimientoArmado.RenArmHoraIni,T_RendimientoArmado.PreEnvDescripcionCor,
+                        T_RendimientoArmado.RenArmEntrega,T_RendimientoArmado.RenArmDevolucion
+                }, new int[]{R.id.text1,R.id.text2,R.id.text3,R.id.text4},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         lstIngresos.setAdapter(adspnEntrega);
     }
