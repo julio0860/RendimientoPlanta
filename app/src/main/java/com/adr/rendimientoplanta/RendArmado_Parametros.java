@@ -3,10 +3,13 @@ package com.adr.rendimientoplanta;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -528,7 +531,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         alertDialog1.show();
     }
 
-   /* public final Boolean conectadoWifi(){
+    public final Boolean conectadoWifi(){
       ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
             NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -539,13 +542,13 @@ public class RendArmado_Parametros extends AppCompatActivity {
             }
         }
         return false;
-    }*/
+    }
 
-    public final Boolean conectadoWifi(){
+  /*  public final Boolean conectadoWifi(){
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
     }
-
+*/
 }
 
 
