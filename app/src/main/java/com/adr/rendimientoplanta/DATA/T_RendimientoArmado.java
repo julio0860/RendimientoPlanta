@@ -10,7 +10,6 @@ public class T_RendimientoArmado {
     public static final String SucId = "Suc_Id";
     public static final String ProId = "Pro_Id";
     public static final String SubId = "Sub_Id";
-    public static final String CulId = "Cul_Id";
     public static final String LinId = "Lin_Id";
     public static final String LinLado = "Lin_Lado";
     public static final String RenArmFechaReg = "RenArm_FechaReg";
