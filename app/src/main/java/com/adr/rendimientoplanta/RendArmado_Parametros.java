@@ -359,7 +359,14 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                  HoraSalida =null;
                                                 }
                                                 if (IdregServidor==0) {
-                                                    pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
+                                                    if (HoraSalida==null){
+                                                        pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
+                                                    }
+                                                    else
+                                                    {
+                                                        pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR1(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
+                                                    }
+
                                                     Rse = pstmt.getGeneratedKeys();
                                                     if (Rse != null && Rse.next()) {
                                                         IdregServidor = Rse.getInt(1);

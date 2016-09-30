@@ -115,6 +115,18 @@ public class T_Agrupador {
                 "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"',"+HoraSalida+",'"+Mot_Id+"','"+Est_Id+"');";
         return _INSERT_LOCAL_SERVIDOR;
     }
+
+    public static String _INSERT_LOCAL_SERVIDOR1(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                                String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Mot_Id,int Est_Id)
+    {
+        String _INSERT_LOCAL_SERVIDOR1;
+        _INSERT_LOCAL_SERVIDOR1 = "INSERT INTO "+N_TABLA +"("+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
+                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+
+                ")VALUES('"+
+                EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
+                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Mot_Id+"','"+Est_Id+"');";
+        return _INSERT_LOCAL_SERVIDOR1;
+    }
     public static String _INSERT_SERVIDOR_LOCAL(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
                                               String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Motivo,int Estado,int IdServidor)
     {
