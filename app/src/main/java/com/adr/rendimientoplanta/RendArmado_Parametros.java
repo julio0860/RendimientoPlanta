@@ -395,8 +395,17 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                                 Cursor VarBdLocal= LocBD.rawQuery("SELECT  IFNULL(Eslocal,0) FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
                                                 if (VarBdLocal.getCount()==0){
-                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
-                                                            Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    if (Rse.getString(13)==null)
+                                                    {
+                                                        LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
+                                                                Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    }
+                                                    else
+                                                    {
+                                                        LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL1(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
+                                                                Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    }
+
                                                 }
                                                 else
                                                 {
