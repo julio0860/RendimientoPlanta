@@ -152,12 +152,16 @@ public class RegistroOperario extends AppCompatActivity {
                         lblHoraSalida.setVisibility(View.VISIBLE);
                         edtHoraSalida.setVisibility(View.VISIBLE);
                         imbHoraSalida.setVisibility(View.VISIBLE);
+                        imbHora.setEnabled(false);
+                        edtHora.setEnabled(false);
                         break;
                     case 9:
                         Variables.Agru_EstId = 3;
                         lblHoraSalida.setVisibility(View.VISIBLE);
                         edtHoraSalida.setVisibility(View.VISIBLE);
                         imbHoraSalida.setVisibility(View.VISIBLE);
+                        imbHora.setEnabled(false);
+                        edtHora.setEnabled(false);
                         break;
                 }
             }
