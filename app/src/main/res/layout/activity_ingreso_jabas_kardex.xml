@@ -104,7 +104,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Kardex Paradas"
+        android:text="H. INICIO  "
         android:id="@+id/text2"
         android:background="#000000"
         android:textColor="#ffffff"
@@ -158,6 +158,40 @@
         android:layout_below="@+id/text1"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/imbRegresar" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="H. FINAL   "
+        android:id="@+id/textView95"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/imageView15"
+        android:layout_toEndOf="@+id/text2" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="T. PARADA    "
+        android:id="@+id/textView97"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/imageView15"
+        android:layout_toEndOf="@+id/textView95" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="MOTIVO PARADA"
+        android:id="@+id/textView100"
+        android:background="#000000"
+        android:textColor="#ffffff"
+        android:layout_above="@+id/imageView15"
+        android:layout_alignEnd="@+id/imageView15"
+        android:layout_toEndOf="@+id/textView97" />
 
 
 </RelativeLayout>

@@ -29,6 +29,9 @@ public class T_RendimientoArmado {
     public static final String EstId = "Est_Id";
     public static final String RenArmSincronizado = "RenArm_Sincronizado";
     public static final String RenArmIdServidor = "RenArm_IdServidor";
+    //PARA EL SERVIDOR
+    public static final String RenArmUltimaSincro = "RenArm_UltimaSincro";
+
 
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "RendimientoArmado";
@@ -73,7 +76,13 @@ public class T_RendimientoArmado {
             +","+SucId+","+ProId+","+SubId+","+LinId+","+LinLado+","+RenArmFechaReg+","+UsuId+","
             +RenArmMac+","+PreId+","+PreDescripcion+","+PreEnvId+","+PreEnvDescripcionCor+","
             +RenArmEntrega+","+RenArmDevolucion+","+RenArmPeso+","+RenArmFactor+","+RenArmCantidad+","
-            +RenArmEquivalente+","+RenArmHoraIni+","+EstId+","+RenArmSincronizado;
+            +RenArmEquivalente+","+RenArmHoraIni+","+EstId+","+RenArmSincronizado+","+RenArmIdServidor;
+
+    public static final String CamposInsertar_RenArmServidor = RenArmFecha+","+PerDni
+            +","+SucId+","+ProId+","+SubId+","+LinId+","+LinLado+","+RenArmFechaReg+","+UsuId+","
+            +RenArmMac+","+PreId+","+PreDescripcion+","+PreEnvId+","+PreEnvDescripcionCor+","
+            +RenArmEntrega+","+RenArmDevolucion+","+RenArmPeso+","+RenArmFactor+","+RenArmCantidad+","
+            +RenArmEquivalente+","+RenArmHoraIni+","+EstId+","+RenArmSincronizado+","+RenArmUltimaSincro;
 
     public static final String CamposInsertar_LineaSincronizar = "";
 
@@ -82,7 +91,7 @@ public class T_RendimientoArmado {
             String RenArm_FechaReg,int Usu_Id,String RenArm_Mac,int Pre_Id,String Pre_Descripcion,
             int PreEnv_Id,String PreEnv_DescripcionCor,int RenArm_Entrega,int RenArm_Devolucion,
             int RenArm_Peso,double RenArm_Factor,int RenArm_Cantidad,double RenArm_Equivalente,
-            String RenArm_HoraIni,int Est_Id,int RenArm_Sincronizado
+            String RenArm_HoraIni,int Est_Id,int RenArm_Sincronizado,int RenArm_IdServidor
             )
     {
         String Insertar;
@@ -92,9 +101,44 @@ public class T_RendimientoArmado {
                 +"','"+Suc_Id+"','"+Pro_Id+"','"+Sub_Id+"','"+Lin_Id+"','"+Lin_Lado+"','"+RenArm_FechaReg+"','"+Usu_Id+"','"
                 +RenArm_Mac+"','"+Pre_Id+"','"+Pre_Descripcion+"','"+PreEnv_Id+"','"+PreEnv_DescripcionCor+"','"
                 +RenArm_Entrega+"','"+RenArm_Devolucion+"','"+RenArm_Peso+"','"+RenArm_Factor+"','"+RenArm_Cantidad+"','"
-                +RenArm_Equivalente+"','"+RenArm_HoraIni+"','"+Est_Id+"','"+RenArm_Sincronizado
+                +RenArm_Equivalente+"','"+RenArm_HoraIni+"','"+Est_Id+"','"+RenArm_Sincronizado+"','"+RenArm_IdServidor
                 +"');";
         return Insertar;
+    }
+    public static String RendimientoArmado_InsertarServidor(
+            String RenArm_Fecha,String Per_Dni, int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lin_Lado,
+            String RenArm_FechaReg,int Usu_Id,String RenArm_Mac,int Pre_Id,String Pre_Descripcion,
+            int PreEnv_Id,String PreEnv_DescripcionCor,int RenArm_Entrega,int RenArm_Devolucion,
+            int RenArm_Peso,double RenArm_Factor,int RenArm_Cantidad,double RenArm_Equivalente,
+            String RenArm_HoraIni,int Est_Id,int RenArm_Sincronizado,String RenArm_UltimaSincro
+    )
+    {
+        String Insertar;
+        Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_RenArmServidor+
+                ")VALUES('"+
+                RenArm_Fecha+"','"+Per_Dni
+                +"','"+Suc_Id+"','"+Pro_Id+"','"+Sub_Id+"','"+Lin_Id+"','"+Lin_Lado+"','"+RenArm_FechaReg+"','"+Usu_Id+"','"
+                +RenArm_Mac+"','"+Pre_Id+"','"+Pre_Descripcion+"','"+PreEnv_Id+"','"+PreEnv_DescripcionCor+"','"
+                +RenArm_Entrega+"','"+RenArm_Devolucion+"','"+RenArm_Peso+"','"+RenArm_Factor+"','"+RenArm_Cantidad+"','"
+                +RenArm_Equivalente+"','"+RenArm_HoraIni+"','"+Est_Id+"','"+RenArm_Sincronizado+"','"+RenArm_UltimaSincro
+                +"');";
+        return Insertar;
+    }
+    public static String RendimientoArmado_SeleccionarSincronizar(
+            String RenArm_Fecha,int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lin_Lado)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_RendimientoArmado
+                +" FROM "+NombreTabla
+                +" WHERE "
+                +RenArmFecha+"='"+RenArm_Fecha+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+ProId+"='"+Pro_Id+"'"
+                +" AND "+SubId+"='"+Sub_Id+"'"
+                +" AND "+LinId+"='"+Lin_Id+"'"
+                +" AND "+LinLado+"='"+Lin_Lado+"'"
+                +";";
+        return Seleccionar;
     }
     public static String RendimientoArmado_SeleccionarPorPersona(String RenArm_Fecha,String Per_Dni,
                          int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lin_Lado,int PreEnv_Id)
@@ -157,6 +201,29 @@ public class T_RendimientoArmado {
                 +";";
         return Seleccionar;
     }
+    public static String RendimientoArmado_ActualizarIdServidor(
+            int IdServidor,int IdMovil,int Sincronizado)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +RenArmIdServidor+"= '"+IdServidor+"',"
+                +RenArmSincronizado+"= '"+Sincronizado+"'"
+                +" WHERE "
+                +RenArmId+"='"+IdMovil+"';";
+        return Actualizar;
+    }
+    public static String Servidor_ActualizarEstado(
+            int Est_Id,int Id_Servidor,String UltimaSincro)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +EstId+"= '"+Est_Id+"',"
+                +RenArmUltimaSincro+"= '"+UltimaSincro+"'"
+                +" WHERE "
+                +RenArmId+"='"+Id_Servidor+"';";
+        return Actualizar;
+    }
+
 
    /*
     public static String LineaRegistro_Actualizar(
