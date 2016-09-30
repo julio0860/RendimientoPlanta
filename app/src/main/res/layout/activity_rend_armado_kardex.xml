@@ -327,7 +327,7 @@
         android:layout_toEndOf="@+id/textView82"
         android:inputType="number"
         android:focusable="true"
-        android:maxLength="4" />
+        android:maxLength="3" />
 
     <EditText
         android:layout_width="wrap_content"

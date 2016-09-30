@@ -219,7 +219,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
                                                     Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
                                                     Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
                                                     Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,Cantidad,
-                                                    0,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                                                    0,Peso,Variables.PreEnv_Factor,Total,Equivalente,fnc.HoraCorta(),2,0,0));
                                             Toast.makeText(RendArmado_Kardex.this,"ENTREGA REGISTRADA", Toast.LENGTH_SHORT).show();
                                         }catch (Exception e)
                                         {
@@ -238,7 +238,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
                                                         Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
                                                         Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
                                                         Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
-                                                        Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                                                        Cantidad,Peso,Variables.PreEnv_Factor,Total,Equivalente,fnc.HoraCorta(),2,0,0));
                                                 Toast.makeText(RendArmado_Kardex.this,"DEVOLUCION REGISTRADA", Toast.LENGTH_SHORT).show();
                                             }catch (Exception e)
                                             {
