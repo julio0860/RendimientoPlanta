@@ -62,6 +62,11 @@ public class RendArmado_Kardex extends AppCompatActivity {
     private EditText edtCantidad;
     private EditText edtPeso;
 
+    //VARIABLES ENTERAS PARA VALIDACION
+    private int TotalRegistros;
+    private int TotalCantidad;
+    private double TotalEquivalente;
+
     //DECLARACION DE VARIABLE LISTVIEW
     private ListView lstIngresos;
 
@@ -222,21 +227,28 @@ public class RendArmado_Kardex extends AppCompatActivity {
                                         }
                                     }else if(rbnDevolucion.isChecked())
                                     {
-                                        Factor = -1;
-                                        Total=Cantidad*Factor;
-                                        Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
-                                        try{
-                                            LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
-                                                    Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
-                                                    Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
-                                                    Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
-                                                    Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
-                                                    Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
-                                            Toast.makeText(RendArmado_Kardex.this,"DEVOLUCION REGISTRADA", Toast.LENGTH_SHORT).show();
-                                        }catch (Exception e)
+                                        if (TotalCantidad>=Cantidad && TotalRegistros>0)
                                         {
-                                            Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                            Factor = -1;
+                                            Total=Cantidad*Factor;
+                                            Equivalente = fnc.RedondeoDecimal(Total*Variables.PreEnv_Factor,2, BigDecimal.ROUND_HALF_UP);
+                                            try{
+                                                LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_Insertar(
+                                                        Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,
+                                                        Variables.Sub_Id,Variables.Lin_Id,Variables.Lin_Lado,fnc.HoraSistema(),
+                                                        Variables.Usu_Id,Variables.MAC,Variables.Pre_Id,Variables.Pre_Descripcion,
+                                                        Variables.PreEnv_Id,Variables.PreEnv_DescripcionCor,0,
+                                                        Cantidad,Peso,1,Total,Equivalente,fnc.HoraCorta(),2,0));
+                                                Toast.makeText(RendArmado_Kardex.this,"DEVOLUCION REGISTRADA", Toast.LENGTH_SHORT).show();
+                                            }catch (Exception e)
+                                            {
+                                                Toast.makeText(RendArmado_Kardex.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                            }
+                                        }else
+                                        {
+                                            Toast.makeText(RendArmado_Kardex.this, "LA DEVOLUCION NO PUEDE EXCEDER LAS ENTREGAS", Toast.LENGTH_SHORT).show();
                                         }
+
                                     }
                                     edtCantidad.setText("");
                                     edtPeso.setText("");
@@ -322,9 +334,13 @@ public class RendArmado_Kardex extends AppCompatActivity {
                 Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
                 Variables.Lin_Id,Variables.Lin_Lado,Variables.PreEnv_Id ),null);
         CurResumen.moveToFirst();
-        lblTotal.setText(CurResumen.getString(0));
-        lblTotalEquivalente.setText(CurResumen.getString(1));
-        lblCantidad.setText(CurResumen.getString(2));
+        TotalRegistros=CurResumen.getInt(2);
+        TotalEquivalente = CurResumen.getDouble(1);
+        TotalCantidad=CurResumen.getInt(0);
+
+        lblTotal.setText(String.valueOf(TotalCantidad));
+        lblTotalEquivalente.setText(String.valueOf(TotalEquivalente));
+        lblCantidad.setText(String.valueOf(TotalRegistros));
 
     }
 
