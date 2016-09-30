@@ -3,20 +3,19 @@ package com.adr.rendimientoplanta;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
-import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
+import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 public class RendArmado_Registro extends AppCompatActivity {
@@ -34,7 +33,10 @@ public class RendArmado_Registro extends AppCompatActivity {
     private ImageButton imbRegresar;
 
     private GridView dgvPresentacion;
+
+    private ListView lstResumen;
     SimpleCursorAdapter adspnPresentacion;
+    SimpleCursorAdapter adspnResumen;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -55,16 +57,35 @@ public class RendArmado_Registro extends AppCompatActivity {
         lblNombres = (TextView) findViewById(R.id.lblNombres);
 
         imbRegresar = (ImageButton)findViewById(R.id.imbRegresar);
+
+        lstResumen = (ListView)findViewById(R.id.lstResumen);
         //Poblar GridView
         dgvPresentacion = (GridView) findViewById(R.id.dgvPresentacion);
         Cursor CurPresentacion = LocBD.rawQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarEstado (2),null);
 
         adspnPresentacion = new SimpleCursorAdapter(this,
-                android.R.layout.simple_dropdown_item_1line,CurPresentacion,
-                new String[]{T_PresentacionEnvase.PreEnvDescripcionCor}, new int[]{android.R.id.text1},
+                R.layout.gridview_itemborde,CurPresentacion,
+                new String[]{T_PresentacionEnvase.PreEnvDescripcionCor}, new int[]{R.id.text1},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPresentacion.setAdapter(adspnPresentacion);
         dgvPresentacion.setNumColumns(4);
+
+        //lISTA RESUMEN
+        Cursor CurResumen = LocBD.rawQuery(T_RendimientoArmado.RenArm_SeleccionarPorPersonaResumenPresentacion(
+                Variables.FechaStr,Variables.Per_Dni,Variables.Suc_Id,Variables.Pro_Id,Variables.Sub_Id,
+                Variables.Lin_Id,Variables.Lin_Lado),null);
+        adspnResumen = new SimpleCursorAdapter(this,
+                R.layout.listview_kardexarmado5item,CurResumen,
+                new String[]{"1","2","3","4","5"
+                       // T_PresentacionEnvase.PreEnvDescripcionCor,T_RendimientoArmado.RenArmEntrega,
+                       // T_RendimientoArmado.RenArmDevolucion,T_RendimientoArmado.RenArmCantidad,
+                       // T_RendimientoArmado.RenArmEquivalente
+
+                }, new int[]{R.id.text1,R.id.text2,
+                R.id.text3,R.id.text4,R.id.text5},
+                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        lstResumen.setAdapter(adspnResumen);
+
         //ASIGNACIÓN DE PARAMETROS A LA ACTIVIDAD
         lblEmpresa.setText(Variables.Emp_Abrev);
         lblSucursal.setText(Variables.Suc_Descripcion);

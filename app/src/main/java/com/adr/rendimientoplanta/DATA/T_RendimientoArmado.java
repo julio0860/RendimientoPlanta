@@ -131,6 +131,25 @@ public class T_RendimientoArmado {
                 +";";
         return Seleccionar;
     }
+    public static String RenArm_SeleccionarPorPersonaResumenPresentacion(
+            String RenArm_Fecha,String Per_Dni,int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,
+            String Lin_Lado)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT COUNT(*) as '_id'," +PreEnvDescripcionCor+" as '1' ,SUM("+RenArmEntrega+") as '2',SUM("+RenArmDevolucion+") as '3',SUM("
+                +RenArmCantidad+") as '4',SUM("+RenArmEquivalente+") as '5'"
+                +" FROM "+NombreTabla
+                +" WHERE "+RenArmFecha+"='"+RenArm_Fecha+"'"
+                +" AND "+PerDni+"='"+Per_Dni+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+ProId+"='"+Pro_Id+"'"
+                +" AND "+SubId+"='"+Sub_Id+"'"
+                +" AND "+LinId+"='"+Lin_Id+"'"
+                +" AND "+LinLado+"='"+Lin_Lado+"'"
+                +" GROUP BY "+PreEnvDescripcionCor
+                +";";
+        return Seleccionar;
+    }
     public static String RendimientoArmado_SeleccionarTodos()
     {
         String Seleccionar;
