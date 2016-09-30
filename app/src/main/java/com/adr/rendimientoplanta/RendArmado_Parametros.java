@@ -389,7 +389,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                             Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
                                                     "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
-                                                    "HoraIngreso,HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
+                                                    "CONVERT(VARCHAR(50),HoraIngreso,108) AS HoraIngreso,CONVERT(VARCHAR(50),HoraSalida,108) AS HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
                                             while (Rse.next()){
                                                 int IdAgrudServer=Rse.getInt(1);
 
@@ -405,7 +405,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                         LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL1(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
                                                                 Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
                                                     }
-
                                                 }
                                                 else
                                                 {
@@ -437,7 +436,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                             //DESCARGA DATOS DEL SERVIDOR DE LA FECHA ACTUAL.
                                             Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
                                                     "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
-                                                    "HoraIngreso,HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
+                                                    "CONVERT(VARCHAR(50),HoraIngreso,108) AS HoraIngreso,CONVERT(VARCHAR(50),HoraSalida,108) AS HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
 
                                             while (Rse.next()){
                                                 int IdAgrudServer=Rse.getInt(1);
