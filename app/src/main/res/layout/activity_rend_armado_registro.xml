@@ -184,7 +184,7 @@
         android:background="#000000"
         android:layout_centerVertical="true"
         android:layout_alignParentStart="true"
-        android:layout_toStartOf="@+id/textView95"
+        android:layout_toStartOf="@+id/lblProceso"
         android:layout_alignEnd="@+id/textView80" />
 
     <ListView
@@ -263,7 +263,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="        ENTREGA    "
-        android:id="@+id/textView95"
+        android:id="@+id/lblProceso"
         android:singleLine="false"
         android:textColor="#ffffff"
         android:background="#000000"
@@ -275,12 +275,12 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceMedium"
         android:text="DEVOLUCION          "
-        android:id="@+id/textView97"
+        android:id="@+id/lblSubproceso"
         android:singleLine="false"
         android:textColor="#ffffff"
         android:background="#000000"
         android:layout_below="@+id/dgvPresentacion"
-        android:layout_toEndOf="@+id/textView95" />
+        android:layout_toEndOf="@+id/lblProceso" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -292,7 +292,7 @@
         android:textColor="#ffffff"
         android:background="#000000"
         android:layout_above="@+id/lstResumen"
-        android:layout_toEndOf="@+id/textView97" />
+        android:layout_toEndOf="@+id/lblSubproceso" />
 
     <TextView
         android:layout_width="wrap_content"

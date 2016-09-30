@@ -28,6 +28,8 @@ public class RendArmado_Lista extends AppCompatActivity {
     private TextView lblEmpresa;
     private TextView lblSucursal;
     private TextView lblLinea;
+    private TextView lblProceso;
+    private TextView lblSubproceso;
     private TextView lblLado;
     private EditText edtFecha;
     private ImageButton imbRegresar;
@@ -133,6 +135,8 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
         lblLinea = (TextView) findViewById(R.id.lblLinea);
         lblLado = (TextView) findViewById(R.id.lblLado);
+        lblProceso=(TextView)findViewById(R.id.lblProceso);
+        lblSubproceso=(TextView)findViewById(R.id.lblSubproceso);
         edtFecha = (EditText) findViewById(R.id.lblFecha);
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
@@ -146,6 +150,8 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblSucursal.setText(Variables.Suc_Descripcion);
         lblLinea.setText(Variables.Lin_Descripcion);
         lblLado.setText("LADO: " + Variables.Lin_Lado);
+        lblProceso.setText(Variables.Pro_Descripcion);
+        lblSubproceso.setText(Variables.Sub_Descripcion);
         edtFecha.setText(Variables.FechaStr);
     }
 
