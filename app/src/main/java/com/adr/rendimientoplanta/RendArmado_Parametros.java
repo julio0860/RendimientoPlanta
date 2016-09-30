@@ -3,10 +3,13 @@ package com.adr.rendimientoplanta;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.net.ConnectivityManager;
+import android.net.NetworkInfo;
 import android.os.Bundle;
 import android.provider.BaseColumns;
 import android.support.v4.widget.SimpleCursorAdapter;
@@ -428,8 +431,15 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                                 Cursor VarBdLocal= LocBD.rawQuery("SELECT IFNULL(Eslocal,0) as EsLocal  FROM Agrupador WHERE Agru_IdServidor='"+IdAgrudServer+"'",null);
                                                 if (VarBdLocal.getCount()==0){
-                                                    LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2),Rse.getString(3).trim(),Rse.getInt(4),Rse.getInt(5),Rse.getInt(6),Rse.getInt(7),Rse.getString(8).trim(),
-                                                            Rse.getInt(9),Rse.getString(10).trim(),Rse.getString(11).trim(),Rse.getString(12).trim(),Rse.getString(13),Rse.getInt(14),Rse.getInt(15),Rse.getInt(1)));
+                                                    if (Rse.getString(13)==null) {
+                                                        LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL(Rse.getInt(2), Rse.getString(3).trim(), Rse.getInt(4), Rse.getInt(5), Rse.getInt(6), Rse.getInt(7), Rse.getString(8).trim(),
+                                                                Rse.getInt(9), Rse.getString(10).trim(), Rse.getString(11).trim(), Rse.getString(12).trim(), Rse.getString(13), Rse.getInt(14), Rse.getInt(15), Rse.getInt(1)));
+                                                    }
+                                                    else{
+                                                        LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL1(Rse.getInt(2), Rse.getString(3).trim(), Rse.getInt(4), Rse.getInt(5), Rse.getInt(6), Rse.getInt(7), Rse.getString(8).trim(),
+                                                                Rse.getInt(9), Rse.getString(10).trim(), Rse.getString(11).trim(), Rse.getString(12).trim(), Rse.getString(13), Rse.getInt(14), Rse.getInt(15), Rse.getInt(1)));
+                                                    }
+
                                                 }
                                                 else
                                                 {
@@ -528,7 +538,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         alertDialog1.show();
     }
 
-   /* public final Boolean conectadoWifi(){
+    public final Boolean conectadoWifi(){
       ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
             NetworkInfo info = connectivity.getNetworkInfo(ConnectivityManager.TYPE_WIFI);
@@ -539,13 +549,13 @@ public class RendArmado_Parametros extends AppCompatActivity {
             }
         }
         return false;
-    }*/
+    }
 
-    public final Boolean conectadoWifi(){
+  /*  public final Boolean conectadoWifi(){
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
     }
-
+*/
 }
 
 

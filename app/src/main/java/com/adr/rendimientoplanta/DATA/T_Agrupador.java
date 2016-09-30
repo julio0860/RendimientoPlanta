@@ -126,6 +126,17 @@ public class T_Agrupador {
                 "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"',"+HoraSalida+",'"+Motivo+"','"+Estado+"','"+IdServidor+"');";
         return _INSERT_SERVIDOR_LOCAL;
     }
+    public static String _INSERT_SERVIDOR_LOCAL1(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                                String Dni,String HoraLectura,String HoraIngreso,String HoraSalida,int Motivo,int Estado,int IdServidor)
+    {
+        String _INSERT_SERVIDOR_LOCAL1;
+        _INSERT_SERVIDOR_LOCAL1 = "INSERT INTO "+N_TABLA +"("+EMPID+","+FECHA+","+SUCID+","+PROID+","+SUBID+","+LINID+","+LADO+","+POSICION+
+                ","+DNI+","+HORALECTURA+","+HORAINGRESO+","+HORASALIDA+","+MOTIVO+","+ESTADO+","+IDSERVIDOR+
+                ")VALUES('"+
+                EmpId+"','"+Fecha+"','"+SucId+"','"+ProId+"','"+SubId+"','"+LinId+"','"+Lado+"','"+Posicion+
+                "','"+Dni+"','"+HoraLectura+"','"+HoraIngreso+"','"+HoraSalida+"','"+Motivo+"','"+Estado+"','"+IdServidor+"');";
+        return _INSERT_SERVIDOR_LOCAL1;
+    }
 
     public static String _SELECCIONAR_TODOSSERVIDOR(String Fecha)
     //SON TODOS LOS REGISTROS DEL SERVIDOR
