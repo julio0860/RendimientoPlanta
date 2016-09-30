@@ -10,6 +10,7 @@ import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.Button;
 import android.widget.EditText;
 import android.widget.GridView;
 import android.widget.ImageButton;
@@ -32,7 +33,7 @@ public class RendArmado_Lista extends AppCompatActivity {
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
 
-
+    private Button btnSincronizar;
 
 
     @Override
@@ -94,7 +95,6 @@ public class RendArmado_Lista extends AppCompatActivity {
         ;
 
 
-
         imbConfigurar.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
@@ -115,6 +115,14 @@ public class RendArmado_Lista extends AppCompatActivity {
                                            }
                                        }
         );
+        btnSincronizar.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            //Se crea un Intent para llamar a una nueva Actividad(Pantalla)
+
+                }
+            }
+        );
 
     }
     public void AsignarVariables()
@@ -128,6 +136,8 @@ public class RendArmado_Lista extends AppCompatActivity {
         edtFecha = (EditText) findViewById(R.id.lblFecha);
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
+
+        btnSincronizar = (Button) findViewById(R.id.btnSincronizar);
 
     }
     public void MostrarVariables()
