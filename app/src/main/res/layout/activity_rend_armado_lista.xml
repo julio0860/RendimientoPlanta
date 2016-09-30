@@ -35,8 +35,9 @@
         android:text="01/01/1900"
         android:textColor="#000000"
         android:focusableInTouchMode="false"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/dgvPersonalRendimiento" />
+        android:textSize="18dp"
+        android:layout_below="@+id/lblSubproceso"
+        android:layout_alignEnd="@+id/lblSubproceso" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -63,8 +64,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LINEA 1 PUN PDC"
         android:id="@+id/lblLinea"
-        android:layout_alignTop="@+id/lblSubproceso"
-        android:layout_alignEnd="@+id/lblFecha" />
+        android:layout_below="@+id/lblEmpresa"
+        android:layout_alignParentStart="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -72,8 +73,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="LADO A"
         android:id="@+id/lblLado"
-        android:layout_above="@+id/lblLinea"
-        android:layout_toEndOf="@+id/lblSubproceso" />
+        android:layout_above="@+id/textView33"
+        android:layout_centerHorizontal="true" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -82,7 +83,8 @@
         android:text="@string/lbl_ListaPersonal"
         android:id="@+id/textView33"
         android:layout_below="@+id/lblLinea"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="5dp" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -116,8 +118,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="PUNNET"
         android:id="@+id/lblProceso"
-        android:layout_below="@+id/lblEmpresa"
-        android:layout_alignParentStart="true" />
+        android:layout_marginStart="32dp"
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lblSucursal" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -125,8 +128,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ARMADO"
         android:id="@+id/lblSubproceso"
-        android:layout_below="@+id/lblSucursal"
-        android:layout_centerHorizontal="true" />
+        android:layout_alignParentTop="true"
+        android:layout_alignEnd="@+id/dgvPersonalRendimiento" />
 
 
 </RelativeLayout>
