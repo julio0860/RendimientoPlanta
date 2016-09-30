@@ -37,7 +37,7 @@
         android:focusableInTouchMode="false"
         android:textSize="18dp"
         android:layout_alignTop="@+id/lblLado"
-        android:layout_alignStart="@+id/btnSincronizar" />
+        android:layout_alignEnd="@+id/dgvPersonalRendimiento" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -128,8 +128,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ARMADO"
         android:id="@+id/lblSubproceso"
-        android:layout_alignParentTop="true"
-        android:layout_alignEnd="@+id/dgvPersonalRendimiento" />
+        android:layout_alignTop="@+id/lblProceso"
+        android:layout_alignStart="@+id/btnSincronizar" />
 
 
 </RelativeLayout>

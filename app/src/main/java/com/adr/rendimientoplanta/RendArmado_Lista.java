@@ -61,6 +61,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         dgvPersonalRendimiento.setAdapter(AdaptadorGrilla);
         dgvPersonalRendimiento.setNumColumns(4);
 
+
         dgvPersonalRendimiento.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
