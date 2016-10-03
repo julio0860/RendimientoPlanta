@@ -69,6 +69,7 @@ public class Variables extends AppCompatActivity{
     public static int Agru_Id=0;
     public static String HoraLectura="";
     public static String HoraIngreso="";
+    public static String HoraIngreso1="";
     public static String HoraSalida="";
     public static int Mot_Id=0;
     public static int Agru_EstId=0;

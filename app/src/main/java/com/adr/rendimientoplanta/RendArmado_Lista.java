@@ -275,6 +275,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         lblProceso.setText(Variables.Pro_Descripcion);
         lblSubproceso.setText(Variables.Sub_Descripcion);
         edtFecha.setText(Variables.FechaStr);
+
     }
 
     @Override

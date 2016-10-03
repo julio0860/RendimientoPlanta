@@ -92,12 +92,14 @@ public class RegistroOperario extends AppCompatActivity {
         lblLinea.setText(Variables.Lin_Descripcion);
         lblLado.setText("LADO: " + Variables.Lin_Lado);
         edtFecha.setText(Variables.FechaStr);
+        edtHora.setText(Variables.HoraIngreso1);
 
         lblHoraSalida.setVisibility(View.INVISIBLE);
         edtHoraSalida.setVisibility(View.INVISIBLE);
         imbHoraSalida.setVisibility(View.INVISIBLE);
         btnEliminar.setVisibility(View.INVISIBLE);
         spnMotivos.setEnabled(false);
+
 
         if (Variables.Agru_Id > 0) {
             edtDni.setText(Variables.Per_Dni);

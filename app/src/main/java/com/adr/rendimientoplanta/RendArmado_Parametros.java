@@ -248,7 +248,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                      mes=String.valueOf(mMonth+1);
                                                  }
                                                  Variables.FechaStrBD=String.valueOf(mYear)+"-"+mes+"-"+dia;
-                                                 Variables.HoraIngreso=edtHoraIngreso.getText().toString();
+                                                 Variables.HoraIngreso1=edtHoraIngreso.getText().toString();
 
                                                  Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE '"+Variables.FechaStrBD+"' between cam_fechaIni AND Cam_FechaTer" , null);
 
