@@ -213,8 +213,8 @@
         android:layout_row="5"
         android:layout_column="23"
         android:src="@android:drawable/presence_away"
-        android:layout_alignBottom="@+id/edtHoraIngreso"
-        android:layout_alignStart="@+id/btnRegistrar"
-        android:layout_alignTop="@+id/edtHoraIngreso" />
+        android:layout_alignTop="@+id/edtHoraIngreso"
+        android:layout_toEndOf="@+id/edtHoraIngreso"
+        android:layout_marginLeft="20dp" />
 
 </RelativeLayout>
