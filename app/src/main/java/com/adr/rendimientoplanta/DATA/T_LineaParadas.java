@@ -13,7 +13,9 @@ public class T_LineaParadas {
     public static final String LinParSincronizado = "LinPar_Sincronizado";
     public static final String LinParFechaHora = "LinPar_FechaHora";
     public static final String MotParDescripcion = "MotPar_Descripcion";
-
+    //--------------NUEVOS CAMPOS
+    public static final String EstId = "Est_Id";
+    public static final String LinParIdServidor = "LinPar_IdServidor";
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "LineaParadas";
 
@@ -26,14 +28,17 @@ public class T_LineaParadas {
             LinParParada+" REAL NOT NULL, "+
             LinParSincronizado+" INTEGER NOT NULL, "+
             LinParFechaHora+" TEXT NOT NULL,"+
-            MotParDescripcion+" TEXT NOT NULL"+
-            ");";
+            MotParDescripcion+" TEXT NOT NULL,"+
+            EstId+" INTEGER,"+
+            LinParIdServidor+" INTEGER"
+            +");";
 
     public static final String Drop_LineaParadas ="DROP TABLE IF EXISTS "+NombreTabla;
 
     public static final String CamposSeleccionar_LineaParadas = LinParId+" as '_id',"+LinRegIdMovil+","+MotId
             +","+LinParHoraIni+","+LinParHoraFin+","+LinParParada+","+LinParSincronizado
             +","+LinParFechaHora+","+MotParDescripcion;
+            //+","+EstId+","+LinParIdServidor;
 
     public static final String CamposInsertar_LineaParadas =
             LinRegIdMovil+","+MotId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada

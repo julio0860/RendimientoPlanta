@@ -19,6 +19,10 @@ public class T_LineaIngreso {
     public static final String LinIngMix = "LinIng_Mix";
     public static final String LinIngFechaHora = "LinIng_FechaHora";
     public static final String LinIngSincronizado = "LinIng_Sincronizado";
+    //NUEVOS CAMPOS
+    public static final String EstId = "Est_Id";
+    public static final String LinIngIdServidor = "LinIng_IdServidor";
+
 
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "LineaIngreso";
@@ -38,8 +42,10 @@ public class T_LineaIngreso {
             LinIngtEfectivo+" REAL NOT NULL,"+
             LinIngMix+" INTEGER NOT NULL,"+
             LinIngFechaHora+" TEXT NOT NULL,"+
-            LinIngSincronizado+" INTEGER NOT NULL"+
-            ");";
+            LinIngSincronizado+" INTEGER NOT NULL,"+
+            EstId+" INTEGER,"+
+            LinIngIdServidor+" INTEGER"
+            +");";
 
     public static final String Drop_LineaIngreso ="DROP TABLE IF EXISTS "+NombreTabla;
 
@@ -47,6 +53,7 @@ public class T_LineaIngreso {
             +","+ConDescripcionCor+","+LinIngCantidad+","+MatPriOriId+","+MatPriOriDescripcion
             +","+MatPriOriFactor+","+LinIngEquivalente+","+LinIngHoraIni+","+LinIngHoraFin+","+LinIngtEfectivo
             +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado;
+            //+","+EstId+","+LinIngIdServidor;
 
     public static final String CamposInsertar_LineaIngreso = LinRegIdMovil+","+ConId
             +","+ConDescripcionCor+","+LinIngCantidad+","+MatPriOriId+","+MatPriOriDescripcion
