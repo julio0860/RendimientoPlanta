@@ -395,7 +395,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                                 }
                                             }
-
                                             Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
                                                     "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
                                                     "CONVERT(VARCHAR(50),HoraIngreso,108) AS HoraIngreso,CONVERT(VARCHAR(50),HoraSalida,108) AS HoraSalida,Motivo,Est_Id FROM  Agrupador WHERE Fecha='"+Variables.FechaStr+"'");
@@ -519,9 +518,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
                 showDialog(fnc.TIME_DIALOG_ID);
             }
         });
-
-
-
     }
     private void updateDisplay() {
 
@@ -531,7 +527,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
                 .append(fnc.pad(mDay)).append("/")
                 .append(fnc.pad(mMonth + 1)).append("/")
                 .append(mYear)
-
         );
     }
     private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener() {
@@ -591,7 +586,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
         }
         return false;
     }*/
-
     public final Boolean conectadoWifi(){
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
