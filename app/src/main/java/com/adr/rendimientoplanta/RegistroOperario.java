@@ -52,7 +52,7 @@ public class RegistroOperario extends AppCompatActivity {
     private SimpleCursorAdapter adspnMotivos;
     private int pHour;
     private int pMinute;
-    private int Mot_Id;
+
     static final int TIME_DIALOG_ID = 1;
     private static final String TAG = "RegistroOperario";
 

@@ -3,6 +3,7 @@ package com.adr.rendimientoplanta;
 import android.app.AlertDialog;
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
@@ -19,6 +20,7 @@ import android.widget.DatePicker;
 import android.widget.EditText;
 import android.widget.ImageButton;
 import android.widget.Spinner;
+import android.widget.TimePicker;
 import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.ConexionBD;
@@ -63,9 +65,12 @@ public class RendArmado_Parametros extends AppCompatActivity {
     private Button btnSincronizar;
     private ImageButton imbRegresar;
     private ImageButton imbFecha;
+    private ImageButton imbHoraIngreso;
+
 
     //DECLARACION FECHA
     private EditText edtFecha;
+    private EditText edtHoraIngreso;
 
     //DECLARACION VARIABLES
     private int Emp_Id;
@@ -83,7 +88,11 @@ public class RendArmado_Parametros extends AppCompatActivity {
     private int mYear;
     private int mMonth;
     private int mDay;
+    private int pHour;
+    private int pMinute;
+    private EditText displayTime;
     static final int DATE_DIALOG_ID = 0;
+    static final int TIME_DIALOG_ID = 1;
 
     //VARIABLES PARA INSERTAR EL AGRUPADOR AL SERVIDOR
     private int IdregServidor;
@@ -110,13 +119,14 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
         //ASIGNACION DE EDITTEXT DE LAYOUT A VARIABLES
         edtFecha = (EditText) findViewById(R.id.lblFecha);
+        edtHoraIngreso=(EditText)findViewById(R.id.edtHoraIngreso);
 
         //ASIGNACION DE BUTTONS DE LAYOUT A VARIABLES
         btnEstablecer = (Button) findViewById(R.id.btnEstablecer);
         btnSincronizar=(Button)findViewById(R.id.btnRegistrar);
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbFecha = (ImageButton) findViewById(R.id.imbFecha);
-
+        imbHoraIngreso=(ImageButton)findViewById(R.id.imbHoraIngreso);
 
         imbFecha.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -502,9 +512,18 @@ public class RendArmado_Parametros extends AppCompatActivity {
             }
         });
 
+        imbHoraIngreso.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                displayTime = edtHoraIngreso;
+                showDialog(fnc.TIME_DIALOG_ID);
+            }
+        });
 
 
-}
+
+    }
     private void updateDisplay() {
 
         edtFecha.setText(new StringBuilder()
@@ -520,17 +539,28 @@ public class RendArmado_Parametros extends AppCompatActivity {
         public void onDateSet(DatePicker view, int year, int MonthOfYear, int dayOfMonth) {
             mYear = year;
             mMonth = MonthOfYear;
-
             mDay = dayOfMonth;
             updateDisplay();
         }
 
     };
+    private TimePickerDialog.OnTimeSetListener mTimeSetListener =
+            new TimePickerDialog.OnTimeSetListener() {
+                public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
+                    pHour = hourOfDay;
+                    pMinute = minute;
+                    fnc.EstablecerHoraEdt(displayTime,pHour,pMinute);
+                    //EstablecerHoraEdt(displayTime);
+                    //displayToast();
+                }
+            };
     @Override
     protected Dialog onCreateDialog(int id){
         switch (id){
             case DATE_DIALOG_ID:
                 return new DatePickerDialog(this,mDateSetListener,mYear,mMonth,mDay);
+            case TIME_DIALOG_ID:
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
         }
         return null;
     }
@@ -567,6 +597,10 @@ public class RendArmado_Parametros extends AppCompatActivity {
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
     }
+
+
+
+
 
 }
 
