@@ -65,4 +65,17 @@ public class T_Linea {
         return _SELECT_LIN;
     }
 
+    public static String Linea_SeleccionarEstado(Integer SID,Integer EST,String Fecha)
+    {
+        String _SELECT_LIN;
+        _SELECT_LIN = "SELECT LN."+LINID+" as '_id', LN."+EMPID+",LN."+ESTID+",LN."+SUCID+",LN."+LINCODIGO+",LN."+LINDESCRIPCION
+                +", IFNULL(LR.Est_Id,0) AS 'Est_Id'"
+                +" FROM "+N_TABLA
+        +" LN LEFT JOIN LineaRegistro LR ON LN."+LINID+" = IFNULL(LR.Lin_Id,LN.Lin_Id) AND LR.LinReg_Fecha='"+Fecha+"'"
+        +" WHERE LN."+SUCID+"='"+SID+"' AND LN."+ESTID+"='"+EST+"'";
+
+
+        return _SELECT_LIN;
+    }
+
 }

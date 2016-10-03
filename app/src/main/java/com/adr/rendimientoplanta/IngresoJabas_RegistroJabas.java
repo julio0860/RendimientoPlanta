@@ -11,7 +11,10 @@ import android.database.sqlite.SQLiteDatabase;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
@@ -50,6 +53,8 @@ private String HoraIniLinea;
     private String Con_DescripcionCorMix;
     private int LinIng_Cantidad;
     private int LinIng_CantidadMix;
+
+    private int CantidadLotes;
 
     private int MatPriOriId;
     private double MatPriOriFactor;
@@ -186,10 +191,13 @@ private String HoraIniLinea;
         //Asignación de carga inicial de Spinners
         Cursor Consumidor = LocBD.rawQuery(T_Consumidor._SELECT_CON(1,2, Variables.Cul_Id, Variables.Emp_Id),null);
         spnConsumidor.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Consumidor, T_Consumidor.CONDESCRIPCIONCOR));
+        CantidadLotes=Consumidor.getCount();
+
 
         Cursor ConsumidorMix = LocBD.rawQuery(T_Consumidor._SELECT_CON(1,2, Variables.Cul_Id, Variables.Emp_Id),null);
         spnConsumidorMix.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,ConsumidorMix, T_Consumidor.CONDESCRIPCIONCOR));
 
+        //spnConsumidorMix.setSelection(Consumidor.getCount());
         //Asignación valores iniciales lblNumeroDeIngresos:
         lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
 
@@ -366,6 +374,64 @@ private String HoraIniLinea;
                 }
             }
         );
+
+        spnConsumidor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+
+                int Posicion1;
+                int Posicion2;
+                int Cantidad;
+
+                Posicion1 =spnConsumidor.getSelectedItemPosition();
+                Posicion2 =spnConsumidorMix.getSelectedItemPosition();
+
+                if (Posicion1==Posicion2)
+                {
+                    Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
+                    if (Posicion2!=CantidadLotes) {
+                        spnConsumidor.setSelection(1);
+                    }else
+                    {
+                        spnConsumidor.setSelection(1);
+                    }
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                //TODO Auto-generated method stub
+            }
+        });
+        spnConsumidorMix.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            @Override
+            public void onItemSelected(AdapterView<?> arg0, View arg1,
+                                       int arg2, long arg3) {
+                int Posicion1;
+                int Posicion2;
+                int Cantidad;
+
+                Posicion1 =spnConsumidorMix.getSelectedItemPosition();
+                Posicion2 =spnConsumidor.getSelectedItemPosition();
+
+                if (Posicion1==Posicion2)
+                {
+                    Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
+                    if (Posicion2!=CantidadLotes) {
+                        spnConsumidorMix.setSelection(1);
+                    }else
+                    {
+                        spnConsumidorMix.setSelection(1);
+                    }
+                }
+            }
+            @Override
+            public void onNothingSelected(AdapterView<?> arg0) {
+                //TODO Auto-generated method stub
+
+            }
+        });
+
         imbHoraIni.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -398,7 +464,28 @@ private String HoraIniLinea;
                 }
             }
         });
+        edtCantidad.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
+            @Override
+            public void afterTextChanged(Editable s) {}
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(edtCantidad.hasFocus()==true)
+                {
+                    if(s.length() != 0)
+                        edtCantidadMix.setText(String.valueOf(edtCantidad.getText().toString()));
+                    else
+                        edtCantidadMix.setText("0");
+                }
+            }
+        });
     }
+    private void ValidarMix()
+    {
+
+    }
+
     private void VisibilidadConsumidor(Boolean Est)
     {
         if (Est==true) {
@@ -470,9 +557,6 @@ private String HoraIniLinea;
         double HoraEf;
         double paradas;
         double CantHora;
-
-
-
 
         Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
         Cantidad = CantidadReg(RegLin_Id);

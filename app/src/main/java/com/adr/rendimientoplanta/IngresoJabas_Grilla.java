@@ -7,6 +7,7 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.database.SQLException;
 import android.database.sqlite.SQLiteDatabase;
+import android.graphics.Color;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.provider.BaseColumns;
@@ -83,12 +84,30 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         fnc= new Funciones();
 
         dgvLineas = (GridView) findViewById(R.id.dgvLineas);
-        Cursor CurLineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Variables.Suc_Id,2),null);
-
+        //ANTIGUA VERSION
+        //Cursor CurLineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Variables.Suc_Id,2),null);
+        Cursor CurLineas = LocBD.rawQuery(T_Linea.Linea_SeleccionarEstado(Variables.Suc_Id,2,Variables.FechaStr),null);
         adspnLineas = new SimpleCursorAdapter(IngresoJabas_Grilla.this,
                 android.R.layout.simple_dropdown_item_1line,CurLineas,
                 new String[]{"Lin_Descripcion"}, new int[]{android.R.id.text1},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+
+        adspnLineas.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
+            public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
+                    int LinReg_Id=0;
+                LinReg_Id = cursor.getInt(cursor.getColumnIndex("Est_Id"));
+                switch(LinReg_Id) {
+                    case 0: ((TextView) view).setBackgroundColor(Color.GRAY); break;
+                    case 1: ((TextView) view).setBackgroundColor(Color.GREEN); break;
+                    case 2: ((TextView) view).setBackgroundColor(Color.BLUE); break;
+            /* etc. */
+                }
+                   // ((TextView) view).setTextColor(Color.RED);
+                   // ((TextView) view).setBackgroundColor(Color.BLACK);
+                return false;
+            }
+        });
+
         dgvLineas.setAdapter(adspnLineas);
 
 
@@ -105,6 +124,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
             }
         });
+
+
 
         btnSincronizar.setOnClickListener(new View.OnClickListener()
         {
