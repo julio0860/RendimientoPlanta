@@ -248,6 +248,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                      mes=String.valueOf(mMonth+1);
                                                  }
                                                  Variables.FechaStrBD=String.valueOf(mYear)+"-"+mes+"-"+dia;
+                                                 Variables.HoraIngreso=edtHoraIngreso.getText().toString();
 
                                                  Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE '"+Variables.FechaStrBD+"' between cam_fechaIni AND Cam_FechaTer" , null);
 
@@ -320,7 +321,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
                     mes=String.valueOf(mMonth+1);
                 }
                 Variables.FechaStrBD=String.valueOf(mYear)+"-"+mes+"-"+dia;
-
 
                 AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(RendArmado_Parametros.this);
                 String alert_title = "AGRUPADOR";
@@ -395,7 +395,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
                                                 }
                                             }
-
 
                                             Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
                                                     "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
@@ -597,11 +596,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
     }
-
-
-
-
-
 }
 
 
