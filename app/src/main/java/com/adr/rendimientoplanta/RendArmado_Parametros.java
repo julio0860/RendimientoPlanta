@@ -108,25 +108,8 @@ public class RendArmado_Parametros extends AppCompatActivity {
         LBD = new LocalBD(RendArmado_Parametros.this);
         LocBD = LBD.getWritableDatabase();
         fnc = new Funciones();
-
-        //ASIGNACION DE SPINNERS DE LAYOUT A VARIABLES
-        spnEmpresa = (Spinner) findViewById(R.id.spnEmpresa);
-        spnSucursal = (Spinner) findViewById(R.id.spnSucursal);
-        spnProceso = (Spinner) findViewById(R.id.spnProceso);
-        spnSubproceso = (Spinner) findViewById(R.id.spnSubproceso);
-        spnLinea = (Spinner) findViewById(R.id.spnLinea);
-        spnLado = (Spinner) findViewById(R.id.spnLado);
-
-        //ASIGNACION DE EDITTEXT DE LAYOUT A VARIABLES
-        edtFecha = (EditText) findViewById(R.id.lblFecha);
-        edtHoraIngreso=(EditText)findViewById(R.id.edtHoraIngreso);
-
-        //ASIGNACION DE BUTTONS DE LAYOUT A VARIABLES
-        btnEstablecer = (Button) findViewById(R.id.btnEstablecer);
-        btnSincronizar=(Button)findViewById(R.id.btnRegistrar);
-        imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
-        imbFecha = (ImageButton) findViewById(R.id.imbFecha);
-        imbHoraIngreso=(ImageButton)findViewById(R.id.imbHoraIngreso);
+        AsignacionControles();
+        InicializarControles();
 
         imbFecha.setOnClickListener(new View.OnClickListener() {
             public void onClick(View v) {
@@ -140,88 +123,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
         mDay = c.get(Calendar.DAY_OF_MONTH);
         updateDisplay();
 
-
-        //CARGA INICIAL DE DATOS SPINNER
-        Cursor Empresa = LocBD.rawQuery(T_Empresa._SELECT_EMP(-1), null);
-        adspnEmpresa = new SimpleCursorAdapter(this,
-                android.R.layout.simple_dropdown_item_1line, Empresa,//Layout simple
-                new String[]{T_Empresa.EMPDESCRIPCION},//Mostrar solo el nombre
-                new int[]{android.R.id.text1}//View para el nombre
-                , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        spnEmpresa.setAdapter(adspnEmpresa);
-
-        //ASIGNACION DE EVENTO A SPINNER EMPRESA
-        spnEmpresa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, android.view.View v,
-                                       int position, long id) {
-                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
-                Emp_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
-
-                Cursor Sucursal = LocBD.rawQuery(T_Sucursal._SELECT_SUC_EMP_PLANTA(Emp_Id, 2, 1), null);
-                adspnSucursal = new SimpleCursorAdapter(RendArmado_Parametros.this, android.R.layout.simple_dropdown_item_1line,
-                        Sucursal, new String[]{T_Sucursal.SUCDESCRIPCION}, new int[]{android.R.id.text1},
-                        SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-                spnSucursal.setAdapter(adspnSucursal);
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-
-        //simple_dropdown_item_1line    - 1 linea
-        //simple_spinner_dropdown_item     - Pequeña
-
-        //ASIGNACION DE EVENTO A SINNER SUCURSAL
-        spnSucursal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, android.view.View v,
-                                       int position, long id) {
-                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
-                Suc_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
-                Cursor Lineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Suc_Id,2), null);
-                adspnLinea = new SimpleCursorAdapter(RendArmado_Parametros.this,
-                        android.R.layout.simple_dropdown_item_1line, Lineas,//Layout simple
-                        //Todos los registros
-                        new String[]{T_Linea.LINDESCRIPCION},//Mostrar solo el nombre
-                        new int[]{android.R.id.text1}//View para el nombre
-                        , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-                spnLinea.setAdapter(adspnLinea);
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-        });
-        adspnLado = new ArrayAdapter<String>(RendArmado_Parametros.this, android.R.layout.simple_dropdown_item_1line, Lado);
-        spnLado.setAdapter(adspnLado);
-
-        Cursor Proceso = LocBD.rawQuery(T_Proceso._SELECT_PROCESO(-1), null);
-        adspnProceso = new SimpleCursorAdapter(this,
-                android.R.layout.simple_dropdown_item_1line, Proceso,//Layout simple
-                new String[]{T_Proceso.PRODESCRIPCION},//Mostrar solo el nombre
-                new int[]{android.R.id.text1}//View para el nombre
-                , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-        spnProceso.setAdapter(adspnProceso);
-
-
-        spnProceso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
-            public void onItemSelected(AdapterView<?> parent, android.view.View v,
-                                       int position, long id) {
-                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
-                Pro_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
-                Cursor Subproceso = LocBD.rawQuery(T_Subproceso._SELECT_SUBPROCESO(Pro_Id, 2), null);
-                adspnSubproceso = new SimpleCursorAdapter(RendArmado_Parametros.this,
-                        android.R.layout.simple_dropdown_item_1line, Subproceso,//Layout simple
-                        //Todos los registros
-                        new String[]{T_Subproceso.SUBDESCRIPCION},//Mostrar solo el nombre
-                        new int[]{android.R.id.text1}//View para el nombre
-                        , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
-                spnSubproceso.setAdapter(adspnSubproceso);
-            }
-
-            public void onNothingSelected(AdapterView<?> parent) {
-            }
-
-
-        });
 
         //EVENTO BOTON ESTABLECER
         btnEstablecer.setOnClickListener(new View.OnClickListener() {
@@ -590,6 +491,134 @@ public class RendArmado_Parametros extends AppCompatActivity {
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
     }
+
+
+    private void AsignacionControles(){
+        AsignacionSpinners();
+        AsignacionEditText();
+        AsignacionButtons();
+
+    }
+
+    private void AsignacionSpinners(){
+        //ASIGNACION DE SPINNERS DE LAYOUT A VARIABLES
+        spnEmpresa = (Spinner) findViewById(R.id.spnEmpresa);
+        spnSucursal = (Spinner) findViewById(R.id.spnSucursal);
+        spnProceso = (Spinner) findViewById(R.id.spnProceso);
+        spnSubproceso = (Spinner) findViewById(R.id.spnSubproceso);
+        spnLinea = (Spinner) findViewById(R.id.spnLinea);
+        spnLado = (Spinner) findViewById(R.id.spnLado);
+    }
+    private void AsignacionEditText(){
+        //ASIGNACION DE EDITTEXT DE LAYOUT A VARIABLES
+        edtFecha = (EditText) findViewById(R.id.lblFecha);
+        edtHoraIngreso=(EditText)findViewById(R.id.edtHoraIngreso);
+    }
+    private void AsignacionButtons(){
+        //ASIGNACION DE BUTTONS DE LAYOUT A VARIABLES
+        btnEstablecer = (Button) findViewById(R.id.btnEstablecer);
+        btnSincronizar=(Button)findViewById(R.id.btnRegistrar);
+        imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+        imbFecha = (ImageButton) findViewById(R.id.imbFecha);
+        imbHoraIngreso=(ImageButton)findViewById(R.id.imbHoraIngreso);
+    }
+    private void  InicializarControles()
+    {
+        CargarEmpresa();
+        CargarSucursal();
+        CargarProceso();
+        CargarSubProceso();
+        CargarLinea();
+        CargarLado();
+    }
+    private void CargarEmpresa(){
+        Cursor Empresa = LocBD.rawQuery(T_Empresa._SELECT_EMP(-1), null);
+        adspnEmpresa = new SimpleCursorAdapter(this,
+                android.R.layout.simple_dropdown_item_1line, Empresa,//Layout simple
+                new String[]{T_Empresa.EMPDESCRIPCION},//Mostrar solo el nombre
+                new int[]{android.R.id.text1}//View para el nombre
+                , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        spnEmpresa.setAdapter(adspnEmpresa);
+
+    }
+    private void CargarSucursal() {
+
+        spnEmpresa.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, android.view.View v,
+                                       int position, long id) {
+                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
+                Emp_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
+
+                Cursor Sucursal = LocBD.rawQuery(T_Sucursal._SELECT_SUC_EMP_PLANTA(Emp_Id, 2, 1), null);
+                adspnSucursal = new SimpleCursorAdapter(RendArmado_Parametros.this, android.R.layout.simple_dropdown_item_1line,
+                        Sucursal, new String[]{T_Sucursal.SUCDESCRIPCION}, new int[]{android.R.id.text1},
+                        SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                spnSucursal.setAdapter(adspnSucursal);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+    private void CargarLinea()   {
+
+        spnSucursal.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, android.view.View v,
+                                       int position, long id) {
+                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
+                Suc_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
+                Cursor Lineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Suc_Id,2), null);
+                adspnLinea = new SimpleCursorAdapter(RendArmado_Parametros.this,
+                        android.R.layout.simple_dropdown_item_1line, Lineas,//Layout simple
+                        //Todos los registros
+                        new String[]{T_Linea.LINDESCRIPCION},//Mostrar solo el nombre
+                        new int[]{android.R.id.text1}//View para el nombre
+                        , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                spnLinea.setAdapter(adspnLinea);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+        });
+    }
+    private void CargarLado() {
+
+        adspnLado = new ArrayAdapter<String>(RendArmado_Parametros.this, android.R.layout.simple_dropdown_item_1line, Lado);
+        spnLado.setAdapter(adspnLado);
+
+    }
+    private void CargarProceso() {
+        Cursor Proceso = LocBD.rawQuery(T_Proceso._SELECT_PROCESO(-1), null);
+        adspnProceso = new SimpleCursorAdapter(this,
+                android.R.layout.simple_dropdown_item_1line, Proceso,//Layout simple
+                new String[]{T_Proceso.PRODESCRIPCION},//Mostrar solo el nombre
+                new int[]{android.R.id.text1}//View para el nombre
+                , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        spnProceso.setAdapter(adspnProceso);
+    }
+    private void CargarSubProceso(){
+        spnProceso.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
+            public void onItemSelected(AdapterView<?> parent, android.view.View v,
+                                       int position, long id) {
+                Cursor CurId = (Cursor) parent.getItemAtPosition(position);
+                Pro_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
+                Cursor Subproceso = LocBD.rawQuery(T_Subproceso._SELECT_SUBPROCESO(Pro_Id, 2), null);
+                adspnSubproceso = new SimpleCursorAdapter(RendArmado_Parametros.this,
+                        android.R.layout.simple_dropdown_item_1line, Subproceso,//Layout simple
+                        //Todos los registros
+                        new String[]{T_Subproceso.SUBDESCRIPCION},//Mostrar solo el nombre
+                        new int[]{android.R.id.text1}//View para el nombre
+                        , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                spnSubproceso.setAdapter(adspnSubproceso);
+            }
+
+            public void onNothingSelected(AdapterView<?> parent) {
+            }
+
+        });
+    }
+
+
 }
 
 
