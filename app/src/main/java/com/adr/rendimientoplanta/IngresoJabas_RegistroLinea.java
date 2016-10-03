@@ -181,9 +181,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
         //SMP: Validación registro nuevo o existente
         if (CurLineaRegistro.getCount()!=0) {
-            RegLin_Id = Integer.parseInt(CurLineaRegistro.getString(0)) ;
-            Toast.makeText(this,"Registro existente Id: "+RegLin_Id, Toast.LENGTH_SHORT).show();
-            BloquearBotones(true);
             HoraIni=CurLineaRegistro.getString(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraIni));
             edtHoraIni.setText(HoraIni);
             edtHoraFin.setText(CurLineaRegistro.getString(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraFin)));
@@ -193,9 +190,23 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             lblHoraEfectiva.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegHoraEfectiva))));
             lblCantidad.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegCantidad))));
             lblCantidadPorHora.setText(String.valueOf(CurLineaRegistro.getDouble(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegCantidadPorHora))));
-
+            RegLin_Id = Integer.parseInt(CurLineaRegistro.getString(0)) ;
             edtHoraIniPar.setText(HoraNula);
             edtHoraFinPar.setText(HoraNula);
+            if (CurLineaRegistro.getInt(CurLineaRegistro.getColumnIndex(T_LineaRegistro.EstId))==1)
+            {
+                Toast.makeText(this,"Registro existente Id: "+RegLin_Id, Toast.LENGTH_SHORT).show();
+                BloquearBotones(true);
+
+            }
+            else if(CurLineaRegistro.getInt(CurLineaRegistro.getColumnIndex(T_LineaRegistro.EstId))==2)
+            {
+                BloquearBotones(false);
+                btnKardex.setEnabled(true);
+                imbHoraIni.setEnabled(false);
+                btnIniciar.setEnabled(false);
+            }
+
         }
         else {
             Toast.makeText(this,"Registro nuevo",Toast.LENGTH_SHORT).show();
@@ -338,44 +349,54 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                 @Override
                 public void onClick (View v) {
             final double tEfectivo;
-            tEfectivo = fnc.HoraEfectivaEntreHoras(edtHoraIni.getText().toString(),
-                    edtHoraFin.getText().toString());
+            if (edtHoraFin.getText().toString().equals(HoraNula))
+            {
+                Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_SHORT).show();
+            }else
+            {
+                tEfectivo = fnc.HoraEfectivaEntreHoras(edtHoraIni.getText().toString(),
+                        edtHoraFin.getText().toString());
 
-            if (tEfectivo > 0) {
-                HoraFin = edtHoraFin.getText().toString();
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
-                String alert_title = "Terminar Linea";
-                String alert_description = "¿Estas seguro que quiere terminar la Linea a las " + HoraFin + "?";
-                alertDialogBuilder.setTitle(alert_title);
-                // set dialog message
-                alertDialogBuilder
-                    .setMessage(alert_description)
-                    .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        // Lo que sucede si se pulsa yes
-                        public void onClick(DialogInterface dialog, int id) {
-                        // Código propio del método borrado para ejemplo
-                        try {
-                            BloquearBotones(true);
-                            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarTermino(RegLin_Id,HoraFin,2));
-                            Toast.makeText(IngresoJabas_RegistroLinea.this, "Linea Terminada, hora: " + HoraFin, Toast.LENGTH_SHORT).show();
-                        } catch (SQLException e) {
-                            Toast.makeText(IngresoJabas_RegistroLinea.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        }
-                        }
-                    })
-                    .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                        public void onClick(DialogInterface dialog, int id) {
-                        // Si se pulsa no no hace nada
-                        Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
-                        }
-                    });
-                AlertDialog alertDialog = alertDialogBuilder.create();
-                // show it
-                alertDialog.show();
-            } else {
-                Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_LONG).show();
+                if (tEfectivo > 0) {
+                    HoraFin = edtHoraFin.getText().toString();
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
+                    String alert_title = "Terminar Linea";
+                    String alert_description = "¿Estas seguro que quiere terminar la Linea a las " + HoraFin + "?";
+                    alertDialogBuilder.setTitle(alert_title);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Código propio del método borrado para ejemplo
+                                    try {
+                                        BloquearBotones(true);
+                                        LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarTermino(RegLin_Id,HoraFin,2));
+                                        Toast.makeText(IngresoJabas_RegistroLinea.this, "Linea Terminada, hora: " + HoraFin, Toast.LENGTH_SHORT).show();
+                                        BloquearBotones(false);
+                                        btnKardex.setEnabled(true);
+                                        imbHoraIni.setEnabled(false);
+                                        btnIniciar.setEnabled(false);
+                                    } catch (SQLException e) {
+                                        Toast.makeText(IngresoJabas_RegistroLinea.this, e.toString(), Toast.LENGTH_SHORT).show();
+                                    }
+                                }
+                            })
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Si se pulsa no no hace nada
+                                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
+                                    dialog.cancel();
+                                }
+                            });
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    // show it
+                    alertDialog.show();
+                } else {
+                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_LONG).show();
+                }
             }
                 }
             }
@@ -468,6 +489,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         btnKardex.setEnabled(Estado);
         btnAgregarJabas.setEnabled(Estado);
         btnGrabarParada.setEnabled(Estado);
+        spnMotivoParadas.setEnabled(Estado);
     }
     private void RecuperarNumeroParadas()
     {
