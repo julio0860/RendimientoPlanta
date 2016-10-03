@@ -128,8 +128,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="ARMADO"
         android:id="@+id/lblSubproceso"
-        android:layout_alignTop="@+id/lblProceso"
-        android:layout_alignStart="@+id/btnSincronizar" />
+        android:layout_alignParentTop="true"
+        android:layout_toEndOf="@+id/lblProceso"
+        android:layout_marginLeft="84dp" />
 
 
 </RelativeLayout>

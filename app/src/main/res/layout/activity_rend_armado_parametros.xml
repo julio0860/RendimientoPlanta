@@ -180,4 +180,41 @@
         android:layout_alignTop="@+id/btnEstablecer"
         android:layout_centerHorizontal="true" />
 
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="30dp"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="HORA INGRESO"
+        android:id="@+id/textView105"
+        android:inputType="number"
+        android:textSize="14dp"
+        android:layout_below="@+id/spnLado"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="31dp" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="time"
+        android:text="@string/lblHoraCero"
+        android:id="@+id/edtHoraIngreso"
+        android:layout_row="5"
+        android:layout_column="21"
+        android:enabled="false"
+        android:textColor="#000000"
+        android:layout_alignBottom="@+id/textView105"
+        android:layout_alignStart="@+id/imbFecha" />
+
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbHoraIngreso"
+        android:layout_row="5"
+        android:layout_column="23"
+        android:src="@android:drawable/presence_away"
+        android:layout_alignBottom="@+id/edtHoraIngreso"
+        android:layout_alignStart="@+id/btnRegistrar"
+        android:layout_alignTop="@+id/edtHoraIngreso" />
+
 </RelativeLayout>
