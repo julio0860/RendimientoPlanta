@@ -400,6 +400,52 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                 ResultSet Rse;
 
                                 if (CurReg.getCount()!=0){
+                                    for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext()){
+                                        IdregServidor=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.IDSERVIDOR));
+                                        EmpId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.EMPID));
+                                        SucId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUCID));
+                                        ProId=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.PROID));
+                                        Sub_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.SUBID));
+                                        Lin_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.LINID));
+                                        Mot_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.MOTIVO));
+                                        Est_Id=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.ESTADO));
+                                        Posicion=CurReg.getInt(CurReg.getColumnIndex(T_Agrupador.POSICION));
+                                        Fecha=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.FECHA));
+                                        Lados=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.LADO));
+                                        Dni=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.DNI));
+                                        HoraLectura=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORALECTURA));
+                                        HoraIngreso=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORAINGRESO));
+                                        HoraSalida=CurReg.getString(CurReg.getColumnIndex(T_Agrupador.HORASALIDA));
+                                        if (HoraSalida=="null") {
+                                            HoraSalida =null;
+                                        }
+                                        if (IdregServidor==0) {
+                                            if (HoraSalida==null){
+                                                pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
+                                            }
+                                            else
+                                            {
+                                                pstmt.executeUpdate(T_Agrupador._INSERT_LOCAL_SERVIDOR1(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id), pstmt.RETURN_GENERATED_KEYS);
+                                            }
+
+                                            Rse = pstmt.getGeneratedKeys();
+                                            if (Rse != null && Rse.next()) {
+                                                IdregServidor = Rse.getInt(1);
+                                                LocBD.execSQL(T_Agrupador.ActualizarIdServidorLocal(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), Mot_Id, Est_Id, IdregServidor));
+                                            }
+                                        }
+                                        else
+                                        {
+                                            if (HoraSalida!=null)
+                                            {
+                                                pstmt.execute(T_Agrupador.ACTUALIZAR_LOCAL_SERVIDOR1(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id,IdregServidor));
+                                            }else
+                                            {
+                                                pstmt.execute(T_Agrupador.ACTUALIZAR_LOCAL_SERVIDOR(EmpId, Fecha.trim(), SucId, ProId, Sub_Id, Lin_Id, Lados.trim(), Posicion, Dni.trim(), HoraLectura.trim(), HoraIngreso.trim(), HoraSalida, Mot_Id, Est_Id,IdregServidor));
+                                            }
+
+                                        }
+                                    }
 
                                     Rse = pstmt.executeQuery("SELECT Agru_Id,Emp_Id,Fecha,Suc_Id,Pro_Id,Sub_Id,Lin_Id,Lado,Posicion,DNI," +
                                             "LEFT(convert(VARCHAR(15),HoraLectura,112),8)+' '+ISNULL(LEFT(convert(VARCHAR(15),HoraLectura,108),8),'00:00:00') AS HoraLectura," +
