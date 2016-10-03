@@ -25,7 +25,6 @@ import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
-import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
@@ -203,7 +202,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                                                     Realizado = true;
 
                                                 } else {
-                                                    Toast.makeText(RendArmado_Lista.this, "No se ha podido sincronizar", Toast.LENGTH_SHORT).show();
+                                                    Toast.makeText(RendArmado_Lista.this, "NO SE HA PODIDO SINCRONIZAR", Toast.LENGTH_SHORT).show();
                                                     Realizado = false;
                                                 }
                                             } else {
@@ -234,7 +233,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                             .setNegativeButton("No",new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog,int id) {
                                     // Si se pulsa no no hace nada
-                                    Toast.makeText(RendArmado_Lista.this,"Operación cancelada",Toast.LENGTH_SHORT).show();
+                                    Toast.makeText(RendArmado_Lista.this,"OPERACION CANCELADA",Toast.LENGTH_SHORT).show();
                                     dialog.cancel();
                                 }
                             });
@@ -295,7 +294,7 @@ public class RendArmado_Lista extends AppCompatActivity {
 
         Intent ActividadModificar = new Intent(RendArmado_Lista.this, RegistroOperario.class);
         startActivity(ActividadModificar);
-        Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();
+        //Toast.makeText(this, "function 1 called", Toast.LENGTH_SHORT).show();
     }
     public final Boolean conectadoWifi(){
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
