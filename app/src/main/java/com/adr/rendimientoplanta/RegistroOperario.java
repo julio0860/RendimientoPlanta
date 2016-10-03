@@ -221,7 +221,7 @@ public class RegistroOperario extends AppCompatActivity {
                             Toast.makeText(RegistroOperario.this, "ERROR AL ACTUALIZAR INFORMACION" + e.toString(), Toast.LENGTH_SHORT).show();
                         }
                     } else {
-                        Cursor Rse = LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='" + Variables.FechaStrBD + "' AND SUC_ID='" + Variables.Suc_Id + "' AND PRO_ID='" + Variables.Pro_Id + "' AND SUB_ID='" + Variables.Sub_Id + "' AND LIN_ID='" + Variables.Lin_Id + "' AND LADO='" + Variables.Lin_Lado + "' AND Est_Id=1 AND DNI='" + Variables.Per_Dni + "'", null);
+                        Cursor Rse = LocBD.rawQuery("SELECT DNI FROM AGRUPADOR WHERE Fecha='"+ Variables.FechaStrBD+"' AND Est_Id=1 AND DNI='"+ Variables.Per_Dni+"'", null);
                         if (Rse.moveToFirst()) {
 
                             do {
