@@ -148,6 +148,11 @@ public class RegistroOperario extends AppCompatActivity {
                 switch (Variables.Mot_Id) {
                     case 7:
                         Variables.Agru_EstId = 1;
+                        lblHoraSalida.setVisibility(View.INVISIBLE);
+                        edtHoraSalida.setVisibility(View.INVISIBLE);
+                        imbHoraSalida.setVisibility(View.INVISIBLE);
+                        imbHoraSalida.setEnabled(false);
+                        edtHoraSalida.setEnabled(false);
                         break;
                     case 8:
                         Variables.Agru_EstId = 2;
