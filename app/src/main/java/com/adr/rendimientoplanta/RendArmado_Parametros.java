@@ -26,6 +26,7 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Agrupador;
+import com.adr.rendimientoplanta.DATA.T_Cultivo;
 import com.adr.rendimientoplanta.DATA.T_Empresa;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_Proceso;
@@ -51,6 +52,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
     private Spinner spnSubproceso;
     private Spinner spnLinea;
     private Spinner spnLado;
+    private Spinner spnCultivo;
 
     //DECLARACION DE ADAPTERS
     private SimpleCursorAdapter adspnEmpresa;
@@ -59,6 +61,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
     private SimpleCursorAdapter adspnProceso;
     private SimpleCursorAdapter adspnSubproceso;
     private ArrayAdapter adspnLado;
+    private SimpleCursorAdapter adspnCultivo;
 
     //DECLARACION BOTONES
     private Button btnEstablecer;
@@ -118,19 +121,26 @@ public class RendArmado_Parametros extends AppCompatActivity {
             public void onClick(View v) {
                 CapturarFecha();
                 Variables.HoraIngreso1=edtHoraIngreso.getText().toString();
+                ObtenerCultivo();
                 ObtenerIdCampaña();
 
-                if (Variables.Cam_Id !=0)
-                {
-                    ObtenerParametros();
-                    Intent ActividadNueva = new Intent(RendArmado_Parametros.this, RendArmado_Lista.class);
-                    startActivity(ActividadNueva);
-                }
-                else
-                {
-                    Mensaje("LA FECHA SE ENCUENTRA FUERA DE CAMPAÑA");
-                }
+if (Variables.Cul_Id !=0)
+{
+    if (Variables.Cam_Id !=0)
+    {
+        ObtenerParametros();
+        Intent ActividadNueva = new Intent(RendArmado_Parametros.this, RendArmado_Lista.class);
+        startActivity(ActividadNueva);
+    }
+    else
+    {
+        Mensaje("LA FECHA SE ENCUENTRA FUERA DE CAMPAÑA");
+    }
 
+}
+    else{
+         Mensaje("ESPECIFIQUE EL CULTIVO");
+    }
             }
         }  );
 
@@ -233,6 +243,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         spnSubproceso = (Spinner) findViewById(R.id.spnSubproceso);
         spnLinea = (Spinner) findViewById(R.id.spnLinea);
         spnLado = (Spinner) findViewById(R.id.spnLado);
+        spnCultivo=(Spinner)findViewById(R.id.spnCultivo);
     }
     private void AsignacionEditText(){
         //ASIGNACION DE EDITTEXT DE LAYOUT A VARIABLES
@@ -254,6 +265,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         CargarSubProceso();
         CargarLinea();
         CargarLado();
+        CargarCultivo();
     }
     private void CargarEmpresa(){
         Cursor Empresa = LocBD.rawQuery(T_Empresa._SELECT_EMP(-1), null);
@@ -340,6 +352,16 @@ public class RendArmado_Parametros extends AppCompatActivity {
             }
 
         });
+    }
+    private void CargarCultivo(){
+
+        Cursor Cultivo = LocBD.rawQuery(T_Cultivo._SELECT_CULT(-1,-1),null);
+        adspnCultivo = new SimpleCursorAdapter(this,
+                android.R.layout.simple_dropdown_item_1line,Cultivo,//Layout simple
+                new String[]{T_Cultivo.CULDESCRIPCION},//Mostrar solo el nombre
+                new int[]{android.R.id.text1}//View para el nombre
+                ,SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        spnCultivo.setAdapter(adspnCultivo);
     }
     private void EstablecerFecha(){
         imbFecha.setOnClickListener(new View.OnClickListener() {
@@ -511,7 +533,6 @@ public class RendArmado_Parametros extends AppCompatActivity {
                                                 LocBD.execSQL(T_Agrupador._INSERT_SERVIDOR_LOCAL1(Rse.getInt(2), Rse.getString(3).trim(), Rse.getInt(4), Rse.getInt(5), Rse.getInt(6), Rse.getInt(7), Rse.getString(8).trim(),
                                                         Rse.getInt(9), Rse.getString(10).trim(), Rse.getString(11).trim(), Rse.getString(12).trim(), Rse.getString(13), Rse.getInt(14), Rse.getInt(15), Rse.getInt(1)));
                                             }
-
                                         }
                                         else
                                         {
@@ -583,9 +604,11 @@ public class RendArmado_Parametros extends AppCompatActivity {
         Variables.Lin_Descripcion = CurLinea.getString(CurLinea.getColumnIndex(T_Linea.LINDESCRIPCION));
         Variables.Lin_Lado = spnLado.getSelectedItem().toString();
         Variables.FechaStr =edtFecha.getText().toString();
+
+
     }
     private void ObtenerIdCampaña(){
-        Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE '"+Variables.FechaStrBD+"' between cam_fechaIni AND Cam_FechaTer" , null);
+        Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE Cul_Id='"+Variables.Cul_Id+"' AND '"+Variables.FechaStrBD+"' between cam_fechaIni AND Cam_FechaTer", null);
         if (FechaCampaña.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
@@ -593,6 +616,11 @@ public class RendArmado_Parametros extends AppCompatActivity {
 
             } while(FechaCampaña.moveToNext());
         }
+    }
+
+    private void ObtenerCultivo(){
+        Cursor CurCultivo = (Cursor) spnCultivo.getAdapter().getItem(spnCultivo.getSelectedItemPosition());
+        Variables.Cul_Id = CurCultivo.getInt(CurCultivo.getColumnIndex(BaseColumns._ID));
     }
 
 }
