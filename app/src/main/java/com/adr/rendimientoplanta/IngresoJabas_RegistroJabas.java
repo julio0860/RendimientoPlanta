@@ -325,7 +325,7 @@ private String HoraIniLinea;
                                             RegLin_Id,Con_Id,Con_DescripcionCor,
                                             LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
                                             MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
-                                            EsMix,fnc.HoraSistema(),-1));
+                                            EsMix,fnc.HoraSistema(),-1,2,0));
                                     Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
                                     edtHoraIni.setText(HoraNula);
                                     CantidadRegistros=CantidadReg(RegLin_Id);
@@ -372,13 +372,13 @@ private String HoraIniLinea;
                                                     RegLin_Id,Con_Id,Con_DescripcionCor,
                                                     LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
                                                     MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
-                                                    EsMix,fnc.HoraSistema(),-1));
+                                                    EsMix,fnc.HoraSistema(),-1,2,0));
 
                                             LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
                                                     RegLin_Id,Con_IdMix,Con_DescripcionCorMix,
                                                     LinIng_CantidadMix,MatPriOriIdMix,MatPriOriDescripcionMix,
                                                     MatPriOriFactorMix,EquivalenteMix,HoraIni,HoraNula,0,
-                                                    EsMix,fnc.HoraSistema(),-1));
+                                                    EsMix,fnc.HoraSistema(),-1,2,0));
 
                                             Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
                                             edtHoraIni.setText(HoraNula);

@@ -22,6 +22,7 @@ import android.app.AlertDialog;
 import android.content.DialogInterface;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
 import com.adr.rendimientoplanta.DATA.T_LineaParadas;
 import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
 import com.adr.rendimientoplanta.DATA.T_MotivoParada;
@@ -354,28 +355,28 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         {
             @Override
             public void onClick (View v) {
-                final double tEfectivo;
-                if (edtHoraFin.getText().toString().equals(HoraNula))
+            final double tEfectivo;
+            if (edtHoraFin.getText().toString().equals(HoraNula))
+            {
+                Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_SHORT).show();
+            }
+            else
+            {
+                tEfectivo = fnc.HoraEfectivaEntreHorasValidar(edtHoraIni.getText().toString(),
+                        edtHoraFin.getText().toString());
+
+                if (tEfectivo > 0) {
+                    TerminarLinea();
+                }
+                else if (tEfectivo<0&&Variables.LinReg_NumIngresos>=MinimoIngresos)
                 {
-                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_SHORT).show();
+                    TerminarLinea();
                 }
                 else
                 {
-                    tEfectivo = fnc.HoraEfectivaEntreHorasValidar(edtHoraIni.getText().toString(),
-                            edtHoraFin.getText().toString());
-
-                    if (tEfectivo > 0) {
-                        TerminarLinea();
-                    }
-                    else if (tEfectivo<0&&Variables.LinReg_NumIngresos>=MinimoIngresos)
-                    {
-                        TerminarLinea();
-                    }
-                    else
-                    {
-                        Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_LONG).show();
-                    }
+                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Error al asignar horas, verificar!", Toast.LENGTH_LONG).show();
                 }
+            }
             }
         }
         );
@@ -488,32 +489,61 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         alertDialogBuilder.setTitle(alert_title);
         // set dialog message
         alertDialogBuilder
-                .setMessage(alert_description)
-                .setCancelable(false)
-                .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                    // Lo que sucede si se pulsa yes
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Código propio del método borrado para ejemplo
-                        try {
-                            BloquearBotones(true);
-                            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarTermino(RegLin_Id,HoraFin,2));
-                            Toast.makeText(IngresoJabas_RegistroLinea.this, "Linea Terminada, hora: " + HoraFin, Toast.LENGTH_SHORT).show();
-                            BloquearBotones(false);
-                            btnKardex.setEnabled(true);
-                            imbHoraIni.setEnabled(false);
-                            btnIniciar.setEnabled(false);
-                        } catch (SQLException e) {
-                            Toast.makeText(IngresoJabas_RegistroLinea.this, e.toString(), Toast.LENGTH_SHORT).show();
-                        }
+            .setMessage(alert_description)
+            .setCancelable(false)
+            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                // Lo que sucede si se pulsa yes
+                public void onClick(DialogInterface dialog, int id) {
+                // Código propio del método borrado para ejemplo
+                try {
+                    BloquearBotones(true);
+                    LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarTermino(RegLin_Id,HoraFin,2));
+                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Linea Terminada, hora: " + HoraFin, Toast.LENGTH_SHORT).show();
+
+                    //ACTUALIZACIÓN HORA FIN INGRESOS
+                    int Mix;
+                    int LinIng_Id;
+                    String HoraInicial;
+                    double tEfectivo;
+                    Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
+
+                    curIngresos.moveToLast();
+                    Mix = curIngresos.getInt(curIngresos.getColumnIndex(T_LineaIngreso.LinIngMix));
+                    //OBTENER HORA DE REGISTRO
+                    LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
+                    HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                    tEfectivo= fnc.HoraEfectivaEntreHoras24(HoraInicial,HoraFin);
+                    if (Mix==0)
+                    {
+                        //Actualiza el ultimo registro
+                        LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
+                    }else if (Mix==1)
+                    {
+                        LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
+                        //Obtiene el penultimo registro y Actualiza
+                        curIngresos.moveToPrevious();
+                        LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
+                        HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                        tEfectivo= fnc.HoraEfectivaEntreHoras24(HoraInicial,HoraFin);
+                        LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
                     }
-                })
-                .setNegativeButton("No", new DialogInterface.OnClickListener() {
-                    public void onClick(DialogInterface dialog, int id) {
-                        // Si se pulsa no no hace nada
-                        Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
-                        dialog.cancel();
-                    }
-                });
+
+                    BloquearBotones(false);
+                    btnKardex.setEnabled(true);
+                    imbHoraIni.setEnabled(false);
+                    btnIniciar.setEnabled(false);
+                } catch (SQLException e) {
+                    Toast.makeText(IngresoJabas_RegistroLinea.this, e.toString(), Toast.LENGTH_SHORT).show();
+                }
+                }
+            })
+            .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                public void onClick(DialogInterface dialog, int id) {
+                    // Si se pulsa no no hace nada
+                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
+                    dialog.cancel();
+                }
+            });
         AlertDialog alertDialog = alertDialogBuilder.create();
         // show it
         alertDialog.show();

@@ -243,7 +243,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                             CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngtEfectivo)),
                                                             CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngMix)),
                                                             CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngFechaHora)),
-                                                            CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado))
+                                                            CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado)),
+                                                            CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.EstId))
 
                                                     ));
                                                     if (Resultado == false) {
@@ -354,7 +355,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                         CurIng.getDouble(CurIng.getColumnIndex(T_LineaIngreso.LinIngtEfectivo)),
                                                         CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngMix)),
                                                         CurIng.getString(CurIng.getColumnIndex(T_LineaIngreso.LinIngFechaHora)),
-                                                        CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado))
+                                                        CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.LinIngSincronizado)),
+                                                        CurIng.getInt(CurIng.getColumnIndex(T_LineaIngreso.EstId))
                                                     ));
                                                     if (Resultado == false) {
                                                         //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "

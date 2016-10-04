@@ -1,5 +1,7 @@
 package com.adr.rendimientoplanta.DATA;
 
+import android.database.Cursor;
+
 /**
  * Created by smachado on 2016/09/16.
  */
@@ -52,24 +54,24 @@ public class T_LineaIngreso {
     public static final String CamposSeleccionar_LineaIngreso = LinIngId+" as '_id',"+LinRegIdMovil+","+ConId
             +","+ConDescripcionCor+","+LinIngCantidad+","+MatPriOriId+","+MatPriOriDescripcion
             +","+MatPriOriFactor+","+LinIngEquivalente+","+LinIngHoraIni+","+LinIngHoraFin+","+LinIngtEfectivo
-            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado;
+            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado+","+EstId+","+LinIngIdServidor;
             //+","+EstId+","+LinIngIdServidor;
 
     public static final String CamposInsertar_LineaIngreso = LinRegIdMovil+","+ConId
             +","+ConDescripcionCor+","+LinIngCantidad+","+MatPriOriId+","+MatPriOriDescripcion
             +","+MatPriOriFactor+","+LinIngEquivalente+","+LinIngHoraIni+","+LinIngHoraFin+","+LinIngtEfectivo
-            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado;
+            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado+","+EstId+","+LinIngIdServidor;
 
     public static final String CamposInsertar_LineaIngresoServidor = "LinReg_Id"+","+ConId
             +","+ConDescripcionCor+","+LinIngCantidad+","+MatPriOriId+","+MatPriOriDescripcion
             +","+MatPriOriFactor+","+LinIngEquivalente+","+LinIngHoraIni+","+LinIngHoraFin+","+LinIngtEfectivo
-            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado;
+            +","+LinIngMix+","+LinIngFechaHora+","+LinIngSincronizado+","+EstId;
 
     public static String LineaIngreso_Insertar(
             int LinReg_IdMovil,int Con_Id, String Con_DescripcionCor,int LinIng_Cantidad,
             int MatProOri_Id,String MatPriOri_Descripcion,double MatPriOri_Factor,double LinIng_Equivalente,
             String LinIng_HoraIni,String LinIng_HoraFin,double LinIng_tEfectivo,int LinIng_Mix,
-            String LinIng_FechaHora,int LinIng_Sincronizado)
+            String LinIng_FechaHora,int LinIng_Sincronizado,int Est_Id,int LinIng_IdServidor)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaIngreso+
@@ -77,7 +79,7 @@ public class T_LineaIngreso {
                 LinReg_IdMovil+"','"+Con_Id+"','"+Con_DescripcionCor+"','"+LinIng_Cantidad+"','"
                 +MatProOri_Id+"','"+MatPriOri_Descripcion+"','"+MatPriOri_Factor+"','"+LinIng_Equivalente+"','"
                 +LinIng_HoraIni+"','"+LinIng_HoraFin+"','"+LinIng_tEfectivo+"','"+LinIng_Mix+"','"
-                +LinIng_FechaHora+"','"+LinIng_Sincronizado
+                +LinIng_FechaHora+"','"+LinIng_Sincronizado+"','"+Est_Id+"','"+LinIng_IdServidor
                 +"');";
         return Insertar;
     }
@@ -85,7 +87,7 @@ public class T_LineaIngreso {
             int LinReg_Id,int Con_Id, String Con_DescripcionCor,int LinIng_Cantidad,
             int MatProOri_Id,String MatPriOri_Descripcion,double MatPriOri_Factor,double LinIng_Equivalente,
             String LinIng_HoraIni,String LinIng_HoraFin,double LinIng_tEfectivo,int LinIng_Mix,
-            String LinIng_FechaHora,int LinIng_Sincronizado)
+            String LinIng_FechaHora,int LinIng_Sincronizado,int Est_Id)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaIngresoServidor+
@@ -93,7 +95,7 @@ public class T_LineaIngreso {
                 LinReg_Id+"','"+Con_Id+"','"+Con_DescripcionCor+"','"+LinIng_Cantidad+"','"
                 +MatProOri_Id+"','"+MatPriOri_Descripcion+"','"+MatPriOri_Factor+"','"+LinIng_Equivalente+"','"
                 +LinIng_HoraIni+"','"+LinIng_HoraFin+"','"+LinIng_tEfectivo+"','"+LinIng_Mix+"','"
-                +LinIng_FechaHora+"','"+LinIng_Sincronizado
+                +LinIng_FechaHora+"','"+LinIng_Sincronizado+"','"+Est_Id
                 +"');";
         return Insertar;
     }
