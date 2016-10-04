@@ -25,6 +25,7 @@ import java.util.GregorianCalendar;
 public class IngresoJabas_Parametros extends AppCompatActivity {
 
     private EditText txtFecha;
+    private EditText edtNumRegistros;
 
     private Button btnEstablecer;
 
@@ -44,6 +45,8 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         Calendar Cal = new GregorianCalendar();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         txtFecha = (EditText) findViewById(R.id.edtFecha);
+        edtNumRegistros = (EditText) findViewById(R.id.edtNumRegistros);
+
         txtFecha.setText(df.format(Cal.getInstance().getTime()).toString());
         txtFecha.setEnabled(false);
 
@@ -77,6 +80,10 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         {
             fnc.setIndexInt(spnEmpresa,BaseColumns._ID, Variables.Emp_Id);
         }
+        if(Variables.LinReg_RegistrosMinimos!=0)
+        {
+            edtNumRegistros.setText(String.valueOf(Variables.LinReg_RegistrosMinimos));
+        }
 
         btnEstablecer.setOnClickListener(new View.OnClickListener()
         {
@@ -100,7 +107,10 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
                 Variables.Cul_Descripcion= CurCultivo.getString(CurCultivo.getColumnIndex(T_Cultivo.CULDESCRIPCION));
 
                 Variables.FechaStr = txtFecha.getText().toString();
-
+                if (edtNumRegistros.length()>0)
+                {
+                    Variables.LinReg_RegistrosMinimos= Integer.parseInt(edtNumRegistros.getText().toString());
+                }
 
             Intent ActividadNueva = new Intent(IngresoJabas_Parametros.this, IngresoJabas_Grilla.class);
             startActivity(ActividadNueva);

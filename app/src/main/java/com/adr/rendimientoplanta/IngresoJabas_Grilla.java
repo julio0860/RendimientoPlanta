@@ -59,6 +59,11 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
     private Funciones fnc;
     @Override
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+    }
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_jabas_grilla);

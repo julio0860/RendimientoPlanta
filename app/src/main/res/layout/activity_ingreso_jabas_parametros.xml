@@ -130,4 +130,29 @@
         android:layout_toEndOf="@+id/edtFecha"
         android:layout_alignBottom="@+id/edtFecha" />
 
+    <TextView
+        android:id="@+id/textView107"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Por Defecto"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:textColor="#000000"
+        android:layout_alignTop="@+id/imbFecha"
+        android:layout_alignEnd="@+id/btnEstablecer" />
+
+    <EditText
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:inputType="number"
+        android:ems="10"
+        android:id="@+id/edtNumRegistros"
+        android:textColor="#000000"
+        android:layout_below="@+id/textView107"
+        android:layout_alignParentEnd="true"
+        android:layout_alignStart="@+id/textView107"
+        android:text="40"
+        android:numeric="integer"
+        android:maxLength="2"
+        android:gravity="right" />
+
 </RelativeLayout>
