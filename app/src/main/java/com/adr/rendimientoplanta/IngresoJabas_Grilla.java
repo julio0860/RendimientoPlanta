@@ -87,9 +87,14 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         //ANTIGUA VERSION
         //Cursor CurLineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Variables.Suc_Id,2),null);
         Cursor CurLineas = LocBD.rawQuery(T_Linea.Linea_SeleccionarEstado(Variables.Suc_Id,2,Variables.FechaStr),null);
-        adspnLineas = new SimpleCursorAdapter(IngresoJabas_Grilla.this,
+        /*adspnLineas = new SimpleCursorAdapter(IngresoJabas_Grilla.this,
                 android.R.layout.simple_dropdown_item_1line,CurLineas,
                 new String[]{"Lin_Descripcion"}, new int[]{android.R.id.text1},
+                SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+        */
+        adspnLineas = new SimpleCursorAdapter(IngresoJabas_Grilla.this,
+                R.layout.gridview_itemborde,CurLineas,
+                new String[]{"Lin_Descripcion"}, new int[]{R.id.text1},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
 
         adspnLineas.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
@@ -110,7 +115,6 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
         dgvLineas.setAdapter(adspnLineas);
 
-
         dgvLineas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
@@ -124,8 +128,6 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
             }
         });
-
-
 
         btnSincronizar.setOnClickListener(new View.OnClickListener()
         {

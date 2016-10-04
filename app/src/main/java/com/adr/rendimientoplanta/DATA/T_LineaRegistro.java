@@ -22,7 +22,9 @@ public class T_LineaRegistro {
     public static final String UsuId = "Usu_Id";
     public static final String SucId = "Suc_Id";
     public static final String CulId = "Cul_Id";
-
+    //NUEVOS CAMPOS
+    public static final String LinRegTiempoTotal = "LinReg_TiempoTotal";
+    public static final String LinRegNumIngresos = "LinReg_NumIngresos";
     // -------------NOMBRE TABLA
     public static final String NombreTabla = "LineaRegistro";
 
@@ -44,8 +46,10 @@ public class T_LineaRegistro {
             EstId+" INTEGER NOT NULL," +
             UsuId+" INTEGER NOT NULL, " +
             SucId+" INTEGER NOT NULL, " +
-            CulId+" INTEGER NOT NULL " +
-            ");";
+            CulId+" INTEGER NOT NULL, " +
+            LinRegTiempoTotal+" REAL,"+
+            LinRegNumIngresos+" INTEGER"
+            +");";
 
     public static final String Drop_LineaRegistro ="DROP TABLE IF EXISTS "+NombreTabla;
 
@@ -53,6 +57,7 @@ public class T_LineaRegistro {
             +","+LinRegFecha+","+LinRegHoraIni+","+LinRegHoraFin+","+LinRegCantidad
             +","+LinRegHoraEfectiva+","+LinRegParadas+","+LinRegNumParadas+","+LinRegCantidadPorHora
             +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+UsuId+","+SucId+","+CulId;
+            //+","+LinRegTiempoTotal+","+LinRegNumIngresos;
 
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
             +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId+","+SucId+","+CulId+","+LinRegHoraFin;
