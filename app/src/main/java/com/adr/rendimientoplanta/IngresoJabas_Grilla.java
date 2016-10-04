@@ -212,7 +212,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                             CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
                                                             CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
                                                             CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
-                                                            CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
+                                                            CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion)),
+                                                            CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.EstId))
                                                     ));
                                                     if (Resultado == false) {
                                                         //Toast.makeText(IngresoJabas_Grilla.this, "SINCRONIZACION COMPLETA "
@@ -322,7 +323,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                                         CurPar.getDouble(CurPar.getColumnIndex(T_LineaParadas.LinParParada)),
                                                         CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.LinParSincronizado)),
                                                         CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.LinParFechaHora)),
-                                                        CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion))
+                                                        CurPar.getString(CurPar.getColumnIndex(T_LineaParadas.MotParDescripcion)),
+                                                        CurPar.getInt(CurPar.getColumnIndex(T_LineaParadas.EstId))
                                                     ));
                                                     if (Resultado==false)
                                                     {

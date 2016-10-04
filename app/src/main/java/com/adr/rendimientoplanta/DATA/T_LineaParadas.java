@@ -37,37 +37,43 @@ public class T_LineaParadas {
 
     public static final String CamposSeleccionar_LineaParadas = LinParId+" as '_id',"+LinRegIdMovil+","+MotId
             +","+LinParHoraIni+","+LinParHoraFin+","+LinParParada+","+LinParSincronizado
-            +","+LinParFechaHora+","+MotParDescripcion;
+            +","+LinParFechaHora+","+MotParDescripcion+","+EstId+","+LinParIdServidor;
             //+","+EstId+","+LinParIdServidor;
 
     public static final String CamposInsertar_LineaParadas =
             LinRegIdMovil+","+MotId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
-            +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion;
+            +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion+","+EstId+","+LinParIdServidor;
 
     public static final String CamposInsertar_LineaParadasServidor =
             "LinReg_Id"+","+MotId+","+LinParHoraIni+","+LinParHoraFin+","+LinParParada
-                    +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion;
+                    +","+LinParSincronizado+","+LinParFechaHora+","+MotParDescripcion+","+EstId;
 
     public static String LineaParadas_Insertar(
             int LinReg_IdMovil,int MotPar_Id, String LinPar_HoraIni,String LinPar_HoraFin,
-            double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion)
+            double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion
+            ,int Est_Id,int LinPar_IdServidor)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaParadas+
                 ")VALUES('"+
                 LinReg_IdMovil+"','"+MotPar_Id+"','"+LinPar_HoraIni+"','"+LinPar_HoraFin+"','"
-                +LinPar_Parada+"','"+LinPar_Sincronizado+"','"+LinPar_FechaHora+"','"+MotPar_Descripcion+"');";
+                +LinPar_Parada+"','"+LinPar_Sincronizado+"','"+LinPar_FechaHora+"','"+MotPar_Descripcion
+                +"','"+Est_Id+"','"+LinPar_IdServidor
+                +"');";
         return Insertar;
     }
     public static String LineaParadas_InsertarServidor(
             int LinReg_Id,int MotPar_Id, String LinPar_HoraIni,String LinPar_HoraFin,
-            double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion)
+            double LinPar_Parada,int LinPar_Sincronizado,String LinPar_FechaHora,String MotPar_Descripcion,
+            int Est_Id)
     {
         String Insertar;
         Insertar = "INSERT INTO "+NombreTabla +"("+CamposInsertar_LineaParadasServidor+
                 ")VALUES('"+
                 LinReg_Id+"','"+MotPar_Id+"','"+LinPar_HoraIni+"','"+LinPar_HoraFin+"','"
-                +LinPar_Parada+"','"+LinPar_Sincronizado+"','"+LinPar_FechaHora+"','"+MotPar_Descripcion+"');";
+                +LinPar_Parada+"','"+LinPar_Sincronizado+"','"+LinPar_FechaHora+"','"+MotPar_Descripcion
+                +"','"+Est_Id
+                +"');";
         return Insertar;
     }
 
