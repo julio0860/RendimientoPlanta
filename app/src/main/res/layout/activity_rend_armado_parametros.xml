@@ -188,9 +188,9 @@
         android:id="@+id/textView105"
         android:inputType="number"
         android:textSize="14dp"
-        android:layout_below="@+id/spnLado"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="31dp" />
+        android:layout_marginTop="21dp"
+        android:layout_below="@+id/spnCultivo"
+        android:layout_alignParentStart="true" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -216,5 +216,23 @@
         android:layout_alignTop="@+id/edtHoraIngreso"
         android:layout_toEndOf="@+id/edtHoraIngreso"
         android:layout_marginLeft="20dp" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Cultivo"
+        android:textColor="#000000"
+        android:id="@+id/lbl_Cultivo"
+        android:layout_below="@+id/spnLado"
+        android:layout_alignParentStart="true" />
+
+    <Spinner
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/spnCultivo"
+        android:background="@color/common_action_bar_splitter"
+        android:spinnerMode="dialog"
+        android:layout_below="@+id/lbl_Cultivo"
+        android:layout_alignParentStart="true" />
 
 </RelativeLayout>
