@@ -121,7 +121,9 @@ public class RendArmado_Parametros extends AppCompatActivity {
             public void onClick(View v) {
                 CapturarFecha();
                 Variables.HoraIngreso1=edtHoraIngreso.getText().toString();
+                ObtenerCultivo();
                 ObtenerIdCampaña();
+
 if (Variables.Cul_Id !=0)
 {
     if (Variables.Cam_Id !=0)
@@ -352,12 +354,13 @@ if (Variables.Cul_Id !=0)
         });
     }
     private void CargarCultivo(){
-        Cursor Cultivo = LocBD.rawQuery("Select Cul_Id as _Id,Cul_Descripcion from Cultivo", null);
+
+        Cursor Cultivo = LocBD.rawQuery(T_Cultivo._SELECT_CULT(-1,-1),null);
         adspnCultivo = new SimpleCursorAdapter(this,
-                android.R.layout.simple_dropdown_item_1line, Cultivo,//Layout simple
+                android.R.layout.simple_dropdown_item_1line,Cultivo,//Layout simple
                 new String[]{T_Cultivo.CULDESCRIPCION},//Mostrar solo el nombre
                 new int[]{android.R.id.text1}//View para el nombre
-                , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
+                ,SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         spnCultivo.setAdapter(adspnCultivo);
     }
     private void EstablecerFecha(){
@@ -602,11 +605,10 @@ if (Variables.Cul_Id !=0)
         Variables.Lin_Lado = spnLado.getSelectedItem().toString();
         Variables.FechaStr =edtFecha.getText().toString();
 
-        Cursor CurCultivo = (Cursor) spnCultivo.getAdapter().getItem(spnCultivo.getSelectedItemPosition());
-        Variables.Cul_Id = CurCultivo.getInt(CurCultivo.getColumnIndex(BaseColumns._ID));
+
     }
     private void ObtenerIdCampaña(){
-        Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE '"+Variables.FechaStrBD+"' AND Cul_Id='"+Variables.Cul_Id+"' between cam_fechaIni AND Cam_FechaTer", null);
+        Cursor FechaCampaña = LocBD.rawQuery("SELECT Cam_Id as _Id FROM Campaña WHERE Cul_Id='"+Variables.Cul_Id+"' AND '"+Variables.FechaStrBD+"' between cam_fechaIni AND Cam_FechaTer", null);
         if (FechaCampaña.moveToFirst()) {
             //Recorremos el cursor hasta que no haya más registros
             do {
@@ -614,6 +616,11 @@ if (Variables.Cul_Id !=0)
 
             } while(FechaCampaña.moveToNext());
         }
+    }
+
+    private void ObtenerCultivo(){
+        Cursor CurCultivo = (Cursor) spnCultivo.getAdapter().getItem(spnCultivo.getSelectedItemPosition());
+        Variables.Cul_Id = CurCultivo.getInt(CurCultivo.getColumnIndex(BaseColumns._ID));
     }
 
 }
