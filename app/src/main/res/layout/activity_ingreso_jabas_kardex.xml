@@ -129,7 +129,7 @@
         android:layout_below="@+id/imageView15"
         android:layout_alignParentStart="true"
         android:layout_above="@+id/text1"
-        android:background="@color/material_grey_300" />
+        android:background="@drawable/bg_key" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -157,7 +157,8 @@
         android:id="@+id/lstIngresos"
         android:layout_below="@+id/text1"
         android:layout_alignParentStart="true"
-        android:layout_above="@+id/imbRegresar" />
+        android:layout_above="@+id/imbRegresar"
+        android:background="@drawable/bg_key" />
 
     <TextView
         android:layout_width="wrap_content"

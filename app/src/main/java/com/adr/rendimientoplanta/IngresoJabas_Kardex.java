@@ -6,10 +6,15 @@ import android.database.sqlite.SQLiteDatabase;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
@@ -89,5 +94,94 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
                 startActivity(NuevaActividad);
             }
         });
+        lstParadas.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+            }
+        });
+        lstIngresos.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+            }
+        });
+        lstParadas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+                registerForContextMenu(lstParadas);
+                return false;
+            }
+        }) ;
+        lstIngresos.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+                registerForContextMenu(lstIngresos);
+                return false;
+            }
+        }) ;
+    }
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        //MenuInflater inflater = new MenuInflater(this);
+
+        switch(v.getId()){
+            case R.id.lstParadas:
+                //TODO CODE
+                menu.setHeaderTitle("REVISIÓN DE PARADA");
+                menu.add(0, v.getId(), 0, "ANULAR PARADA SELECCIONADA");
+                break;
+            case R.id.lstIngresos:
+                //TODO CODE
+                menu.setHeaderTitle("REVISIÓN DE INGRESO");
+                menu.add(1, v.getId(), 0, "ANULAR INGRESO SELECCIONADA");
+                break;
+        }
+
+        //menu.setHeaderTitle("MESA NRO: "+Variables.Per_Ubicacion);
+        //menu.add(0, v.getId(), 0, "ASIGNAR PERSONAL");
+    }
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        switch(item.getGroupId())
+        {
+            case 0:
+                ProcesoAnularParada(item.getGroupId());
+                break;
+
+            case 1:
+                ProcesoAnularIngreso(item.getGroupId());
+                break;
+            default:
+                return false;
+        }
+        return true;
+        /*if(item.getTitle()=="ASIGNAR PERSONAL")
+        {
+            function1(item.getItemId());
+        }
+        else {
+            return false;
+        }
+        return true;
+        */
+    }
+    public void ProcesoAnularParada(int id){
+
+        //Intent ActividadModificar = new Intent(IngresoJabas_Kardex.this, RegistroOperario.class);
+        //startActivity(ActividadModificar);
+        Toast.makeText(this, "PARADA ANULADA", Toast.LENGTH_SHORT).show();
+    }
+    public void ProcesoAnularIngreso(int id){
+
+        //Intent ActividadModificar = new Intent(IngresoJabas_Kardex.this, RegistroOperario.class);
+        //startActivity(ActividadModificar);
+        Toast.makeText(this, "INGRESO ANULADO", Toast.LENGTH_SHORT).show();
     }
 }
