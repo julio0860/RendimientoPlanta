@@ -1,14 +1,20 @@
 package com.adr.rendimientoplanta;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
@@ -24,14 +30,21 @@ import java.util.GregorianCalendar;
 
 public class IngresoJabas_Parametros extends AppCompatActivity {
 
+    static final int DATE_ID=0;
+    private int mMes,mAño,mDia,sDia,sMes,sAño;
+
     private EditText txtFecha;
     private EditText edtNumRegistros;
+
+
 
     private Button btnEstablecer;
 
     private Spinner spnSucursal;
     private Spinner spnCultivo;
     private Spinner spnEmpresa;
+
+    private ImageButton imbFecha;
 
     private Funciones fnc;
 
@@ -59,6 +72,8 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         spnCultivo = (Spinner) findViewById(R.id.spnCultivo);
         spnEmpresa = (Spinner) findViewById(R.id.spnEmpresa);
 
+        imbFecha = (ImageButton) findViewById(R.id.imbFecha);
+
         Cursor Empresa = LocBD.rawQuery(T_Empresa._SELECT_EMP(-1),null);
         spnEmpresa.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Empresa,T_Empresa.EMPDESCRIPCION));
 
@@ -68,6 +83,10 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         Cursor Cultivo = LocBD.rawQuery(T_Cultivo._SELECT_CULT(-1,2),null);
         spnCultivo.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Cultivo,T_Cultivo.CULDESCRIPCION));
 
+        if (Variables.FechaStr.length()>0)
+        {
+            txtFecha.setText(Variables.FechaStr);
+        }
         if (Variables.Cul_Id!=0)
         {
             fnc.setIndexInt(spnCultivo, BaseColumns._ID, Variables.Cul_Id);
@@ -120,5 +139,30 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
 
 
     }
+    private void ColocarFecha(EditText edtFecha)
+    {
+        //ASIGNACION DE FECHA
+        edtFecha.setText(new StringBuilder().append(fnc.pad(mDia))
+                .append("/").append(fnc.pad(mMes+1)).append("/").append(mAño));
+    }
+    protected Dialog onCreateDialog(int id)
+    {
+        switch (id)
+        {
+            case DATE_ID:
+                return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
+        }
+        return null;
+    }
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener()
+    {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+        {
+            mAño=year;
+            mMes=monthOfYear;
+            mDia=dayOfMonth;
+            ColocarFecha(txtFecha);
+        }
+    };
 
 }
