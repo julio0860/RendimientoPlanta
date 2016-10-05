@@ -107,21 +107,24 @@ public class T_LineaParadas {
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaParadas
-                +" FROM "+NombreTabla+" WHERE "+LinParId+"='"+LinPar_Id+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinParId+"='"+LinPar_Id
+                +"';";
         return Seleccionar;
     }
     public static String CantidadPorId(int LinReg_Id)
     {
         String Seleccionar;
         Seleccionar = "SELECT COUNT(*)"
-                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id
+                +"';";
         return Seleccionar;
     }
     public static String ResumenPorId(int LinReg_Id)
     {
         String Seleccionar;
         Seleccionar = "SELECT COUNT(*),SUM("+LinParParada+")"
-                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id
+                +"';";
         return Seleccionar;
     }
 }
