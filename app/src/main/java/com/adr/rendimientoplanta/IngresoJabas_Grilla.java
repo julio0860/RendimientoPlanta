@@ -152,7 +152,6 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                         // Código propio del método borrado para ejemplo
                         if (conectadoWifi())
                         {
-
                             Cursor CurReg = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarSincronizar(
                                     Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id),null);
                             boolean Resultado = true;
