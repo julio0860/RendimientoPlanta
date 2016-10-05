@@ -87,11 +87,25 @@ public class T_LineaParadas {
                 +LinParId+"='"+LinPar_Id+"';";
         return Actualizar;
     }
+    public static String LinPar_AnularRegistro(
+            int LinPar_Id,int Est_Id)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +EstId+"= '"+Est_Id
+                +"' WHERE "
+                +LinParId+"='"+LinPar_Id+"';";
+        return Actualizar;
+    }
+
     public static String LineaParadas_SeleccionarIdCabecera(int LinReg_IdMovil)
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaParadas
-                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"'"
+                +" AND "+EstId+"='2'"
+                //SOLO REG ACTIVOS
+                +";";
         return Seleccionar;
     }
     public static String LineaParadas_SeleccionarSincronizar(int LinReg_IdMovil,int LinPar_Sincronizado)
@@ -123,8 +137,9 @@ public class T_LineaParadas {
     {
         String Seleccionar;
         Seleccionar = "SELECT COUNT(*),SUM("+LinParParada+")"
-                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id
-                +"';";
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"'"
+                +" AND "+EstId+"='2'"
+                +";";
         return Seleccionar;
     }
 }

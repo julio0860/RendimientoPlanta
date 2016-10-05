@@ -110,6 +110,16 @@ public class T_LineaIngreso {
                 +LinIngId+"='"+LinIng_Id+"';";
         return Actualizar;
     }
+    public static String LinIng_AnularRegistro(
+            int LinIng_Id,int Est_Id)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +EstId+"= '"+Est_Id
+                +"' WHERE "
+                +LinIngId+"='"+LinIng_Id+"';";
+        return Actualizar;
+    }
     public static String LineaIngreso_ActualizarHora(
             int LinIng_Id,double tEfectivo, String HoraFin,int Sincronizado)
     {
@@ -127,7 +137,10 @@ public class T_LineaIngreso {
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaIngreso
-                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"'"
+                +" AND "+EstId+"='2'"
+                //SOLO REGISTROS ACTIVOS
+                +";";
         return Seleccionar;
     }
     public static String LineaIngreso_SeleccionarSincronizar(int LinReg_IdMovil,int LinReg_Sincronizado)
@@ -152,7 +165,9 @@ public class T_LineaIngreso {
     {
         String Seleccionar;
         Seleccionar = "SELECT COUNT(*)"
-                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"'"
+                +" AND "+EstId+"='2'"
+                +";";
         return Seleccionar;
     }
     public static String ResumenPorId(int LinReg_Id)
@@ -168,6 +183,7 @@ public class T_LineaIngreso {
         String Seleccionar;
         Seleccionar = "SELECT SUM("+T_LineaIngreso.LinIngEquivalente+")"
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_Id+"'"
+                +" AND "+EstId+"='2'"
                 //+"' AND "+LinIngSincronizado+" IN('0','1')"
                 +";";
         return Seleccionar;
@@ -179,6 +195,7 @@ public class T_LineaIngreso {
                 +" FROM "+NombreTabla+" WHERE "
                 +LinRegIdMovil+"='"+LinReg_Id+"'"
                 +" AND "+LinIngSincronizado+">='"+0+"'"
+                +" AND "+EstId+"='2'"
                 //+"' AND "+LinIngSincronizado+" IN('0','1')"
                 +";";
         return Seleccionar;
