@@ -212,8 +212,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             RegLin_Id = Integer.parseInt(CurLineaRegistro.getString(0)) ;
             edtHoraIniPar.setText(HoraNula);
             edtHoraFinPar.setText(HoraNula);
-
             ActualizarResumen();
+
             if (Est_Id==1)
             {
                 Toast.makeText(this,"Registro existente Id: "+RegLin_Id, Toast.LENGTH_SHORT).show();
@@ -383,12 +383,10 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
                 if (tEfectivo > 0) {
                     TerminarLinea();
-                    ActualizarResumen();
                 }
                 else if (tEfectivo<0&&Variables.LinReg_NumIngresos>= NumIngresos)
                 {
                     TerminarLinea();
-                    ActualizarResumen();
                 }
                 else
                 {
@@ -542,6 +540,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                     btnKardex.setEnabled(true);
                     imbHoraIni.setEnabled(false);
                     btnIniciar.setEnabled(false);
+                    ActualizarResumen();
                 } catch (SQLException e) {
                     Toast.makeText(IngresoJabas_RegistroLinea.this, e.toString(), Toast.LENGTH_SHORT).show();
                 }
@@ -562,13 +561,16 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     {
         NumParadas=NumeroParadas(RegLin_Id);
         SumParadas=TiempoParadas(RegLin_Id);
-        TotalTiempo = HoraTotal(RegLin_Id,Est_Id);
-        TiempoEfectivo = TotalTiempo-SumParadas;
-        CantidadEquivalente = CantidadEquivalente(RegLin_Id);
-        CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
         NumIngresos = NumeroIngresos(RegLin_Id);
 
-        //LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarParadas(RegLin_Id,SumParadas,NumParadas));
+        if(NumIngresos>0)
+        {
+            TotalTiempo = HoraTotal(RegLin_Id,Est_Id);
+            TiempoEfectivo = TotalTiempo-SumParadas;
+            CantidadEquivalente = CantidadEquivalente(RegLin_Id);
+            CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
+
+        }
         LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarResumen(RegLin_Id,NumParadas,SumParadas,TotalTiempo,TiempoEfectivo,
                 CantidadEquivalente,CantidadPorHora, NumIngresos));
 
