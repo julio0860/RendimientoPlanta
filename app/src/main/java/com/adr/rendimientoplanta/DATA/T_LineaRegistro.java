@@ -56,8 +56,8 @@ public class T_LineaRegistro {
     public static final String CamposSeleccionar_LineaRegistro = LinRegIdMovil+","+LinRegId+","+LinId
             +","+LinRegFecha+","+LinRegHoraIni+","+LinRegHoraFin+","+LinRegCantidad
             +","+LinRegHoraEfectiva+","+LinRegParadas+","+LinRegNumParadas+","+LinRegCantidadPorHora
-            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+UsuId+","+SucId+","+CulId;
-            //+","+LinRegTiempoTotal+","+LinRegNumIngresos;
+            +","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro+","+EstId+","+UsuId+","+SucId+","+CulId
+            +","+LinRegTiempoTotal+","+LinRegNumIngresos;
 
     public static final String CamposInsertar_LineaRegistro = LinId+","+LinRegFecha
             +","+LinRegHoraIni+","+LinRegMac+","+LinRegFechaHora+","+EstId+","+UsuId+","+SucId+","+CulId+","+LinRegHoraFin;

@@ -34,6 +34,7 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
     private int mMes,mAño,mDia,sDia,sMes,sAño;
 
     private EditText txtFecha;
+    private EditText edtFecha;
     private EditText edtNumRegistros;
 
 
@@ -83,6 +84,12 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         Cursor Cultivo = LocBD.rawQuery(T_Cultivo._SELECT_CULT(-1,2),null);
         spnCultivo.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Cultivo,T_Cultivo.CULDESCRIPCION));
 
+        //VARIABLES CONTROL FECHA
+        final Calendar C = Calendar.getInstance();
+        sAño = C.get(Calendar.YEAR);
+        sMes = C.get(Calendar.MONTH);
+        sDia = C.get(Calendar.DAY_OF_MONTH);
+
         if (Variables.FechaStr.length()>0)
         {
             txtFecha.setText(Variables.FechaStr);
@@ -103,7 +110,14 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         {
             edtNumRegistros.setText(String.valueOf(Variables.LinReg_RegistrosMinimos));
         }
-
+        imbFecha.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                edtFecha = txtFecha;
+                showDialog(DATE_ID);
+            }
+        });
         btnEstablecer.setOnClickListener(new View.OnClickListener()
         {
             @Override

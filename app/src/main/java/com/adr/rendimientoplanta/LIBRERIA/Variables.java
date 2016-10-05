@@ -22,7 +22,7 @@ public class Variables extends AppCompatActivity{
     public static String MAC= "";
     public static String IMEI = "";
 
-    public  static String FechaStr;
+    public  static String FechaStr="";
     public  static String FechaStrBD;
 
     public  static Integer Con_Id=0;
