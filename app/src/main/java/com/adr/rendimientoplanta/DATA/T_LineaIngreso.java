@@ -172,6 +172,17 @@ public class T_LineaIngreso {
                 +";";
         return Seleccionar;
     }
+    public static String EquivalenteResumen(int LinReg_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT SUM("+T_LineaIngreso.LinIngEquivalente+")"
+                +" FROM "+NombreTabla+" WHERE "
+                +LinRegIdMovil+"='"+LinReg_Id+"'"
+                +" AND "+LinIngSincronizado+">='"+0+"'"
+                //+"' AND "+LinIngSincronizado+" IN('0','1')"
+                +";";
+        return Seleccionar;
+    }
     public static String HoraFinPorId(int LinReg_Id)
     {
         String Seleccionar;

@@ -120,17 +120,38 @@ public class T_LineaRegistro {
     }
     public static String LineaRegistro_ActualizarIngreso(
             int LinReg_IdMovil,double LinReg_Cantidad,double LinReg_HoraEfectiva,
-            double LinReg_CantidadPorHora)
+            double LinReg_CantidadPorHora,double LinReg_TiempoTotal,int LinReg_NumIngresos)
     {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
                 +LinRegCantidad+"='"+LinReg_Cantidad
                 +"',"+LinRegHoraEfectiva+"='"+LinReg_HoraEfectiva
                 +"',"+LinRegCantidadPorHora +"='"+LinReg_CantidadPorHora
+                +"',"+LinRegTiempoTotal +"='"+LinReg_TiempoTotal
+                +"',"+LinRegNumIngresos +"='"+LinReg_NumIngresos
                 +"' WHERE "
                 +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Actualizar;
     }
+    public static String LineaRegistro_ActualizarResumen(
+            int LinReg_IdMovil,int LinReg_NumParadas,double LinReg_Paradas,double LinReg_TiempoTotal,
+            double LinReg_HoraEfectiva,double LinReg_Cantidad,double LinReg_CantidadPorHora,
+            int LinReg_NumIngresos)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +LinRegNumParadas+"='"+LinReg_NumParadas
+                +"',"+LinRegParadas+"='"+LinReg_Paradas
+                +"',"+LinRegTiempoTotal+"='"+LinReg_TiempoTotal
+                +"',"+LinRegHoraEfectiva+"='"+LinReg_HoraEfectiva
+                +"',"+LinRegCantidad +"='"+LinReg_Cantidad
+                +"',"+LinRegCantidadPorHora +"='"+LinReg_CantidadPorHora
+                +"',"+LinRegNumIngresos +"='"+LinReg_NumIngresos
+                +"' WHERE "
+                +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
+        return Actualizar;
+    }
+
 
     public static String LineaRegistro_ActualizarIdServidor(
             int LinReg_IdMovil,int LinReg_Id)

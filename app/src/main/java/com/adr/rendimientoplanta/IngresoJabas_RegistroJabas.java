@@ -558,7 +558,7 @@ private String HoraIniLinea;
     {
         Cursor curCantEquiv = LocBD.rawQuery(T_LineaIngreso.EquivalentePorId(LinReg_Id),null);
         curCantEquiv.moveToFirst();
-        return curCantEquiv.getInt(0);
+        return curCantEquiv.getDouble(0);
     }
     private double Paradas(int LinReg_Id)
     {
@@ -580,8 +580,10 @@ private String HoraIniLinea;
         //Variables para actualizar tabla principal
         double CantEquiv;
         double HoraEf;
+        double HoraTotal;
         double paradas;
         double CantHora;
+
 
         Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
         Cantidad = CantidadReg(RegLin_Id);
@@ -590,11 +592,20 @@ private String HoraIniLinea;
         {
             //PARA ACTUALIZAR TABLA PRINCIPAL UBICACIÓN TEMPORAL
             CantEquiv=CantidadEquiv(RegLin_Id);
-            HoraEf = fnc.HoraEfectivaEntreHoras24(HoraIniLinea,HoraIni);
+            HoraTotal = fnc.HoraEfectivaEntreHoras24(HoraIniLinea,HoraIni);
             paradas =Paradas(RegLin_Id);
-            HoraEf = HoraEf-paradas;
+            HoraEf = HoraTotal-paradas;
             CantHora = fnc.RedondeoDecimal((CantEquiv/HoraEf),2, BigDecimal.ROUND_HALF_UP);
-            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarIngreso(RegLin_Id,CantEquiv,HoraEf,CantHora));
+            CantidadRegistros =CantidadReg(RegLin_Id);
+            if (cbxMix.isChecked())
+            {
+                CantidadRegistros=CantidadRegistros+2;
+            }
+            else
+            {
+                CantidadRegistros=CantidadRegistros+1;
+            }
+            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarIngreso(RegLin_Id,CantEquiv,HoraEf,CantHora,HoraTotal,CantidadRegistros));
             //Fin actualizar tabla principal
             //---------------------------------------------------------------------
 

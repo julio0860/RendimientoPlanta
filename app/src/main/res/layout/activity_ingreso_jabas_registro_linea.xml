@@ -488,7 +488,7 @@
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="00"
-        android:id="@+id/lblHora"
+        android:id="@+id/lblTiempoTotal"
         android:layout_alignTop="@+id/lblHoraEfectiva"
         android:layout_alignEnd="@+id/imbRegresar" />
 
