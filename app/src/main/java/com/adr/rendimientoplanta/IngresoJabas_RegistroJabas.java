@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -90,7 +91,7 @@ private String HoraIniLinea;
     private TextView lblNumIngresos;
 
     //SMP: Variables tipo ImageButton
-    private ImageButton imbRegresar;
+    //private ImageButton imbRegresar;
     private ImageButton imbHoraIni;
 
     //SMP: Variables tipo Button
@@ -137,6 +138,7 @@ private String HoraIniLinea;
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_jabas_registro_jabas);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //SMP: Iniciación base de datos local
         LBD = new LocalBD(IngresoJabas_RegistroJabas.this) ;
         LocBD = LBD.getWritableDatabase();
@@ -166,7 +168,7 @@ private String HoraIniLinea;
         btnAgregar = (Button) findViewById(R.id.btnAgregar);
 
         //SMP: Asignación de variables ImageButton a Layout
-        imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+        //imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbHoraIni = (ImageButton) findViewById(R.id.imbHoraIni);
 
         //SMP: Asignación de variables CheckBox a Layout
@@ -470,7 +472,7 @@ private String HoraIniLinea;
                 showDialog(TIME_DIALOG_ID);
             }
         });
-        imbRegresar.setOnClickListener(new View.OnClickListener()
+        /*imbRegresar.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View v){
@@ -480,6 +482,7 @@ private String HoraIniLinea;
                 startActivity(NuevaActividad);
             }
         });
+        */
         cbxMix.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override

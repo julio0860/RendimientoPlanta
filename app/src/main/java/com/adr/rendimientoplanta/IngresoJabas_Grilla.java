@@ -74,6 +74,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     public void onBackPressed()
     {
         // Your Code Here. Leave empty if you want nothing to happen on back press.
+        Intent NuevaActividad = new Intent(IngresoJabas_Grilla.this,Principal_Menu.class);
+        startActivity(NuevaActividad);
     }
     @Override
     protected void onCreate(Bundle savedInstanceState) {

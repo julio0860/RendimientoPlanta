@@ -2,15 +2,14 @@ package com.adr.rendimientoplanta;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
-import android.app.TimePickerDialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
@@ -52,10 +51,19 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
     LocalBD LBD;
     SQLiteDatabase LocBD;
     @Override
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+        //Intent NuevaActividad = new Intent(IngresoJabas_Grilla.this,Principal_Menu.class);
+        //startActivity(NuevaActividad);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_jabas_parametros);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Calendar Cal = new GregorianCalendar();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         txtFecha = (EditText) findViewById(R.id.edtFecha);

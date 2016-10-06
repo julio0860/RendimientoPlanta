@@ -10,6 +10,7 @@ import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
@@ -139,7 +140,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_jabas_registro_linea);
         //Codigo a ejecutar al crear la actividad
-
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //SMP: Inicialización Base d datos local
         LBD = new LocalBD(this) ;
         LocBD = LBD.getWritableDatabase();

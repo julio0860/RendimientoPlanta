@@ -81,7 +81,8 @@
         android:layout_column="6"
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btnAgregarJabas"
@@ -166,9 +167,9 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="T. Efec"
         android:id="@+id/textView31"
-        android:layout_below="@+id/imageView2"
-        android:layout_toEndOf="@+id/textView79"
-        android:background="#ffee00" />
+        android:background="#ffee00"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_toEndOf="@+id/textView79" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -205,8 +206,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0.00"
         android:id="@+id/lblHoraEfectiva"
-        android:layout_below="@+id/imageView29"
-        android:layout_toStartOf="@+id/imbHoraFin" />
+        android:layout_alignTop="@+id/imageView29"
+        android:layout_alignStart="@+id/textView31" />
 
     <TextView
         android:layout_width="wrap_content"
