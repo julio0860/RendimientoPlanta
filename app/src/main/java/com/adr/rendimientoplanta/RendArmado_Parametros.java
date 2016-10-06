@@ -13,6 +13,7 @@ import android.provider.BaseColumns;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -107,6 +108,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rend_armado_parametros);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //INICIO CONEXION BDLOCAL
         LBD = new LocalBD(RendArmado_Parametros.this);
         LocBD = LBD.getWritableDatabase();

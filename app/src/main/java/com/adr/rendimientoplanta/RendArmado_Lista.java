@@ -65,7 +65,13 @@ public class RendArmado_Lista extends AppCompatActivity {
     private LocalBD LBD;
     private SQLiteDatabase LocBD;
 
-
+    @Override
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+        Intent NuevaActividad = new Intent(this,Principal_Menu.class);
+        startActivity(NuevaActividad);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
