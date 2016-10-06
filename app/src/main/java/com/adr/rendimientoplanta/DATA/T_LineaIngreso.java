@@ -101,15 +101,29 @@ public class T_LineaIngreso {
     }
 
     public static String LineaIngreso_ActualizarSincronizado(
-            int LinIng_Id,int LinIng_Sincronizado)
+            int LinIng_Id,int LinIng_Sincronizado,int LinIng_IdServidor)
     {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
-                +LinIngSincronizado+"= '"+LinIng_Sincronizado
-                +"' WHERE "
-                +LinIngId+"='"+LinIng_Id+"';";
+                +LinIngSincronizado+"= '"+LinIng_Sincronizado+"',"
+                +LinIngIdServidor+"= '"+LinIng_IdServidor+"'"
+                +" WHERE "
+                +LinIngId+"='"+LinIng_Id
+                +"';";
         return Actualizar;
     }
+    public static String LinIng_ActualizarServidor(
+            int LinIng_IdServidor,int Est_Id)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +EstId+"= '"+Est_Id+"'"
+                +" WHERE "
+                +LinIngId+"='"+LinIng_IdServidor
+                +"';";
+        return Actualizar;
+    }
+
     public static String LinIng_AnularRegistro(
             int LinIng_Id,int Est_Id)
     {
@@ -143,13 +157,13 @@ public class T_LineaIngreso {
                 +";";
         return Seleccionar;
     }
-    public static String LineaIngreso_SeleccionarSincronizar(int LinReg_IdMovil,int LinReg_Sincronizado)
+    public static String LineaIngreso_SeleccionarSincronizar(int LinReg_IdMovil)
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaIngreso
                 +" FROM "+NombreTabla+" WHERE "
-                +LinRegIdMovil+"='"+LinReg_IdMovil +"' AND "
-                +LinIngSincronizado+"='"+LinReg_Sincronizado +"'"
+                +LinRegIdMovil+"='"+LinReg_IdMovil +"'"
+                +" AND "+LinIngSincronizado+">='0'"
                 +";";
         return Seleccionar;
     }

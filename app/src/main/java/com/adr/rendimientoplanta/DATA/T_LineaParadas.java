@@ -78,15 +78,29 @@ public class T_LineaParadas {
     }
 
     public static String LineaParadas_ActualizarSincronizado(
-            int LinPar_Id,int LinPar_Sincronizado)
+            int LinPar_Id,int LinPar_Sincronizado,int LinPar_IdServidor)
     {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
-                +LinParSincronizado+"= '"+LinPar_Sincronizado
-                +"' WHERE "
-                +LinParId+"='"+LinPar_Id+"';";
+                +LinParSincronizado+"= '"+LinPar_Sincronizado+"',"
+                +LinParIdServidor+"= '"+LinPar_IdServidor+"'"
+                +" WHERE "
+                +LinParId+"='"+LinPar_Id
+                +"';";
         return Actualizar;
     }
+    public static String LinPar_ActualizarServidor(
+            int LinPar_IdServidor,int Est_Id)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +EstId+"= '"+Est_Id+"'"
+                +" WHERE "
+                +LinParId+"='"+LinPar_IdServidor
+                +"';";
+        return Actualizar;
+    }
+
     public static String LinPar_AnularRegistro(
             int LinPar_Id,int Est_Id)
     {
@@ -108,12 +122,11 @@ public class T_LineaParadas {
                 +";";
         return Seleccionar;
     }
-    public static String LineaParadas_SeleccionarSincronizar(int LinReg_IdMovil,int LinPar_Sincronizado)
+    public static String LineaParadas_SeleccionarSincronizar(int LinReg_IdMovil)
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaParadas
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"'"
-                +" AND "+LinParSincronizado+"='"+LinPar_Sincronizado+"'"
                 +";";
         return Seleccionar;
     }

@@ -65,7 +65,7 @@ public class T_LineaRegistro {
     public static final String CamposInsertar_LineaSincronizar = LinRegIdMovil+","+LinId+","+LinRegFecha
             +","+LinRegHoraIni +","+LinRegHoraFin +","+LinRegCantidad+","+LinRegHoraEfectiva+","+LinRegParadas
             +","+LinRegNumParadas+","+LinRegCantidadPorHora+","+LinRegMac+","+LinRegFechaHora+","+LinRegUltimaSincro
-            +","+EstId+","+UsuId+","+SucId+","+CulId;
+            +","+EstId+","+UsuId+","+SucId+","+CulId+","+LinRegTiempoTotal+","+LinRegNumIngresos;
 
     public static String LineaRegistro_Insertar(
             int Lin_Id,String LinReg_Fecha, String LinReg_HoraIni,String LinReg_Mac,
@@ -182,14 +182,17 @@ public class T_LineaRegistro {
             int LinReg_NumParadas,
             double LinReg_CantidadPorHora,
             String LinReg_UltimaSincro,
-            int Est_Id)
+            int Est_Id,
+            double LinReg_TiempoTotal,
+            int LinReg_NumIngresos)
     {
         String Actualizar;
         Actualizar = "UPDATE "+NombreTabla +" SET "
                 +LinRegHoraFin+"= '"+LinReg_HoraFin+"',"+LinRegCantidad+"='"+LinReg_Cantidad
                 +"',"+LinRegHoraEfectiva+"='"+LinReg_HoraEfectiva+"',"+LinRegParadas+"='"+LinReg_Paradas
                 +"',"+LinRegNumParadas+"='"+LinReg_NumParadas+"',"+LinRegCantidadPorHora +"='"+LinReg_CantidadPorHora
-                +"',"+LinRegUltimaSincro+"='"+LinReg_UltimaSincro+"',"+EstId+"='"+Est_Id
+                +"',"+LinRegUltimaSincro+"='"+LinReg_UltimaSincro+"',"+EstId+"='"+Est_Id+"',"
+                +LinRegTiempoTotal+"='"+LinReg_TiempoTotal+"',"+LinRegNumIngresos+"='"+LinReg_NumIngresos
                 +"' WHERE "
                 +LinRegId+"='"+LinReg_Id+"';";
         return Actualizar;
@@ -202,11 +205,14 @@ public class T_LineaRegistro {
                 +" FROM "+NombreTabla+" WHERE "+LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Seleccionar;
     }
-    public static String LineaRegistro_SeleccionarLinea(int Lin_Id,String LinReg_Fecha)
+
+    public static String LineaRegistro_SeleccionarLinea(int Lin_Id,String LinReg_Fecha,int Cul_Id)
     {
         String Seleccionar;
         Seleccionar = "SELECT "+CamposSeleccionar_LineaRegistro
-                +" FROM "+NombreTabla+" WHERE "+LinId+"='"+Lin_Id+"' AND "+LinRegFecha+"='"+LinReg_Fecha+"';";
+                +" FROM "+NombreTabla+" WHERE "+LinId+"='"+Lin_Id+"' AND "+LinRegFecha+"='"+LinReg_Fecha
+                +"' AND "+CulId+"='"+Cul_Id
+                +"';";
         return Seleccionar;
     }
 
@@ -249,7 +255,9 @@ public class T_LineaRegistro {
             int Est_Id,
             int Usu_Id,
             int Suc_Id,
-            int Cul_Id
+            int Cul_Id,
+            double LinReg_TiempoTotal,
+            int LinReg_NumIngresos
     )
     {
         String Insertar;
@@ -260,7 +268,7 @@ public class T_LineaRegistro {
                 +"','"
                 +LinReg_Cantidad+"','"+LinReg_HoraEfectiva+"','"+LinReg_Paradas+"','"+LinReg_NumParadas+"','"
                 +LinReg_CantidadPorHora+"','"+LinReg_Mac+"','"+LinReg_FechaHora+"','"+LinReg_UltimaSincro+"','"
-                +Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"');";
+                +Est_Id+"','"+Usu_Id+"','"+Suc_Id+"','"+Cul_Id+"','"+LinReg_TiempoTotal+"','"+LinReg_NumIngresos+"');";
 
         return Insertar;
     }

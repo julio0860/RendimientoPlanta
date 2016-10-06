@@ -127,6 +127,11 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     public void onBackPressed()
     {
         // Your Code Here. Leave empty if you want nothing to happen on back press.
+        Intent NuevaActividad = new Intent(IngresoJabas_RegistroLinea.this,
+                IngresoJabas_Grilla.class);
+        NuevaActividad.putExtra("RegLin_Id",RegLin_Id);
+        NuevaActividad.putExtra("Est_Id",Est_Id);
+        startActivity(NuevaActividad);
     }
     //Inicio Procedimiento OnCreate---------------------------------------------------------------->
     @Override
@@ -191,7 +196,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         lblLinea.setText(Variables.Lin_Descripcion);
 
         //SMP: Validación registro nuevo
-        Cursor CurLineaRegistro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
+        Cursor CurLineaRegistro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr,Variables.Cul_Id),null);
         CurLineaRegistro.moveToFirst();
 
         //SMP: Validación registro nuevo o existente
@@ -216,7 +221,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
             if (Est_Id==1)
             {
-                Toast.makeText(this,"Registro existente Id: "+RegLin_Id, Toast.LENGTH_SHORT).show();
+                //Toast.makeText(this,"Registro existente Id: "+RegLin_Id, Toast.LENGTH_SHORT).show();
                 BloquearBotones(true);
 
             }
@@ -230,7 +235,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
         }
         else {
-            Toast.makeText(this,"Registro nuevo",Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,"LINEA SIN INICIAR",Toast.LENGTH_SHORT).show();
             BloquearBotones(false);
             edtHoraIni.setText(HoraNula);
             edtHoraFin.setText(HoraNula);
@@ -341,7 +346,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                             LocBD.execSQL(T_LineaRegistro.LineaRegistro_Insertar(Variables.Lin_Id,
                                     Variables.FechaStr,HoraIni,Variables.MAC,fnc.HoraSistema(),Est_Id,Variables.Usu_Id,Variables.Suc_Id,Variables.Cul_Id,HoraFin));
                             BloquearBotones(true);
-                            Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr),null);
+                            Cursor Registro = LocBD.rawQuery(T_LineaRegistro.LineaRegistro_SeleccionarLinea(Variables.Lin_Id,Variables.FechaStr,Variables.Cul_Id),null);
                             Registro.moveToFirst();
                             RegLin_Id=Registro.getInt(0);
                             Toast.makeText(IngresoJabas_RegistroLinea.this,"Linea Iniciada, Id: "+Registro.getString(0),Toast.LENGTH_SHORT).show();
@@ -413,6 +418,8 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             public void onClick (View v){
             Intent NuevaActividad = new Intent(IngresoJabas_RegistroLinea.this,
                     IngresoJabas_Grilla.class);
+                NuevaActividad.putExtra("RegLin_Id",RegLin_Id);
+                NuevaActividad.putExtra("Est_Id",Est_Id);
             startActivity(NuevaActividad);
             }
         });
