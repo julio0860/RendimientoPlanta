@@ -438,9 +438,9 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                         {
                             Resultado=true;
                             //SI DEVOLVIO UN REGISTRO
-                            //TODO --> SINCRONIZACION TABLA PARADAS
+                            //--> SINCRONIZACION TABLA PARADAS
                             ResultadoParada = SincronizarParada(LinReg_IdMovil);
-                            //TODO --> SINCRONIZACION TABLA INGRESOS
+                            //--> SINCRONIZACION TABLA INGRESOS
                             ResultadoIngreso = SincronizarIngreso(LinReg_IdMovil);
                         }
                         else
@@ -450,7 +450,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                             //        +CurReg.getCount(),Toast.LENGTH_SHORT).show();
                         }
                     }
-                    //TODO --> SINO SI NO EXISTE AUN REGISTRO
+                    //--> SINO SI NO EXISTE AUN REGISTRO
                     else
                     {
                         //Si no devuelve valor, insertar

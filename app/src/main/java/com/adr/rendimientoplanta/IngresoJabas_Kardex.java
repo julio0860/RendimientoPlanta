@@ -63,6 +63,13 @@ public class IngresoJabas_Kardex extends AppCompatActivity {
 
     LocalBD LBD;
     SQLiteDatabase LocBD;
+
+    @Override
+    public void onBackPressed()
+    {
+        Intent NuevaActividad = new Intent(IngresoJabas_Kardex.this,IngresoJabas_RegistroLinea.class);
+        startActivity(NuevaActividad);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

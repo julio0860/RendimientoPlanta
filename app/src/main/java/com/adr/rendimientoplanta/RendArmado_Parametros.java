@@ -130,6 +130,8 @@ if (Variables.Cul_Id !=0)
     {
         ObtenerParametros();
         Intent ActividadNueva = new Intent(RendArmado_Parametros.this, RendArmado_Lista.class);
+        ActividadNueva.putExtra("Documento","");
+        Variables.Per_Dni="";
         startActivity(ActividadNueva);
     }
     else

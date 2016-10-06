@@ -140,6 +140,23 @@ public class T_RendimientoArmado {
                 +";";
         return Seleccionar;
     }
+    public static String RendimientoArmado_SeleccionarSincronizarPersona(
+            String RenArm_Fecha,int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lin_Lado,String Dni)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+CamposSeleccionar_RendimientoArmado
+                +" FROM "+NombreTabla
+                +" WHERE "
+                +RenArmFecha+"='"+RenArm_Fecha+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+ProId+"='"+Pro_Id+"'"
+                +" AND "+SubId+"='"+Sub_Id+"'"
+                +" AND "+LinId+"='"+Lin_Id+"'"
+                +" AND "+LinLado+"='"+Lin_Lado+"'"
+                +" AND "+PerDni+"='"+Dni+"'"
+                +";";
+        return Seleccionar;
+    }
     public static String RendimientoArmado_SeleccionarPorPersona(String RenArm_Fecha,String Per_Dni,
                          int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lin_Lado,int PreEnv_Id)
     {
@@ -174,6 +191,23 @@ public class T_RendimientoArmado {
                 +";";
         return Seleccionar;
     }
+    public static String RenArm_SeleccionarPersonaTotalResumen(String RenArm_Fecha,String Per_Dni,
+         int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,String Lin_Lado)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT "+"SUM("+RenArmCantidad+"),SUM("+RenArmEquivalente+"),COUNT(*)"
+                +" FROM "+NombreTabla
+                +" WHERE "+RenArmFecha+"='"+RenArm_Fecha+"'"
+                +" AND "+PerDni+"='"+Per_Dni+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+ProId+"='"+Pro_Id+"'"
+                +" AND "+SubId+"='"+Sub_Id+"'"
+                +" AND "+LinId+"='"+Lin_Id+"'"
+                +" AND "+LinLado+"='"+Lin_Lado+"'"
+                +";";
+        return Seleccionar;
+    }
+
     public static String RenArm_SeleccionarPorPersonaResumenPresentacion(
             String RenArm_Fecha,String Per_Dni,int Suc_Id,int Pro_Id,int Sub_Id,int Lin_Id,
             String Lin_Lado)

@@ -148,7 +148,8 @@
         android:layout_column="6"
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -401,7 +402,8 @@
         android:singleLine="false"
         android:textColor="#ffffff"
         android:background="#000000"
-        android:layout_above="@+id/lstIngresos"
+        android:layout_alignBaseline="@+id/textView35"
+        android:layout_alignBottom="@+id/textView35"
         android:layout_alignParentEnd="true" />
 
     <TextView

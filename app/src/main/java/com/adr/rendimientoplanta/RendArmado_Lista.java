@@ -49,6 +49,8 @@ public class RendArmado_Lista extends AppCompatActivity {
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
 
+    private String Documento="";
+
     private Funciones fnc;
     private Button btnSincronizar;
     private int IdServidor;
@@ -59,13 +61,23 @@ public class RendArmado_Lista extends AppCompatActivity {
     private int EmpId,SucId,ProId,Sub_Id,Lin_Id,Posicion,Mot_Id,Est_Id;
     private String Fecha,Lados,Dni,HoraLectura,HoraIngreso,HoraSalida;
 
+    //VARIABLES BD
+    private LocalBD LBD;
+    private SQLiteDatabase LocBD;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rend_armado_lista);
-        LocalBD LBD = new LocalBD(RendArmado_Lista.this);
-        final SQLiteDatabase LocBD = LBD.getWritableDatabase();
+
+        //ANTIGUO BDLOCAL
+        //LocalBD LBD = new LocalBD(RendArmado_Lista.this);
+        //final SQLiteDatabase LocBD = LBD.getWritableDatabase();
+
+        //PROPUESTA BDLOCAL
+        LBD = new LocalBD(RendArmado_Lista.this);
+        LocBD = LBD.getWritableDatabase();
 
         fnc=new Funciones();
 
@@ -73,6 +85,21 @@ public class RendArmado_Lista extends AppCompatActivity {
         MostrarVariables();
         CargarPersonalMesa(LocBD);
 
+        //Documento=getIntent().getStringExtra("Documento");
+        //if(Documento.isEmpty() ==false)
+        if(Variables.Per_Dni.isEmpty() ==false)
+        {
+            if(conectadoWifi())
+            {
+                Cursor curRend = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarSincronizarPersona(
+                        Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id,
+                        Variables.Lin_Lado,Variables.Per_Dni), null);
+                SincronizarRendimientoArmado(curRend);
+            }else
+            {
+                Toast.makeText(RendArmado_Lista.this, "NO HAY CONEXION, INTENTE LUEGO ",Toast.LENGTH_SHORT).show();
+            }
+        }
         imbConfigurar.setOnClickListener(new View.OnClickListener() {
                                              @Override
                                              public void onClick(View v) {
@@ -113,81 +140,10 @@ public class RendArmado_Lista extends AppCompatActivity {
                                 // Lo que sucede si se pulsa yes
                                 public void onClick(DialogInterface dialog,int id) {
 
-                                    boolean Realizado = false;
-
-                                    try {
-
-                                        Connection Cnn = ConexionBD.getInstance().getConnection();
-                                        Statement stmt = Cnn.createStatement();
-                                        ResultSet Rse;
-                                        Cursor curDatosSinc = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarSincronizar(
-                                                Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id,
-                                                Variables.Lin_Lado), null);
-
-                                        for (curDatosSinc.moveToFirst(); !curDatosSinc.isAfterLast(); curDatosSinc.moveToNext()) {
-                                            IdLocal = curDatosSinc.getInt(curDatosSinc.getColumnIndex(BaseColumns._ID));
-                                            IdServidor = curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmIdServidor));
-                                            if (IdServidor == 0) {
-                                                //Si no se ha insertado datos
-                                                stmt.executeUpdate(T_RendimientoArmado.RendimientoArmado_InsertarServidor(
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmFecha)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.PerDni)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.SucId)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.ProId)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.SubId)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.LinId)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.LinLado)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmFechaReg)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.UsuId)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmMac)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreId)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreDescripcion)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreEnvId)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreEnvDescripcionCor)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmEntrega)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmDevolucion)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmPeso)),
-                                                        curDatosSinc.getDouble(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmFactor)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmCantidad)),
-                                                        curDatosSinc.getDouble(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmEquivalente)),
-                                                        curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmHoraIni)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.EstId)),
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmSincronizado)),
-                                                        fnc.HoraSistema()), stmt.RETURN_GENERATED_KEYS);
-
-                                                Rse = stmt.getGeneratedKeys();
-                                                if (Rse.next()) {
-                                                    IdServidor = Rse.getInt(1);
-                                                    LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_ActualizarIdServidor(IdServidor, IdLocal, 1));
-                                                    Realizado = true;
-
-                                                } else {
-                                                    Toast.makeText(RendArmado_Lista.this, "NO SE HA PODIDO SINCRONIZAR", Toast.LENGTH_SHORT).show();
-                                                    Realizado = false;
-                                                }
-                                            } else {
-                                                stmt.executeUpdate(T_RendimientoArmado.Servidor_ActualizarEstado(
-                                                        curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.EstId)),
-                                                        IdServidor, fnc.HoraSistema()), stmt.RETURN_GENERATED_KEYS);
-                                                Rse = stmt.getGeneratedKeys();
-                                                if (Rse.next()) {
-                                                    Realizado = true;
-                                                } else {
-                                                    Realizado = false;
-                                                }
-                                            }
-                                        }
-                                        if (Realizado == true) {
-                                            Toast.makeText(RendArmado_Lista.this, "SINCRONIZACION REALIZADA", Toast.LENGTH_SHORT).show();
-                                        } else {
-                                            Toast.makeText(RendArmado_Lista.this, "ERROR AL SINCRONIZAR", Toast.LENGTH_SHORT).show();
-                                        }
-
-
-                                    } catch (Exception e) {
-                                        Toast.makeText(RendArmado_Lista.this, e.toString(), Toast.LENGTH_SHORT).show();
-                                    }
-
+                                    Cursor curRend = LocBD.rawQuery(T_RendimientoArmado.RendimientoArmado_SeleccionarSincronizar(
+                                            Variables.FechaStr, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id,
+                                            Variables.Lin_Lado), null);
+                                    SincronizarRendimientoArmado(curRend);
 
                                 }})
                             .setNegativeButton("No",new DialogInterface.OnClickListener() {
@@ -284,10 +240,12 @@ public class RendArmado_Lista extends AppCompatActivity {
                 Variables.Per_Ubicacion = curPersonal.getInt(curPersonal.getColumnIndex("_id"));
                 Variables.Per_Nombres = curPersonal.getString(curPersonal.getColumnIndex("PER"));
                 Variables.Per_Dni = curPersonal.getString(curPersonal.getColumnIndex("DNI"));
+                Documento=curPersonal.getString(curPersonal.getColumnIndex("DNI"));
                 Variables.Agru_Id = curPersonal.getInt(curPersonal.getColumnIndex("AGRUID"));
                 Variables.HoraIngreso = curPersonal.getString(curPersonal.getColumnIndex("HORAIN"));
                 if (Variables.Agru_Id>0){
                     Intent ActividadRegistrar = new Intent(RendArmado_Lista.this, RendArmado_Registro.class);
+                    ActividadRegistrar.putExtra("Documento",Documento);
                     startActivity(ActividadRegistrar);
                 }
 
@@ -470,6 +428,82 @@ public class RendArmado_Lista extends AppCompatActivity {
         {
             Toast.makeText(RendArmado_Lista.this, "NO HAY CONEXION, INTENTE LUEGO ",Toast.LENGTH_SHORT).show();
         }
+    }
+
+    private void SincronizarRendimientoArmado(Cursor curDatosSinc)
+    {
+        boolean Realizado = false;
+
+        try {
+
+            Connection Cnn = ConexionBD.getInstance().getConnection();
+            Statement stmt = Cnn.createStatement();
+            ResultSet Rse;
+
+            for (curDatosSinc.moveToFirst(); !curDatosSinc.isAfterLast(); curDatosSinc.moveToNext()) {
+                IdLocal = curDatosSinc.getInt(curDatosSinc.getColumnIndex(BaseColumns._ID));
+                IdServidor = curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmIdServidor));
+                if (IdServidor == 0) {
+                    //Si no se ha insertado datos
+                    stmt.executeUpdate(T_RendimientoArmado.RendimientoArmado_InsertarServidor(
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmFecha)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.PerDni)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.SucId)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.ProId)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.SubId)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.LinId)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.LinLado)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmFechaReg)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.UsuId)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmMac)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreId)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreDescripcion)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreEnvId)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.PreEnvDescripcionCor)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmEntrega)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmDevolucion)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmPeso)),
+                            curDatosSinc.getDouble(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmFactor)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmCantidad)),
+                            curDatosSinc.getDouble(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmEquivalente)),
+                            curDatosSinc.getString(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmHoraIni)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.EstId)),
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.RenArmSincronizado)),
+                            fnc.HoraSistema()), stmt.RETURN_GENERATED_KEYS);
+
+                    Rse = stmt.getGeneratedKeys();
+                    if (Rse.next()) {
+                        IdServidor = Rse.getInt(1);
+                        LocBD.execSQL(T_RendimientoArmado.RendimientoArmado_ActualizarIdServidor(IdServidor, IdLocal, 1));
+                        Realizado = true;
+
+                    } else {
+                        Toast.makeText(RendArmado_Lista.this, "NO SE HA PODIDO SINCRONIZAR", Toast.LENGTH_SHORT).show();
+                        Realizado = false;
+                    }
+                } else {
+                    stmt.executeUpdate(T_RendimientoArmado.Servidor_ActualizarEstado(
+                            curDatosSinc.getInt(curDatosSinc.getColumnIndex(T_RendimientoArmado.EstId)),
+                            IdServidor, fnc.HoraSistema()), stmt.RETURN_GENERATED_KEYS);
+                    Rse = stmt.getGeneratedKeys();
+                    if (Rse.next()) {
+                        Realizado = true;
+                    } else {
+                        Realizado = false;
+                    }
+                }
+            }
+            if (Realizado == true) {
+                Toast.makeText(RendArmado_Lista.this, "SINCRONIZACION REALIZADA", Toast.LENGTH_SHORT).show();
+            } else {
+                Toast.makeText(RendArmado_Lista.this, "NO SINCRONIZADO", Toast.LENGTH_SHORT).show();
+            }
+
+
+        } catch (Exception e) {
+            Toast.makeText(RendArmado_Lista.this, e.toString(), Toast.LENGTH_SHORT).show();
+        }
+
     }
 
 }

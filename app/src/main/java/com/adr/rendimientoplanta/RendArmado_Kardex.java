@@ -31,6 +31,8 @@ public class RendArmado_Kardex extends AppCompatActivity {
     //DECLARACION BD LOCAL
     private String TipoOperacion="AGREGAR ENTREGA";
 
+    //VARIABLE PERSONA
+    private String Documento="";
     //DECLARACION FUNCIONES
     private Funciones fnc;
     //DECLARACIÓN DE VARIABLES TEXTVIEW
@@ -74,6 +76,15 @@ public class RendArmado_Kardex extends AppCompatActivity {
 
    LocalBD LBD;
    SQLiteDatabase LocBD;
+
+    @Override
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+        Intent NuevaActividad = new Intent(this,RendArmado_Lista.class);
+        NuevaActividad.putExtra("Documento",Documento);
+        startActivity(NuevaActividad);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -83,6 +94,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
         //final SQLiteDatabase LocBD = LBD.getWritableDatabase();
         LBD = new LocalBD(this) ;
         LocBD = LBD.getWritableDatabase();
+        Documento=getIntent().getStringExtra("Documento");
         //ASIGNACION DE VARIABLES A TEXTVIEW DE LAYOUT
         lblEmpresa = (TextView) findViewById(R.id.lblEmpresa);
         lblSucursal = (TextView) findViewById(R.id.lblSucursal);
@@ -295,6 +307,7 @@ public class RendArmado_Kardex extends AppCompatActivity {
                 @Override
                 public void onClick(View v) {
                     Intent NuevaActividad = new Intent(RendArmado_Kardex.this,RendArmado_Registro.class);
+                    NuevaActividad.putExtra("Documento",Documento);
                     startActivity(NuevaActividad);
                 }
             }
