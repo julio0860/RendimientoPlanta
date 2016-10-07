@@ -345,7 +345,8 @@
         android:layout_column="6"
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignTop="@+id/btnTerminar"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <TextView
         android:id="@+id/lblEmpresa"

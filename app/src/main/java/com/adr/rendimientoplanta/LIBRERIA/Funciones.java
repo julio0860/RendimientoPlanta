@@ -220,7 +220,7 @@ public class Funciones extends AppCompatActivity {
         return FormatoHora.format(new Date(System.currentTimeMillis()));
     }
 
-public double HoraEfectivaEntreHoras(String HoraIni,String HoraFin)
+public double HoraEfectivaEntreHorasValidar(String HoraIni, String HoraFin)
 {
     //DECLARACIÓN DE FORMATO PARA HORA
     SimpleDateFormat FormatoHora = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
@@ -262,5 +262,44 @@ public double HoraEfectivaEntreHoras(String HoraIni,String HoraFin)
 
     return RedondeoDecimal(diffHoras,2,BigDecimal.ROUND_HALF_UP);
 }
+    public double HoraEfectivaEntreHoras24(String HoraIni,String HoraFin)
+    {
+        //DECLARACIÓN DE FORMATO PARA HORA
+        SimpleDateFormat FormatoHora = new SimpleDateFormat("HH:mm:ss",java.util.Locale.getDefault());
+        Date HIni=null;
+        Date HFin=null;
+        double Resultado;
+        //TRY EN CASO DE EXCEPCIONES
+        try
+        {
+            //CONVERSIÓN DE STRING A VARIABLE TIPO HORA
+            HIni= FormatoHora.parse(HoraIni);
+            HFin= FormatoHora.parse(HoraFin);
+        } catch (Exception e){
+            // Log.e(TAG, "Funcion diferenciaFechas: Error " + e);
+        }
+        //DECLARACIÓN DE VARIABLES CALENDAR PARA OPERACIONES
+        Calendar CalendarioIni = Calendar.getInstance();
+        Calendar CalendarioFin = Calendar.getInstance();
+        //ASIGNACIÓN DE HORA INICIO Y FIN A VARIABLE CALENDARIO
+        CalendarioIni.setTime(HIni);
+        CalendarioFin.setTime(HFin);
 
+        //OBTENCIÓN DE HORA DE INICIO Y HORA FIN EN MILISEGUNDOS
+        double milisegundos1 = CalendarioIni.getTimeInMillis();
+        double milisegundos2 = CalendarioFin.getTimeInMillis();
+
+        //DIFERENCIA EN MILISEGUNDOS ENTRE DOS FECHAS
+        double diferenciaMilisegundos = milisegundos2 - milisegundos1;
+
+        //RESULTADO FINAL
+        double diffHoras =   (diferenciaMilisegundos / (60 * 60 * 1000));
+        Resultado =RedondeoDecimal(diffHoras,2,BigDecimal.ROUND_HALF_UP);
+
+        if(Resultado<0)
+        {
+            Resultado= 24+Resultado;
+        }
+        return Resultado;
+    }
 }

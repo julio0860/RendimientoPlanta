@@ -81,7 +81,8 @@
         android:layout_column="6"
         android:src="@android:drawable/ic_menu_revert"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true" />
+        android:layout_alignParentStart="true"
+        android:visibility="invisible" />
 
     <Button
         android:id="@+id/btnAgregarJabas"
@@ -155,19 +156,20 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="Paradas (min)"
+        android:text="Parada"
         android:id="@+id/textView30"
         android:layout_alignTop="@+id/textView34"
-        android:layout_alignParentStart="true" />
+        android:layout_alignStart="@+id/imbHoraIni" />
 
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="T. Efectivo"
+        android:text="T. Efec"
         android:id="@+id/textView31"
-        android:layout_above="@+id/lblTiempoParadas"
-        android:layout_toStartOf="@+id/imbHoraFin" />
+        android:background="#ffee00"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_toEndOf="@+id/textView79" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -175,8 +177,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="Jabas"
         android:id="@+id/textView32"
-        android:layout_alignTop="@+id/imageView2"
-        android:layout_toEndOf="@+id/imbHoraFin" />
+        android:layout_below="@+id/imageView2"
+        android:layout_alignStart="@+id/btnCambiarPresentacion" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -196,7 +198,7 @@
         android:text="00"
         android:id="@+id/lblTiempoParadas"
         android:layout_below="@+id/textView30"
-        android:layout_toStartOf="@+id/imbHoraIni" />
+        android:layout_alignEnd="@+id/imbHoraIni" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -204,8 +206,8 @@
         android:textAppearance="?android:attr/textAppearanceLarge"
         android:text="0.00"
         android:id="@+id/lblHoraEfectiva"
-        android:layout_alignTop="@+id/lblCantidad"
-        android:layout_alignStart="@+id/edtHoraFin" />
+        android:layout_alignTop="@+id/imageView29"
+        android:layout_alignStart="@+id/textView31" />
 
     <TextView
         android:layout_width="wrap_content"
@@ -276,8 +278,8 @@
         android:layout_column="21"
         android:enabled="false"
         android:textColor="#000000"
-        android:layout_below="@+id/textView83"
-        android:layout_alignEnd="@+id/lblTiempoParadas" />
+        android:layout_above="@+id/textView84"
+        android:layout_alignParentStart="true" />
 
     <ImageButton
         android:layout_width="wrap_content"
@@ -287,7 +289,7 @@
         android:layout_column="23"
         android:src="@android:drawable/presence_away"
         android:layout_alignTop="@+id/edtHoraIniPar"
-        android:layout_toEndOf="@+id/edtHoraIniPar" />
+        android:layout_alignEnd="@+id/textView96" />
 
     <EditText
         android:layout_width="wrap_content"
@@ -443,7 +445,7 @@
         android:text="00"
         android:id="@+id/lblNumParadas"
         android:layout_below="@+id/imageView12"
-        android:layout_alignStart="@+id/textView31" />
+        android:layout_toEndOf="@+id/textView85" />
 
     <ImageView
         android:layout_width="match_parent"
@@ -463,6 +465,33 @@
         android:layout_above="@+id/imbRegresar"
         android:layout_alignParentEnd="true"
         android:layout_marginBottom="26dp" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView29"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/textView32"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="T.Total"
+        android:id="@+id/textView106"
+        android:layout_alignTop="@+id/imageView2"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="00"
+        android:id="@+id/lblTiempoTotal"
+        android:layout_alignTop="@+id/lblHoraEfectiva"
+        android:layout_alignEnd="@+id/imbRegresar" />
 
 
 </RelativeLayout>

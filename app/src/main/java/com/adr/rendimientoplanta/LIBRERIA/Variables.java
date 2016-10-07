@@ -22,7 +22,7 @@ public class Variables extends AppCompatActivity{
     public static String MAC= "";
     public static String IMEI = "";
 
-    public  static String FechaStr;
+    public  static String FechaStr="";
     public  static String FechaStrBD;
 
     public  static Integer Con_Id=0;
@@ -83,6 +83,9 @@ public class Variables extends AppCompatActivity{
     public static int PreEnv_CantidadTorre=0;
     public static double PreEnv_Factor=0;
 
-
+    //VARIABLES USADAS PARA INGRESO JABAS
+    public static String LinReg_HoraInicioLinea="";
+    public static int LinReg_NumIngresos=0;
+    public static int LinReg_RegistrosMinimos=0;
 
 }

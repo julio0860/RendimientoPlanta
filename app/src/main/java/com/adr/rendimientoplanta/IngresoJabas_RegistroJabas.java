@@ -14,6 +14,7 @@ import android.os.Bundle;
 import android.text.Editable;
 import android.text.TextWatcher;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.CheckBox;
@@ -77,6 +78,8 @@ private String HoraIniLinea;
     //SMP: Declaración de variables estaticas para la elección de dialog
     static final int DATE_ID=0;
     static final int TIME_DIALOG_ID = 1;
+    private int CantidadRegistros=0;
+
 
     //SMP: Variables tipo TextView
     private TextView lblSucursal;
@@ -88,7 +91,7 @@ private String HoraIniLinea;
     private TextView lblNumIngresos;
 
     //SMP: Variables tipo ImageButton
-    private ImageButton imbRegresar;
+    //private ImageButton imbRegresar;
     private ImageButton imbHoraIni;
 
     //SMP: Variables tipo Button
@@ -122,11 +125,20 @@ private String HoraIniLinea;
     //SMP: Variable tipo Base d datos
     LocalBD LBD;
     SQLiteDatabase LocBD;
+
+    @Override
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+        Intent NuevaActividad = new Intent(IngresoJabas_RegistroJabas.this,IngresoJabas_RegistroLinea.class);
+        startActivity(NuevaActividad);
+    }
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_jabas_registro_jabas);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         //SMP: Iniciación base de datos local
         LBD = new LocalBD(IngresoJabas_RegistroJabas.this) ;
         LocBD = LBD.getWritableDatabase();
@@ -156,7 +168,7 @@ private String HoraIniLinea;
         btnAgregar = (Button) findViewById(R.id.btnAgregar);
 
         //SMP: Asignación de variables ImageButton a Layout
-        imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+        //imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbHoraIni = (ImageButton) findViewById(R.id.imbHoraIni);
 
         //SMP: Asignación de variables CheckBox a Layout
@@ -199,16 +211,18 @@ private String HoraIniLinea;
         spnConsumidorMix.setSelection(CantidadLotes);
         //spnConsumidorMix.setSelection(Consumidor.getCount());
         //Asignación valores iniciales lblNumeroDeIngresos:
-        lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
+        CantidadRegistros=CantidadReg(RegLin_Id);
+        lblNumIngresos.setText(String.valueOf(CantidadRegistros));
 
         //Asignación de Eventos y Acciones a los componentes
         btnAgregar.setOnClickListener(new View.OnClickListener()
             {
                 @Override
                 public void onClick (View v){
+            boolean ValidacionHora = false;
             boolean Validacion;
             boolean ValidacionMix;
-
+            double DiferenciaHora =0;
             String TextCantidad;
             String TextCantidadMix;
 
@@ -216,10 +230,28 @@ private String HoraIniLinea;
             TextCantidadMix = edtCantidadMix.getText().toString();
             HoraIni=edtHoraIni.getText().toString();
 
+            if (HoraIni.equals(HoraNula))
+            {
+                ValidacionHora=false;
+            }else
+            {
+                DiferenciaHora=fnc.HoraEfectivaEntreHorasValidar(HoraIniLinea,HoraIni);
+                if (DiferenciaHora>=0)
+                {
+                    ValidacionHora = true;
+                }else if(DiferenciaHora<0&&CantidadRegistros>=Variables.LinReg_RegistrosMinimos)
+                {
+                    ValidacionHora = true;
+                }else
+                {
+                    ValidacionHora=false;
+                }
+            }
             if(TextCantidad.length () == 0 || HoraIni.equals("--"))
             {
                 Validacion = false;
             }else {
+
                 Validacion = true;
                 LinIng_Cantidad =  Integer.parseInt(TextCantidad);
             }
@@ -227,9 +259,11 @@ private String HoraIniLinea;
             {
                 ValidacionMix = false;
             }else {
+                DiferenciaHora=fnc.HoraEfectivaEntreHorasValidar(HoraIniLinea,HoraIni);
                 ValidacionMix = true;
                 LinIng_CantidadMix = Integer.parseInt(TextCantidadMix);
             }
+
             if (rbnCampo.isChecked()==true)
             {
                 MatPriOriId = 1;
@@ -251,124 +285,126 @@ private String HoraIniLinea;
                 MatPriOriDescripcionMix ="RE-PROCESO";
             }
 
-            Cursor CurConsumidor = (Cursor) spnConsumidor.getAdapter().getItem(spnConsumidor.getSelectedItemPosition());
-            Con_Id= CurConsumidor.getInt(CurConsumidor.getColumnIndex(BaseColumns._ID));
-            Con_DescripcionCor= CurConsumidor.getString(CurConsumidor.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
-
-            Cursor CurConsumidorMix = (Cursor) spnConsumidorMix.getAdapter().getItem(spnConsumidorMix.getSelectedItemPosition());
-            Con_IdMix= CurConsumidorMix.getInt(CurConsumidorMix.getColumnIndex(BaseColumns._ID));
-            Con_DescripcionCorMix= CurConsumidorMix.getString(CurConsumidorMix.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
-
-            if (EsMix==0)
+            if(ValidacionHora==false)
             {
-                if(Validacion == false) {
-                    Toast.makeText(IngresoJabas_RegistroJabas.this,"Verifique los datos",Toast.LENGTH_SHORT).show();
-                }
-                else {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroJabas.this);
-                    String alert_title = "Registrar Ingreso";
-                    String alert_description = "¿Estas seguro que quiere insertar el siguiente registro | Hora: "+HoraIni+ " | Jabas: "
-                            +String.valueOf(LinIng_Cantidad) +" | Lote: "+Con_DescripcionCor+ " | Tipo: "+MatPriOriDescripcion+" ?";
-                    alertDialogBuilder.setTitle(alert_title);
-                    // set dialog message
-                    alertDialogBuilder
-                        .setMessage(alert_description)
-                        .setCancelable(false)
-                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
-                            // Lo que sucede si se pulsa yes
-                            public void onClick(DialogInterface dialog,int id) {
-                        // Código propio del método calculo de diferencia de horas
-                        //try {
-                            double Equivalente = LinIng_Cantidad * MatPriOriFactor;
-                            ActualizarHoraFin(HoraIni);
-                            LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
-                                    RegLin_Id,Con_Id,Con_DescripcionCor,
-                                    LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
-                                    MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
-                                    EsMix,fnc.HoraSistema(),-1));
-                            Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
-                            edtHoraIni.setText(HoraNula);
-
-                            lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
-
-                       // }catch (SQLException e)
-                       // {
-                     //       Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
-                       // }
-                            }
-                        })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // Si se pulsa no no hace nada
-                                Toast.makeText(IngresoJabas_RegistroJabas.this,"Operación cancelada",Toast.LENGTH_LONG).show();
-                                dialog.cancel();
-                            }
-                        });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    // show it
-                    alertDialog.show();
-                }
+                Toast.makeText(IngresoJabas_RegistroJabas.this,"VERIFIQUE LA HORA DE INCIO",Toast.LENGTH_LONG).show();
+                edtHoraIni.setText(HoraNula);
             }
             else
             {
-                //SMP: Validación para el ingreso de jabas mix
-                if(Validacion ==false && ValidacionMix == false) {
-                    Toast.makeText(IngresoJabas_RegistroJabas.this,"Verifique los datos",Toast.LENGTH_SHORT).show();
-                }else {
-                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroJabas.this);
-                    String alert_title = "Registrar Ingreso";
-                    String alert_description = "¿Estas seguro que quiere insertar el siguiente registro | Hora: "+HoraIni+ "| Jabas: "
-                            +TextCantidad +" | Lote: "+Con_DescripcionCor+ " | Tipo: "+MatPriOriDescripcion+" | JabasMix: "+TextCantidadMix+" | LoteMix: "
-                            +Con_DescripcionCorMix+ "| Tipo: "+MatPriOriDescripcionMix+" ?";
-                    alertDialogBuilder.setTitle(alert_title);
-                    // set dialog message
-                    alertDialogBuilder
-                        .setMessage(alert_description)
-                        .setCancelable(false)
-                        .setPositiveButton("Si",new DialogInterface.OnClickListener() {
-                            // Lo que sucede si se pulsa yes
-                            public void onClick(DialogInterface dialog,int id) {
-                            // Código propio del método calculo de diferencia de horas
-                            try {
-                                double Equivalente = LinIng_Cantidad * MatPriOriFactor;
-                                double EquivalenteMix = LinIng_CantidadMix * MatPriOriFactorMix;
-                                ActualizarHoraFin(HoraIni);
-                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
-                                        RegLin_Id,Con_Id,Con_DescripcionCor,
-                                        LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
-                                        MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
-                                        EsMix,fnc.HoraSistema(),-1));
+                Cursor CurConsumidor = (Cursor) spnConsumidor.getAdapter().getItem(spnConsumidor.getSelectedItemPosition());
+                Con_Id= CurConsumidor.getInt(CurConsumidor.getColumnIndex(BaseColumns._ID));
+                Con_DescripcionCor= CurConsumidor.getString(CurConsumidor.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
 
-                                LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
-                                        RegLin_Id,Con_IdMix,Con_DescripcionCorMix,
-                                        LinIng_CantidadMix,MatPriOriIdMix,MatPriOriDescripcionMix,
-                                        MatPriOriFactorMix,EquivalenteMix,HoraIni,HoraNula,0,
-                                        EsMix,fnc.HoraSistema(),-1));
+                Cursor CurConsumidorMix = (Cursor) spnConsumidorMix.getAdapter().getItem(spnConsumidorMix.getSelectedItemPosition());
+                Con_IdMix= CurConsumidorMix.getInt(CurConsumidorMix.getColumnIndex(BaseColumns._ID));
+                Con_DescripcionCorMix= CurConsumidorMix.getString(CurConsumidorMix.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
 
-                                Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
-                                edtHoraIni.setText(HoraNula);
 
-                                lblNumIngresos.setText(String.valueOf(CantidadReg(RegLin_Id)));
-
-                            }catch (SQLException e)
-                            {
-                                Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
-                            }
-                            }
-                        })
-                        .setNegativeButton("No",new DialogInterface.OnClickListener() {
-                            public void onClick(DialogInterface dialog,int id) {
-                                // Si se pulsa no no hace nada
-                                Toast.makeText(IngresoJabas_RegistroJabas.this,"Operación cancelada",Toast.LENGTH_LONG).show();
-                                dialog.cancel();
-                            }
-                        });
-                    AlertDialog alertDialog = alertDialogBuilder.create();
-                    // show it
-                    alertDialog.show();
+                if (EsMix==0)
+                {
+                    if(Validacion == false) {
+                        Toast.makeText(IngresoJabas_RegistroJabas.this,"Verifique los datos",Toast.LENGTH_SHORT).show();
+                    }
+                    else {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroJabas.this);
+                        String alert_title = "Registrar Ingreso";
+                        String alert_description = "¿Estas seguro que quiere insertar el siguiente registro | Hora: "+HoraIni+ " | Jabas: "
+                                +String.valueOf(LinIng_Cantidad) +" | Lote: "+Con_DescripcionCor+ " | Tipo: "+MatPriOriDescripcion+" ?";
+                        alertDialogBuilder.setTitle(alert_title);
+                        // set dialog message
+                        alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // Código propio del método calculo de diferencia de horas
+                                    //try {
+                                    double Equivalente = LinIng_Cantidad * MatPriOriFactor;
+                                    ActualizarHoraFin(HoraIni);
+                                    LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
+                                            RegLin_Id,Con_Id,Con_DescripcionCor,
+                                            LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
+                                            MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
+                                            EsMix,fnc.HoraSistema(),-1,2,0));
+                                    Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
+                                    edtHoraIni.setText(HoraNula);
+                                    CantidadRegistros=CantidadReg(RegLin_Id);
+                                    lblNumIngresos.setText(String.valueOf(CantidadRegistros));
+                                }
+                            })
+                            .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog,int id) {
+                                    // Si se pulsa no no hace nada
+                                    Toast.makeText(IngresoJabas_RegistroJabas.this,"Operación cancelada",Toast.LENGTH_LONG).show();
+                                    dialog.cancel();
+                                }
+                            });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show it
+                        alertDialog.show();
+                    }
                 }
-            }
+                else
+                {
+                    //SMP: Validación para el ingreso de jabas mix
+                    if(Validacion ==false && ValidacionMix == false) {
+                        Toast.makeText(IngresoJabas_RegistroJabas.this,"Verifique los datos",Toast.LENGTH_SHORT).show();
+                    }else {
+                        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroJabas.this);
+                        String alert_title = "Registrar Ingreso";
+                        String alert_description = "¿Estas seguro que quiere insertar el siguiente registro | Hora: "+HoraIni+ "| Jabas: "
+                                +TextCantidad +" | Lote: "+Con_DescripcionCor+ " | Tipo: "+MatPriOriDescripcion+" | JabasMix: "+TextCantidadMix+" | LoteMix: "
+                                +Con_DescripcionCorMix+ "| Tipo: "+MatPriOriDescripcionMix+" ?";
+                        alertDialogBuilder.setTitle(alert_title);
+                        // set dialog message
+                        alertDialogBuilder
+                                .setMessage(alert_description)
+                                .setCancelable(false)
+                                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                                    // Lo que sucede si se pulsa yes
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // Código propio del método calculo de diferencia de horas
+                                        try {
+                                            double Equivalente = LinIng_Cantidad * MatPriOriFactor;
+                                            double EquivalenteMix = LinIng_CantidadMix * MatPriOriFactorMix;
+                                            ActualizarHoraFin(HoraIni);
+                                            LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
+                                                    RegLin_Id,Con_Id,Con_DescripcionCor,
+                                                    LinIng_Cantidad,MatPriOriId,MatPriOriDescripcion,
+                                                    MatPriOriFactor,Equivalente,HoraIni,HoraNula,0,
+                                                    EsMix,fnc.HoraSistema(),-1,2,0));
+
+                                            LocBD.execSQL(T_LineaIngreso.LineaIngreso_Insertar(
+                                                    RegLin_Id,Con_IdMix,Con_DescripcionCorMix,
+                                                    LinIng_CantidadMix,MatPriOriIdMix,MatPriOriDescripcionMix,
+                                                    MatPriOriFactorMix,EquivalenteMix,HoraIni,HoraNula,0,
+                                                    EsMix,fnc.HoraSistema(),-1,2,0));
+
+                                            Toast.makeText(IngresoJabas_RegistroJabas.this,"Ingreso registrado correctamente",Toast.LENGTH_LONG).show();
+                                            edtHoraIni.setText(HoraNula);
+                                            CantidadRegistros=CantidadReg(RegLin_Id);
+                                            lblNumIngresos.setText(String.valueOf(CantidadRegistros));
+                                        }catch (SQLException e)
+                                        {
+                                            Toast.makeText(IngresoJabas_RegistroJabas.this,e.toString(),Toast.LENGTH_LONG).show();
+                                        }
+                                    }
+                                })
+                                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                                    public void onClick(DialogInterface dialog,int id) {
+                                        // Si se pulsa no no hace nada
+                                        Toast.makeText(IngresoJabas_RegistroJabas.this,"Operación cancelada",Toast.LENGTH_LONG).show();
+                                        dialog.cancel();
+                                    }
+                                });
+                        AlertDialog alertDialog = alertDialogBuilder.create();
+                        // show it
+                        alertDialog.show();
+                    }
                 }
+            }}
             }
         );
         spnConsumidor.setOnItemSelectedListener(new AdapterView.OnItemSelectedListener() {
@@ -436,7 +472,7 @@ private String HoraIniLinea;
                 showDialog(TIME_DIALOG_ID);
             }
         });
-        imbRegresar.setOnClickListener(new View.OnClickListener()
+        /*imbRegresar.setOnClickListener(new View.OnClickListener()
         {
             @Override
             public void onClick (View v){
@@ -446,6 +482,7 @@ private String HoraIniLinea;
                 startActivity(NuevaActividad);
             }
         });
+        */
         cbxMix.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
@@ -524,7 +561,7 @@ private String HoraIniLinea;
     {
         Cursor curCantEquiv = LocBD.rawQuery(T_LineaIngreso.EquivalentePorId(LinReg_Id),null);
         curCantEquiv.moveToFirst();
-        return curCantEquiv.getInt(0);
+        return curCantEquiv.getDouble(0);
     }
     private double Paradas(int LinReg_Id)
     {
@@ -546,8 +583,10 @@ private String HoraIniLinea;
         //Variables para actualizar tabla principal
         double CantEquiv;
         double HoraEf;
+        double HoraTotal;
         double paradas;
         double CantHora;
+
 
         Cursor curIngresos= LocBD.rawQuery(T_LineaIngreso.LineaIngreso_SeleccionarIdCabecera(RegLin_Id),null);
         Cantidad = CantidadReg(RegLin_Id);
@@ -556,11 +595,20 @@ private String HoraIniLinea;
         {
             //PARA ACTUALIZAR TABLA PRINCIPAL UBICACIÓN TEMPORAL
             CantEquiv=CantidadEquiv(RegLin_Id);
-            HoraEf = fnc.HoraEfectivaEntreHoras(HoraIniLinea,HoraIni);
+            HoraTotal = fnc.HoraEfectivaEntreHoras24(HoraIniLinea,HoraIni);
             paradas =Paradas(RegLin_Id);
-            HoraEf = HoraEf-paradas;
+            HoraEf = HoraTotal-paradas;
             CantHora = fnc.RedondeoDecimal((CantEquiv/HoraEf),2, BigDecimal.ROUND_HALF_UP);
-            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarIngreso(RegLin_Id,CantEquiv,HoraEf,CantHora));
+            CantidadRegistros =CantidadReg(RegLin_Id);
+            if (cbxMix.isChecked())
+            {
+                CantidadRegistros=CantidadRegistros+2;
+            }
+            else
+            {
+                CantidadRegistros=CantidadRegistros+1;
+            }
+            LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarIngreso(RegLin_Id,CantEquiv,HoraEf,CantHora,HoraTotal,CantidadRegistros));
             //Fin actualizar tabla principal
             //---------------------------------------------------------------------
 
@@ -572,7 +620,7 @@ private String HoraIniLinea;
                 //Actualiza el ultimo registro
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
-                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraInicial,HoraFin);
+                tEfectivo= fnc.HoraEfectivaEntreHoras24(HoraInicial,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
             }else if (Mix==1)
             {
@@ -583,14 +631,14 @@ private String HoraIniLinea;
                 curIngresos.moveToLast();
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
-                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraInicial,HoraFin);
+                tEfectivo= fnc.HoraEfectivaEntreHoras24(HoraInicial,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
 
                 //Obtiene el ultimo registro y Actualiza
                 curIngresos.moveToPrevious();
                 LinIng_Id = curIngresos.getInt(curIngresos.getColumnIndex(BaseColumns._ID));
                 HoraInicial = curIngresos.getString(curIngresos.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
-                tEfectivo= fnc.HoraEfectivaEntreHoras(HoraInicial,HoraFin);
+                tEfectivo= fnc.HoraEfectivaEntreHoras24(HoraInicial,HoraFin);
                 LocBD.execSQL(T_LineaIngreso.LineaIngreso_ActualizarHora(LinIng_Id,tEfectivo,HoraFin,0));
 
             }

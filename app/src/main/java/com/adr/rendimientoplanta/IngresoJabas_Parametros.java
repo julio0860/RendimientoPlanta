@@ -1,5 +1,7 @@
 package com.adr.rendimientoplanta;
 
+import android.app.DatePickerDialog;
+import android.app.Dialog;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
@@ -7,8 +9,11 @@ import android.provider.BaseColumns;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.View;
+import android.view.WindowManager;
 import android.widget.Button;
+import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.ImageButton;
 import android.widget.Spinner;
 
 import com.adr.rendimientoplanta.DATA.LocalBD;
@@ -24,7 +29,14 @@ import java.util.GregorianCalendar;
 
 public class IngresoJabas_Parametros extends AppCompatActivity {
 
+    static final int DATE_ID=0;
+    private int mMes,mAño,mDia,sDia,sMes,sAño;
+
     private EditText txtFecha;
+    private EditText edtFecha;
+    private EditText edtNumRegistros;
+
+
 
     private Button btnEstablecer;
 
@@ -32,18 +44,31 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
     private Spinner spnCultivo;
     private Spinner spnEmpresa;
 
+    private ImageButton imbFecha;
+
     private Funciones fnc;
 
     LocalBD LBD;
     SQLiteDatabase LocBD;
     @Override
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+        //Intent NuevaActividad = new Intent(IngresoJabas_Grilla.this,Principal_Menu.class);
+        //startActivity(NuevaActividad);
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_ingreso_jabas_parametros);
 
+        getWindow().setSoftInputMode(WindowManager.LayoutParams.SOFT_INPUT_STATE_ALWAYS_HIDDEN);
         Calendar Cal = new GregorianCalendar();
         SimpleDateFormat df = new SimpleDateFormat("dd/MM/yyyy");
         txtFecha = (EditText) findViewById(R.id.edtFecha);
+        edtNumRegistros = (EditText) findViewById(R.id.edtNumRegistros);
+
         txtFecha.setText(df.format(Cal.getInstance().getTime()).toString());
         txtFecha.setEnabled(false);
 
@@ -56,6 +81,8 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         spnCultivo = (Spinner) findViewById(R.id.spnCultivo);
         spnEmpresa = (Spinner) findViewById(R.id.spnEmpresa);
 
+        imbFecha = (ImageButton) findViewById(R.id.imbFecha);
+
         Cursor Empresa = LocBD.rawQuery(T_Empresa._SELECT_EMP(-1),null);
         spnEmpresa.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Empresa,T_Empresa.EMPDESCRIPCION));
 
@@ -65,6 +92,16 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         Cursor Cultivo = LocBD.rawQuery(T_Cultivo._SELECT_CULT(-1,2),null);
         spnCultivo.setAdapter(fnc.AdaptadorSpinnerSimpleLarge(this,Cultivo,T_Cultivo.CULDESCRIPCION));
 
+        //VARIABLES CONTROL FECHA
+        final Calendar C = Calendar.getInstance();
+        sAño = C.get(Calendar.YEAR);
+        sMes = C.get(Calendar.MONTH);
+        sDia = C.get(Calendar.DAY_OF_MONTH);
+
+        if (Variables.FechaStr.length()>0)
+        {
+            txtFecha.setText(Variables.FechaStr);
+        }
         if (Variables.Cul_Id!=0)
         {
             fnc.setIndexInt(spnCultivo, BaseColumns._ID, Variables.Cul_Id);
@@ -77,7 +114,18 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
         {
             fnc.setIndexInt(spnEmpresa,BaseColumns._ID, Variables.Emp_Id);
         }
-
+        if(Variables.LinReg_RegistrosMinimos!=0)
+        {
+            edtNumRegistros.setText(String.valueOf(Variables.LinReg_RegistrosMinimos));
+        }
+        imbFecha.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v) {
+                edtFecha = txtFecha;
+                showDialog(DATE_ID);
+            }
+        });
         btnEstablecer.setOnClickListener(new View.OnClickListener()
         {
             @Override
@@ -100,7 +148,10 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
                 Variables.Cul_Descripcion= CurCultivo.getString(CurCultivo.getColumnIndex(T_Cultivo.CULDESCRIPCION));
 
                 Variables.FechaStr = txtFecha.getText().toString();
-
+                if (edtNumRegistros.length()>0)
+                {
+                    Variables.LinReg_RegistrosMinimos= Integer.parseInt(edtNumRegistros.getText().toString());
+                }
 
             Intent ActividadNueva = new Intent(IngresoJabas_Parametros.this, IngresoJabas_Grilla.class);
             startActivity(ActividadNueva);
@@ -110,5 +161,30 @@ public class IngresoJabas_Parametros extends AppCompatActivity {
 
 
     }
+    private void ColocarFecha(EditText edtFecha)
+    {
+        //ASIGNACION DE FECHA
+        edtFecha.setText(new StringBuilder().append(fnc.pad(mDia))
+                .append("/").append(fnc.pad(mMes+1)).append("/").append(mAño));
+    }
+    protected Dialog onCreateDialog(int id)
+    {
+        switch (id)
+        {
+            case DATE_ID:
+                return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
+        }
+        return null;
+    }
+    private DatePickerDialog.OnDateSetListener mDateSetListener = new DatePickerDialog.OnDateSetListener()
+    {
+        public void onDateSet(DatePicker view, int year, int monthOfYear, int dayOfMonth)
+        {
+            mAño=year;
+            mMes=monthOfYear;
+            mDia=dayOfMonth;
+            ColocarFecha(txtFecha);
+        }
+    };
 
 }
