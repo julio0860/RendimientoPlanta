@@ -133,6 +133,18 @@ public class T_LineaRegistro {
                 +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
         return Actualizar;
     }
+    public static String LinReg_ActualizarHoraIni(int LinReg_IdMovil,
+            String LinReg_HoraIni)
+    {
+        String Actualizar;
+        Actualizar = "UPDATE "+NombreTabla +" SET "
+                +LinRegHoraIni+"='"+LinReg_HoraIni
+                +"' WHERE "
+                +LinRegIdMovil+"='"+LinReg_IdMovil+"';";
+        return Actualizar;
+    }
+
+
     public static String LineaRegistro_ActualizarResumen(
             int LinReg_IdMovil,int LinReg_NumParadas,double LinReg_Paradas,double LinReg_TiempoTotal,
             double LinReg_HoraEfectiva,double LinReg_Cantidad,double LinReg_CantidadPorHora,

@@ -120,6 +120,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     private int pHour;
     private int pMinute;
 
+    boolean Iniciado;
+    boolean ModificarHoraIni;
+
     //SMP: Declaración Base de datos local
     LocalBD LBD;
     SQLiteDatabase LocBD;
@@ -207,6 +210,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             Est_Id=CurLineaRegistro.getInt(CurLineaRegistro.getColumnIndex(T_LineaRegistro.EstId));
             NumIngresos = CurLineaRegistro.getInt(CurLineaRegistro.getColumnIndex(T_LineaRegistro.LinRegNumIngresos));
 
+            Iniciado=true;
             edtHoraIni.setText(HoraIni);
             edtHoraFin.setText(HoraFin);
             //RecuperarNumeroParadas();
@@ -236,6 +240,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
 
         }
         else {
+            Iniciado=false;
             Toast.makeText(this,"LINEA SIN INICIAR",Toast.LENGTH_SHORT).show();
             BloquearBotones(false);
             edtHoraIni.setText(HoraNula);
@@ -390,7 +395,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                 if (tEfectivo > 0) {
                     TerminarLinea();
                 }
-                else if (tEfectivo<0&&Variables.LinReg_NumIngresos>= NumIngresos)
+                else if (tEfectivo<0&& NumIngresos >=Variables.LinReg_RegistrosMinimos)
                 {
                     TerminarLinea();
                 }
@@ -428,8 +433,46 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         {
             @Override
             public void onClick (View v){
-            displayTime = edtHoraIni;
-            showDialog(TIME_DIALOG_ID);
+            if (Iniciado==true)
+            {
+                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
+                String alert_title = "Hora de Inicio definida";
+                String alert_description = "¿Estas seguro que quiere modificar la hora de inicio: " + HoraIni + "?";
+                alertDialogBuilder.setTitle(alert_title);
+                // set dialog message
+                alertDialogBuilder
+                    .setMessage(alert_description)
+                    .setCancelable(false)
+                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                        // Lo que sucede si se pulsa yes
+                        public void onClick(DialogInterface dialog, int id) {
+                            displayTime = edtHoraIni;
+                            ModificarHoraIni=true;
+                            showDialog(TIME_DIALOG_ID);
+                        }})
+                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                                public void onClick(DialogInterface dialog, int id) {
+                                    // Si se pulsa no no hace nada
+                                    Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
+                                    ModificarHoraIni=false;
+                                    dialog.cancel();
+                                }
+                            });
+                            AlertDialog alertDialog = alertDialogBuilder.create();
+                            alertDialog.show();
+
+                if (ModificarHoraIni==true)
+                {
+                    HoraIni=edtHoraIni.getText().toString();
+                    //HoraIni=edtHoraIni.getText().toString();
+                    LocBD.execSQL(T_LineaRegistro.LinReg_ActualizarHoraIni(RegLin_Id,HoraIni));
+                    ActualizarResumen();
+                }
+            }else
+            {
+                displayTime = edtHoraIni;
+                showDialog(TIME_DIALOG_ID);
+            }
             }
         });
         imbHoraFin.setOnClickListener(new View.OnClickListener()
@@ -484,8 +527,10 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         };
     private void BloquearBotones(boolean Estado)
     {
+
         btnIniciar.setEnabled(!Estado);
-        imbHoraIni.setEnabled(!Estado);
+        //ANTIGUO imbHoraIni.setEnabled(!Estado);
+        imbHoraIni.setEnabled(Estado);
         imbHoraFin.setEnabled(Estado);
         imbHoraIniPar.setEnabled(Estado);
         imbHoraFinPar.setEnabled(Estado);
@@ -568,6 +613,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
     }
     private void ActualizarResumen()
     {
+        //EN CASO EQUIVOQUE HORA DE INICIO
+        HoraIni = edtHoraIni.getText().toString();
+        //-------------------------->
         NumParadas=NumeroParadas(RegLin_Id);
         SumParadas=TiempoParadas(RegLin_Id);
         NumIngresos = NumeroIngresos(RegLin_Id);
