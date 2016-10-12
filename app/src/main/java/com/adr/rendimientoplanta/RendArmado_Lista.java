@@ -447,8 +447,8 @@ public class RendArmado_Lista extends AppCompatActivity {
         }
     }
 
-    private void SincronizarRendimientoArmado(Cursor curDatosSinc)
-    {
+    private void SincronizarRendimientoArmado(Cursor curDatosSinc){
+
         boolean Realizado = false;
 
         try {
@@ -522,8 +522,8 @@ public class RendArmado_Lista extends AppCompatActivity {
         }
 
     }
-    private void Mensaje(String mensaje)
-    {
+    private void Mensaje(String mensaje) {
+
         AlertDialog.Builder alertDialog1 = new AlertDialog.Builder(RendArmado_Lista.this);
         alertDialog1.setTitle("AVISO");
         alertDialog1.setMessage(mensaje);
