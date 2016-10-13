@@ -24,6 +24,13 @@ public class Principal_Menu extends AppCompatActivity {
 
 
     //<----------------------------------------------
+    public void onBackPressed()
+    {
+        // Your Code Here. Leave empty if you want nothing to happen on back press.
+        Intent NuevaActividad = new Intent(this,Principal_Login.class);
+
+        startActivity(NuevaActividad);
+    }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
