@@ -625,7 +625,14 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             TotalTiempo = HoraTotal(RegLin_Id,Est_Id);
             TiempoEfectivo = TotalTiempo-SumParadas;
             CantidadEquivalente = CantidadEquivalente(RegLin_Id);
-            CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
+            if (TiempoEfectivo==0)
+            {
+                CantidadPorHora=0;
+            }else
+            {
+                CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
+            }
+
 
         }
         LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarResumen(RegLin_Id,NumParadas,SumParadas,TotalTiempo,TiempoEfectivo,
