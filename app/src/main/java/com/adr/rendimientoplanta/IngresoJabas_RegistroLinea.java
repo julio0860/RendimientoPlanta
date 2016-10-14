@@ -243,6 +243,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             Iniciado=false;
             Toast.makeText(this,"LINEA SIN INICIAR",Toast.LENGTH_SHORT).show();
             BloquearBotones(false);
+            imbHoraIni.setEnabled(true);
             edtHoraIni.setText(HoraNula);
             edtHoraFin.setText(HoraNula);
             edtHoraIniPar.setText(HoraNula);
@@ -503,7 +504,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             case DATE_ID:
                 //return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,true);
         }
         return null;
     }

@@ -547,7 +547,7 @@ private String HoraIniLinea;
             case DATE_ID:
                 //return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,true);
         }
         return null;
     }
