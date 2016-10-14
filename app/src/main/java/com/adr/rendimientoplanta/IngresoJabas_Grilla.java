@@ -15,6 +15,8 @@ import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.Button;
@@ -42,6 +44,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private String HoraFin="";
     private int LinReg_IdServidor;
     private int LinReg_IdMovil;
+    private int Reg_Id;
 
     private int RegLinId;
     private int EstId;
@@ -69,6 +72,9 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private Connection Cnn;
     private Statement Stmt;
     private ResultSet Rse;
+
+    private boolean Ejecutar=false;
+    private MenuItem men;
 
     @Override
     public void onBackPressed()
@@ -136,7 +142,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         dgvLineas = (GridView) findViewById(R.id.dgvLineas);
         //ANTIGUA VERSION
         //Cursor CurLineas = LocBD.rawQuery(T_Linea._SELECT_LIN(Variables.Suc_Id,2),null);
-        Cursor CurLineas = LocBD.rawQuery(T_Linea.Linea_SeleccionarEstado(Variables.Suc_Id,2,Variables.FechaStr),null);
+        Cursor CurLineas = LocBD.rawQuery(T_Linea.Linea_SeleccionarEstado(Variables.Suc_Id,2,Variables.FechaStr,Variables.Cul_Id),null);
         /*adspnLineas = new SimpleCursorAdapter(IngresoJabas_Grilla.this,
                 android.R.layout.simple_dropdown_item_1line,CurLineas,
                 new String[]{"Lin_Descripcion"}, new int[]{android.R.id.text1},
@@ -149,9 +155,9 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
         adspnLineas.setViewBinder(new SimpleCursorAdapter.ViewBinder() {
             public boolean setViewValue(View view, Cursor cursor, int columnIndex) {
-                    int LinReg_Id=0;
-                LinReg_Id = cursor.getInt(cursor.getColumnIndex("Est_Id"));
-                switch(LinReg_Id) {
+                    //int LinReg_Id=0;
+                EstId = cursor.getInt(cursor.getColumnIndex("Est_Id"));
+                switch(EstId) {
                     case 0: ((TextView) view).setBackgroundColor(Color.GRAY); break;
                     case 1: ((TextView) view).setBackgroundColor(Color.GREEN); break;
                     case 2: ((TextView) view).setBackgroundColor(Color.BLUE); break;
@@ -246,7 +252,107 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
             }
             }
         );
+        dgvLineas.setOnItemLongClickListener(new AdapterView.OnItemLongClickListener()
+        {
+            @Override
+            public boolean onItemLongClick(AdapterView<?> parent, View view, int position, long id) {
+                view.setSelected(true);
+
+                //if (Est_IdPrincipal==1)
+                //{
+
+                    Cursor curRegistro = (Cursor) parent.getItemAtPosition(position);
+                    Reg_Id =curRegistro.getInt(curRegistro.getColumnIndex(T_LineaRegistro.LinRegIdMovil));
+                    EstId=curRegistro.getInt(curRegistro.getColumnIndex(T_LineaRegistro.EstId));
+                if (EstId==2)
+                {
+                    //  LinIng_Id= curIngreso.getInt(curIngreso.getColumnIndex(BaseColumns._ID));
+                    // IngHoraIni=curIngreso.getString(curIngreso.getColumnIndex(T_LineaIngreso.LinIngHoraIni));
+                    //IngHoraFin=curIngreso.getString(curIngreso.getColumnIndex(T_LineaIngreso.LinIngHoraFin));
+                    // IngLote=curIngreso.getString(curIngreso.getColumnIndex(T_LineaIngreso.ConDescripcionCor));
+                    // IngCantidad=curIngreso.getInt(curIngreso.getColumnIndex(T_LineaIngreso.LinIngCantidad));
+                    // MensajeAnularIngreso="INI: "+IngHoraIni+" | FIN: "+IngHoraFin+" | L: "+IngLote+" | JBS: "+IngCantidad;
+                    registerForContextMenu(dgvLineas);
+                }
+                //}
+                return false;
+            }
+        });
+
+
     }
+
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        //MenuInflater inflater = new MenuInflater(this);
+
+        switch(v.getId()){
+            case R.id.dgvLineas:
+                //TODO CODE
+                menu.setHeaderTitle("OPCIONES LINEA");
+                menu.add(0, v.getId(), 0, "MODIFICAR LINEA ");
+                break;
+        }
+    }
+
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        men=item;
+        AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_Grilla.this);
+        String alert_title = "MODIFICAR LINEA";
+        String alert_description = "¿ESTA SEGURO QUE QUIERE ABRIR LA LINEA?";
+        alertDialogBuilder.setTitle(alert_title);
+        // set dialog message
+        alertDialogBuilder
+                .setMessage(alert_description)
+                .setCancelable(false)
+                .setPositiveButton("Si",new DialogInterface.OnClickListener() {
+                    // Lo que sucede si se pulsa yes
+                    public void onClick(DialogInterface dialog,int id) {
+                        // Código propio del método borrado para ejemplo
+                        Ejecutar=true;
+                        switch(men.getGroupId())
+                        {
+                            case 0:
+                                ProcesoModificarLinea(Reg_Id);
+                                //Toast.makeText(IngresoJabas_Grilla.this,men.getGroupId(),Toast.LENGTH_SHORT).show();
+                                break;
+
+                            //case 1:
+                            //    //ProcesoAnularIngreso(men.getGroupId());
+                            //    Toast.makeText(IngresoJabas_Grilla.this,men.getGroupId(),Toast.LENGTH_SHORT).show();
+                            //    break;
+                        }
+
+                    }
+
+                })
+                .setNegativeButton("No",new DialogInterface.OnClickListener() {
+                    public void onClick(DialogInterface dialog,int id) {
+                        // Si se pulsa no no hace nada
+                        Ejecutar=false;
+                        Toast.makeText(IngresoJabas_Grilla.this,"Operación cancelada",Toast.LENGTH_SHORT).show();
+                        dialog.cancel();
+                    }
+                });
+        AlertDialog alertDialog = alertDialogBuilder.create();
+        // show it
+        alertDialog.show();
+        return true;
+    }
+    private void ProcesoModificarLinea(int id){
+
+        LocBD.execSQL(T_LineaRegistro.LinReg_ModificarEstado(Reg_Id,1));
+        Toast.makeText(this, "LINEA MODIFICADA", Toast.LENGTH_SHORT).show();
+        Intent NuevaActividad = new Intent(IngresoJabas_Grilla.this,IngresoJabas_Grilla.class);
+        startActivity(NuevaActividad);
+        //CargarParadas();
+    }
+
     public final Boolean conectadoWifi(){
         ConnectivityManager connectivity = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         if (connectivity != null) {
@@ -431,7 +537,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                                 fnc.HoraSistema(),
                                 CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.EstId)),
                                 CurReg.getDouble(CurReg.getColumnIndex(T_LineaRegistro.LinRegTiempoTotal)),
-                                CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegNumIngresos))
+                                CurReg.getInt(CurReg.getColumnIndex(T_LineaRegistro.LinRegNumIngresos)),
+                                CurReg.getString(CurReg.getColumnIndex(T_LineaRegistro.LinRegHoraIni))
                         ),Stmt.RETURN_GENERATED_KEYS);
                         Rse=Stmt.getGeneratedKeys();
                         if (Rse.next())

@@ -461,13 +461,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                             AlertDialog alertDialog = alertDialogBuilder.create();
                             alertDialog.show();
 
-                if (ModificarHoraIni==true)
-                {
-                    HoraIni=edtHoraIni.getText().toString();
-                    //HoraIni=edtHoraIni.getText().toString();
-                    LocBD.execSQL(T_LineaRegistro.LinReg_ActualizarHoraIni(RegLin_Id,HoraIni));
-                    ActualizarResumen();
-                }
             }else
             {
                 displayTime = edtHoraIni;
@@ -523,6 +516,13 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             //updateDisplay(displayTime);
             fnc.EstablecerHoraEdt(displayTime,pHour,pMinute);
             //displayToast();
+            if (ModificarHoraIni==true)
+            {
+                HoraIni=edtHoraIni.getText().toString();
+                //HoraIni=edtHoraIni.getText().toString();
+                LocBD.execSQL(T_LineaRegistro.LinReg_ActualizarHoraIni(RegLin_Id,HoraIni));
+                ActualizarResumen();
+            }
         }
         };
     private void BloquearBotones(boolean Estado)
