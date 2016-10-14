@@ -161,6 +161,8 @@ public class RegistroOperario extends AppCompatActivity {
                         imbHoraSalida.setVisibility(View.VISIBLE);
                         imbHora.setEnabled(false);
                         edtHora.setEnabled(false);
+                        imbHoraSalida.setEnabled(true);
+                        edtHoraSalida.setEnabled(true);
                         break;
                     case 9:
                         Variables.Agru_EstId = 3;
@@ -169,6 +171,8 @@ public class RegistroOperario extends AppCompatActivity {
                         imbHoraSalida.setVisibility(View.VISIBLE);
                         imbHora.setEnabled(false);
                         edtHora.setEnabled(false);
+                        imbHoraSalida.setEnabled(false);
+                        edtHoraSalida.setEnabled(false);
                         break;
                 }
             }
@@ -212,7 +216,6 @@ public class RegistroOperario extends AppCompatActivity {
                     Variables.HoraIngreso = edtHora.getText().toString();
                     Variables.HoraSalida = edtHoraSalida.getText().toString();
 
-
                     if (Variables.Agru_Id > 0) {
                         try {
                             LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
@@ -253,7 +256,6 @@ public class RegistroOperario extends AppCompatActivity {
                                 Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);
                                 startActivity(ActividadRegresarLista);
 
-
                             } catch (Exception e) {
                                 Estado = false;
                                 Log.e(TAG, "Error Exception: " + e);
@@ -284,7 +286,6 @@ public class RegistroOperario extends AppCompatActivity {
                                 public void onClick(DialogInterface dialog, int id) {
                                     Variables.Agru_EstId = 0;
                                     Variables.HoraLectura = fnc.HoraSistema();
-
                                     try {
                                         LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
                                                 Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId,1));
@@ -311,8 +312,6 @@ public class RegistroOperario extends AppCompatActivity {
                             });
                     alertDialog1.create();
                     alertDialog1.show();
-
-
                 }
             }
         });
