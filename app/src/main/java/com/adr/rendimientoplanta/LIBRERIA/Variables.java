@@ -87,5 +87,7 @@ public class Variables extends AppCompatActivity{
     public static String LinReg_HoraInicioLinea="";
     public static int LinReg_NumIngresos=0;
     public static int LinReg_RegistrosMinimos=0;
+    //-----------
+    public static int IngresoJabas_Editar=0;
 
 }

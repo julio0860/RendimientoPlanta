@@ -71,8 +71,9 @@ public class T_Linea {
         _SELECT_LIN = "SELECT LN."+LINID+" as '_id', LN."+EMPID+",LN."+ESTID+",LN."+SUCID+",LN."+LINCODIGO+",LN."+LINDESCRIPCION
                 +", IFNULL(LR.Est_Id,0) AS 'Est_Id'"+",IFNULL(LR.LinReg_IdMovil,0) AS 'LinReg_IdMovil'"
                 +" FROM "+N_TABLA
-        +" LN LEFT JOIN LineaRegistro LR ON LN."+LINID+" = IFNULL(LR.Lin_Id,LN.Lin_Id) AND LR.LinReg_Fecha='"+Fecha+"'"
-        +" WHERE LN."+SUCID+"='"+SID+"' AND LN."+ESTID+"='"+EST+"' AND LR.Cul_Id='"+Cul_Id+"'";
+        +" LN LEFT JOIN LineaRegistro LR ON LN."+LINID+" = IFNULL(LR.Lin_Id,LN.Lin_Id) AND LR.LinReg_Fecha='"+Fecha+"'"+
+        " AND LR.Cul_Id='"+Cul_Id+"'"
+        +" WHERE LN."+SUCID+"='"+SID+"' AND LN."+ESTID+"='"+EST+"'";
 
 
         return _SELECT_LIN;

@@ -243,6 +243,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             Iniciado=false;
             Toast.makeText(this,"LINEA SIN INICIAR",Toast.LENGTH_SHORT).show();
             BloquearBotones(false);
+            imbHoraIni.setEnabled(true);
             edtHoraIni.setText(HoraNula);
             edtHoraFin.setText(HoraNula);
             edtHoraIniPar.setText(HoraNula);
@@ -435,22 +436,24 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             public void onClick (View v){
             if (Iniciado==true)
             {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
-                String alert_title = "Hora de Inicio definida";
-                String alert_description = "¿Estas seguro que quiere modificar la hora de inicio: " + HoraIni + "?";
-                alertDialogBuilder.setTitle(alert_title);
-                // set dialog message
-                alertDialogBuilder
-                    .setMessage(alert_description)
-                    .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        // Lo que sucede si se pulsa yes
-                        public void onClick(DialogInterface dialog, int id) {
-                            displayTime = edtHoraIni;
-                            ModificarHoraIni=true;
-                            showDialog(TIME_DIALOG_ID);
-                        }})
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                if(Variables.IngresoJabas_Editar==1)
+                {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
+                    String alert_title = "Hora de Inicio definida";
+                    String alert_description = "¿Estas seguro que quiere modificar la hora de inicio: " + HoraIni + "?";
+                    alertDialogBuilder.setTitle(alert_title);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog, int id) {
+                                    displayTime = edtHoraIni;
+                                    ModificarHoraIni=true;
+                                    showDialog(TIME_DIALOG_ID);
+                                }})
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // Si se pulsa no no hace nada
                                     Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
@@ -458,9 +461,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
-
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             }else
             {
                 displayTime = edtHoraIni;
@@ -503,7 +506,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             case DATE_ID:
                 //return new DatePickerDialog(this,mDateSetListener,sAño,sMes,sDia);
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,true);
         }
         return null;
     }
@@ -625,7 +628,14 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             TotalTiempo = HoraTotal(RegLin_Id,Est_Id);
             TiempoEfectivo = TotalTiempo-SumParadas;
             CantidadEquivalente = CantidadEquivalente(RegLin_Id);
-            CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
+            if (TiempoEfectivo==0)
+            {
+                CantidadPorHora=0;
+            }else
+            {
+                CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
+            }
+
 
         }
         LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarResumen(RegLin_Id,NumParadas,SumParadas,TotalTiempo,TiempoEfectivo,
