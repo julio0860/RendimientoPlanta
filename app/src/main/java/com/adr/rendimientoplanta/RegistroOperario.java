@@ -332,7 +332,7 @@ public class RegistroOperario extends AppCompatActivity {
         switch (id)
         {
             case TIME_DIALOG_ID:
-                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,false);
+                return new TimePickerDialog(this,mTimeSetListener, pHour, pMinute,true);
         }
         return null;
     }
