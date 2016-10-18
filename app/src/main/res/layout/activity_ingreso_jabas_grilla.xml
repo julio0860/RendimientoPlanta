@@ -9,6 +9,15 @@
     android:paddingTop="@dimen/activity_vertical_margin"
     tools:context="com.adr.rendimientoplanta.IngresoJabas_Grilla">
 
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbSincroRapida"
+        android:src="@android:drawable/presence_online"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentBottom="true" />
+
     <TextView
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -92,25 +101,6 @@
         android:fastScrollEnabled="false"
         android:focusable="false" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imbRegresar"
-        android:layout_row="0"
-        android:layout_column="6"
-        android:src="@android:drawable/ic_menu_revert"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentStart="true"
-        android:visibility="invisible" />
-
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:id="@+id/imbConfigurar"
-        android:src="@android:drawable/ic_menu_manage"
-        android:layout_alignParentBottom="true"
-        android:layout_toEndOf="@+id/imbRegresar" />
-
     <Button
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -137,5 +127,28 @@
         android:layout_below="@+id/lblFecha"
         android:layout_alignEnd="@+id/lblFecha"
         android:layout_marginTop="29dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbRegresar"
+        android:layout_row="0"
+        android:layout_column="6"
+        android:src="@android:drawable/ic_menu_revert"
+        android:visibility="invisible"
+        android:layout_below="@+id/imageView13"
+        android:layout_alignRight="@+id/lblSucursal"
+        android:layout_alignEnd="@+id/lblSucursal"
+        android:layout_marginRight="57dp"
+        android:layout_marginEnd="57dp" />
+
+    <ImageButton
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:id="@+id/imbConfigurar"
+        android:src="@android:drawable/ic_menu_manage"
+        android:layout_alignParentBottom="true"
+        android:layout_toRightOf="@+id/lblEmpresa"
+        android:layout_toEndOf="@+id/lblEmpresa" />
 
 </RelativeLayout>
