@@ -245,7 +245,6 @@ if (Variables.Cul_Id !=0)
       //USAR CUANDO SE UTILIZA CON EL EMULADOR VIRTUAL
         return true;
     }*/
-
     private void AsignacionControles(){
         AsignacionSpinners();
         AsignacionEditText();
@@ -646,7 +645,6 @@ if (Variables.Cul_Id !=0)
             } while(FechaCampaña.moveToNext());
         }
     }
-
     private void ObtenerCultivo(){
         Cursor CurCultivo = (Cursor) spnCultivo.getAdapter().getItem(spnCultivo.getSelectedItemPosition());
         Variables.Cul_Id = CurCultivo.getInt(CurCultivo.getColumnIndex(BaseColumns._ID));
