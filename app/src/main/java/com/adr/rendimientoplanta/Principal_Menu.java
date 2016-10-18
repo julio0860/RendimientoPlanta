@@ -65,7 +65,15 @@ public class Principal_Menu extends AppCompatActivity {
                 }
                 if (Privilegios.getString(0).equals("btnIngresoJabas")&&Privilegios.getInt(5)==1)
                 {
-                    btnIngresoJabas.setEnabled(true);
+                    if (Privilegios.getInt(5)==1)
+                    {
+                        btnIngresoJabas.setEnabled(true);
+                    }
+                    if(Privilegios.getInt(Privilegios.getColumnIndex(T_MenuUsuario.MENUSUEDITAR)) == 1)
+                    {
+                        Variables.IngresoJabas_Editar=1;
+                    }
+
                 }
                 if (Privilegios.getString(0).equals("btnAgrupacion")&&Privilegios.getInt(5)==1)
                 {

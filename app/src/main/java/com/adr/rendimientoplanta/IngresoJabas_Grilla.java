@@ -31,6 +31,7 @@ import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
 import com.adr.rendimientoplanta.DATA.T_LineaParadas;
 import com.adr.rendimientoplanta.DATA.T_LineaRegistro;
+import com.adr.rendimientoplanta.DATA.T_MenuUsuario;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
@@ -72,6 +73,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private Connection Cnn;
     private Statement Stmt;
     private ResultSet Rse;
+
 
     private boolean Ejecutar=false;
     private MenuItem men;
@@ -116,6 +118,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
         lblEmpresa.setText(Variables.Emp_Abrev);
 
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+
+        //PRIVILEGIOS - EDICION
 
         fnc= new Funciones();
 
@@ -260,10 +264,11 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
                 //if (Est_IdPrincipal==1)
                 //{
-
-                    Cursor curRegistro = (Cursor) parent.getItemAtPosition(position);
-                    Reg_Id =curRegistro.getInt(curRegistro.getColumnIndex(T_LineaRegistro.LinRegIdMovil));
-                    EstId=curRegistro.getInt(curRegistro.getColumnIndex(T_LineaRegistro.EstId));
+            if(Variables.IngresoJabas_Editar==1)
+            {
+                Cursor curRegistro = (Cursor) parent.getItemAtPosition(position);
+                Reg_Id =curRegistro.getInt(curRegistro.getColumnIndex(T_LineaRegistro.LinRegIdMovil));
+                EstId=curRegistro.getInt(curRegistro.getColumnIndex(T_LineaRegistro.EstId));
                 if (EstId==2)
                 {
                     //  LinIng_Id= curIngreso.getInt(curIngreso.getColumnIndex(BaseColumns._ID));
@@ -274,6 +279,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                     // MensajeAnularIngreso="INI: "+IngHoraIni+" | FIN: "+IngHoraFin+" | L: "+IngLote+" | JBS: "+IngCantidad;
                     registerForContextMenu(dgvLineas);
                 }
+            }
                 //}
                 return false;
             }

@@ -436,22 +436,24 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             public void onClick (View v){
             if (Iniciado==true)
             {
-                AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
-                String alert_title = "Hora de Inicio definida";
-                String alert_description = "¿Estas seguro que quiere modificar la hora de inicio: " + HoraIni + "?";
-                alertDialogBuilder.setTitle(alert_title);
-                // set dialog message
-                alertDialogBuilder
-                    .setMessage(alert_description)
-                    .setCancelable(false)
-                    .setPositiveButton("Si", new DialogInterface.OnClickListener() {
-                        // Lo que sucede si se pulsa yes
-                        public void onClick(DialogInterface dialog, int id) {
-                            displayTime = edtHoraIni;
-                            ModificarHoraIni=true;
-                            showDialog(TIME_DIALOG_ID);
-                        }})
-                        .setNegativeButton("No", new DialogInterface.OnClickListener() {
+                if(Variables.IngresoJabas_Editar==1)
+                {
+                    AlertDialog.Builder alertDialogBuilder = new AlertDialog.Builder(IngresoJabas_RegistroLinea.this);
+                    String alert_title = "Hora de Inicio definida";
+                    String alert_description = "¿Estas seguro que quiere modificar la hora de inicio: " + HoraIni + "?";
+                    alertDialogBuilder.setTitle(alert_title);
+                    // set dialog message
+                    alertDialogBuilder
+                            .setMessage(alert_description)
+                            .setCancelable(false)
+                            .setPositiveButton("Si", new DialogInterface.OnClickListener() {
+                                // Lo que sucede si se pulsa yes
+                                public void onClick(DialogInterface dialog, int id) {
+                                    displayTime = edtHoraIni;
+                                    ModificarHoraIni=true;
+                                    showDialog(TIME_DIALOG_ID);
+                                }})
+                            .setNegativeButton("No", new DialogInterface.OnClickListener() {
                                 public void onClick(DialogInterface dialog, int id) {
                                     // Si se pulsa no no hace nada
                                     Toast.makeText(IngresoJabas_RegistroLinea.this, "Operación cancelada", Toast.LENGTH_SHORT).show();
@@ -459,9 +461,9 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
                                     dialog.cancel();
                                 }
                             });
-                            AlertDialog alertDialog = alertDialogBuilder.create();
-                            alertDialog.show();
-
+                    AlertDialog alertDialog = alertDialogBuilder.create();
+                    alertDialog.show();
+                }
             }else
             {
                 displayTime = edtHoraIni;
