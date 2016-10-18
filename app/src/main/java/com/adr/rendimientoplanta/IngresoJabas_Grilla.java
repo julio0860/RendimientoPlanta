@@ -15,6 +15,7 @@ import android.support.v4.media.MediaBrowserServiceCompat;
 import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -27,6 +28,7 @@ import android.widget.Toast;
 
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
+import com.adr.rendimientoplanta.DATA.T_Consumidor;
 import com.adr.rendimientoplanta.DATA.T_Linea;
 import com.adr.rendimientoplanta.DATA.T_LineaIngreso;
 import com.adr.rendimientoplanta.DATA.T_LineaParadas;
@@ -58,7 +60,9 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private TextView lblEmpresa;
 
     private GridView dgvLineas;
+
     private ImageButton imbConfigurar;
+    private ImageButton imbDescargar;
 
     private Button btnSincronizar;
     SimpleCursorAdapter adspnLineas;
@@ -74,7 +78,7 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private Statement Stmt;
     private ResultSet Rse;
 
-
+private boolean Estado = false;
     private boolean Ejecutar=false;
     private MenuItem men;
 
@@ -113,6 +117,8 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
 
         lblFecha.setText(Variables.FechaStr);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
+        imbDescargar = (ImageButton)findViewById(R.id.imbDescargar);
+
         lblSucursal.setText(Variables.Suc_Descripcion);
         lblCultivo.setText(Variables.Cul_Descripcion);
         lblEmpresa.setText(Variables.Emp_Abrev);
@@ -245,6 +251,41 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
                 startActivity(NuevaActividad);
             }
         });
+        imbDescargar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+            if (conectadoWifi()) {
+                LocBD.execSQL(T_Consumidor._DELETE());
+                Rse=null;
+                try{
+                    Rse = Stmt.executeQuery(T_Consumidor._SELECT_CON(-1,2,-1,-1));
+                    while (Rse.next()) {
+                        LocBD.execSQL(T_Consumidor._INSERT(Rse.getInt(1),Rse.getInt(2),Rse.getInt(3),Rse.getInt(4)
+                                ,Rse.getString(5),Rse.getString(6),Rse.getString(7),Rse.getInt(8)
+                                ,Rse.getInt(9),Rse.getString(10),Rse.getInt(11)));
+                        Estado = true;
+                    }
+                }catch (Exception e)
+                {
+                    Estado = false;
+                    Toast.makeText(IngresoJabas_Grilla.this,"ERROR AL SINCRONIZAR " + e.toString(),Toast.LENGTH_SHORT).show();
+                }
+                if (Estado=true)
+                {
+                    Toast.makeText(IngresoJabas_Grilla.this,"SINCRONIZACION COMPLETA",Toast.LENGTH_SHORT).show();
+                }else
+                {
+                    Toast.makeText(IngresoJabas_Grilla.this,"ERROR AL SINCRONIZAR",Toast.LENGTH_SHORT).show();
+                }
+            }
+            else{
+                Toast.makeText(IngresoJabas_Grilla.this, "NO HAY CONEXION, INTENTE LUEGO ",Toast.LENGTH_SHORT).show();
+            }
+
+            }
+        });
+
         imbConfigurar.setOnClickListener(new View.OnClickListener()
                                          {
                                              @Override
