@@ -289,7 +289,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                 ResultSet Rse;
                 Rse=pstmt.executeQuery("SELECT DiaPro_EsCerrado FROM DiasProceso WHERE DiaPro_Fecha='"+Variables.FechaStr+"'");
                 while(Rse.next()) {
-                    if (Rse.getInt(1) == 1) {
+                    if (Rse.getInt(1) == 0) {
                         Rse = null;
                         if (CurReg.getCount()!=0){
                             for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext()){
