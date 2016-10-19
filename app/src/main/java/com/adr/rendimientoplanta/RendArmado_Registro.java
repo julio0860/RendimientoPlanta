@@ -79,14 +79,24 @@ public class RendArmado_Registro extends AppCompatActivity {
         lstResumen = (ListView)findViewById(R.id.lstResumen);
         //Poblar GridView
         dgvPresentacion = (GridView) findViewById(R.id.dgvPresentacion);
-        Cursor CurPresentacion = LocBD.rawQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarEstado (2),null);
+        Cursor CurPresentacion = LocBD.rawQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarEstado(2),null);
 
         adspnPresentacion = new SimpleCursorAdapter(this,
                 R.layout.gridview_itemborde,CurPresentacion,
                 new String[]{T_PresentacionEnvase.PreEnvDescripcionCor}, new int[]{R.id.text1},
                 SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
         dgvPresentacion.setAdapter(adspnPresentacion);
-        dgvPresentacion.setNumColumns(4);
+        if (CurPresentacion.getCount()<10)
+        {
+            dgvPresentacion.setNumColumns(3);
+        }else if (CurPresentacion.getCount()<17)
+        {
+            dgvPresentacion.setNumColumns(4);
+        }else
+        {
+            dgvPresentacion.setNumColumns(5);
+        }
+
 
         //lISTA RESUMEN
         Cursor CurResumen = LocBD.rawQuery(T_RendimientoArmado.RenArm_SeleccionarPorPersonaResumenPresentacion(

@@ -6,6 +6,7 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
+import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -26,6 +27,8 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Agrupador;
+import com.adr.rendimientoplanta.DATA.T_Consumidor;
+import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
 import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
@@ -48,9 +51,11 @@ public class RendArmado_Lista extends AppCompatActivity {
     private EditText edtFecha;
     private ImageButton imbRegresar;
     private ImageButton imbConfigurar;
+    private ImageButton imbDescargar;
 
     private String Documento="";
 
+    private Boolean Estado=false;
     private Funciones fnc;
     private Button btnSincronizar;
     private int IdServidor;
@@ -117,6 +122,45 @@ public class RendArmado_Lista extends AppCompatActivity {
                                              }
                                          }
         );
+        imbDescargar.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick (View v){
+                if (conectadoWifi()) {
+                    LocBD.execSQL(T_PresentacionEnvase.Eliminar());
+                    try{
+                        Connection Cnn = ConexionBD.getInstance().getConnection();
+                        Statement Stmt = Cnn.createStatement();
+                        ResultSet Rse;
+                        Rse=null;
+                        Rse = Stmt.executeQuery(T_PresentacionEnvase.PresentacionEnvase_SeleccionarTodos());
+                        while (Rse.next()) {
+                            LocBD.execSQL(T_PresentacionEnvase.PresentacionEnvase_Insertar(
+                                    Rse.getInt(1),Rse.getInt(2),Rse.getString(3),Rse.getString(4)
+                                    ,Rse.getString(5),Rse.getString(6),Rse.getDouble(7),Rse.getInt(8)
+                                    ,Rse.getDouble(9),Rse.getInt(10)));
+                            Estado = true;
+                        }
+                    }catch (Exception e)
+                    {
+                        Estado = false;
+                        Toast.makeText(RendArmado_Lista.this,"ERROR AL SINCRONIZAR " + e.toString(),Toast.LENGTH_SHORT).show();
+                    }
+                    if (Estado=true)
+                    {
+                        Toast.makeText(RendArmado_Lista.this,"SINCRONIZACION COMPLETA",Toast.LENGTH_SHORT).show();
+                    }else
+                    {
+                        Toast.makeText(RendArmado_Lista.this,"ERROR AL SINCRONIZAR",Toast.LENGTH_SHORT).show();
+                    }
+                }
+                else{
+                    Toast.makeText(RendArmado_Lista.this, "NO HAY CONEXION, INTENTE LUEGO ",Toast.LENGTH_SHORT).show();
+                }
+
+            }
+        });
+
         imbRegresar.setOnClickListener(new View.OnClickListener() {
                                            @Override
                                            public void onClick(View v) {
@@ -186,6 +230,7 @@ public class RendArmado_Lista extends AppCompatActivity {
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
         imbConfigurar = (ImageButton) findViewById(R.id.imbConfigurar);
         btnSincronizar = (Button) findViewById(R.id.btnSincronizar);
+        imbDescargar = (ImageButton) findViewById(R.id.imbDescargar);
 
     }
     public void MostrarVariables(){
