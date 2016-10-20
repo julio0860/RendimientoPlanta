@@ -6,7 +6,6 @@ import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
 import android.database.sqlite.SQLiteDatabase;
-import android.media.Image;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.os.Bundle;
@@ -27,7 +26,6 @@ import android.widget.Toast;
 import com.adr.rendimientoplanta.DATA.ConexionBD;
 import com.adr.rendimientoplanta.DATA.LocalBD;
 import com.adr.rendimientoplanta.DATA.T_Agrupador;
-import com.adr.rendimientoplanta.DATA.T_Consumidor;
 import com.adr.rendimientoplanta.DATA.T_PresentacionEnvase;
 import com.adr.rendimientoplanta.DATA.T_RendimientoArmado;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
@@ -334,7 +332,7 @@ public class RendArmado_Lista extends AppCompatActivity {
                 ResultSet Rse;
                 Rse=pstmt.executeQuery("SELECT DiaPro_EsCerrado FROM DiasProceso WHERE DiaPro_Fecha='"+Variables.FechaStr+"'");
                 while(Rse.next()) {
-                    if (Rse.getInt(1) == 1) {
+                    if (Rse.getInt(1) == 0) {
                         Rse = null;
                         if (CurReg.getCount()!=0){
                             for (CurReg.moveToFirst();!CurReg.isAfterLast();CurReg.moveToNext()){
