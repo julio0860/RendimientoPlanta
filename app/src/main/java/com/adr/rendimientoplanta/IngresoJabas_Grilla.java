@@ -349,8 +349,6 @@ private boolean Estado = false;
         }
     }
 
-
-
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         men=item;
