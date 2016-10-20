@@ -56,7 +56,7 @@ public class Tareo_Registro extends AppCompatActivity {
     static final int DATE_ID=0;
     static final int TIME_DIALOG_ID = 1;
     private EditText displayTime;
-private boolean ActLabor = false;
+private boolean ActLabor = true;
     private int imgSecure;
     //DECLARACION VARIABLES
     private String Codigo = "";
@@ -292,13 +292,13 @@ private boolean ActLabor = false;
                 Cursor CurId = (Cursor) parent.getItemAtPosition(position);
                 Act_Id = CurId.getInt(CurId.getColumnIndex(BaseColumns._ID));
 
-                if (ActLabor==true) {
+               // if (ActLabor==true) {
                     Cursor curLabor = LocBD.rawQuery(T_Labor._SELECT_LABOR(Act_Id), null);
                     adspnLabor = new SimpleCursorAdapter(Tareo_Registro.this, android.R.layout.simple_spinner_dropdown_item,
                             curLabor, new String[]{T_Labor.LABDESCRIPCION}, new int[]{android.R.id.text1},
                             SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
                     spnLabor.setAdapter(adspnLabor);
-                }
+               // }
             }
             public void onNothingSelected(AdapterView<?> parent) {
             }

@@ -74,9 +74,9 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private LocalBD LBD;
     private SQLiteDatabase LocBD;
 
-    private Connection Cnn;
-    private Statement Stmt;
-    private ResultSet Rse;
+    private Connection Cnn=null;
+    private Statement Stmt=null;
+    private ResultSet Rse=null;
 
 private boolean Estado = false;
     private boolean Ejecutar=false;
@@ -101,8 +101,13 @@ private boolean Estado = false;
         //CONEXION BD SERVIDOR
         try
         {
+            //Cnn = ConexionBD.getInstance().getConnection();
+            //Stmt = Cnn.createStatement();
             Cnn = ConexionBD.getInstance().getConnection();
-            Stmt = Cnn.createStatement();
+            if (Cnn!=null)
+            {
+                Stmt = Cnn.createStatement();
+            }
         }catch (Exception e)
         {
             Toast.makeText(IngresoJabas_Grilla.this,e.toString(),Toast.LENGTH_SHORT).show();

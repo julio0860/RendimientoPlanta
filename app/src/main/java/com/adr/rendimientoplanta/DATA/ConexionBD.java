@@ -6,6 +6,8 @@ package com.adr.rendimientoplanta.DATA;
 import android.os.StrictMode;
 import android.util.Log;
 import net.sourceforge.jtds.jdbc.Driver;
+
+import java.io.IOException;
 import java.sql.*;
 
 public class ConexionBD {
@@ -16,7 +18,7 @@ public class ConexionBD {
     private static final String BaseDatos = "ADRSYSTEM";
 
     //private static final String URL = "jdbc:jtds:sqlserver://192.168.1.110/ADRSYSTEM;";
-    private static final String URL = "jdbc:jtds:sqlserver://"+Servidor+"/"+BaseDatos+";";
+    private static final String URL = "jdbc:jtds:sqlserver://"+Servidor+"/"+BaseDatos+";loginTimeout=04;";
     private static final String USER = "sa";
     private static final String PASS = "admin2010";
     private static Connection connection = null;
@@ -28,7 +30,7 @@ public class ConexionBD {
             instance = new ConexionBD();
         return instance;
     }
-    public Connection getConnection() {
+    public Connection getConnection() throws SQLException{
         if (connection == null)
             connection = Conectar();
         return connection;
