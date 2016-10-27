@@ -127,6 +127,28 @@ public class RendArmado_Parametros extends AppCompatActivity {
         AsignacionControles();
         InicializarControles();
         EstablecerFecha();
+        if (Variables.FechaStr.length()>0)
+        {
+            edtFecha.setText(Variables.FechaStr);
+        }
+        if (Variables.Cul_Id!=0)
+        {
+            fnc.setIndexInt(spnCultivo, BaseColumns._ID, Variables.Cul_Id);
+        }
+        if (Variables.Suc_Id!=0)
+        {
+            fnc.setIndexInt(spnSucursal,BaseColumns._ID, Variables.Suc_Id);
+        }
+        if (Variables.Emp_Id!=0)
+        {
+            fnc.setIndexInt(spnEmpresa,BaseColumns._ID, Variables.Emp_Id);
+        }
+        if (Variables.Pro_Id!=0)
+        {
+            fnc.setIndexInt(spnProceso,BaseColumns._ID, Variables.Pro_Id);
+        }
+
+
 
         //EVENTO BOTON ESTABLECER
         btnEstablecer.setOnClickListener(new View.OnClickListener() {
