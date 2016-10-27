@@ -415,21 +415,24 @@ private String HoraIniLinea;
                 int Posicion2;
                 Posicion1 =spnConsumidor.getSelectedItemPosition();
                 Posicion2 =spnConsumidorMix.getSelectedItemPosition();
-
-                if (Posicion1==Posicion2)
+                if (cbxMix.isChecked())
                 {
-
-                    if (Posicion2!=CantidadLotes) {
-                        spnConsumidor.setSelection(CantidadLotes);
-                    }else
-                    {
-                        spnConsumidor.setSelection(0);
-                    }
-                    if(cbxMix.isChecked())
-                    {
-                        Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
-                    }
+                    ValidarMix(Posicion1,Posicion2,spnConsumidor);
                 }
+               // if (Posicion1==Posicion2)
+               // {
+               //     Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
+               //     if (Posicion2!=CantidadLotes) {
+               //         spnConsumidor.setSelection(CantidadLotes);
+                //    }else
+                //    {
+                //        spnConsumidor.setSelection(0);
+                //    }
+                    //if(cbxMix.isChecked())
+                    //{
+                    //    Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
+                   // }
+                //}
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -444,20 +447,25 @@ private String HoraIniLinea;
                 int Posicion2;
                 Posicion1 =spnConsumidorMix.getSelectedItemPosition();
                 Posicion2 =spnConsumidor.getSelectedItemPosition();
-                if (Posicion1==Posicion2)
+                if (cbxMix.isChecked())
                 {
-                    Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
-                    if (Posicion2!=CantidadLotes) {
-                        spnConsumidorMix.setSelection(CantidadLotes);
-                    }else
-                    {
-                        spnConsumidorMix.setSelection(0);
-                    }
-                    if(cbxMix.isChecked())
-                    {
-                        Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
-                    }
+                    ValidarMix(Posicion1,Posicion2,spnConsumidorMix);
                 }
+                //if (Posicion1==Posicion2)
+                //{
+                //    Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
+                //    if (Posicion2!=CantidadLotes) {
+                //        spnConsumidorMix.setSelection(CantidadLotes);
+                //    }else
+                //    {
+                //        spnConsumidorMix.setSelection(0);
+                 //   }
+                    //if(cbxMix.isChecked())
+                    //{
+                    //    Toast.makeText(IngresoJabas_RegistroJabas.this,"NO SE PUEDE REPETIR EL LOTE",Toast.LENGTH_LONG).show();
+                    //}
+                //}
+
             }
             @Override
             public void onNothingSelected(AdapterView<?> arg0) {
@@ -492,6 +500,11 @@ private String HoraIniLinea;
                 if (isChecked==true)
                 {
                     EsMix=1;
+                    int Posicion1;
+                    int Posicion2;
+                    Posicion1 =spnConsumidor.getSelectedItemPosition();
+                    Posicion2 =spnConsumidorMix.getSelectedItemPosition();
+                    ValidarMix(Posicion1,Posicion2,spnConsumidor);
                 }else{
                     EsMix=0;
                 }
@@ -514,6 +527,17 @@ private String HoraIniLinea;
             }
         });
     }
+    private void ValidarMix(int PosUno,int PosDos,Spinner spn) {
+        if (PosUno == PosDos) {
+            Toast.makeText(IngresoJabas_RegistroJabas.this, "NO SE PUEDE REPETIR EL LOTE", Toast.LENGTH_LONG).show();
+            if (PosUno != CantidadLotes) {
+                spn.setSelection(CantidadLotes);
+            } else {
+                spn.setSelection(0);
+            }
+        }
+    }
+
     private void VisibilidadConsumidor(Boolean Est)
     {
         if (Est==true) {

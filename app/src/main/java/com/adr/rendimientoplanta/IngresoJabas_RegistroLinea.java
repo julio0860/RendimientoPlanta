@@ -530,7 +530,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         };
     private void BloquearBotones(boolean Estado)
     {
-
         btnIniciar.setEnabled(!Estado);
         //ANTIGUO imbHoraIni.setEnabled(!Estado);
         imbHoraIni.setEnabled(Estado);
@@ -626,7 +625,7 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
         if(NumIngresos>0)
         {
             TotalTiempo = HoraTotal(RegLin_Id,Est_Id);
-            TiempoEfectivo = TotalTiempo-SumParadas;
+            TiempoEfectivo = fnc.RedondeoDecimal(TotalTiempo-SumParadas,2,BigDecimal.ROUND_HALF_UP);
             CantidadEquivalente = CantidadEquivalente(RegLin_Id);
             if (TiempoEfectivo==0)
             {
@@ -635,8 +634,6 @@ public class IngresoJabas_RegistroLinea extends AppCompatActivity {
             {
                 CantidadPorHora = fnc.RedondeoDecimal((CantidadEquivalente/TiempoEfectivo),2,BigDecimal.ROUND_HALF_UP);
             }
-
-
         }
         LocBD.execSQL(T_LineaRegistro.LineaRegistro_ActualizarResumen(RegLin_Id,NumParadas,SumParadas,TotalTiempo,TiempoEfectivo,
                 CantidadEquivalente,CantidadPorHora, NumIngresos));

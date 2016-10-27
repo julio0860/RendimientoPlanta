@@ -101,14 +101,6 @@
         android:fastScrollEnabled="false"
         android:focusable="false" />
 
-    <Button
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="@string/btnSincronizar"
-        android:id="@+id/btnSincronizar"
-        android:layout_alignParentBottom="true"
-        android:layout_alignEnd="@+id/lblFecha" />
-
     <ImageView
         android:layout_width="match_parent"
         android:layout_height="2dp"
@@ -150,5 +142,14 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/lblEmpresa"
         android:layout_toEndOf="@+id/lblEmpresa" />
+
+    <Button
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="@string/btnSincronizar"
+        android:id="@+id/btnSincronizar"
+        android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
 
 </RelativeLayout>
