@@ -171,8 +171,8 @@ public class RegistroOperario extends AppCompatActivity {
                         imbHoraSalida.setVisibility(View.VISIBLE);
                         imbHora.setEnabled(false);
                         edtHora.setEnabled(false);
-                        imbHoraSalida.setEnabled(false);
-                        edtHoraSalida.setEnabled(false);
+                        imbHoraSalida.setEnabled(true);
+                        edtHoraSalida.setEnabled(true);
                         break;
                 }
             }
@@ -216,10 +216,24 @@ public class RegistroOperario extends AppCompatActivity {
                     Variables.HoraIngreso = edtHora.getText().toString();
                     Variables.HoraSalida = edtHoraSalida.getText().toString();
 
+
                     if (Variables.Agru_Id > 0) {
                         try {
+
                             LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
                                     Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId,1));
+                            if (Variables.Mot_Id==7)
+                            {
+                                LocBD.execSQL(T_Agrupador._UPDATE1(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                        Variables.HoraLectura, Variables.HoraIngreso, Variables.Mot_Id, Variables.Agru_EstId,1));
+                            }
+                            else
+                            {
+                                LocBD.execSQL(T_Agrupador._UPDATE(Variables.Agru_Id, Variables.Emp_Id, Variables.FechaStrBD, Variables.Suc_Id, Variables.Pro_Id, Variables.Sub_Id, Variables.Lin_Id, Variables.Lin_Lado, Variables.Per_Ubicacion, Variables.Per_Dni,
+                                        Variables.HoraLectura, Variables.HoraIngreso, Variables.HoraSalida, Variables.Mot_Id, Variables.Agru_EstId,1));
+                            }
+
+
                             Estado = true;
                             Mensaje("LOS DATOS HAN SIDO ACTUALIZADOS EXITOSAMENTE");
                             Intent ActividadRegresarLista = new Intent(RegistroOperario.this, RendArmado_Lista.class);

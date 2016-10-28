@@ -85,8 +85,18 @@ public class T_Agrupador {
                    HORASALIDA+"='"+HoraSalida+"',"+MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"',"+LOCAL+"='"+EsLocal+"' WHERE "+AGRUID+"='"+AgruId+"'";
         return _UPDATE;
     }
+    public static String _UPDATE1(int AgruId,int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+                                 String Dni,String HoraLectura,String HoraIngreso,int Motivo,int Estado,int EsLocal)
+    {
+        String _UPDATE;
+        _UPDATE = "UPDATE "+N_TABLA +" SET "+EMPID+"='"+EmpId+"',"+FECHA+"='"+Fecha+"',"+SUCID+"='"+SucId+"',"+PROID+"='"+ProId+"',"+SUBID+"='"+SubId+"',"+
+                LINID+"='"+LinId+"',"+LADO+"='"+Lado+"',"+POSICION+"='"+Posicion+"',"+DNI+"='"+Dni+"',"+HORALECTURA+"='"+HoraLectura+"',"+HORAINGRESO+"='"+HoraIngreso+"',"+
+                 MOTIVO+"='"+Motivo+"',"+ESTADO+"='"+Estado+"',"+LOCAL+"='"+EsLocal+"' WHERE "+AGRUID+"='"+AgruId+"'";
+        return _UPDATE;
+    }
 
-   public static String ActualizarIdServidorLocal(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
+
+    public static String ActualizarIdServidorLocal(int EmpId,String Fecha,int SucId,int ProId,int SubId,int LinId,String Lado,int Posicion,
                                  String Dni,int Motivo,int Estado,int Idservidor)
     {
         String ActualizarIdServidorLocal;

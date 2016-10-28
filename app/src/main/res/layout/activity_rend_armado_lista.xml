@@ -121,16 +121,6 @@
         android:layout_alignParentTop="true"
         android:layout_toEndOf="@+id/lblSucursal" />
 
-    <TextView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:textAppearance="?android:attr/textAppearanceLarge"
-        android:text="ARMADO"
-        android:id="@+id/lblSubproceso"
-        android:layout_alignParentTop="true"
-        android:layout_toEndOf="@+id/lblProceso"
-        android:layout_marginLeft="84dp" />
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -141,6 +131,16 @@
         android:layout_alignParentBottom="true"
         android:layout_toRightOf="@+id/textView33"
         android:layout_toEndOf="@+id/textView33" />
+
+    <TextView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textAppearance="?android:attr/textAppearanceLarge"
+        android:text="ARMADO"
+        android:id="@+id/lblSubproceso"
+        android:layout_alignParentTop="true"
+        android:layout_alignLeft="@+id/lblFecha"
+        android:layout_alignStart="@+id/lblFecha" />
 
 
 </RelativeLayout>
