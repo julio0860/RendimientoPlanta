@@ -127,6 +127,7 @@ public class RendArmado_Parametros extends AppCompatActivity {
         AsignacionControles();
         InicializarControles();
         EstablecerFecha();
+
         if (Variables.FechaStr.length()>0)
         {
             edtFecha.setText(Variables.FechaStr);
@@ -135,19 +136,22 @@ public class RendArmado_Parametros extends AppCompatActivity {
         {
             fnc.setIndexInt(spnCultivo, BaseColumns._ID, Variables.Cul_Id);
         }
-        if (Variables.Suc_Id!=0)
-        {
-            fnc.setIndexInt(spnSucursal,BaseColumns._ID, Variables.Suc_Id);
-        }
         if (Variables.Emp_Id!=0)
         {
             fnc.setIndexInt(spnEmpresa,BaseColumns._ID, Variables.Emp_Id);
+
         }
+
+
+
         if (Variables.Pro_Id!=0)
         {
             fnc.setIndexInt(spnProceso,BaseColumns._ID, Variables.Pro_Id);
-        }
 
+            if (Variables.Sub_Id!=0){
+                fnc.setIndexInt(spnSubproceso,BaseColumns._ID, Variables.Sub_Id);
+            }
+        }
 
 
         //EVENTO BOTON ESTABLECER
@@ -327,8 +331,13 @@ if (Variables.Cul_Id !=0)
                         Sucursal, new String[]{T_Sucursal.SUCDESCRIPCION}, new int[]{android.R.id.text1},
                         SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
                 spnSucursal.setAdapter(adspnSucursal);
-            }
+                if (Variables.Suc_Id!=0)
+                {
+                    fnc.setIndexInt(spnSucursal,BaseColumns._ID, Variables.Suc_Id);
 
+                }
+
+            }
             public void onNothingSelected(AdapterView<?> parent) {
             }
         });
@@ -348,6 +357,11 @@ if (Variables.Cul_Id !=0)
                         new int[]{android.R.id.text1}//View para el nombre
                         , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
                 spnLinea.setAdapter(adspnLinea);
+                if (Variables.Lin_Id!=0)
+                {
+                    fnc.setIndexInt(spnLinea,BaseColumns._ID, Variables.Lin_Id);
+
+                }
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
@@ -383,6 +397,12 @@ if (Variables.Cul_Id !=0)
                         new int[]{android.R.id.text1}//View para el nombre
                         , SimpleCursorAdapter.FLAG_REGISTER_CONTENT_OBSERVER);
                 spnSubproceso.setAdapter(adspnSubproceso);
+                if (Variables.Sub_Id!=0)
+                {
+                    fnc.setIndexInt(spnSubproceso,BaseColumns._ID, Variables.Sub_Id);
+
+                }
+
             }
 
             public void onNothingSelected(AdapterView<?> parent) {
