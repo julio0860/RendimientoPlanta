@@ -37,6 +37,8 @@ import com.adr.rendimientoplanta.DATA.T_MenuUsuario;
 import com.adr.rendimientoplanta.LIBRERIA.Funciones;
 import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
+import org.w3c.dom.Text;
+
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -58,6 +60,10 @@ public class IngresoJabas_Grilla extends AppCompatActivity {
     private TextView lblCultivo;
     private TextView lblFecha;
     private TextView lblEmpresa;
+
+    private TextView lblJabasCampo;
+    private TextView lblJabasRepro;
+    private TextView lblJabasHora;
 
     private GridView dgvLineas;
 
@@ -129,6 +135,10 @@ private boolean Estado = false;
         lblEmpresa.setText(Variables.Emp_Abrev);
 
         imbRegresar = (ImageButton) findViewById(R.id.imbRegresar);
+
+        lblJabasCampo= (TextView) findViewById(R.id.lblJabasCampo);
+        lblJabasRepro =(TextView) findViewById(R.id.lblJabasRepro);
+        lblJabasHora =(TextView) findViewById(R.id.lblJabasHora);
 
         //PRIVILEGIOS - EDICION
 

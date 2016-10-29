@@ -32,18 +32,6 @@
         android:layout_alignParentEnd="true"
         android:textAppearance="?android:attr/textAppearanceLarge" />
 
-    <TextView
-        android:id="@+id/lblLinea"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:text="Seleccione una linea"
-        android:textStyle="bold"
-        android:layout_marginLeft="0dp"
-        android:textColor="#000000"
-        android:textAppearance="?android:attr/textAppearanceMedium"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/imageView14" />
-
 
     <TextView
         android:id="@+id/lblSucursal"
@@ -110,16 +98,6 @@
         android:layout_above="@+id/btnSincronizar"
         android:layout_alignParentStart="true" />
 
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="2dp"
-        android:id="@+id/imageView14"
-        android:background="#000000"
-        android:baselineAlignBottom="false"
-        android:layout_below="@+id/lblFecha"
-        android:layout_alignEnd="@+id/lblFecha"
-        android:layout_marginTop="29dp" />
-
     <ImageButton
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
@@ -149,6 +127,106 @@
         android:text="@string/btnSincronizar"
         android:id="@+id/btnSincronizar"
         android:layout_alignParentBottom="true"
+        android:layout_alignParentRight="true"
+        android:layout_alignParentEnd="true" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView32"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_below="@+id/lblFecha"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/lblLinea"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:text="Seleccione una linea"
+        android:textStyle="bold"
+        android:textColor="#000000"
+        android:textAppearance="?android:attr/textAppearanceMedium"
+        android:layout_below="@+id/imageView14"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView116"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T. Jabas Campo:"
+        android:layout_marginTop="12dp"
+        android:layout_below="@+id/imageView32"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@color/colorPrimaryDark" />
+
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="2dp"
+        android:id="@+id/imageView14"
+        android:background="#000000"
+        android:baselineAlignBottom="false"
+        android:layout_marginTop="47dp"
+        android:layout_below="@+id/textView116"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true" />
+
+    <TextView
+        android:id="@+id/textView117"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="T. Jabas Reproceso:"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:layout_below="@+id/textView116"
+        android:layout_alignParentLeft="true"
+        android:layout_alignParentStart="true"
+        android:layout_marginTop="11dp"
+        android:textColor="?android:attr/colorMultiSelectHighlight" />
+
+    <TextView
+        android:id="@+id/lblJabasCampo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:layout_alignBaseline="@+id/textView116"
+        android:layout_alignBottom="@+id/textView116"
+        android:layout_toRightOf="@+id/lblSucursal"
+        android:layout_toEndOf="@+id/lblSucursal" />
+
+    <TextView
+        android:id="@+id/lblJabasRepro"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="000"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:layout_above="@+id/lblLinea"
+        android:layout_alignLeft="@+id/lblJabasCampo"
+        android:layout_alignStart="@+id/lblJabasCampo" />
+
+    <TextView
+        android:id="@+id/textView120"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Jabas/Hrs:"
+        android:textAppearance="@android:style/TextAppearance.Material.Medium"
+        android:textColor="@android:color/holo_green_dark"
+        android:layout_below="@+id/textView116"
+        android:layout_toLeftOf="@+id/btnSincronizar"
+        android:layout_toStartOf="@+id/btnSincronizar" />
+
+    <TextView
+        android:id="@+id/lblJabasHora"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="0000.0"
+        android:textAppearance="@android:style/TextAppearance.Material.Display1"
+        android:layout_alignBaseline="@+id/textView120"
+        android:layout_alignBottom="@+id/textView120"
         android:layout_alignParentRight="true"
         android:layout_alignParentEnd="true" />
 

@@ -252,6 +252,8 @@ public class T_LineaRegistro {
         return Seleccionar;
     }
 
+
+
     public static String LineaRegistro_SeleccionarIdServidor(String LinReg_Fecha,int Suc_Id,int Cul_Id,int LinReg_IdMovil)
     {
         String Seleccionar;
@@ -297,5 +299,16 @@ public class T_LineaRegistro {
 
         return Insertar;
     }
+    public static String LinReg_ResumenDia(String LinReg_Fecha,int Suc_Id,int Cul_Id)
+    {
+        String Seleccionar;
+        Seleccionar = "SELECT SUM("
+                +" FROM "+NombreTabla+" WHERE "+LinRegFecha+"='"+LinReg_Fecha+"'"
+                +" AND "+SucId+"='"+Suc_Id+"'"
+                +" AND "+CulId+"='"+Cul_Id+"'"
+                +";";
+        return Seleccionar;
+    }
+
 
 }
