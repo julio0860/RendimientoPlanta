@@ -223,5 +223,20 @@ public class T_LineaIngreso {
                 +";";
         return Seleccionar;
     }
+    public static String LinIng_CantidadJabas(String LinReg_Fecha,int Suc_Id,int Cul_Id,int Mat_Origen)
+    {
+        String Query;
+        Query = "SELECT IFNULL(SUM(LI."+LinIngCantidad+"),0) AS JABAS"
+            +" FROM LineaRegistro LR INNER JOIN LineaIngreso LI ON LR.LinReg_IdMovil = LI.LinReg_IdMovil" +
+                " WHERE " +
+                "LR.LinReg_Fecha='"+LinReg_Fecha+"'" +
+                " AND LI.MatPriOri_Id='"+Mat_Origen+"'"+
+                " AND LR.Suc_Id ='"+Suc_Id+"'" +
+                " AND LR.Cul_Id ='"+Cul_Id+"'" +
+                " AND LI.Est_Id ='2'"
+        ;
+        return Query;
+    }
+
 
 }

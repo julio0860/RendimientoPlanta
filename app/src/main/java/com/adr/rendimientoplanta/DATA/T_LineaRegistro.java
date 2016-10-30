@@ -299,11 +299,12 @@ public class T_LineaRegistro {
 
         return Insertar;
     }
-    public static String LinReg_ResumenDia(String LinReg_Fecha,int Suc_Id,int Cul_Id)
+    public static String LinReg_JabasHora(String LinReg_Fecha,int Suc_Id,int Cul_Id)
     {
         String Seleccionar;
-        Seleccionar = "SELECT SUM("
-                +" FROM "+NombreTabla+" WHERE "+LinRegFecha+"='"+LinReg_Fecha+"'"
+        Seleccionar = "SELECT IFNULL(SUM(LR.LinReg_Cantidad)/SUM(LR.LinReg_HoraEfectiva)*COUNT(*),0)"
+                +" FROM "+NombreTabla+" LR WHERE "
+                +LinRegFecha+"='"+LinReg_Fecha+"'"
                 +" AND "+SucId+"='"+Suc_Id+"'"
                 +" AND "+CulId+"='"+Cul_Id+"'"
                 +";";

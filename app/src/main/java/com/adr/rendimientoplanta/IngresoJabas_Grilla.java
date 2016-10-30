@@ -16,6 +16,7 @@ import android.support.v4.widget.SimpleCursorAdapter;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
+import android.util.StringBuilderPrinter;
 import android.view.ContextMenu;
 import android.view.MenuItem;
 import android.view.View;
@@ -39,6 +40,7 @@ import com.adr.rendimientoplanta.LIBRERIA.Variables;
 
 import org.w3c.dom.Text;
 
+import java.math.BigDecimal;
 import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.Statement;
@@ -139,6 +141,10 @@ private boolean Estado = false;
         lblJabasCampo= (TextView) findViewById(R.id.lblJabasCampo);
         lblJabasRepro =(TextView) findViewById(R.id.lblJabasRepro);
         lblJabasHora =(TextView) findViewById(R.id.lblJabasHora);
+
+        lblJabasCampo.setText(String.valueOf(Jabas(Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id,1)));
+        lblJabasRepro.setText(String.valueOf(Jabas(Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id,2)));
+        lblJabasHora.setText(String.valueOf(JabasHora(Variables.FechaStr,Variables.Suc_Id,Variables.Cul_Id)));
 
         //PRIVILEGIOS - EDICION
 
@@ -703,7 +709,28 @@ private boolean Estado = false;
         }
         return Resultado;
     }
-
+    private int Jabas(String Fecha,int SucId,int CulId,int MatOrigen)
+    {
+        Cursor curJabas = LocBD.rawQuery(T_LineaIngreso.LinIng_CantidadJabas(Fecha,SucId,CulId,MatOrigen),null);
+        if (curJabas.getCount()>0)
+        {
+            curJabas.moveToFirst();
+            return curJabas.getInt(0);
+        }
+        else
+            return 0;
+    }
+    private double JabasHora(String Fecha,int SucId,int CulId)
+    {
+        Cursor curJabasHora = LocBD.rawQuery(T_LineaRegistro.LinReg_JabasHora(Fecha,SucId,CulId) ,null);
+        if (curJabasHora.getCount()>0) {
+            curJabasHora.moveToFirst();
+            return curJabasHora.getInt(0);
+        }else
+        {
+            return 0;
+        }
+    }
 
 
 }
